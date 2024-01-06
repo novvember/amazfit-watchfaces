@@ -1,0 +1,52 @@
+{
+  "configVersion": "v2",
+  "app": {
+    "appId": 25046,
+    "appName": "Text Lines",
+    "appType": "watchface",
+    "version": {
+      "code": 2,
+      "name": "1.1.0"
+    },
+    "icon": "icon.png",
+    "cover": [
+      "cover.png"
+    ],
+    "vender": "novvember",
+    "description": "Text Lines watchface. Source code here: https://github.com/novvember/amazfit-watchfaces"
+  },
+  "permissions": [],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "1.0.0",
+      "target": "1.0.0",
+      "minVersion": "1.0.0"
+    }
+  },
+  "targets": {
+    "416x416-amazfit-gtr-mini": {
+      "module": {
+        "watchface": {
+          "path": "watchface/index",
+          "main": 1,
+          "editable": 0,
+          "lockscreen": 1,
+          "hightCost": 0
+        }
+      },
+      "platforms": [
+        {
+          "name": "LeidenW",
+          "deviceSource": 251
+        }
+      ],
+      "designWidth": 416
+    }
+  }, 
+  "i18n": {
+    "en-US": {
+      "appName": "Text Lines"
+    }
+  },
+  "defaultLanguage": "en-US"
+}

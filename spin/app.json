@@ -1,0 +1,52 @@
+{
+  "configVersion": "v2",
+  "app": {
+    "appId": 22219,
+    "appName": "Spin",
+    "appType": "watchface",
+    "version": {
+      "code": 2,
+      "name": "1.0.2"
+    },
+    "vender": "novvember",
+    "description": "Spin watchface. Source code here: https://github.com/novvember/amazfit-watchfaces",
+    "icon": "icon.png",
+    "cover": [
+      "cover.png"
+    ]
+  },
+  "permissions": [],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "1.0.0",
+      "target": "1.0.1",
+      "minVersion": "1.0.0"
+    }
+  },
+  "targets": {
+    "416x416-amazfit-gtr-mini": {
+      "module": {
+        "watchface": {
+          "path": "watchface/index",
+          "main": 1,
+          "editable": 0,
+          "lockscreen": 1
+        }
+      },
+      "platforms": [
+        {
+          "name": "LeidenW",
+          "deviceSource": 251
+        }
+      ],
+      "designWidth": 416
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "Spin"
+    }
+  },
+  "defaultLanguage": "en-US",
+  "debug": false
+}
