@@ -41,4 +41,4 @@ To install a watchface to your smartwatch:
 | ![](./gauge/demo.png)      	| Gauge      	| ✅ Done             	|
 | ![](./bourne/demo.png)      | Bourne     	| ✅ Done             	|
 | ![](./celeste/demo.png)     | Celeste    	| ✅ Done             	|
-
+| ![](./nothing-dial/demo.png)| Nothing Dial| ✅ Done             	|
