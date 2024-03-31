@@ -5,8 +5,8 @@
     "appName": "Nothing Dial",
     "appType": "watchface",
     "version": {
-      "code": 2,
-      "name": "1.0.0"
+      "code": 3,
+      "name": "1.1.0"
     },
     "vender": "novvember",
     "description": "Nothing Dial watchface. Source code here: https://github.com/novvember/amazfit-watchfaces",

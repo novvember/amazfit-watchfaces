@@ -2,13 +2,28 @@ const { width, height } = hmSetting.getDeviceInfo();
 const centerX = width / 2;
 const centerY = height / 2;
 
-const GENERAL_CONFIG = {
-  min: 'min1.png',
-  hour: 'hour1.png',
-  'min-pointer': 'min-pointer1.png',
+const ICONS_GENERAL = {
+  background: 'background.png',
+  minute: 'minute.png',
+  center: 'center.png',
+  hour: 'hour.png',
+  second: 'second-dot.png',
+  timeDigits: new Array(10).fill(null).map((_, i) => `time/${i}.png`),
+  timeColon: 'time/colon.png',
+  date: new Array(7).fill(null).map((_, i) => `date-days/${i}.png`),
+  dateDigits: new Array(10).fill(null).map((_, i) => `date-digits/${i}.png`),
+  otherDigits: new Array(10).fill(null).map((_, i) => `other/${i}.png`),
+  steps: 'other/steps.png',
+  uv: 'other/uv.png',
+  disconnected: 'disconnected.png',
 };
 
-const config = GENERAL_CONFIG;
+const ICONS_SMALL = {
+  ...ICONS_GENERAL,
+  background: 'background-small.png',
+};
+
+const icons = ICONS_SMALL;
 
 function secondsToAngle(seconds) {
   return seconds * 6;
@@ -33,7 +48,7 @@ WatchFace({
       y: 0,
       w: width,
       h: height,
-      src: 'background.png',
+      src: icons.background,
       show_level: hmUI.show_level.ONLY_NORMAL,
     });
   },
@@ -44,7 +59,7 @@ WatchFace({
       minute_centerY: centerY,
       minute_posX: centerX,
       minute_posY: centerY,
-      minute_path: 'minute.png',
+      minute_path: icons.minute,
       show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
@@ -53,7 +68,7 @@ WatchFace({
       y: 0,
       w: width,
       h: height,
-      src: 'center.png',
+      src: icons.center,
       show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
@@ -65,7 +80,7 @@ WatchFace({
       hour_centerY: centerY,
       hour_posX: centerX,
       hour_posY: centerY,
-      hour_path: 'hour.png',
+      hour_path: icons.hour,
       show_level: hmUI.show_level.ONLY_NORMAL,
     });
   },
@@ -90,7 +105,7 @@ WatchFace({
       pos_y: 9,
       w: width,
       h: height,
-      src: 'second-dot.png',
+      src: icons.second,
       center_x: centerX,
       center_y: centerY,
       angle: 0,
@@ -165,7 +180,7 @@ WatchFace({
   },
 
   buildTime() {
-    const digits = new Array(10).fill(null).map((_, i) => `time/${i}.png`);
+    const digits = icons.timeDigits;
     const DIGIT_WIDTH = 26;
     const DIGIT_HEIGHT = 30;
     const X = 190;
@@ -183,7 +198,7 @@ WatchFace({
       y: Y,
       w: DIGIT_WIDTH,
       h: DIGIT_HEIGHT,
-      src: 'time/colon.png',
+      src: icons.timeColon,
       show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
@@ -196,10 +211,8 @@ WatchFace({
   },
 
   buildDate() {
-    const days = new Array(7).fill(null).map((_, i) => `date-days/${i}.png`);
-    const digits = new Array(10)
-      .fill(null)
-      .map((_, i) => `date-digits/${i}.png`);
+    const days = icons.date;
+    const digits = icons.dateDigits;
     const DIGIT_WIDTH = 14;
     const DIGIT_HEIGHT = 18;
     const DAY_WIDTH = 3 * DIGIT_WIDTH;
@@ -224,7 +237,7 @@ WatchFace({
   },
 
   buildSteps() {
-    const digits = new Array(10).fill(null).map((_, i) => `other/${i}.png`);
+    const digits = icons.otherDigits;
     const DIGIT_WIDTH = 14;
     const DIGIT_HEIGHT = 18;
     const X = 190;
@@ -235,13 +248,13 @@ WatchFace({
       y: Y,
       type: hmUI.data_type.STEP,
       font_array: digits,
-      unit_en: 'other/steps.png',
+      unit_en: icons.steps,
       show_level: hmUI.show_level.ONLY_NORMAL,
     });
   },
 
   buildUvIndex() {
-    const digits = new Array(10).fill(null).map((_, i) => `other/${i}.png`);
+    const digits = icons.otherDigits;
     const DIGIT_WIDTH = 14;
     const DIGIT_HEIGHT = 18;
     const X = 190;
@@ -252,7 +265,7 @@ WatchFace({
       y: Y,
       w: 2 * DIGIT_WIDTH,
       h: DIGIT_HEIGHT,
-      src: 'other/uv.png',
+      src: icons.uv,
       show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
@@ -267,10 +280,10 @@ WatchFace({
 
   buildDisconnectedIcon() {
     hmUI.createWidget(hmUI.widget.IMG_STATUS, {
-      x: 68,
-      y: 185,
+      x: 92,
+      y: 190,
       type: hmUI.system_status.DISCONNECT,
-      src: 'disconnected.png'
+      src: icons.disconnected,
     });
   },
 
