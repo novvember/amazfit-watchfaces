@@ -48,8 +48,8 @@ WatchFace({
   },
 
   buildHours() {
-    const DIGIT_HEIGHT = 92;
-    const DIGIT_WIDTH = 70;
+    const DIGIT_HEIGHT = 76;
+    const DIGIT_WIDTH = 56;
 
     hmUI.createWidget(hmUI.widget.IMG_TIME, {
       hour_zero: 0,
@@ -57,6 +57,7 @@ WatchFace({
       hour_startY: centerY - DIGIT_HEIGHT / 2,
       hour_array: new Array(10).fill(null).map((_, i) => `hours/${i}.png`),
       hour_align: hmUI.align.CENTER_H,
+      show_level: hmUI.show_level.ONLY_NORMAL,
     });
   },
 
@@ -65,7 +66,7 @@ WatchFace({
     const DIGIT_WIDTH = 22;
     const BUBBLE_SIZE = 60;
     const BUBBLE_PADDING = 10;
-    const MINUTE_RADIUS = 220 / 2;
+    const MINUTE_RADIUS = 200 / 2;
 
     const minuteBubble = hmUI.createWidget(hmUI.widget.IMG, {
       pos_x: BUBBLE_PADDING,
@@ -75,6 +76,7 @@ WatchFace({
       center_x: BUBBLE_SIZE / 2 + BUBBLE_PADDING,
       center_y: BUBBLE_SIZE / 2 + BUBBLE_PADDING,
       src: 'minute-bubble.png',
+      show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
     const minuteDigit0 = hmUI.createWidget(hmUI.widget.IMG, false);
@@ -97,12 +99,14 @@ WatchFace({
         x: minuteCenterX - DIGIT_WIDTH,
         y: minuteCenterY - DIGIT_HEIGHT / 2,
         src: `minutes/${digits[0]}.png`,
+        show_level: hmUI.show_level.ONLY_NORMAL,
       });
 
       minuteDigit1.setProperty(hmUI.prop.MORE, {
         x: minuteCenterX + 1,
         y: minuteCenterY - DIGIT_HEIGHT / 2,
         src: `minutes/${digits[1]}.png`,
+        show_level: hmUI.show_level.ONLY_NORMAL,
       });
     }
 
@@ -131,13 +135,14 @@ WatchFace({
       second_posX: centerX,
       second_posY: centerY,
       second_path: 'empty.png',
+      show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
     const secondImg = hmUI.createWidget(hmUI.widget.IMG, {
       x: 0,
       y: 0,
       pos_x: 193,
-      pos_y: 43,
+      pos_y: 53,
       w: width,
       h: height,
       src: 'second.png',
@@ -224,6 +229,7 @@ WatchFace({
       x: centerX - BUBBLE_SIZE / 2,
       y: centerY + BUBLE_RADIUS - BUBBLE_SIZE / 2,
       src: 'value-bubble.png',
+      show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
     hmUI.createWidget(hmUI.widget.IMG_DATE, {
@@ -235,12 +241,14 @@ WatchFace({
       day_follow: 0,
       day_space: 0,
       day_is_character: false,
+      show_level: hmUI.show_level.ONLY_NORMAL,
     })
 
     hmUI.createWidget(hmUI.widget.IMG_WEEK, {
       x: centerX + BUBBLE_SIZE / 2 + 7,
       y: centerY + BUBLE_RADIUS - DIGIT_HEIGHT / 2,
       week_en: new Array(7).fill(null).map((_, i) => `weekday/${i}.png`),
+      show_level: hmUI.show_level.ONLY_NORMAL,
     });
   },
 
@@ -256,6 +264,7 @@ WatchFace({
       x: X - BUBBLE_SIZE / 2,
       y: Y - BUBBLE_SIZE / 2,
       src: 'value-bubble.png',
+      show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
     hmUI.createWidget(hmUI.widget.TEXT_IMG, {
@@ -264,21 +273,24 @@ WatchFace({
       type: hmUI.data_type.UVI,
       font_array: new Array(10).fill(null).map((_, i) => `values-secondary/${i}.png`),
       show_level: hmUI.show_level.ONLY_NORMAL,
+      show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
     hmUI.createWidget(hmUI.widget.IMG, {
       x: X + BUBBLE_SIZE / 2 + 6,
       y: Y - DIGIT_HEIGHT / 2,
       src: 'uv.png',
+      show_level: hmUI.show_level.ONLY_NORMAL,
     });
   },
 
   buildConnectionStatus() {
     hmUI.createWidget(hmUI.widget.IMG_STATUS, {
-      x: 0,
-      y: 0,
+      x: 379,
+      y: 194,
       type: hmUI.system_status.DISCONNECT,
-      src: 'disconnected.png'
+      src: 'disconnect.png',
+      show_level: hmUI.show_level.ONLY_NORMAL,
     });
   },
 
@@ -294,6 +306,7 @@ WatchFace({
       type: hmUI.data_type.STEP,
       font_array: new Array(10).fill(null).map((_, i) => `values-secondary/${i}.png`),
       align_h: hmUI.align.LEFT_H,
+      show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
@@ -305,6 +318,7 @@ WatchFace({
       color: 0x272627,
       line_width: LINE_WIDTH,
       level: 100,
+      show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
     const arcProgress = hmUI.createWidget(hmUI.widget.ARC_PROGRESS, false);
@@ -319,7 +333,8 @@ WatchFace({
         end_angle: ANGLE_FINISH,
         color: 0x767578,
         line_width: LINE_WIDTH,
-        level: (current / target) * 100
+        level: (current / target) * 100,
+        show_level: hmUI.show_level.ONLY_NORMAL,
       })
     };
 
