@@ -6,6 +6,9 @@ const { width, height } = hmSetting.getDeviceInfo();
 const screenCenterX = width / 2;
 const screenCenterY = height / 2;
 
+const lang = DeviceRuntimeCore.HmUtils.getLanguage();
+const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
+
 const GRID_COLUMN_COUNT = 7;
 const GRID_ROW_COUNT = 11;
 
@@ -19,12 +22,14 @@ const DATE_IMAGE_HEIGHT = 26;
 
 const WEEK_IMAGE_WIDTH = 26;
 const WEEK_IMAGE_HEIGHT = 26;
+const WEEK_IMAGES = new Array(7).fill(null).map((_, i) => `${isRusLang ? 'week_rus' : 'week'}/${i}.png`);
 
 const YEAR_IMAGE_WIDTH = 26;
 const YEAR_IMAGE_HEIGHT = 26;
 
 const MONTH_IMAGE_WIDTH = 31;
 const MONTH_IMAGE_HEIGHT = 26;
+const MONTH_IMAGES = new Array(12).fill(null).map((_, i) => `${isRusLang ? 'month_rus' : 'month'}/${i}.png`);
 
 const DIGIT_WIDTH = 10;
 const DIGIT_HEIGHT = 16;
@@ -226,7 +231,7 @@ WatchFace({
       hmUI.createWidget(hmUI.widget.IMG, {
         x: closestCell.centerPosition.x + GRID_CELL_WIDTH / 2,
         y: closestCell.centerPosition.y - MONTH_IMAGE_HEIGHT / 2,
-        src: `month/${value}.png`,
+        src: MONTH_IMAGES[value],
         show_level: hmUI.show_level.ONLY_NORMAL,
       });
     }
@@ -235,11 +240,11 @@ WatchFace({
   buildWeekDays() {
     new Array(7).fill(null).map((_, index) => {
       const closestCell = this.grid[0][index];
-      
+
       hmUI.createWidget(hmUI.widget.IMG, {
         x: closestCell.centerPosition.x - WEEK_IMAGE_WIDTH / 2,
         y: closestCell.centerPosition.y - DATE_IMAGE_HEIGHT / 2 - WEEK_IMAGE_HEIGHT,
-        src: `week/${index}.png`,
+        src: WEEK_IMAGES[index],
         show_level: hmUI.show_level.ONLY_NORMAL,
       });
     })
@@ -394,10 +399,12 @@ WatchFace({
     const x = 32;
     const y = 143;
 
+    const uviImage = isRusLang ? 'uvi_rus.png' : 'uvi.png';
+
     hmUI.createWidget(hmUI.widget.IMG, {
       x,
       y,
-      src: 'uvi.png',
+      src: uviImage,
       show_level: hmUI.show_level.ONLY_NORMAL,
     });
 

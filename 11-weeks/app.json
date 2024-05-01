@@ -45,6 +45,12 @@
   "i18n": {
     "en-US": {
       "appName": "11 weeks"
+    },
+    "ru-RU": {
+      "appName": "11 weeks"
+    },
+    "uk-UA": {
+      "appName": "11 weeks"
     }
   },
   "defaultLanguage": "en-US",
