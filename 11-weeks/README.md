@@ -1,18 +1,35 @@
-# Nothing Dial
+# 11 weeks
 Watchface for Amazfit GTR Mini
 
-![demo](./demo.png)
+![demo](./demo2.png)
 
 ## Features
 
-**Main features**
-- inspired by [CMF by Nothing Watch default watchface](https://intl.cmf.tech/pages/watch-pro)
-- time is indicated by minute hand and 2 dots (orange one for hours, white one for seconds)
-- digital time too
-- date
-- step counter
-- uv index
-- status icon when watch is disconnected from phone
+This watchface is inspired by one of my favourite Pebble watchface '11 Weeks', which can be found in the Rebble Store [here](https://store-beta.rebble.io/app/5659ab0bc3a3a5e072000081) and on [GitHub](https://github.com/programus/pebble-watchface-11weeks).
+
+The design integrates a time display and a calendar into a single grid.
+
+This layout provides a comprehensive view of time and personal metrics in a compact and visually appealing format.
+
+**Calendar:**
+- Spans 11 weeks:
+  - Includes 2 past weeks
+  - The current week
+  - 8 upcoming weeks
+- Displays multiple indicators including:
+  - Day of the week
+  - Month
+  - Year
+  - Highlight for the current day
+- Has all indications (week day, months, years, currrent day highlight)
+
+**Time:**
+- Hours and minutes are displayed in a pixel font overlaying the calendar grid.
+- Seconds are shown below the main display using regular digits and a progress bar.
+
+**Additional Features:**
+- Progress bars for step count, UV index, and battery level.
+- Connection status indicator, which lights up in red when the phone is disconnected.
 
 **Model compatibility:** Amazfit GTR Mini (round, 416 x 416 pixels)
 
@@ -20,7 +37,7 @@ Watchface for Amazfit GTR Mini
 
 **Tap-zones:** No
 
-**Language:** English
+**Language:** English/Russian
 
 ## Download ⏬
 

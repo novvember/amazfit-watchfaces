@@ -43,3 +43,4 @@ To install a watchface to your smartwatch:
 | ![](./celeste/demo.png)     | Celeste    	| ✅ Done             	|
 | ![](./nothing-dial/demo.png)| Nothing Dial| ✅ Done             	|
 | ![](./spin-2/demo.png)      | Spin 2      | ✅ Done             	|
+| ![](./11-weeks/demo.png)    | 11 weeks    | ✅ Done             	|
