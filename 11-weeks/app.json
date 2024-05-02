@@ -5,8 +5,8 @@
     "appName": "11 weeks",
     "appType": "watchface",
     "version": {
-      "code": 3,
-      "name": "1.0.0"
+      "code": 4,
+      "name": "1.0.1"
     },
     "vender": "novvember",
     "description": "11 weeks watchface. Source code here: https://github.com/novvember/amazfit-watchfaces",
