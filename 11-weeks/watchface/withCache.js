@@ -1,13 +1,14 @@
 export function withCache(fn) {
-  const cache = {};
+  let prevKey;
+  let prevResult;
 
   return (...args) => {
     const key = args.join('-');
 
-    if (!(key in cache)) {
-      cache[key] = fn(...args);
+    if (prevKey !== key) {
+      prevResult = fn(...args);
     }
 
-    return cache[key];
+    return prevResult;
   }
 }
