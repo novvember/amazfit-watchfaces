@@ -1,4 +1,4 @@
-export function withCache(fn) {
+export function withWeakCache(fn) {
   let prevKey;
   let prevResult;
 

@@ -1,42 +1,51 @@
 {
-  "configVersion": "v2",
+  "configVersion": "v3",
   "app": {
     "appId": 22011,
     "appName": "11 weeks",
     "appType": "watchface",
     "version": {
-      "code": 4,
-      "name": "1.0.1"
+      "code": 5,
+      "name": "2.0.0"
     },
-    "vender": "novvember",
-    "description": "11 weeks watchface. Source code here: https://github.com/novvember/amazfit-watchfaces",
     "icon": "icon.png",
+    "vender": "novvember",
     "cover": [
       "cover.png"
-    ]
+    ],
+    "description": "11 weeks watchface. Source code here: https://github.com/novvember/amazfit-watchfaces"
   },
-  "permissions": [],
   "runtime": {
     "apiVersion": {
+      "minVersion": "1.0.0",
       "compatible": "1.0.0",
-      "target": "1.0.1",
-      "minVersion": "1.0.0"
+      "target": "1.0.1"
     }
   },
+  "permissions": [],
   "targets": {
-    "416x416-amazfit-gtr-mini": {
+    "gt": {
       "module": {
         "watchface": {
           "path": "watchface/index",
           "main": 1,
           "editable": 0,
-          "lockscreen": 1
+          "lockscreen": 1,
+          "photoscreen": 0
         }
       },
       "platforms": [
         {
-          "name": "LeidenW",
-          "deviceSource": 251
+          "name": "gtr-mini",
+          "deviceSource": 251,
+          "st": "r",
+          "sr": "w416"
+        },
+        {
+          "name": "gtr-4",
+          "deviceSource": 7930113,
+          "st": "r",
+          "sr": "w466"
         }
       ],
       "designWidth": 416

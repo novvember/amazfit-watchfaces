@@ -104,7 +104,7 @@ function fillMatrixWithDigit(matrix, y0, x0, digit) {
   }
 }
 
-export function buildTimeMatrix(hours, mins, width, height) {
+export function makeDigitMatrix(hours, mins, width, height) {
   const DIGIT_WIDTH = 3;
   const DIGIT_HEIGHT = 5;
   const COLUMN_GAP = 1;
