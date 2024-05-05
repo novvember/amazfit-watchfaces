@@ -32,7 +32,7 @@ const makeCalendarDataCached = withWeakCache(makeCalendarData);
 
 WatchFace({
   onInit() {
-    console.log('wathcface on INIT invoke');
+    console.log('watchface on INIT invoke');
   },
 
   build() {
@@ -66,6 +66,8 @@ WatchFace({
 
   buildGrid() {
     this.grid = makeEmptyGrid(SCREEN.centerX, SCREEN.centerY, GRID.size.columns, GRID.size.rows, GRID.cell.width, GRID.cell.height);
+    this.years = new Array(GRID.size.rows).fill(null).map(() => hmUI.createWidget(hmUI.widget.IMG, null));
+    this.months = new Array(GRID.size.rows).fill(null).map(() => hmUI.createWidget(hmUI.widget.IMG, null));
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
@@ -153,10 +155,13 @@ WatchFace({
 
     for (let row = 0; row < yearsList.length; row++) {
       const value = yearsList[row];
+      const widget = this.years[row];
+      const cellToRight = this.grid[row][0];
 
-      if (value !== null) {
-        const cellToRight = this.grid[row][0];
-        hmUI.createWidget(hmUI.widget.IMG, getYearImageProps(cellToRight, value));
+      if (value === null) {
+        widget.setProperty(hmUI.prop.MORE, null);
+      } else {
+        widget.setProperty(hmUI.prop.MORE, getYearImageProps(cellToRight, value));
       }
     }
   },
@@ -167,10 +172,13 @@ WatchFace({
 
     for (let row = 0; row < monthsList.length; row++) {
       const value = monthsList[row];
+      const widget = this.months[row];
+      const cellToLeft = this.grid[row][GRID.size.columns - 1];
 
-      if (value !== null) {
-        const cellToLeft = this.grid[row][GRID.size.columns - 1];
-        hmUI.createWidget(hmUI.widget.IMG, getMonthImageProps(cellToLeft, value));
+      if (value === null) {
+        widget.setProperty(hmUI.prop.MORE, null);
+      } else {
+        widget.setProperty(hmUI.prop.MORE, getMonthImageProps(cellToLeft, value));
       }
     }
   },
