@@ -20,7 +20,7 @@ export const GRID = {
 }
 
 export const CALENDAR = {
-  currentWeekIndex: 2,
+  currentWeekIndex: 3,
   date: {
     width: px(26),
     height: px(26),

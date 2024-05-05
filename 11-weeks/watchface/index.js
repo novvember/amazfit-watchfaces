@@ -66,8 +66,8 @@ WatchFace({
 
   buildGrid() {
     this.grid = makeEmptyGrid(SCREEN.centerX, SCREEN.centerY, GRID.size.columns, GRID.size.rows, GRID.cell.width, GRID.cell.height);
-    this.years = new Array(GRID.size.rows).fill(null).map(() => hmUI.createWidget(hmUI.widget.IMG, null));
-    this.months = new Array(GRID.size.rows).fill(null).map(() => hmUI.createWidget(hmUI.widget.IMG, null));
+    this.years = new Array(GRID.size.rows).fill(null);
+    this.months = new Array(GRID.size.rows).fill(null);
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
@@ -158,9 +158,12 @@ WatchFace({
       const widget = this.years[row];
       const cellToRight = this.grid[row][0];
 
-      if (value === null) {
-        widget.setProperty(hmUI.prop.MORE, null);
-      } else {
+      if (widget === null && value !== null) {
+        this.years[row] = hmUI.createWidget(hmUI.widget.IMG, getYearImageProps(cellToRight, value));
+      } else if (widget !== null && value === null) {
+        hmUI.deleteWidget(widget);
+        this.years[row] = null;
+      } else if (widget !== null && value !== null) {
         widget.setProperty(hmUI.prop.MORE, getYearImageProps(cellToRight, value));
       }
     }
@@ -175,9 +178,12 @@ WatchFace({
       const widget = this.months[row];
       const cellToLeft = this.grid[row][GRID.size.columns - 1];
 
-      if (value === null) {
-        widget.setProperty(hmUI.prop.MORE, null);
-      } else {
+      if (widget === null && value !== null) {
+        this.months[row] = hmUI.createWidget(hmUI.widget.IMG, getMonthImageProps(cellToLeft, value));
+      } else if (widget !== null && value === null) {
+        hmUI.deleteWidget(widget);
+        this.months[row] = null;
+      } else if (widget !== null && value !== null) {
         widget.setProperty(hmUI.prop.MORE, getMonthImageProps(cellToLeft, value));
       }
     }
