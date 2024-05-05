@@ -1,6 +1,3 @@
-// import { px } from "@zos/utils";
-import { px } from "../utils/px";
-
 const { width, height } = hmSetting.getDeviceInfo();
 
 export const SCREEN = {
@@ -17,53 +14,73 @@ export const GRID = {
     rows: 11,
   },
   cell: {
-    width: 28,
-    height: 28,
+    width: px(28),
+    height: px(28),
   },
 }
 
 export const CALENDAR = {
   currentWeekIndex: 2,
   date: {
-    width: 26,
-    height: 26,
+    width: px(26),
+    height: px(26),
   },
   weekDay: {
-    width: 26,
-    height: 26,
+    width: px(26),
+    height: px(26),
     images: new Array(7).fill(null).map((_, i) => `${isRusLang ? 'week_rus' : 'week'}/${i}.png`),
   },
   year: {
-    width: 26,
-    height: 26,
+    width: px(26),
+    height: px(26),
   },
   month: {
-    width: 31,
-    height: 26,
+    width: px(31),
+    height: px(26),
     images: new Array(12).fill(null).map((_, i) => `${isRusLang ? 'month_rus' : 'month'}/${i}.png`),
   }
 }
 
 export const DIGITS = {
-  width: 10,
-  height: 16,
+  width: px(10),
+  height: px(16),
   images: new Array(10).fill(null).map((_, i) => `digits/${i}.png`),
 }
 
 export const SECONDS_PROGRESS_BAR = {
-  width: 196,
-  height: 26,
+  width: px(196),
+  height: px(26),
 }
 
 export const ARC = {
   colorBackground: 0x3B3A3B,
   colorActive: 0xD9D9D9,
-  radius: 200,
-  width: 12,
+  radius: px(200),
+  width: px(12),
+};
+
+export const STEPS = {
+  angleStart: 130,
+  angleEnd: 50,
+};
+
+export const BATTERY = {
+  x: px(32),
+  y: px(255),
+  angleStart: 230,
+  angleEnd: 265,
+};
+
+export const UVI = {
+  x: px(32),
+  y: px(143),
+  angleStart: 275,
+  angleEnd: 310,
 };
 
 export const CONNECTION_STATUS = {
-  width: 24,
-  height: 24,
+  width: px(24),
+  height: px(24),
+  x: px(30),
 };
 

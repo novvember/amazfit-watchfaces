@@ -6,6 +6,9 @@ import {
   SCREEN,
   SECONDS_PROGRESS_BAR,
   CONNECTION_STATUS,
+  STEPS,
+  BATTERY,
+  UVI,
   isRusLang
 } from '../utils/constants';
 
@@ -14,8 +17,6 @@ export function getCellBackgroundImageProps(centerPosition, status) {
   return {
     x: centerPosition.x - GRID.cell.width / 2,
     y: centerPosition.y - GRID.cell.height / 2,
-    w: GRID.cell.width,
-    h: GRID.cell.height,
     src: `cell/${status}.png`,
     show_level: hmUI.show_level.ONLY_NORMAL,
   };
@@ -96,15 +97,12 @@ export function getStepsTextImageProps() {
 }
 
 export function getStepsArcBackgroundProps() {
-  const ANGLE_START = 130;
-  const ANGLE_END = 50;
-
   return {
     center_x: SCREEN.centerX,
     center_y: SCREEN.centerY,
     radius: ARC.radius,
-    start_angle: ANGLE_START,
-    end_angle: ANGLE_END,
+    start_angle: STEPS.angleStart,
+    end_angle: STEPS.angleEnd,
     color: ARC.colorBackground,
     line_width: ARC.width,
     level: 100,
@@ -113,15 +111,12 @@ export function getStepsArcBackgroundProps() {
 }
 
 export function getStepsArcActiveProps() {
-  const ANGLE_START = 130;
-  const ANGLE_END = 50;
-
   return {
     center_x: SCREEN.centerX,
     center_y: SCREEN.centerY,
     radius: ARC.radius,
-    start_angle: ANGLE_START,
-    end_angle: ANGLE_END,
+    start_angle: STEPS.angleStart,
+    end_angle: STEPS.angleEnd,
     color: ARC.colorActive,
     line_width: ARC.width,
     type: hmUI.data_type.STEP,
@@ -132,8 +127,8 @@ export function getStepsArcActiveProps() {
 // BATTERY
 export function getBatteryTextImageProps() {
   return {
-    x: 32,
-    y: 255,
+    x: BATTERY.x,
+    y: BATTERY.y,
     type: hmUI.data_type.BATTERY,
     font_array: DIGITS.images,
     unit_en: 'percent.png',
@@ -143,15 +138,12 @@ export function getBatteryTextImageProps() {
 }
 
 export function getBatteryArcBackgroundProps() {
-  const ANGLE_START = 230;
-  const ANGLE_END = 265;
-
   return {
     center_x: SCREEN.centerX,
     center_y: SCREEN.centerY,
     radius: ARC.radius,
-    start_angle: ANGLE_START,
-    end_angle: ANGLE_END,
+    start_angle: BATTERY.angleStart,
+    end_angle: BATTERY.angleEnd,
     color: ARC.colorBackground,
     line_width: ARC.width,
     level: 100,
@@ -160,14 +152,11 @@ export function getBatteryArcBackgroundProps() {
 }
 
 export function getBatteryArcActiveProps() {
-  const ANGLE_START = 230;
-  const ANGLE_END = 265;
-
   return {
     center_x: SCREEN.centerX,
     center_y: SCREEN.centerY,
-    start_angle: ANGLE_START,
-    end_angle: ANGLE_END,
+    start_angle: BATTERY.angleStart,
+    end_angle: BATTERY.angleEnd,
     radius: ARC.radius,
     line_width: ARC.width,
     corner_flag: 0,
@@ -179,24 +168,18 @@ export function getBatteryArcActiveProps() {
 
 // UVI
 export function getUvImageProps() {
-  const x = 32;
-  const y = 143;
-
   return {
-    x,
-    y,
+    x: UVI.x,
+    y: UVI.y,
     src: isRusLang ? 'uvi_rus.png' : 'uvi.png',
     show_level: hmUI.show_level.ONLY_NORMAL,
   };
 }
 
 export function getUvTextImageProps() {
-  const x = 32;
-  const y = 143;
-
   return {
-    x: x + 30,
-    y,
+    x: UVI.x + 30,
+    y: UVI.y,
     type: hmUI.data_type.UVI,
     font_array: DIGITS.images,
     show_level: hmUI.show_level.ONLY_NORMAL,
@@ -204,15 +187,12 @@ export function getUvTextImageProps() {
 }
 
 export function getUvArcBackgroundProps() {
-  const ANGLE_START = 275;
-  const ANGLE_END = 310;
-
   return {
     center_x: SCREEN.centerX,
     center_y: SCREEN.centerY,
     radius: ARC.radius,
-    start_angle: ANGLE_START,
-    end_angle: ANGLE_END,
+    start_angle: UVI.angleStart,
+    end_angle: UVI.angleEnd,
     color: ARC.colorBackground,
     line_width: ARC.width,
     level: 100,
@@ -221,14 +201,11 @@ export function getUvArcBackgroundProps() {
 }
 
 export function getUvArcActiveProps() {
-  const ANGLE_START = 275;
-  const ANGLE_END = 310;
-
   return {
     center_x: SCREEN.centerX,
     center_y: SCREEN.centerY,
-    start_angle: ANGLE_START,
-    end_angle: ANGLE_END,
+    start_angle: UVI.angleStart,
+    end_angle: UVI.angleEnd,
     radius: ARC.radius,
     line_width: ARC.width,
     corner_flag: 0,
@@ -240,12 +217,9 @@ export function getUvArcActiveProps() {
 
 // CONNECTION STATUS
 export function getConnectImageProps() {
-  const x = 30;
-  const y = SCREEN.centerY - CONNECTION_STATUS.height / 2;
-
   return {
-    x,
-    y,
+    x: CONNECTION_STATUS.x,
+    y: SCREEN.centerY - CONNECTION_STATUS.height / 2,
     w: CONNECTION_STATUS.width,
     h: CONNECTION_STATUS.height,
     src: 'connect/connect.png',
@@ -254,12 +228,9 @@ export function getConnectImageProps() {
 }
 
 export function getDisconnectImageProps() {
-  const x = 30;
-  const y = SCREEN.centerY - CONNECTION_STATUS.height / 2;
-
   return {
-    x,
-    y,
+    x: CONNECTION_STATUS.x,
+    y: SCREEN.centerY - CONNECTION_STATUS.height / 2,
     type: hmUI.system_status.DISCONNECT,
     src: 'connect/disconnect.png',
     show_level: hmUI.show_level.ONLY_NORMAL,
