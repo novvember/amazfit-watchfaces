@@ -5,10 +5,11 @@ import {
   GRID,
   SCREEN,
   SECONDS_PROGRESS_BAR,
-  CONNECTION_STATUS,
   STEPS,
   BATTERY,
   UVI,
+  CONNECTION_STATUS,
+  ALARM_STATUS,
   isRusLang
 } from '../utils/constants';
 
@@ -178,7 +179,7 @@ export function getUvImageProps() {
 
 export function getUvTextImageProps() {
   return {
-    x: UVI.x + 30,
+    x: UVI.x + px(34),
     y: UVI.y,
     type: hmUI.data_type.UVI,
     font_array: DIGITS.images,
@@ -233,6 +234,28 @@ export function getDisconnectImageProps() {
     y: SCREEN.centerY - CONNECTION_STATUS.height / 2,
     type: hmUI.system_status.DISCONNECT,
     src: 'connect/disconnect.png',
+    show_level: hmUI.show_level.ONLY_NORMAL,
+  };
+}
+
+// ALARM STATUS
+export function getAlarmOffImageProps() {
+  return {
+    x: ALARM_STATUS.x,
+    y: SCREEN.centerY - ALARM_STATUS.height / 2,
+    w: ALARM_STATUS.width,
+    h: ALARM_STATUS.height,
+    src: 'alarm/alarm_off.png',
+    show_level: hmUI.show_level.ONLY_NORMAL,
+  }
+}
+
+export function getAlarmOnImageProps() {
+  return {
+    x: ALARM_STATUS.x,
+    y: SCREEN.centerY - ALARM_STATUS.height / 2,
+    type: hmUI.system_status.CLOCK,
+    src: 'alarm/alarm_on.png',
     show_level: hmUI.show_level.ONLY_NORMAL,
   };
 }

@@ -5,8 +5,8 @@
     "appName": "11 weeks",
     "appType": "watchface",
     "version": {
-      "code": 5,
-      "name": "2.0.0"
+      "code": 6,
+      "name": "2.1.0"
     },
     "icon": "icon.png",
     "vender": "novvember",
@@ -24,7 +24,7 @@
   },
   "permissions": [],
   "targets": {
-    "gt": {
+    "common": {
       "module": {
         "watchface": {
           "path": "watchface/index",
@@ -36,19 +36,10 @@
       },
       "platforms": [
         {
-          "name": "gtr-mini",
-          "deviceSource": 251,
-          "st": "r",
-          "sr": "w416"
-        },
-        {
-          "name": "gtr-4",
-          "deviceSource": 7930113,
-          "st": "r",
-          "sr": "w466"
+          "st": "r"
         }
       ],
-      "designWidth": 416
+      "designWidth": 480
     }
   },
   "i18n": {

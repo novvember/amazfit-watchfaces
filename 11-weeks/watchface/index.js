@@ -25,6 +25,8 @@ import {
   getUvArcActiveProps,
   getConnectImageProps,
   getDisconnectImageProps,
+  getAlarmOffImageProps,
+  getAlarmOnImageProps,
 } from './index.r.layout';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
@@ -47,6 +49,7 @@ WatchFace({
     this.buildUV();
 
     this.buildDisconnectionStatus();
+    this.buildAlarmStatus();
   },
 
   onDestroy() {
@@ -259,5 +262,10 @@ WatchFace({
   buildDisconnectionStatus() {
     hmUI.createWidget(hmUI.widget.IMG, getConnectImageProps());
     hmUI.createWidget(hmUI.widget.IMG_STATUS, getDisconnectImageProps());
+  },
+
+  buildAlarmStatus() {
+    hmUI.createWidget(hmUI.widget.IMG, getAlarmOffImageProps());
+    hmUI.createWidget(hmUI.widget.IMG_STATUS, getAlarmOnImageProps());
   },
 });
