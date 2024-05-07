@@ -1,7 +1,7 @@
 # 11 weeks
 Watchface for Amazfit GTR Mini
 
-![demo](./demo2.png)
+![demo](./demo-gtr-mini.png)
 
 ## Features
 
@@ -13,25 +13,26 @@ This layout provides a comprehensive view of time and personal metrics in a comp
 
 **Calendar:**
 - Spans 11 weeks:
-  - Includes 2 past weeks
+  - Includes 3 past weeks
   - The current week
-  - 8 upcoming weeks
+  - 7 upcoming weeks
 - Displays multiple indicators including:
   - Day of the week
   - Month
   - Year
   - Highlight for the current day
-- Has all indications (week day, months, years, currrent day highlight)
+- Has all indications (week day, months, years, current day highlight)
 
 **Time:**
 - Hours and minutes are displayed in a pixel font overlaying the calendar grid.
 - Seconds are shown below the main display using regular digits and a progress bar.
 
 **Additional Features:**
-- Progress bars for step count, UV index, and battery level.
+- Progress bars for step count, sleep time, and battery level.
 - Connection status indicator, which lights up in red when the phone is disconnected.
+- Alarm status indicator.
 
-**Model compatibility:** Amazfit GTR Mini (round, 416 x 416 pixels)
+**Model compatibility:** Amazfit GTR Mini (round, 416 x 416 pixels), Amazfit GTR 4 (round, 466 x 466 pixels), and all other round Zepp OS Devices with resolution up to 480 x 480 pixels
 
 **AOD:** No
 
