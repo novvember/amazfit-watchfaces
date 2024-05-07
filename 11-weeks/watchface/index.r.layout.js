@@ -2,12 +2,14 @@ import {
   ARC,
   CALENDAR,
   DIGITS,
+  SPECIAL_CHARS,
   GRID,
   SCREEN,
   SECONDS_PROGRESS_BAR,
   STEPS,
   BATTERY,
   UVI,
+  SLEEP,
   CONNECTION_STATUS,
   ALARM_STATUS,
   isRusLang
@@ -132,7 +134,7 @@ export function getBatteryTextImageProps() {
     y: BATTERY.y,
     type: hmUI.data_type.BATTERY,
     font_array: DIGITS.images,
-    unit_en: 'percent.png',
+    unit_en: SPECIAL_CHARS.percent.src,
     align_h: hmUI.align.LEFT,
     show_level: hmUI.show_level.ONLY_NORMAL,
   };
@@ -212,6 +214,36 @@ export function getUvArcActiveProps() {
     corner_flag: 0,
     color: ARC.colorActive,
     type: hmUI.data_type.UVI,
+    show_level: hmUI.show_level.ONLY_NORMAL,
+  };
+}
+
+// SLEEP TIME
+export function getSleepArcBackgroundProps() {
+  return {
+    center_x: SCREEN.centerX,
+    center_y: SCREEN.centerY,
+    radius: ARC.radius,
+    start_angle: SLEEP.angleStart,
+    end_angle: SLEEP.angleEnd,
+    color: ARC.colorBackground,
+    line_width: ARC.width,
+    level: 100,
+    show_level: hmUI.show_level.ONLY_NORMAL,
+  };
+}
+
+export function getSleepArcActiveProps() {
+  return {
+    center_x: SCREEN.centerX,
+    center_y: SCREEN.centerY,
+    start_angle: SLEEP.angleStart,
+    end_angle: SLEEP.angleEnd,
+    radius: ARC.radius,
+    line_width: ARC.width,
+    corner_flag: 0,
+    color: ARC.colorActive,
+    type: hmUI.data_type.SLEEP,
     show_level: hmUI.show_level.ONLY_NORMAL,
   };
 }

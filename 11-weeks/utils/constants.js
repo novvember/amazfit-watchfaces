@@ -47,6 +47,21 @@ export const DIGITS = {
   images: new Array(10).fill(null).map((_, i) => `digits/${i}.png`),
 }
 
+export const SPECIAL_CHARS = {
+  colon: {
+    width: px(4),
+    src: 'special_chars/colon.png',
+  },
+  minus: {
+    width: px(12),
+    src: 'special_chars/minus.png',
+  },
+  percent: {
+    width: px(19),
+    src: 'special_chars/percent.png',
+  },
+};
+
 export const SECONDS_PROGRESS_BAR = {
   width: px(224),
   height: px(32),
@@ -78,6 +93,13 @@ export const UVI = {
   angleEnd: 310,
 };
 
+export const SLEEP = {
+  x: px(30),
+  y: px(165),
+  angleStart: 275,
+  angleEnd: 310,
+}
+
 export const CONNECTION_STATUS = {
   width: px(28),
   height: px(28),
@@ -89,4 +111,3 @@ export const ALARM_STATUS = {
   height: px(28),
   x: px(66),
 };
-

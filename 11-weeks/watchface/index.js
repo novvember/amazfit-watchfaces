@@ -3,7 +3,7 @@ import { makeDigitMatrix } from '../utils/makeDigitMatrix';
 import { withWeakCache } from '../utils/withWeakCache';
 import { makeEmptyGrid } from '../utils/makeEmptyGrid';
 
-import { CALENDAR, DIGITS, GRID, SCREEN, SECONDS_PROGRESS_BAR } from '../utils/constants';
+import { CALENDAR, DIGITS, GRID, SCREEN, SECONDS_PROGRESS_BAR, SLEEP, SPECIAL_CHARS } from '../utils/constants';
 
 import {
   getCellDateImageProps,
@@ -27,6 +27,8 @@ import {
   getDisconnectImageProps,
   getAlarmOffImageProps,
   getAlarmOnImageProps,
+  getSleepArcBackgroundProps,
+  getSleepArcActiveProps,
 } from './index.r.layout';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
@@ -46,7 +48,8 @@ WatchFace({
 
     this.buildSteps();
     this.buildBattery();
-    this.buildUV();
+    // this.buildUV();
+    this.buildSleepTime();
 
     this.buildDisconnectionStatus();
     this.buildAlarmStatus();
@@ -106,6 +109,8 @@ WatchFace({
   },
 
   renderGrid() {
+    console.log('grid rerendered');
+
     const { hour, minute, day, month, year } = hmSensor.createSensor(hmSensor.id.TIME);
 
     const digitMatrix = this.getDigitMatrix(hour, minute);
@@ -153,6 +158,8 @@ WatchFace({
   },
 
   renderYears() {
+    console.log('years rerendered');
+
     const { day, month, year } = hmSensor.createSensor(hmSensor.id.TIME);
     const { yearsList } = this.getCalendarData(day, month, year);
 
@@ -173,6 +180,8 @@ WatchFace({
   },
 
   renderMonths() {
+    console.log('months rerendered');
+
     const { day, month, year } = hmSensor.createSensor(hmSensor.id.TIME);
     const { monthsList } = this.getCalendarData(day, month, year);
 
@@ -217,7 +226,9 @@ WatchFace({
       const { second } = hmSensor.createSensor(hmSensor.id.TIME);
       const newSecondRound = Math.round(second / 10) * 10;
   
-      if (!this.secondRound !== newSecondRound) {
+      if (this.secondRound !== newSecondRound) {
+        console.log('seconds progress bar rerendered');
+
         this.secondRound = newSecondRound;
         progressBar.setProperty(hmUI.prop.MORE, getSecondProgressBarImageProps(progressBarX, progressBarY, newSecondRound));
       }
@@ -259,6 +270,32 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getUvArcActiveProps());
   },
 
+  buildSleepTime() {
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getSleepArcBackgroundProps());
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getSleepArcActiveProps());
+
+    const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
+    const updateSleepWidget = this.createCustomTimeWidget(SLEEP.x, SLEEP.y);
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+          console.log('ui resume');
+
+          if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+            const sleepTime = sleepSensor.getTotalTime();
+
+            if (sleepTime) {
+              const hh = Math.floor(sleepTime / 60).toString().padStart(2, ' ');
+              const mm = (sleepTime % 60).toString().padStart(2, '0');
+              updateSleepWidget(`${hh}:${mm}`);
+            } else {
+              updateSleepWidget('--:--');
+            }
+          }
+      }
+    });
+  },
+
   buildDisconnectionStatus() {
     hmUI.createWidget(hmUI.widget.IMG, getConnectImageProps());
     hmUI.createWidget(hmUI.widget.IMG_STATUS, getDisconnectImageProps());
@@ -268,4 +305,56 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.IMG, getAlarmOffImageProps());
     hmUI.createWidget(hmUI.widget.IMG_STATUS, getAlarmOnImageProps());
   },
+
+  /**
+   * Creates custom text image widget to display time in 00:00 format
+   * - string value will be represented with individual regular IMG-widgets
+   * - supported symbols: digits ('0-9'), colon (':'), space (' '), minus ('-')
+   * - update function will update only values of individual images
+   * - update function won't update coordinates of individual images
+   * @param {Number} x - x-coordinate of first char
+   * @param {Number} y - y-coordinate of whole text line
+   * @param {String='--:--'} time - initial value
+   * @returns {Function: String => void} - function to update widget value
+   */
+  createCustomTimeWidget(x, y, time = '--:--') {
+    const chars = time.split('');
+    const xCoords = [];
+
+    const CHAR_WIDTH_MAP = {
+      ' ': SPECIAL_CHARS.colon.width,
+      '-': SPECIAL_CHARS.minus.width,
+      ':': SPECIAL_CHARS.colon.width,
+    };
+
+    const CHAR_SRC_MAP = {
+      ' ': 'empty.png',
+      '-': SPECIAL_CHARS.minus.src,
+      ':': SPECIAL_CHARS.colon.src,
+    };
+
+    const getCharWidth = char => CHAR_WIDTH_MAP[char] ?? DIGITS.width;
+    const getCharSrc = char => CHAR_SRC_MAP[char] ?? DIGITS.images[char];
+
+    chars.forEach((_, index) => {
+      if (index === 0) xCoords.push(x);
+      else xCoords.push(xCoords[index - 1] + getCharWidth(chars[index - 1]));
+    });
+
+    const widgets = chars
+      .map((char, index) => hmUI.createWidget(hmUI.widget.IMG, {
+        x: xCoords[index],
+        y,
+        src: getCharSrc(char),
+        show_level: hmUI.show_level.ONLY_NORMAL,
+      }));
+
+    const updateWidgets = withWeakCache(text => {
+      console.log('custom time widget rerendered');
+
+      widgets.forEach((widget, index) => widget.setProperty(hmUI.prop.SRC, getCharSrc(text[index])));
+    });
+
+    return updateWidgets;
+  }
 });
