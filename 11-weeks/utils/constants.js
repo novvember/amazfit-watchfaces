@@ -94,7 +94,7 @@ export const UVI = {
 };
 
 export const SLEEP = {
-  x: px(30),
+  x: px(28),
   y: px(165),
   angleStart: 275,
   angleEnd: 310,
@@ -103,11 +103,11 @@ export const SLEEP = {
 export const CONNECTION_STATUS = {
   width: px(28),
   height: px(28),
-  x: px(35),
+  x: px(27),
 };
 
 export const ALARM_STATUS = {
   width: px(28),
   height: px(28),
-  x: px(66),
+  x: px(58),
 };
