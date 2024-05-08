@@ -1,6 +1,6 @@
-# Watchfaces for Amazfit Smart Watches
+# Watchfaces for Amazfit Smart Watch
 
-Different watchfaces I developed for my Amazfit GTR Mini (416x416 px).
+Different watchfaces I developed for my Amazfit GTR Mini (416x416 px). Some watchfaces are developed to be adaptive so the code can run on all devices with round screen (see detailes below).
 
 ## Development
 
@@ -33,14 +33,14 @@ To install a watchface to your smartwatch:
 
 ## List of Watchfaces
 
-| Image 	                    | Name       	| Development Status 	  |
-|:-------------------------:  |------------ |--------------------- |
-| ![](./text-lines/demo.png)  | Text Lines 	| ✅ Done             	|
-| ![](./spin/demo.png)       	| Spin       	| ✅ Done             	|
-| ![](./particles/demo.png)   | Particles  	| 🚫 Has issues        |
-| ![](./gauge/demo.png)      	| Gauge      	| ✅ Done             	|
-| ![](./bourne/demo.png)      | Bourne     	| ✅ Done             	|
-| ![](./celeste/demo.png)     | Celeste    	| ✅ Done             	|
-| ![](./nothing-dial/demo.png)| Nothing Dial| ✅ Done             	|
-| ![](./spin-2/demo.png)      | Spin 2      | ✅ Done             	|
-| ![](./11-weeks/demo.png)    | 11 weeks    | ✅ Done             	|
+| Image 	                    | Name       	| Devices supported | Development Status 	  |
+|:-------------------------:  |------------ |------------------ |---------------------  |
+| ![](./text-lines/demo.png)  | Text Lines 	| GTR Mini only 	  | ✅ Done             	|
+| ![](./spin/demo.png)       	| Spin       	| GTR Mini only 	  | ✅ Done             	|
+| ![](./particles/demo.png)   | Particles  	| GTR Mini only 	  | 🚫 Has issues        |
+| ![](./gauge/demo.png)      	| Gauge      	| GTR Mini only 	  | ✅ Done             	|
+| ![](./bourne/demo.png)      | Bourne     	| GTR Mini only 	  | ✅ Done             	|
+| ![](./celeste/demo.png)     | Celeste    	| GTR Mini only 	  | ✅ Done             	|
+| ![](./nothing-dial/demo.png)| Nothing Dial| GTR Mini only 	  | ✅ Done             	|
+| ![](./spin-2/demo.png)      | Spin 2      | GTR Mini only 	  | ✅ Done             	|
+| ![](./11-weeks/demo.png)    | 11 weeks    | All round watches | ✅ Done             	|

@@ -1,5 +1,5 @@
 # 11 weeks
-Watchface for Amazfit GTR Mini
+Watchface for Amazfit GTR Mini and for other round ZeppOS watch
 
 ![demo](./demo-gtr-mini.png)
 
