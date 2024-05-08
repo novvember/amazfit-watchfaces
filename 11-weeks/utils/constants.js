@@ -6,7 +6,14 @@ export const SCREEN = {
 };
 
 const lang = DeviceRuntimeCore.HmUtils.getLanguage();
-export const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
+const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
+
+export const COLORS = {
+  primary: 0xD9D9D9,
+  secondary: 0x3B3A3B,
+};
+
+export const FONT = 'fonts/Alatsi-Regular.ttf';
 
 export const GRID = {
   size: {
@@ -68,8 +75,8 @@ export const SECONDS_PROGRESS_BAR = {
 }
 
 export const ARC = {
-  colorBackground: 0x3B3A3B,
-  colorActive: 0xD9D9D9,
+  colorBackground: COLORS.secondary,
+  colorActive: COLORS.primary,
   radius: px(231),
   width: px(14),
 };
@@ -86,18 +93,14 @@ export const BATTERY = {
   angleEnd: 265,
 };
 
-export const UVI = {
-  x: px(37),
-  y: px(165),
-  angleStart: 275,
-  angleEnd: 310,
-};
-
 export const SLEEP = {
-  x: px(28),
-  y: px(165),
+  x: px(35),
+  y: px(156),
   angleStart: 275,
   angleEnd: 310,
+  width: px(50),
+  height: px(32),
+  textSize: px(20),
 }
 
 export const CONNECTION_STATUS = {

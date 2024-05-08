@@ -3,7 +3,7 @@ import { makeDigitMatrix } from '../utils/makeDigitMatrix';
 import { withWeakCache } from '../utils/withWeakCache';
 import { makeEmptyGrid } from '../utils/makeEmptyGrid';
 
-import { CALENDAR, DIGITS, GRID, SCREEN, SECONDS_PROGRESS_BAR, SLEEP, SPECIAL_CHARS } from '../utils/constants';
+import { CALENDAR, DIGITS, GRID, SCREEN, SECONDS_PROGRESS_BAR, COLORS } from '../utils/constants';
 
 import {
   getCellDateImageProps,
@@ -19,16 +19,13 @@ import {
   getBatteryTextImageProps,
   getBatteryArcBackgroundProps,
   getBatteryArcActiveProps,
-  getUvImageProps,
-  getUvTextImageProps,
-  getUvArcBackgroundProps,
-  getUvArcActiveProps,
   getConnectImageProps,
   getDisconnectImageProps,
   getAlarmOffImageProps,
   getAlarmOnImageProps,
   getSleepArcBackgroundProps,
   getSleepArcActiveProps,
+  getSleepTimeProps,
 } from './index.r.layout';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
@@ -48,7 +45,6 @@ WatchFace({
 
     this.buildSteps();
     this.buildBattery();
-    // this.buildUV();
     this.buildSleepTime();
 
     this.buildDisconnectionStatus();
@@ -58,8 +54,8 @@ WatchFace({
   onDestroy() {
     console.log('watchface on DESTROY invoke');
 
-    clearInterval(this.renderInterval);
-    clearInterval(this.renderSecondInterval);
+    clearInterval(this.renderGridInterval);
+    clearInterval(this.renderSecondsInterval);
   },
 
   getCalendarData(day, month, year) {
@@ -80,19 +76,19 @@ WatchFace({
           console.log('ui resume');
 
           if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-            this.renderInterval = setInterval(this.handleRenderInterval.bind(this), 500);
-            this.handleRenderInterval();
+            this.renderGridInterval = setInterval(this.handleRenderGridInterval.bind(this), 500);
+            this.handleRenderGridInterval();
           }
       },
       pause_call: () => {
           console.log('ui pause');
 
-          clearInterval(this.renderInterval);
+          clearInterval(this.renderGridInterval);
       },
     });
   },
 
-  handleRenderInterval() {
+  handleRenderGridInterval() {
     const { hour, minute, day } = hmSensor.createSensor(hmSensor.id.TIME);
     const newTime = [hour, minute].join('-');
 
@@ -222,7 +218,7 @@ WatchFace({
 
     const progressBar = hmUI.createWidget(hmUI.widget.IMG, null);
 
-    const handleRenderSecondInterval = () => {
+    const handleRenderSecondsInterval = () => {
       const { second } = hmSensor.createSensor(hmSensor.id.TIME);
       const newSecondRound = Math.round(second / 10) * 10;
   
@@ -239,14 +235,14 @@ WatchFace({
           console.log('ui resume');
 
           if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-            this.renderSecondInterval = setInterval(handleRenderSecondInterval, 500);
-            handleRenderSecondInterval();
+            this.renderSecondsInterval = setInterval(handleRenderSecondsInterval, 500);
+            handleRenderSecondsInterval();
           }
       },
       pause_call: () => {
           console.log('ui pause');
 
-          clearInterval(this.renderSecondInterval);
+          clearInterval(this.renderSecondsInterval);
       },
     });
   },
@@ -263,35 +259,35 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getBatteryArcActiveProps());
   },
 
-  buildUV() {
-    hmUI.createWidget(hmUI.widget.IMG, getUvImageProps());
-    hmUI.createWidget(hmUI.widget.TEXT_IMG, getUvTextImageProps());
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getUvArcBackgroundProps());
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getUvArcActiveProps());
-  },
-
   buildSleepTime() {
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getSleepArcBackgroundProps());
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getSleepArcActiveProps());
 
+    const sleepTimeWidget = hmUI.createWidget(hmUI.widget.TEXT, getSleepTimeProps());
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
-    const updateSleepWidget = this.createCustomTimeWidget(SLEEP.x, SLEEP.y);
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-          console.log('ui resume');
+        console.log('ui resume');
 
-          if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-            const sleepTime = sleepSensor.getTotalTime();
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          const sleepTime = sleepSensor.getTotalTime();
 
-            if (sleepTime) {
-              const hh = Math.floor(sleepTime / 60).toString().padStart(2, ' ');
-              const mm = (sleepTime % 60).toString().padStart(2, '0');
-              updateSleepWidget(`${hh}:${mm}`);
-            } else {
-              updateSleepWidget('--:--');
-            }
+          if (sleepTime) {
+            const hh = Math.floor(sleepTime / 60).toString();
+            const mm = (sleepTime % 60).toString().padStart(2, '0');
+
+            sleepTimeWidget.setProperty(hmUI.widget.MORE, {
+              text: `${hh}:${mm}`,
+              color: COLORS.primary,
+            });
+          } else {
+            sleepTimeWidget.setProperty(hmUI.widget.MORE, {
+              text: '--:--',
+              color: COLORS.secondary,
+            });
           }
+        }
       }
     });
   },
@@ -305,56 +301,4 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.IMG, getAlarmOffImageProps());
     hmUI.createWidget(hmUI.widget.IMG_STATUS, getAlarmOnImageProps());
   },
-
-  /**
-   * Creates custom text image widget to display time in 00:00 format
-   * - string value will be represented with individual regular IMG-widgets
-   * - supported symbols: digits ('0-9'), colon (':'), space (' '), minus ('-')
-   * - update function will update only values of individual images
-   * - update function won't update coordinates of individual images
-   * @param {Number} x - x-coordinate of first char
-   * @param {Number} y - y-coordinate of whole text line
-   * @param {String='--:--'} time - initial value
-   * @returns {Function: String => void} - function to update widget value
-   */
-  createCustomTimeWidget(x, y, time = '--:--') {
-    const chars = time.split('');
-    const xCoords = [];
-
-    const CHAR_WIDTH_MAP = {
-      ' ': SPECIAL_CHARS.colon.width,
-      '-': SPECIAL_CHARS.minus.width,
-      ':': SPECIAL_CHARS.colon.width,
-    };
-
-    const CHAR_SRC_MAP = {
-      ' ': 'empty.png',
-      '-': SPECIAL_CHARS.minus.src,
-      ':': SPECIAL_CHARS.colon.src,
-    };
-
-    const getCharWidth = char => CHAR_WIDTH_MAP[char] ?? DIGITS.width;
-    const getCharSrc = char => CHAR_SRC_MAP[char] ?? DIGITS.images[char];
-
-    chars.forEach((_, index) => {
-      if (index === 0) xCoords.push(x);
-      else xCoords.push(xCoords[index - 1] + getCharWidth(chars[index - 1]));
-    });
-
-    const widgets = chars
-      .map((char, index) => hmUI.createWidget(hmUI.widget.IMG, {
-        x: xCoords[index],
-        y,
-        src: getCharSrc(char),
-        show_level: hmUI.show_level.ONLY_NORMAL,
-      }));
-
-    const updateWidgets = withWeakCache(text => {
-      console.log('custom time widget rerendered');
-
-      widgets.forEach((widget, index) => widget.setProperty(hmUI.prop.SRC, getCharSrc(text[index])));
-    });
-
-    return updateWidgets;
-  }
 });

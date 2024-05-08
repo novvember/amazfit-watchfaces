@@ -8,11 +8,10 @@ import {
   SECONDS_PROGRESS_BAR,
   STEPS,
   BATTERY,
-  UVI,
   SLEEP,
   CONNECTION_STATUS,
   ALARM_STATUS,
-  isRusLang
+  FONT,
 } from '../utils/constants';
 
 // CELL
@@ -169,55 +168,6 @@ export function getBatteryArcActiveProps() {
   };
 }
 
-// UVI
-export function getUvImageProps() {
-  return {
-    x: UVI.x,
-    y: UVI.y,
-    src: isRusLang ? 'uvi_rus.png' : 'uvi.png',
-    show_level: hmUI.show_level.ONLY_NORMAL,
-  };
-}
-
-export function getUvTextImageProps() {
-  return {
-    x: UVI.x + px(34),
-    y: UVI.y,
-    type: hmUI.data_type.UVI,
-    font_array: DIGITS.images,
-    show_level: hmUI.show_level.ONLY_NORMAL,
-  };
-}
-
-export function getUvArcBackgroundProps() {
-  return {
-    center_x: SCREEN.centerX,
-    center_y: SCREEN.centerY,
-    radius: ARC.radius,
-    start_angle: UVI.angleStart,
-    end_angle: UVI.angleEnd,
-    color: ARC.colorBackground,
-    line_width: ARC.width,
-    level: 100,
-    show_level: hmUI.show_level.ONLY_NORMAL,
-  };
-}
-
-export function getUvArcActiveProps() {
-  return {
-    center_x: SCREEN.centerX,
-    center_y: SCREEN.centerY,
-    start_angle: UVI.angleStart,
-    end_angle: UVI.angleEnd,
-    radius: ARC.radius,
-    line_width: ARC.width,
-    corner_flag: 0,
-    color: ARC.colorActive,
-    type: hmUI.data_type.UVI,
-    show_level: hmUI.show_level.ONLY_NORMAL,
-  };
-}
-
 // SLEEP TIME
 export function getSleepArcBackgroundProps() {
   return {
@@ -244,6 +194,22 @@ export function getSleepArcActiveProps() {
     corner_flag: 0,
     color: ARC.colorActive,
     type: hmUI.data_type.SLEEP,
+    show_level: hmUI.show_level.ONLY_NORMAL,
+  };
+}
+
+export function getSleepTimeProps() {
+  return {
+    x: SLEEP.x,
+    y: SLEEP.y,
+    w: SLEEP.width,
+    h: SLEEP.height,
+    color: 0x000000,
+    text_size: SLEEP.textSize,
+    align_h: hmUI.align.LEFT,
+    align_v: hmUI.align.CENTER_V,
+    font: FONT,
+    text: '',
     show_level: hmUI.show_level.ONLY_NORMAL,
   };
 }
