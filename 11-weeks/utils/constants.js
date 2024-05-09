@@ -10,7 +10,7 @@ export const SCREEN = {
 
 export const COLORS = {
   primary: 0xd9d9d9,
-  secondary: 0x3b3a3b,
+  secondary: 0x343334,
 };
 
 export const FONT = 'fonts/Alatsi-Regular.ttf';
