@@ -9,7 +9,7 @@ function getWakeTime(sleepSensor) {
   const sleepStages = sleepSensor.getSleepStageData();
 
   return sleepStages
-    .filter(stage => stage.model === modelData.WAKE_STAGE)
+    .filter((stage) => stage.model === modelData.WAKE_STAGE)
     .reduce((sum, { start, stop }) => sum + stop - start + 1, 0);
 }
 

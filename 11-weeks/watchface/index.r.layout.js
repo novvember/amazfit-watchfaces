@@ -57,7 +57,10 @@ export function getMonthImageProps(cellToLeft, value) {
 export function getWeekDayImageProps(cellToBottom, index) {
   return {
     x: cellToBottom.centerPosition.x - CALENDAR.weekDay.width / 2,
-    y: cellToBottom.centerPosition.y - CALENDAR.date.height / 2 - CALENDAR.weekDay.height,
+    y:
+      cellToBottom.centerPosition.y -
+      CALENDAR.date.height / 2 -
+      CALENDAR.weekDay.height,
     src: CALENDAR.weekDay.images[index],
     show_level: hmUI.show_level.ONLY_NORMAL,
   };
@@ -66,7 +69,7 @@ export function getWeekDayImageProps(cellToBottom, index) {
 // SECONDS
 export function getSecondsImageTimeProps(x, y) {
   return {
-    second_zero: 0, 
+    second_zero: 0,
     second_startX: x,
     second_startY: y,
     second_array: DIGITS.images,
@@ -223,7 +226,7 @@ export function getConnectImageProps() {
     h: CONNECTION_STATUS.height,
     src: 'connect/connect.png',
     show_level: hmUI.show_level.ONLY_NORMAL,
-  }
+  };
 }
 
 export function getDisconnectImageProps() {
@@ -245,7 +248,7 @@ export function getAlarmOffImageProps() {
     h: ALARM_STATUS.height,
     src: 'alarm/alarm_off.png',
     show_level: hmUI.show_level.ONLY_NORMAL,
-  }
+  };
 }
 
 export function getAlarmOnImageProps() {

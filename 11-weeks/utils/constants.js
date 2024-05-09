@@ -1,3 +1,6 @@
+const lang = DeviceRuntimeCore.HmUtils.getLanguage();
+const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
+
 const { width, height } = hmSetting.getDeviceInfo();
 
 export const SCREEN = {
@@ -5,12 +8,9 @@ export const SCREEN = {
   centerY: height / 2,
 };
 
-const lang = DeviceRuntimeCore.HmUtils.getLanguage();
-const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
-
 export const COLORS = {
-  primary: 0xD9D9D9,
-  secondary: 0x3B3A3B,
+  primary: 0xd9d9d9,
+  secondary: 0x3b3a3b,
 };
 
 export const FONT = 'fonts/Alatsi-Regular.ttf';
@@ -24,45 +24,41 @@ export const GRID = {
     width: px(32),
     height: px(32),
   },
-}
+};
 
 export const CALENDAR = {
   currentWeekIndex: 3,
   date: {
-    width: px(32),
-    height: px(32),
+    width: GRID.cell.width,
+    height: GRID.cell.height,
   },
   weekDay: {
-    width: px(32),
-    height: px(32),
-    images: new Array(7).fill(null).map((_, i) => `${isRusLang ? 'week_rus' : 'week'}/${i}.png`),
+    width: GRID.cell.width,
+    height: GRID.cell.height,
+    images: new Array(7)
+      .fill(null)
+      .map((_, i) => `${isRusLang ? 'week_rus' : 'week'}/${i}.png`),
   },
   year: {
-    width: px(32),
-    height: px(32),
+    width: GRID.cell.width,
+    height: GRID.cell.height,
   },
   month: {
-    width: px(36),
-    height: px(32),
-    images: new Array(12).fill(null).map((_, i) => `${isRusLang ? 'month_rus' : 'month'}/${i}.png`),
-  }
-}
+    width: px(40),
+    height: GRID.cell.height,
+    images: new Array(12)
+      .fill(null)
+      .map((_, i) => `${isRusLang ? 'month_rus' : 'month'}/${i}.png`),
+  },
+};
 
 export const DIGITS = {
   width: px(12),
   height: px(18),
   images: new Array(10).fill(null).map((_, i) => `digits/${i}.png`),
-}
+};
 
 export const SPECIAL_CHARS = {
-  colon: {
-    width: px(4),
-    src: 'special_chars/colon.png',
-  },
-  minus: {
-    width: px(12),
-    src: 'special_chars/minus.png',
-  },
   percent: {
     width: px(19),
     src: 'special_chars/percent.png',
@@ -71,8 +67,8 @@ export const SPECIAL_CHARS = {
 
 export const SECONDS_PROGRESS_BAR = {
   width: px(224),
-  height: px(32),
-}
+  height: GRID.cell.height,
+};
 
 export const ARC = {
   colorBackground: COLORS.secondary,
@@ -101,7 +97,7 @@ export const SLEEP = {
   width: px(50),
   height: px(32),
   textSize: px(21),
-}
+};
 
 export const CONNECTION_STATUS = {
   width: px(28),

@@ -10,5 +10,5 @@ export function withWeakCache(fn) {
     }
 
     return prevResult;
-  }
+  };
 }

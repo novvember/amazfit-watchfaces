@@ -99,7 +99,8 @@ function fillMatrixWithDigit(matrix, y0, x0, digit) {
 
   for (let y = y0; y < y1; y++) {
     for (let x = x0; x < x1; x++) {
-      if (matrix[y]?.[x] !== undefined) matrix[y][x] = digitMatrix[y - y0][x - x0];
+      if (matrix[y]?.[x] !== undefined)
+        matrix[y][x] = digitMatrix[y - y0][x - x0];
     }
   }
 }
@@ -113,13 +114,20 @@ export function makeDigitMatrix(hours, mins, width, height) {
   const hoursDigits = hours.toString().padStart(2, '0').split('').map(Number);
   const minsDigits = mins.toString().padStart(2, '0').split('').map(Number);
 
-  const matrix = new Array(height).fill(null).map(() => new Array(width).fill(0));
+  const matrix = new Array(height)
+    .fill(null)
+    .map(() => new Array(width).fill(0));
 
   fillMatrixWithDigit(matrix, 0, 0, hoursDigits[0]);
   fillMatrixWithDigit(matrix, 0, DIGIT_WIDTH + COLUMN_GAP, hoursDigits[1]);
 
   fillMatrixWithDigit(matrix, DIGIT_HEIGHT + ROW_GAP, 0, minsDigits[0]);
-  fillMatrixWithDigit(matrix, DIGIT_HEIGHT + ROW_GAP, DIGIT_WIDTH + COLUMN_GAP, minsDigits[1]);
+  fillMatrixWithDigit(
+    matrix,
+    DIGIT_HEIGHT + ROW_GAP,
+    DIGIT_WIDTH + COLUMN_GAP,
+    minsDigits[1],
+  );
 
   return matrix;
 }

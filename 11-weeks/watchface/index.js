@@ -4,7 +4,14 @@ import { withWeakCache } from '../utils/withWeakCache';
 import { makeEmptyGrid } from '../utils/makeEmptyGrid';
 import { getSleepTimeString } from '../utils/getSleepTime';
 
-import { CALENDAR, DIGITS, GRID, SCREEN, SECONDS_PROGRESS_BAR, COLORS } from '../utils/constants';
+import {
+  CALENDAR,
+  DIGITS,
+  GRID,
+  SCREEN,
+  SECONDS_PROGRESS_BAR,
+  COLORS,
+} from '../utils/constants';
 
 import {
   getCellDateImageProps,
@@ -60,31 +67,53 @@ WatchFace({
   },
 
   getCalendarData(day, month, year) {
-    return makeCalendarDataCached(day, month, year, GRID.size.columns, GRID.size.rows, CALENDAR.currentWeekIndex);
+    return makeCalendarDataCached(
+      day,
+      month,
+      year,
+      GRID.size.columns,
+      GRID.size.rows,
+      CALENDAR.currentWeekIndex,
+    );
   },
 
   getDigitMatrix(hour, minute) {
-    return makeDigitMatrixCached(hour, minute, GRID.size.columns, GRID.size.rows);
+    return makeDigitMatrixCached(
+      hour,
+      minute,
+      GRID.size.columns,
+      GRID.size.rows,
+    );
   },
 
   buildGrid() {
-    this.grid = makeEmptyGrid(SCREEN.centerX, SCREEN.centerY, GRID.size.columns, GRID.size.rows, GRID.cell.width, GRID.cell.height);
+    this.grid = makeEmptyGrid(
+      SCREEN.centerX,
+      SCREEN.centerY,
+      GRID.size.columns,
+      GRID.size.rows,
+      GRID.cell.width,
+      GRID.cell.height,
+    );
     this.years = new Array(GRID.size.rows).fill(null);
     this.months = new Array(GRID.size.rows).fill(null);
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-          console.log('ui resume');
+        console.log('ui resume');
 
-          if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-            this.renderGridInterval = setInterval(this.handleRenderGridInterval.bind(this), 500);
-            this.handleRenderGridInterval();
-          }
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          this.renderGridInterval = setInterval(
+            this.handleRenderGridInterval.bind(this),
+            500,
+          );
+          this.handleRenderGridInterval();
+        }
       },
       pause_call: () => {
-          console.log('ui pause');
+        console.log('ui pause');
 
-          clearInterval(this.renderGridInterval);
+        clearInterval(this.renderGridInterval);
       },
     });
   },
@@ -108,7 +137,9 @@ WatchFace({
   renderGrid() {
     console.log('grid rerendered');
 
-    const { hour, minute, day, month, year } = hmSensor.createSensor(hmSensor.id.TIME);
+    const { hour, minute, day, month, year } = hmSensor.createSensor(
+      hmSensor.id.TIME,
+    );
 
     const digitMatrix = this.getDigitMatrix(hour, minute);
     const { dateMatrix } = this.getCalendarData(day, month, year);
@@ -127,7 +158,7 @@ WatchFace({
 
         const isPartOfBigDigit = digitMatrix[row][column];
         const isCurrentDay = dateMatrix[row][column].isCurrentDay;
-        
+
         let newStatus = isPartOfBigDigit ? 'active' : 'normal';
         if (isCurrentDay) newStatus += '_today';
 
@@ -138,7 +169,7 @@ WatchFace({
 
           backgroundImageWidget.setProperty(
             hmUI.prop.MORE,
-            getCellBackgroundImageProps(centerPosition, newStatus)
+            getCellBackgroundImageProps(centerPosition, newStatus),
           );
         }
 
@@ -147,7 +178,11 @@ WatchFace({
 
           dateWidget.setProperty(
             hmUI.prop.MORE,
-            getCellDateImageProps(centerPosition, newDateText, isPartOfBigDigit)
+            getCellDateImageProps(
+              centerPosition,
+              newDateText,
+              isPartOfBigDigit,
+            ),
           );
         }
       }
@@ -166,12 +201,18 @@ WatchFace({
       const cellToRight = this.grid[row][0];
 
       if (widget === null && value !== null) {
-        this.years[row] = hmUI.createWidget(hmUI.widget.IMG, getYearImageProps(cellToRight, value));
+        this.years[row] = hmUI.createWidget(
+          hmUI.widget.IMG,
+          getYearImageProps(cellToRight, value),
+        );
       } else if (widget !== null && value === null) {
         hmUI.deleteWidget(widget);
         this.years[row] = null;
       } else if (widget !== null && value !== null) {
-        widget.setProperty(hmUI.prop.MORE, getYearImageProps(cellToRight, value));
+        widget.setProperty(
+          hmUI.prop.MORE,
+          getYearImageProps(cellToRight, value),
+        );
       }
     }
   },
@@ -188,12 +229,18 @@ WatchFace({
       const cellToLeft = this.grid[row][GRID.size.columns - 1];
 
       if (widget === null && value !== null) {
-        this.months[row] = hmUI.createWidget(hmUI.widget.IMG, getMonthImageProps(cellToLeft, value));
+        this.months[row] = hmUI.createWidget(
+          hmUI.widget.IMG,
+          getMonthImageProps(cellToLeft, value),
+        );
       } else if (widget !== null && value === null) {
         hmUI.deleteWidget(widget);
         this.months[row] = null;
       } else if (widget !== null && value !== null) {
-        widget.setProperty(hmUI.prop.MORE, getMonthImageProps(cellToLeft, value));
+        widget.setProperty(
+          hmUI.prop.MORE,
+          getMonthImageProps(cellToLeft, value),
+        );
       }
     }
   },
@@ -201,8 +248,11 @@ WatchFace({
   buildWeekDays() {
     new Array(7).fill(null).map((_, index) => {
       const cellToBottom = this.grid[0][index];
-      hmUI.createWidget(hmUI.widget.IMG, getWeekDayImageProps(cellToBottom, index));
-    })
+      hmUI.createWidget(
+        hmUI.widget.IMG,
+        getWeekDayImageProps(cellToBottom, index),
+      );
+    });
   },
 
   buildSeconds() {
@@ -210,40 +260,58 @@ WatchFace({
     const centralBottomCell = bottomRow[Math.floor(bottomRow.length / 2)];
 
     const secondX = centralBottomCell.centerPosition.x - DIGITS.width;
-    const secondY = centralBottomCell.centerPosition.y + GRID.cell.height - DIGITS.height / 2;
+    const secondY =
+      centralBottomCell.centerPosition.y + GRID.cell.height - DIGITS.height / 2;
 
-    const progressBarX = centralBottomCell.centerPosition.x - SECONDS_PROGRESS_BAR.width / 2;
-    const progressBarY = centralBottomCell.centerPosition.y + GRID.cell.height - SECONDS_PROGRESS_BAR.height / 2;;
+    const progressBarX =
+      centralBottomCell.centerPosition.x - SECONDS_PROGRESS_BAR.width / 2;
+    const progressBarY =
+      centralBottomCell.centerPosition.y +
+      GRID.cell.height -
+      SECONDS_PROGRESS_BAR.height / 2;
 
-    hmUI.createWidget(hmUI.widget.IMG_TIME, getSecondsImageTimeProps(secondX, secondY));
+    hmUI.createWidget(
+      hmUI.widget.IMG_TIME,
+      getSecondsImageTimeProps(secondX, secondY),
+    );
 
     const progressBar = hmUI.createWidget(hmUI.widget.IMG, null);
 
     const handleRenderSecondsInterval = () => {
       const { second } = hmSensor.createSensor(hmSensor.id.TIME);
       const newSecondRound = Math.round(second / 10) * 10;
-  
+
       if (this.secondRound !== newSecondRound) {
         console.log('seconds progress bar rerendered');
 
         this.secondRound = newSecondRound;
-        progressBar.setProperty(hmUI.prop.MORE, getSecondProgressBarImageProps(progressBarX, progressBarY, newSecondRound));
+        progressBar.setProperty(
+          hmUI.prop.MORE,
+          getSecondProgressBarImageProps(
+            progressBarX,
+            progressBarY,
+            newSecondRound,
+          ),
+        );
       }
-    }
+    };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-          console.log('ui resume');
+        console.log('ui resume');
 
-          if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-            this.renderSecondsInterval = setInterval(handleRenderSecondsInterval, 500);
-            handleRenderSecondsInterval();
-          }
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          this.renderSecondsInterval = setInterval(
+            handleRenderSecondsInterval,
+            500,
+          );
+          handleRenderSecondsInterval();
+        }
       },
       pause_call: () => {
-          console.log('ui pause');
+        console.log('ui pause');
 
-          clearInterval(this.renderSecondsInterval);
+        clearInterval(this.renderSecondsInterval);
       },
     });
   },
@@ -264,7 +332,10 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getSleepArcBackgroundProps());
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getSleepArcActiveProps());
 
-    const sleepTimeWidget = hmUI.createWidget(hmUI.widget.TEXT, getSleepTimeProps());
+    const sleepTimeWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      getSleepTimeProps(),
+    );
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -286,7 +357,7 @@ WatchFace({
             });
           }
         }
-      }
+      },
     });
   },
 
