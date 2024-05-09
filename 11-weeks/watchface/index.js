@@ -2,6 +2,7 @@ import { makeCalendarData } from '../utils/makeCalendarData';
 import { makeDigitMatrix } from '../utils/makeDigitMatrix';
 import { withWeakCache } from '../utils/withWeakCache';
 import { makeEmptyGrid } from '../utils/makeEmptyGrid';
+import { getSleepTimeString } from '../utils/getSleepTime';
 
 import { CALENDAR, DIGITS, GRID, SCREEN, SECONDS_PROGRESS_BAR, COLORS } from '../utils/constants';
 
@@ -271,19 +272,16 @@ WatchFace({
         console.log('ui resume');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          const sleepTime = sleepSensor.getTotalTime();
+          const sleepTime = getSleepTimeString(sleepSensor);
 
           if (sleepTime) {
-            const hh = Math.floor(sleepTime / 60).toString();
-            const mm = (sleepTime % 60).toString().padStart(2, '0');
-
             sleepTimeWidget.setProperty(hmUI.widget.MORE, {
-              text: `${hh}:${mm}`,
+              text: sleepTime,
               color: COLORS.primary,
             });
           } else {
             sleepTimeWidget.setProperty(hmUI.widget.MORE, {
-              text: '--:--',
+              text: '— —',
               color: COLORS.secondary,
             });
           }

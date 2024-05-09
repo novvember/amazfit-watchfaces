@@ -100,7 +100,7 @@ export const SLEEP = {
   angleEnd: 310,
   width: px(50),
   height: px(32),
-  textSize: px(20),
+  textSize: px(21),
 }
 
 export const CONNECTION_STATUS = {
