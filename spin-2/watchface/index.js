@@ -1,344 +1,270 @@
-const { width, height } = hmSetting.getDeviceInfo();
-const centerX = width / 2;
-const centerY = height  / 2;
+import { DATE, MINUTES, SCREEN, SECONDS } from '../utils/constants';
+import { getCoordsFromAngle } from '../utils/getCoordsFromAngle';
+import { getAngleFromSeconds } from '../utils/getAngleFromSeconds';
 
-function calculateRadialPosition(min, sec = 0) {
-  const angle =  (min + sec / 60) * Math.PI / 30
-  return {
-    x: Math.sin(angle),
-    y: -1 * Math.cos(angle),
-  }
-}
-
-function secondsToAngle(seconds) {
-  return seconds * 6;
-}
+import {
+  getDateCircleProps,
+  getDateTextProps,
+  getDisconnectProps,
+  getHoursCircleProps,
+  getHoursTextProps,
+  getMinutesCircleProps,
+  getMinutesTextProps,
+  getSecondsAnimationProps,
+  getSecondsFakePointerProps,
+  getSecondsImageProps,
+  getStepsArcActiveProps,
+  getStepsArcBackgroundProps,
+  getStepsValueProps,
+  getUVICircleProps,
+  getUVITextProps,
+  getUVIValueProps,
+  getWeekdayTextProps,
+} from './index.r.layout';
 
 WatchFace({
   onInit() {
-    console.log('index page.js on init invoke')
+    console.log('index page.js on init invoke');
   },
 
   build() {
-    console.log('index page.js on build invoke')
+    console.log('index page.js on build invoke');
 
     this.buildDate();
     this.buildUvIndex();
     this.buildConnectionStatus();
     this.buildStepCounter();
-    this.buildCenter();
+
     this.buildHours();
     this.buildMinutes();
     this.buildSeconds();
   },
 
   onDestroy() {
-    console.log('index page.js on destroy invoke')
-  },
+    console.log('index page.js on destroy invoke');
 
-  buildCenter() {
-    hmUI.createWidget(hmUI.widget.IMG, {
-      x: 0,
-      y: 0,
-      w: width,
-      h: height,
-      src: 'center.png',
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    });
+    timer.stopTimer(this.updateHoursTimer);
+    timer.stopTimer(this.updateMinutesTimer);
+    timer.stopTimer(this.updateDateTimer);
   },
 
   buildHours() {
-    const DIGIT_HEIGHT = 76;
-    const DIGIT_WIDTH = 56;
+    hmUI.createWidget(hmUI.widget.CIRCLE, getHoursCircleProps());
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, getHoursTextProps());
 
-    hmUI.createWidget(hmUI.widget.IMG_TIME, {
-      hour_zero: 0,
-      hour_startX: centerX - DIGIT_WIDTH,
-      hour_startY: centerY - DIGIT_HEIGHT / 2,
-      hour_array: new Array(10).fill(null).map((_, i) => `hours/${i}.png`),
-      hour_align: hmUI.align.CENTER_H,
-      show_level: hmUI.show_level.ONLY_NORMAL,
+    const update = () => {
+      const { hour } = hmSensor.createSensor(hmSensor.id.TIME);
+      textWidget.setProperty(hmUI.prop.TEXT, hour.toString());
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          this.updateHoursTimer = timer.createTimer(1000, 1000, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        console.log('ui pause');
+
+        timer.stopTimer(this.updateHoursTimer);
+      },
     });
   },
 
   buildMinutes() {
-    const DIGIT_HEIGHT = 30;
-    const DIGIT_WIDTH = 22;
-    const BUBBLE_SIZE = 60;
-    const BUBBLE_PADDING = 10;
-    const MINUTE_RADIUS = 200 / 2;
+    const circleWidget = hmUI.createWidget(
+      hmUI.widget.CIRCLE,
+      getMinutesCircleProps(),
+    );
 
-    const minuteBubble = hmUI.createWidget(hmUI.widget.IMG, {
-      pos_x: BUBBLE_PADDING,
-      pos_y: BUBBLE_PADDING,
-      w: BUBBLE_SIZE + BUBBLE_PADDING * 2,
-      h: BUBBLE_SIZE + BUBBLE_PADDING * 2,
-      center_x: BUBBLE_SIZE / 2 + BUBBLE_PADDING,
-      center_y: BUBBLE_SIZE / 2 + BUBBLE_PADDING,
-      src: 'minute-bubble.png',
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    });
+    const textWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      getMinutesTextProps(),
+    );
 
-    const minuteDigit0 = hmUI.createWidget(hmUI.widget.IMG, false);
-    const minuteDigit1 = hmUI.createWidget(hmUI.widget.IMG, false);
-
-    const updateMinutes = () => {
+    const update = () => {
       const { minute, second } = hmSensor.createSensor(hmSensor.id.TIME);
-      const digits = minute.toString().padStart(2, '0');
-      const { x, y } = calculateRadialPosition(minute, second);
-      const minuteCenterX = MINUTE_RADIUS * x + centerX;
-      const minuteCenterY = MINUTE_RADIUS * y + centerY;
+      const { x, y } = getCoordsFromAngle(minute, second);
+      const centerX = MINUTES.orbitRadius * x + SCREEN.centerX;
+      const centerY = MINUTES.orbitRadius * y + SCREEN.centerY;
+      const textX = centerX - MINUTES.radius;
+      const textY = centerY - MINUTES.radius;
+      const textValue = minute.toString().padStart(2, '0');
 
-      minuteBubble.setProperty(hmUI.prop.MORE, {
-        x: minuteCenterX - BUBBLE_SIZE / 2 - BUBBLE_PADDING,
-        y: minuteCenterY - BUBBLE_SIZE / 2 - BUBBLE_PADDING,
-        angle: 6 * (minute + second / 60),
-      });
+      circleWidget.setProperty(
+        hmUI.prop.MORE,
+        getMinutesCircleProps(centerX, centerY),
+      );
 
-      minuteDigit0.setProperty(hmUI.prop.MORE, {
-        x: minuteCenterX - DIGIT_WIDTH,
-        y: minuteCenterY - DIGIT_HEIGHT / 2,
-        src: `minutes/${digits[0]}.png`,
-        show_level: hmUI.show_level.ONLY_NORMAL,
-      });
-
-      minuteDigit1.setProperty(hmUI.prop.MORE, {
-        x: minuteCenterX + 1,
-        y: minuteCenterY - DIGIT_HEIGHT / 2,
-        src: `minutes/${digits[1]}.png`,
-        show_level: hmUI.show_level.ONLY_NORMAL,
-      });
-    }
+      textWidget.setProperty(
+        hmUI.prop.MORE,
+        getMinutesTextProps(textX, textY, textValue),
+      );
+    };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
-        resume_call: (function () {
-            console.log('ui resume');
-            updateMinutes();
-        }),
-        pause_call: (function () {
-            console.log('ui pause');
-        }),
-    });
+      resume_call: () => {
+        console.log('ui resume');
 
-    updateMinutes();
-    setInterval(updateMinutes, 1000);
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          this.updateMinutesTimer = timer.createTimer(1000, 1000, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        console.log('ui pause');
+
+        timer.stopTimer(this.updateMinutesTimer);
+      },
+    });
   },
 
   buildSeconds() {
-    const ANIMATION_DURATION = 1000;
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
     let animationTimer = undefined;
-    let lastTime = 0;
+    let prevTime = 0;
 
-    hmUI.createWidget(hmUI.widget.TIME_POINTER, {
-      second_centerX: centerX,
-      second_centerY: centerY,
-      second_posX: centerX,
-      second_posY: centerY,
-      second_path: 'empty.png',
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    });
-
-    const secondImg = hmUI.createWidget(hmUI.widget.IMG, {
-      x: 0,
-      y: 0,
-      pos_x: 193,
-      pos_y: 53,
-      w: width,
-      h: height,
-      src: 'second.png',
-      center_x: centerX,
-      center_y: centerY,
-      angle: 0,
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    });
+    hmUI.createWidget(hmUI.widget.TIME_POINTER, getSecondsFakePointerProps());
+    const widget = hmUI.createWidget(hmUI.widget.IMG, getSecondsImageProps());
 
     const startAnimation = () => {
-      const time = hmSensor.createSensor(hmSensor.id.TIME);
-      lastTime = time;
-      const seconds = time.second;
-      const prevAngle = secondImg.getProperty(hmUI.prop.ANIM)?.anim_steps
-        ?.anim_to;
+      const { second, utc } = timeSensor;
+      prevTime = utc;
 
-      const animationProps = {
-        anim_steps: [
-          {
-            anim_rate: 'linear',
-            anim_duration: ANIMATION_DURATION,
-            anim_from: prevAngle || secondsToAngle(seconds),
-            anim_to: secondsToAngle(seconds + ANIMATION_DURATION / 1000),
-            anim_key: 'angle',
-          },
-        ],
-        anim_fps: 25,
-        anim_auto_start: 1,
-        anim_auto_destroy: 1,
-        anim_repeat: 1,
-      };
+      const angle =
+        widget.getProperty(hmUI.prop.ANIM)?.anim_steps?.anim_to ||
+        getAngleFromSeconds(second);
+      const nextAngle = getAngleFromSeconds(
+        second + SECONDS.animationDuration / 1000,
+      );
 
-      secondImg.setProperty(hmUI.prop.ANIM, animationProps);
+      widget.setProperty(
+        hmUI.prop.ANIM,
+        getSecondsAnimationProps(angle, nextAngle),
+      );
     };
 
-    const handleAnimation = () => {
-      hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
-        resume_call: () => {
-          console.log('ui resume');
+    const stopAnimation = () => {
+      if (animationTimer) {
+        timer.stopTimer(animationTimer);
+        animationTimer = undefined;
+      }
+    };
 
-          if (hmSetting.getScreenType() !== hmSetting.screen_type.WATCHFACE) {
-            return stopSecAnim();
-          }
-          
-          if (animationTimer) {
-            return;
-          }
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
 
-          const time = hmSensor.createSensor(hmSensor.id.TIME);
-          const diffTime = time - lastTime;
-          const duration =
-            diffTime < ANIMATION_DURATION ? ANIMATION_DURATION - diffTime : 0;
+        if (hmSetting.getScreenType() === hmSetting.screen_type.AOD) {
+          stopAnimation();
+          return;
+        }
 
-          animationTimer = timer.createTimer(
-            duration,
-            ANIMATION_DURATION,
-            () => {
-              startAnimation();
-            },
-          );
+        if (animationTimer) {
+          return;
+        }
 
+        const diffTime = timeSensor.utc - prevTime;
+        const delay =
+          diffTime < SECONDS.animationDuration
+            ? SECONDS.animationDuration - diffTime
+            : SECONDS.animationDuration;
+
+        console.log(diffTime, delay);
+
+        animationTimer = timer.createTimer(
+          delay,
+          SECONDS.animationDuration,
+          startAnimation,
+        );
+
+        if (delay === SECONDS.animationDuration) {
           startAnimation();
-        },
-        pause_call: function () {
-          console.log('ui pause');
-          if (animationTimer) {
-            timer.stopTimer(animationTimer);
-            animationTimer = undefined;
-          }
-        },
-      });
-    };
+        }
+      },
+      pause_call: function () {
+        console.log('ui pause');
 
-    handleAnimation();
+        stopAnimation();
+      },
+    });
   },
 
   buildDate() {
-    const BUBBLE_SIZE = 30;
-    const BUBLE_RADIUS = 370 / 2;
-    const DIGIT_HEIGHT = 18;
-    const DIGIT_WIDTH = 14;
+    let prevDay = 0;
 
-    hmUI.createWidget(hmUI.widget.IMG, {
-      x: centerX - BUBBLE_SIZE / 2,
-      y: centerY + BUBLE_RADIUS - BUBBLE_SIZE / 2,
-      src: 'value-bubble.png',
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    });
+    hmUI.createWidget(hmUI.widget.CIRCLE, getDateCircleProps());
+    const dateWidget = hmUI.createWidget(hmUI.widget.TEXT, null);
+    const weekdayWidget = hmUI.createWidget(hmUI.widget.TEXT, null);
 
-    hmUI.createWidget(hmUI.widget.IMG_DATE, {
-      day_startX: centerX - DIGIT_WIDTH,
-      day_startY: centerY + BUBLE_RADIUS - DIGIT_HEIGHT / 2,
-      day_en_array: new Array(10).fill(null).map((_, i) => `values-secondary/${i}.png`),
-      day_align: hmUI.align.CENTER_H,
-      day_zero: 0,
-      day_follow: 0,
-      day_space: 0,
-      day_is_character: false,
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    })
+    const update = () => {
+      const { day, week } = hmSensor.createSensor(hmSensor.id.TIME);
 
-    hmUI.createWidget(hmUI.widget.IMG_WEEK, {
-      x: centerX + BUBBLE_SIZE / 2 + 7,
-      y: centerY + BUBLE_RADIUS - DIGIT_HEIGHT / 2,
-      week_en: new Array(7).fill(null).map((_, i) => `weekday/${i}.png`),
-      show_level: hmUI.show_level.ONLY_NORMAL,
+      if (prevDay !== day) {
+        console.log('date rerendered');
+
+        prevDay = day;
+        dateWidget.setProperty(hmUI.prop.MORE, getDateTextProps(day));
+        weekdayWidget.setProperty(
+          hmUI.prop.MORE,
+          getWeekdayTextProps(DATE.texts[week - 1]),
+        );
+      }
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          this.updateDateTimer = timer.createTimer(2000, 2000, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        console.log('ui pause');
+
+        timer.stopTimer(this.updateDateTimer);
+      },
     });
   },
 
   buildUvIndex() {
-    const X = 105;
-    const Y = 54;
-
-    const BUBBLE_SIZE = 30;
-    const DIGIT_HEIGHT = 18;
-    const DIGIT_WIDTH = 14;
-
-    hmUI.createWidget(hmUI.widget.IMG, {
-      x: X - BUBBLE_SIZE / 2,
-      y: Y - BUBBLE_SIZE / 2,
-      src: 'value-bubble.png',
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    });
-
-    hmUI.createWidget(hmUI.widget.TEXT_IMG, {
-      x: X - DIGIT_WIDTH / 2,
-      y: Y - DIGIT_HEIGHT / 2,
-      type: hmUI.data_type.UVI,
-      font_array: new Array(10).fill(null).map((_, i) => `values-secondary/${i}.png`),
-      show_level: hmUI.show_level.ONLY_NORMAL,
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    });
-
-    hmUI.createWidget(hmUI.widget.IMG, {
-      x: X + BUBBLE_SIZE / 2 + 6,
-      y: Y - DIGIT_HEIGHT / 2,
-      src: 'uv.png',
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    });
+    hmUI.createWidget(hmUI.widget.CIRCLE, getUVICircleProps());
+    hmUI.createWidget(hmUI.widget.TEXT_IMG, getUVIValueProps());
+    hmUI.createWidget(hmUI.widget.TEXT, getUVITextProps());
   },
 
   buildConnectionStatus() {
-    hmUI.createWidget(hmUI.widget.IMG_STATUS, {
-      x: 379,
-      y: 194,
-      type: hmUI.system_status.DISCONNECT,
-      src: 'disconnect.png',
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    });
+    hmUI.createWidget(hmUI.widget.IMG_STATUS, getDisconnectProps());
   },
 
   buildStepCounter() {
-    const LINE_WIDTH = 15;
-    const ARC_RADIUS = 370 / 2 + LINE_WIDTH / 2;
-    const ANGLE_START = 210;
-    const ANGLE_FINISH = 250;
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getStepsArcBackgroundProps());
+    const arcWidget = hmUI.createWidget(
+      hmUI.widget.ARC_PROGRESS,
+      getStepsArcActiveProps(),
+    );
+    const valueWidget = hmUI.createWidget(hmUI.widget.TEXT, null);
 
-    hmUI.createWidget(hmUI.widget.TEXT_IMG, {
-      x: 20,
-      y: 239,
-      type: hmUI.data_type.STEP,
-      font_array: new Array(10).fill(null).map((_, i) => `values-secondary/${i}.png`),
-      align_h: hmUI.align.LEFT_H,
-      show_level: hmUI.show_level.ONLY_NORMAL,
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          const { current, target } = hmSensor.createSensor(hmSensor.id.STEP);
+          const level = (current / target) * 100;
+
+          arcWidget.setProperty(hmUI.prop.LEVEL, level);
+          valueWidget.setProperty(
+            hmUI.prop.MORE,
+            getStepsValueProps(current.toString()),
+          );
+        }
+      },
     });
-
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
-      center_x: centerX,
-      center_y: centerY,
-      radius: ARC_RADIUS - LINE_WIDTH / 2,
-      start_angle: ANGLE_START,
-      end_angle: ANGLE_FINISH,
-      color: 0x272627,
-      line_width: LINE_WIDTH,
-      level: 100,
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    });
-
-    const arcProgress = hmUI.createWidget(hmUI.widget.ARC_PROGRESS, false);
-
-    const updateArcProgress = () => {
-      const { current, target } = hmSensor.createSensor(hmSensor.id.STEP)
-      arcProgress.setProperty(hmUI.prop.MORE, {
-        center_x: centerX,
-        center_y: centerY,
-        radius: ARC_RADIUS - LINE_WIDTH / 2,
-        start_angle: ANGLE_START,
-        end_angle: ANGLE_FINISH,
-        color: 0x767578,
-        line_width: LINE_WIDTH,
-        level: (current / target) * 100,
-        show_level: hmUI.show_level.ONLY_NORMAL,
-      })
-    };
-
-    setInterval(updateArcProgress, 2000);
-    updateArcProgress();
-  }
-})
+  },
+});
