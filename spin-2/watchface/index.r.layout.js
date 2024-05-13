@@ -195,7 +195,7 @@ export function getUVITextProps() {
 // DISCONNECT
 export function getDisconnectProps() {
   return {
-    x: DISCONNECT.orbitRadius - DISCONNECT.width / 2,
+    x: SCREEN.centerX + DISCONNECT.orbitRadius - DISCONNECT.width / 2,
     y: SCREEN.centerY - DISCONNECT.height / 2,
     type: hmUI.system_status.DISCONNECT,
     src: 'disconnect.png',
