@@ -1,10 +1,10 @@
-# Watchfaces for Amazfit Smart Watch
+# Watchfaces for Amazfit Smartwatches
 
-Different watchfaces I developed for my Amazfit GTR Mini (416x416 px). Some watchfaces are developed to be adaptive so the code can run on all devices with round screen (see detailes below).
+Here you will find various watchfaces I designed for the Amazfit GTR Mini with a resolution of 416x416 px. Several of these watchfaces are adaptive, making them compatible with any device that features a round display. Additional details are available below.
 
-## Development
+## Development Resources
 
-### References
+### Useful Links
 
 - [Zepp OS Watchface API](https://docs.zepp.com/docs/watchface/api/hmUI/createWidget/)
 
@@ -12,26 +12,36 @@ Different watchfaces I developed for my Amazfit GTR Mini (416x416 px). Some watc
 
 - [GTR 4 Watchface Community on 4pda.to](https://4pda.to/forum/index.php?showtopic=1055207)
 
-### How to Start Development
+### Getting Started
 
 - [Quick start guide](https://docs.zepp.com/docs/guides/quick-start/)
 
-## File Structure
+## Repository Structure
 
-This repositity has several folders -- one folder for one watchface
+This repository contains multiple folders, each dedicated to a different watchface design.
 
 
-## How to Install a Watchface on Your Watch
+## Installation Instructions
 
-To install a watchface to your smartwatch:
+To add a new watchface to your device:
 
-1. Go to [all releases page](https://github.com/novvember/amazfit-watchfaces/releases)
+1. Visit the [releases page](https://github.com/novvember/amazfit-watchfaces/releases) of this repository.
 
-2. Find latest release, download `.zip` file and transfer it to your phone
+2. Download the latest release by selecting the appropriate `.zip` file for your smartwatch model from the list below:
 
-3. Use any app, which can install Amazfit watchfaces from phone internal storage
+   - **Default:** Amazfit GTR Mini - `...-MHS-416x416.zip`
 
-## List of Watchfaces
+   - Amazfit GTR 4 - `...-NXP-466x466.zip`
+
+   - Amazfit GTR 3 - `...-NXP-454x454.zip`
+
+   - Amazfit GTR 3 Pro - `...-NXP-480x480.zip`
+
+3. Transfer the downloaded file to your smartphone.
+
+4. Utilize any compatible app to install the watchface from your phone's internal storage.
+
+## Watchfaces Gallery
 
 | Image 	                    | Name       	| Devices supported | Development Status 	  |
 |:-------------------------:  |------------ |------------------ |---------------------  |
