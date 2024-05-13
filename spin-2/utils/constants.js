@@ -19,11 +19,11 @@ export const COLORS = {
 
 export const FONTS = {
   primary: 'fonts/ndot-55.ttf',
-  secondary: 'fonts/roboto-mono-regular.ttf',
+  secondary: 'fonts/fira-mono-medium.ttf',
 };
 
 export const DIGITS = {
-  width: px(12),
+  width: px(14),
   height: px(20),
   images: new Array(10).fill(null).map((_, i) => `digits/${i}.png`),
 };
@@ -48,10 +48,10 @@ export const SECONDS = {
 };
 
 export const DATE = {
-  radius: px(15),
+  radius: px(18),
   orbitRadius: px(213),
-  textSize: px(22),
-  gap: px(8),
+  textSize: px(26),
+  gap: px(5),
   textWidth: px(50),
   texts: isRusLang
     ? ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС']
@@ -59,19 +59,19 @@ export const DATE = {
 };
 
 export const UVI = {
-  radius: px(15),
+  radius: px(18),
   x: px(107),
   y: px(43),
-  textSize: px(22),
-  gap: px(8),
+  textSize: px(26),
+  gap: px(5),
   textWidth: px(50),
   text: isRusLang ? 'УФИ' : 'UVI',
 };
 
 export const DISCONNECT = {
   orbitRadius: px(213),
-  width: px(32),
-  height: px(32),
+  width: px(40),
+  height: px(40),
 };
 
 export const STEPS = {
@@ -79,9 +79,9 @@ export const STEPS = {
   angleStart: 210,
   angleEnd: 250,
   width: px(17),
-  valueX: px(25),
-  valueY: px(273),
-  valueTextSize: px(22),
+  valueX: px(24),
+  valueY: px(269),
+  valueTextSize: px(26),
   valueWidth: px(100),
   valueHeight: px(30),
 };
