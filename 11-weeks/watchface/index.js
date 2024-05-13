@@ -62,8 +62,8 @@ WatchFace({
   onDestroy() {
     console.log('watchface on DESTROY invoke');
 
-    clearInterval(this.renderGridInterval);
-    clearInterval(this.renderSecondsInterval);
+    timer.stopTimer(this.renderGridTimer);
+    timer.stopTimer(this.renderSecondsTimer);
   },
 
   getCalendarData(day, month, year) {
@@ -103,22 +103,23 @@ WatchFace({
         console.log('ui resume');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          this.renderGridInterval = setInterval(
-            this.handleRenderGridInterval.bind(this),
+          this.renderGridTimer = timer.createTimer(
             500,
+            500,
+            this.handleRenderGridTimer.bind(this),
           );
-          this.handleRenderGridInterval();
+          this.handleRenderGridTimer();
         }
       },
       pause_call: () => {
         console.log('ui pause');
 
-        clearInterval(this.renderGridInterval);
+        timer.stopTimer(this.renderGridTimer);
       },
     });
   },
 
-  handleRenderGridInterval() {
+  handleRenderGridTimer() {
     const { hour, minute, day } = hmSensor.createSensor(hmSensor.id.TIME);
     const newTime = [hour, minute].join('-');
 
@@ -277,7 +278,7 @@ WatchFace({
 
     const progressBar = hmUI.createWidget(hmUI.widget.IMG, null);
 
-    const handleRenderSecondsInterval = () => {
+    const handleRenderSecondsTimer = () => {
       const { second } = hmSensor.createSensor(hmSensor.id.TIME);
       const newSecondRound = Math.round(second / 10) * 10;
 
@@ -301,17 +302,18 @@ WatchFace({
         console.log('ui resume');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          this.renderSecondsInterval = setInterval(
-            handleRenderSecondsInterval,
+          this.renderSecondsTimer = timer.createTimer(
             500,
+            500,
+            handleRenderSecondsTimer,
           );
-          handleRenderSecondsInterval();
+          handleRenderSecondsTimer();
         }
       },
       pause_call: () => {
         console.log('ui pause');
 
-        clearInterval(this.renderSecondsInterval);
+        timer.stopTimer(this.renderSecondsTimer);
       },
     });
   },
