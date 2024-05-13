@@ -1,7 +1,7 @@
 # Spin 2 Watchface
-Watchface for Amazfit GTR Mini
+Watchface for Amazfit GTR Mini and for other round ZeppOS watch.
 
-![demo](./demo.png)
+![demo](./demo-gtr-mini.png)
 
 ## Features
 

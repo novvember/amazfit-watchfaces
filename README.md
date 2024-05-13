@@ -42,5 +42,5 @@ To install a watchface to your smartwatch:
 | ![](./bourne/demo.png)      | Bourne     	| GTR Mini only 	  | ✅ Done             	|
 | ![](./celeste/demo.png)     | Celeste    	| GTR Mini only 	  | ✅ Done             	|
 | ![](./nothing-dial/demo.png)| Nothing Dial| GTR Mini only 	  | ✅ Done             	|
-| ![](./spin-2/demo.png)      | Spin 2      | GTR Mini only 	  | ✅ Done             	|
+| ![](./spin-2/demo.png)      | Spin 2      | All round watches | ✅ Done             	|
 | ![](./11-weeks/demo.png)    | 11 weeks    | All round watches | ✅ Done             	|

@@ -173,8 +173,6 @@ WatchFace({
             ? SECONDS.animationDuration - diffTime
             : SECONDS.animationDuration;
 
-        console.log(diffTime, delay);
-
         animationTimer = timer.createTimer(
           delay,
           SECONDS.animationDuration,
