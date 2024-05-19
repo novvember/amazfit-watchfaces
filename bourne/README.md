@@ -1,7 +1,7 @@
 # Bourne Watchface
 Watchface for Amazfit GTR Mini
 
-![demo](./demo.png)
+![demo](./demo-gtr-mini.png)
 
 ## Features
 
@@ -14,13 +14,13 @@ Watchface for Amazfit GTR Mini
 - temperature
 - steps
 
-**Model compatibility:** Amazfit GTR Mini (round, 416 x 416 pixels)
+**Model compatibility:** All round watches
 
 **AOD:** Yes
 
 **Tap-zones:** No
 
-**Language:** English
+**Language:** English / Russian
 
 ## Download ⏬
 
