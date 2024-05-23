@@ -10,6 +10,7 @@ import {
   DISCONNECT,
   STEPS,
   DIGITS,
+  SLEEP_TIME,
 } from '../utils/constants';
 
 // HOURS
@@ -195,8 +196,8 @@ export function getUVITextProps() {
 // DISCONNECT
 export function getDisconnectProps() {
   return {
-    x: SCREEN.centerX + DISCONNECT.orbitRadius - DISCONNECT.width / 2,
-    y: SCREEN.centerY - DISCONNECT.height / 2,
+    x: DISCONNECT.x,
+    y: DISCONNECT.y,
     type: hmUI.system_status.DISCONNECT,
     src: 'disconnect.png',
     show_level: hmUI.show_level.ONLY_NORMAL,
@@ -240,6 +241,51 @@ export function getStepsValueProps(text = '') {
     h: STEPS.valueHeight,
     color: COLORS.textSecondary,
     text_size: STEPS.valueTextSize,
+    align_h: hmUI.align.RIGHT,
+    align_v: hmUI.align.CENTER_V,
+    font: FONTS.secondary,
+    text,
+    show_level: hmUI.show_level.ONLY_NORMAL,
+  };
+}
+
+// SLEEP TIME
+export function getSleepArcBackgroundProps() {
+  return {
+    center_x: SCREEN.centerX,
+    center_y: SCREEN.centerY,
+    radius: SLEEP_TIME.orbitRadius,
+    start_angle: SLEEP_TIME.angleStart,
+    end_angle: SLEEP_TIME.angleEnd,
+    color: COLORS.bgTertiary,
+    line_width: SLEEP_TIME.width,
+    level: 100,
+    show_level: hmUI.show_level.ONLY_NORMAL,
+  };
+}
+
+export function getSleepArcActiveProps() {
+  return {
+    center_x: SCREEN.centerX,
+    center_y: SCREEN.centerY,
+    start_angle: SLEEP_TIME.angleStart,
+    end_angle: SLEEP_TIME.angleEnd,
+    radius: SLEEP_TIME.orbitRadius,
+    line_width: SLEEP_TIME.width,
+    color: COLORS.bgSecondary,
+    type: hmUI.data_type.SLEEP,
+    show_level: hmUI.show_level.ONLY_NORMAL,
+  };
+}
+
+export function getSleepValueProps(text = '') {
+  return {
+    x: SLEEP_TIME.valueX,
+    y: SLEEP_TIME.valueY,
+    w: SLEEP_TIME.valueWidth,
+    h: SLEEP_TIME.valueHeight,
+    color: COLORS.textSecondary,
+    text_size: SLEEP_TIME.valueTextSize,
     align_h: hmUI.align.LEFT,
     align_v: hmUI.align.CENTER_V,
     font: FONTS.secondary,

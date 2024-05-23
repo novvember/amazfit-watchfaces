@@ -13,6 +13,9 @@ import {
   getSecondsAnimationProps,
   getSecondsFakePointerProps,
   getSecondsImageProps,
+  getSleepArcActiveProps,
+  getSleepArcBackgroundProps,
+  getSleepValueProps,
   getStepsArcActiveProps,
   getStepsArcBackgroundProps,
   getStepsValueProps,
@@ -21,6 +24,7 @@ import {
   getUVIValueProps,
   getWeekdayTextProps,
 } from './index.r.layout';
+import { getSleepTimeString } from '../utils/getSleepTime';
 
 WatchFace({
   onInit() {
@@ -34,6 +38,7 @@ WatchFace({
     this.buildUvIndex();
     this.buildConnectionStatus();
     this.buildStepCounter();
+    this.buildSleepTime();
 
     this.buildHours();
     this.buildMinutes();
@@ -261,6 +266,30 @@ WatchFace({
             hmUI.prop.MORE,
             getStepsValueProps(current.toString()),
           );
+        }
+      },
+    });
+  },
+
+  buildSleepTime() {
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getSleepArcBackgroundProps());
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS,getSleepArcActiveProps());
+
+    const valueWidget = hmUI.createWidget(hmUI.widget.TEXT, null);
+    const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          const sleepTime = getSleepTimeString(sleepSensor);
+
+          if (sleepTime) {
+            valueWidget.setProperty(hmUI.widget.MORE, getSleepValueProps(sleepTime));
+          } else {
+            valueWidget.setProperty(hmUI.widget.MORE, getSleepValueProps(''));
+          }
         }
       },
     });
