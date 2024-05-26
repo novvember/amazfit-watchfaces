@@ -6,9 +6,14 @@ import {
   getDateCircleProps,
   getDateTextProps,
   getDisconnectProps,
+  getHoursCircleAODProps,
   getHoursCircleProps,
+  getHoursTextAODProps,
   getHoursTextProps,
+  getMinutesCircleAODProps,
+  getMinutesCircleExternalAODProps,
   getMinutesCircleProps,
+  getMinutesTextAODProps,
   getMinutesTextProps,
   getSecondsAnimationProps,
   getSecondsFakePointerProps,
@@ -55,11 +60,18 @@ WatchFace({
 
   buildHours() {
     hmUI.createWidget(hmUI.widget.CIRCLE, getHoursCircleProps());
+    hmUI.createWidget(hmUI.widget.STROKE_RECT, getHoursCircleAODProps());
+
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, getHoursTextProps());
+    const textWidgetAOD = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      getHoursTextAODProps(),
+    );
 
     const update = () => {
       const { hour } = hmSensor.createSensor(hmSensor.id.TIME);
       textWidget.setProperty(hmUI.prop.TEXT, hour.toString());
+      textWidgetAOD.setProperty(hmUI.prop.TEXT, hour.toString());
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -68,6 +80,9 @@ WatchFace({
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           this.updateHoursTimer = timer.createTimer(1000, 1000, update);
+          update();
+        } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
+          this.updateHoursTimer = timer.createTimer(2000, 2000, update);
           update();
         }
       },
@@ -85,9 +100,24 @@ WatchFace({
       getMinutesCircleProps(),
     );
 
+    const circleAODWidget = hmUI.createWidget(
+      hmUI.widget.CIRCLE,
+      getMinutesCircleAODProps(),
+    );
+
+    const circleExternalAODWidget = hmUI.createWidget(
+      hmUI.widget.STROKE_RECT,
+      getMinutesCircleExternalAODProps(),
+    );
+
     const textWidget = hmUI.createWidget(
       hmUI.widget.TEXT,
       getMinutesTextProps(),
+    );
+
+    const textAODWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      getMinutesTextAODProps(),
     );
 
     const update = () => {
@@ -104,9 +134,24 @@ WatchFace({
         getMinutesCircleProps(centerX, centerY),
       );
 
+      circleAODWidget.setProperty(
+        hmUI.prop.MORE,
+        getMinutesCircleAODProps(centerX, centerY),
+      );
+
+      circleExternalAODWidget.setProperty(
+        hmUI.prop.MORE,
+        getMinutesCircleExternalAODProps(centerX, centerY),
+      );
+
       textWidget.setProperty(
         hmUI.prop.MORE,
         getMinutesTextProps(textX, textY, textValue),
+      );
+
+      textAODWidget.setProperty(
+        hmUI.prop.MORE,
+        getMinutesTextAODProps(textX, textY, textValue),
       );
     };
 
@@ -116,6 +161,9 @@ WatchFace({
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           this.updateMinutesTimer = timer.createTimer(1000, 1000, update);
+          update();
+        } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
+          this.updateMinutesTimer = timer.createTimer(2000, 2000, update);
           update();
         }
       },
@@ -273,7 +321,7 @@ WatchFace({
 
   buildSleepTime() {
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getSleepArcBackgroundProps());
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS,getSleepArcActiveProps());
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getSleepArcActiveProps());
 
     const valueWidget = hmUI.createWidget(hmUI.widget.TEXT, null);
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
@@ -286,7 +334,10 @@ WatchFace({
           const sleepTime = getSleepTimeString(sleepSensor);
 
           if (sleepTime) {
-            valueWidget.setProperty(hmUI.widget.MORE, getSleepValueProps(sleepTime));
+            valueWidget.setProperty(
+              hmUI.widget.MORE,
+              getSleepValueProps(sleepTime),
+            );
           } else {
             valueWidget.setProperty(hmUI.widget.MORE, getSleepValueProps(''));
           }

@@ -15,6 +15,7 @@ export const COLORS = {
   bgSecondary: 0x767578,
   bgAccent: 0xf54a1b,
   bgTertiary: 0x272627,
+  aod: 0x767578,
 };
 
 export const FONTS = {

@@ -24,6 +24,19 @@ export function getHoursCircleProps() {
   };
 }
 
+export function getHoursCircleAODProps() {
+  return {
+    x: SCREEN.centerX - HOURS.radius,
+    y: SCREEN.centerY - HOURS.radius,
+    w: HOURS.radius * 2,
+    h: HOURS.radius * 2,
+    radius: HOURS.radius,
+    line_width: 1,
+    color: COLORS.aod,
+    show_level: hmUI.show_level.ONAL_AOD,
+  };
+}
+
 export function getHoursTextProps() {
   return {
     x: SCREEN.centerX - HOURS.radius,
@@ -40,6 +53,22 @@ export function getHoursTextProps() {
   };
 }
 
+export function getHoursTextAODProps() {
+  return {
+    x: SCREEN.centerX - HOURS.radius,
+    y: SCREEN.centerY - HOURS.radius + HOURS.offsetY,
+    w: HOURS.radius * 2,
+    h: HOURS.radius * 2,
+    color: COLORS.aod,
+    text_size: HOURS.textSize,
+    align_h: hmUI.align.CENTER_H,
+    align_v: hmUI.align.CENTER_V,
+    font: FONTS.primary,
+    text: '',
+    show_level: hmUI.show_level.ONAL_AOD,
+  };
+}
+
 // MINUTES
 export function getMinutesCircleProps(x = 0, y = 0) {
   return {
@@ -48,6 +77,29 @@ export function getMinutesCircleProps(x = 0, y = 0) {
     radius: MINUTES.radius,
     color: COLORS.bgPrimary,
     show_level: hmUI.show_level.ONLY_NORMAL,
+  };
+}
+
+export function getMinutesCircleAODProps(x = 0, y = 0) {
+  return {
+    center_x: x,
+    center_y: y,
+    radius: MINUTES.radius,
+    color: 0x000000,
+    show_level: hmUI.show_level.ONAL_AOD,
+  };
+}
+
+export function getMinutesCircleExternalAODProps(x = 0, y = 0) {
+  return {
+    x: x - MINUTES.radius,
+    y: y - MINUTES.radius,
+    w: MINUTES.radius * 2,
+    h: MINUTES.radius * 2,
+    radius: MINUTES.radius,
+    line_width: 1,
+    color: COLORS.aod,
+    show_level: hmUI.show_level.ONAL_AOD,
   };
 }
 
@@ -64,6 +116,22 @@ export function getMinutesTextProps(x = 0, y = 0, text = '') {
     font: FONTS.primary,
     text,
     show_level: hmUI.show_level.ONLY_NORMAL,
+  };
+}
+
+export function getMinutesTextAODProps(x = 0, y = 0, text = '') {
+  return {
+    x,
+    y: y + MINUTES.offsetY,
+    w: MINUTES.radius * 2,
+    h: MINUTES.radius * 2,
+    color: COLORS.aod,
+    text_size: MINUTES.textSize,
+    align_h: hmUI.align.CENTER_H,
+    align_v: hmUI.align.CENTER_V,
+    font: FONTS.primary,
+    text,
+    show_level: hmUI.show_level.ONAL_AOD,
   };
 }
 
