@@ -10,16 +10,17 @@ It is a combination of two other watchfaces -- orbit logic from *Spin* and cool 
 - time: hour in center (12/24), minutes around, red dot for second hand
 - date and day of the week
 - steps
+- sleep time
 - UV index
 - bluetooth connection status
 
-**Model compatibility:** Amazfit GTR Mini (round, 416 x 416 pixels)
+**Model compatibility:** Amazfit GTR Mini, Amazfit GTR 4 and all oter round ZeppOS watches
 
-**AOD:** No
+**AOD:** Yes
 
 **Tap-zones:** No
 
-**Language:** English
+**Language:** English, Russian
 
 **Inspired:** Radii Watch Face by The Design Cycle
 
