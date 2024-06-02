@@ -1,4 +1,3 @@
-import { TARGET_DOT_SIZE } from '../utils/constants';
 import {
   BACKGROUND_PROPS,
   CENTER_AOD_PROPS,
@@ -56,7 +55,7 @@ WatchFace({
 
     const update = () => {
       const { current, target } = hmSensor.createSensor(hmSensor.id.STEP);
-      const angle = 360 + TARGET_DOT_SIZE.angleEnd + (360 * current) / target;
+      const angle = (360 * current) / target;
 
       arcProgress.setProperty(hmUI.prop.MORE, {
         ...TARGET_ARC_PROGRESS_PROPS,

@@ -1,23 +1,23 @@
 # Celeste Watchface
-Watchface for Amazfit GTR Mini
+Watchface for ZeppOS wathces
 
-![demo](./demo.png)
+![demo](./demo-gtr-mini.png)
 
 ## Features
 
 **Main features**
-- inspired by [ZIIIRO Celeste analog watch](https://www.ziiiro.com/shop/celeste-black-mono/)
-- time is indicated by gradients (it's 10:11 in the screen above for example)
-- progress circle for steps in the center part
-- date in the center
+- Inspired by [ZIIIRO Celeste analog watch](https://www.ziiiro.com/shop/celeste-black-mono/)
+- Time is indicated by gradients (for example, it's 02:52 in the screen above)
+- Central progress circle for steps
+- Date display in the center
 
-**Model compatibility:** Amazfit GTR Mini (round, 416 x 416 pixels)
+**Model compatibility:** Amazfit GTR Mini, GTR 4, GTR 3 Pro, T-Rex 2 and other round ZeppOS watches
 
-**AOD:** No
+**AOD:** Yes
 
 **Tap-zones:** No
 
-**Language:** English
+**Language:** All
 
 ## Download ⏬
 

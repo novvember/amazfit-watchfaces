@@ -37,11 +37,6 @@ export const TARGET = {
   width: (px(126) - px(58)) / 2,
 };
 
-export const TARGET_DOT_SIZE = {
-  angleStart: -1 * Math.floor(radiansToDegrees(Math.atan(TARGET.width / 2 / TARGET.radius))),
-  angleEnd: Math.floor(radiansToDegrees(Math.atan(TARGET.width / 2 / TARGET.radius))),
-};
-
 export const DIGITS = {
   width: px(18),
   height: px(32),

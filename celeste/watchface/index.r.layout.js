@@ -1,4 +1,4 @@
-import { DIGITS, SCREEN, TARGET, TARGET_DOT_SIZE, TIME_SRC } from '../utils/constants';
+import { DIGITS, SCREEN, TARGET, TIME_SRC } from '../utils/constants';
 
 export const BACKGROUND_PROPS = {
   x: 0,
@@ -94,7 +94,7 @@ export const TARGET_ARC_PROGRESS_PROPS = {
   center_x: SCREEN.centerX,
   center_y: SCREEN.centerY,
   radius: TARGET.radius,
-  start_angle: 360 + TARGET_DOT_SIZE.angleStart,
+  start_angle: 0,
   color: 0x1c1c1c,
   line_width: TARGET.width,
   level: 100,
