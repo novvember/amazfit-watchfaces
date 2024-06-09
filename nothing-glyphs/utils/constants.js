@@ -9,7 +9,6 @@ export const SCREEN = {
 
 export const COLORS = {
   primary: 0xd1d1d9,
-  accent: 0xdb454b,
   aod: 0x767578,
 };
 

@@ -9,7 +9,6 @@ import {
   SLEEP,
   STEPS,
   TIME_DIGITS,
-  TIME_POINTERS,
 } from '../utils/constants';
 
 export const BACKGROUND_IMAGE_PROPS = {
@@ -26,6 +25,13 @@ export const GLYPHS_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const GLYPHS_IMAGE_AOD_PROPS = {
+  x: 0,
+  y: 0,
+  src: 'glyphs/glyphs_aod.png',
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
 export const TIME_COLON_PROPS = {
   x: SCREEN.centerX - TIME_DIGITS.colon.width / 2,
   y: SCREEN.centerY - TIME_DIGITS.height / 2,
@@ -38,6 +44,12 @@ export const TIME_COLON_PROPS = {
   font: FONT_FAMILY.primary,
   text: ':',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const TIME_COLON_AOD_PROPS = {
+  ...TIME_COLON_PROPS,
+  color: COLORS.aod,
+  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const TIME_HOURS_PROPS = {
@@ -54,6 +66,12 @@ export const TIME_HOURS_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const TIME_HOURS_AOD_PROPS = {
+  ...TIME_HOURS_PROPS,
+  color: COLORS.aod,
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
 export const TIME_MINUTES_PROPS = {
   x: SCREEN.centerX + TIME_DIGITS.colon.width / 2,
   y: SCREEN.centerY - TIME_DIGITS.height / 2,
@@ -66,6 +84,12 @@ export const TIME_MINUTES_PROPS = {
   font: FONT_FAMILY.primary,
   text: '00',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const TIME_MINUTES_AOD_PROPS = {
+  ...TIME_MINUTES_PROPS,
+  color: COLORS.aod,
+  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const DATE_BACKGROUND_PROPS = {

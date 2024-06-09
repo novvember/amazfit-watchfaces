@@ -7,16 +7,17 @@ import {
   DATE_BACKGROUND_PROPS,
   DATE_TEXT_PROPS,
   DISCONNECT_PROPS,
+  GLYPHS_IMAGE_AOD_PROPS,
   GLYPHS_IMAGE_PROPS,
-  HOURS_POINTER_PROPS,
-  MINUTES_POINTER_PROPS,
-  SECONDS_POINTER_PROPS,
   SLEEP_POINTER_PROPS,
   SLEEP_TEXT_PROPS,
   STEPS_POINTER_PROPS,
   STEPS_TEXT_PROPS,
+  TIME_COLON_AOD_PROPS,
   TIME_COLON_PROPS,
+  TIME_HOURS_AOD_PROPS,
   TIME_HOURS_PROPS,
+  TIME_MINUTES_AOD_PROPS,
   TIME_MINUTES_PROPS,
 } from './index.r.layout';
 
@@ -47,12 +48,25 @@ WatchFace({
   buildBackground() {
     hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_IMAGE_PROPS);
     hmUI.createWidget(hmUI.widget.IMG, GLYPHS_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, GLYPHS_IMAGE_AOD_PROPS);
   },
 
   buildTime() {
     hmUI.createWidget(hmUI.widget.TEXT, TIME_COLON_PROPS);
+    hmUI.createWidget(hmUI.widget.TEXT, TIME_COLON_AOD_PROPS);
+
     const hoursWidget = hmUI.createWidget(hmUI.widget.TEXT, TIME_HOURS_PROPS);
+    const hoursAodWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      TIME_HOURS_AOD_PROPS,
+    );
+
     const minsWidget = hmUI.createWidget(hmUI.widget.TEXT, TIME_MINUTES_PROPS);
+    const minsAodWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      TIME_MINUTES_AOD_PROPS,
+    );
+
     let prevMinute = null;
 
     const update = () => {
@@ -63,13 +77,16 @@ WatchFace({
       }
 
       console.log('time rerendered');
-      prevMinute = minute;
 
-      hoursWidget.setProperty(hmUI.prop.TEXT, hour.toString().padStart(2, '0'));
-      minsWidget.setProperty(
-        hmUI.prop.TEXT,
-        minute.toString().padStart(2, '0'),
-      );
+      prevMinute = minute;
+      const hoursText = hour.toString().padStart(2, '0');
+      const minsText = minute.toString().padStart(2, '0');
+
+      hoursWidget.setProperty(hmUI.prop.TEXT, hoursText);
+      hoursAodWidget.setProperty(hmUI.prop.TEXT, hoursText);
+
+      minsWidget.setProperty(hmUI.prop.TEXT, minsText);
+      minsAodWidget.setProperty(hmUI.prop.TEXT, minsText);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -78,6 +95,9 @@ WatchFace({
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           this.updateTimeTimer = timer.createTimer(1000, 1000, update);
+          update();
+        } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
+          this.updateDateTimer = timer.createTimer(2000, 2000, update);
           update();
         }
       },
