@@ -15,7 +15,7 @@ Watchface for Amazfit GTR Mini and for other round ZeppOS watch.
 
 **Model compatibility:** Amazfit GTR Mini, Amazfit GTR 4 and all oter round ZeppOS watches
 
-**AOD:** No
+**AOD:** Yes
 
 **Tap-zones:** No
 
