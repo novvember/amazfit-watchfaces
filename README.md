@@ -43,14 +43,15 @@ To add a new watchface to your device:
 
 ## Watchfaces Gallery
 
-| Image 	                    | Name       	| Devices supported | Development Status 	  |
-|:-------------------------:  |------------  |------------------ |---------------------  |
-| ![](./text-lines/demo.png)  | Text Lines 	| GTR Mini only 	  | ✅ Done             	|
-| ![](./spin/demo.png)       	| Spin       	| GTR Mini only 	  | ✅ Done             	|
-| ![](./particles/demo.png)   | Particles  	| GTR Mini only 	  | 🚫 Has issues        |
-| ![](./gauge/demo.png)      	| Gauge      	| GTR Mini only 	  | ✅ Done             	|
-| ![](./bourne/demo.png)      | Bourne     	| All round watches | ✅ Done             	|
-| ![](./celeste/demo.png)     | Celeste    	| GTR Mini only 	  | ✅ Done             	|
-| ![](./nothing-dial/demo.png)| Nothing Dial | GTR Mini only 	  | ✅ Done             	|
-| ![](./spin-2/demo.png)      | Spin 2       | All round watches | ✅ Done             	|
-| ![](./11-weeks/demo.png)    | 11 weeks     | All round watches | ✅ Done             	|
+| Image 	                        | Name       	  | Devices supported | Development Status 	  |
+|:-------------------------:     |------------    |------------------ |---------------------  |
+| ![](./text-lines/demo.png)     | Text Lines 	  | GTR Mini only 	 | ✅ Done             	|
+| ![](./spin/demo.png)       	   | Spin       	  | GTR Mini only 	 | ✅ Done             	|
+| ![](./particles/demo.png)      | Particles  	  | GTR Mini only 	 | 🚫 Has issues        |
+| ![](./gauge/demo.png)      	   | Gauge      	  | GTR Mini only 	 | ✅ Done             	|
+| ![](./bourne/demo.png)         | Bourne     	  | All round watches | ✅ Done             	|
+| ![](./celeste/demo.png)        | Celeste    	  | All round watches | ✅ Done             	|
+| ![](./nothing-dial/demo.png)   | Nothing Dial   | GTR Mini only 	 | ✅ Done             	|
+| ![](./spin-2/demo.png)         | Spin 2         | All round watches | ✅ Done             	|
+| ![](./11-weeks/demo.png)       | 11 weeks       | All round watches | ✅ Done             	|
+| ![](./nothing-glyphs/demo.png) | Nothing Glyphs | All round watches | ✅ Done             	|
