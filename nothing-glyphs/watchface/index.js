@@ -209,7 +209,9 @@ WatchFace({
               text: '',
             });
 
-            pointerWidget.setProperty(hmUI.widget.MORE, {});
+            pointerWidget.setProperty(hmUI.widget.MORE, {
+              src: '',
+            });
           }
         }
       },
