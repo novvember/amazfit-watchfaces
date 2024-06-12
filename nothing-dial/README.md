@@ -1,26 +1,32 @@
 # Nothing Dial
-Watchface for Amazfit GTR Mini
+Watchface for Amazfit GTR Mini and other round ZeppOS watches
 
-![demo](./demo.png)
+![demo](./demo-gtr-mini.png)
 
 ## Features
 
 **Main features**
-- inspired by [CMF by Nothing Watch default watchface](https://intl.cmf.tech/pages/watch-pro)
 - time is indicated by minute hand and 2 dots (orange one for hours, white one for seconds)
 - digital time too
 - date
 - step counter
-- uv index
+- current weather
+- battery level
 - status icon when watch is disconnected from phone
 
-**Model compatibility:** Amazfit GTR Mini (round, 416 x 416 pixels)
+**Inspired by**
+- [CMF by Nothing Watch default watchface](https://intl.cmf.tech/pages/watch-pro)
 
-**AOD:** No
+**Weather icons**
+- [QWeather Icons](https://github.com/qwd/Icons)
+
+**Model compatibility:** Amazfit GTR Mini (round, 416 x 416 pixels) / GTR 4 / T-Rex 2 and other round watches
+
+**AOD:** Yes
 
 **Tap-zones:** No
 
-**Language:** English
+**Language:** English, Russian
 
 ## Download ⏬
 

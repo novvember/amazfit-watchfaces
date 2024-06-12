@@ -1,21 +1,20 @@
 {
-  "configVersion": "v2",
+  "configVersion": "v3",
   "app": {
     "appId": 23589,
     "appName": "Nothing Dial",
     "appType": "watchface",
     "version": {
-      "code": 3,
-      "name": "1.1.0"
+      "code": 4,
+      "name": "1.2.0"
     },
-    "vender": "novvember",
-    "description": "Nothing Dial watchface. Source code here: https://github.com/novvember/amazfit-watchfaces",
     "icon": "icon.png",
+    "vender": "novvember",
     "cover": [
       "cover.png"
-    ]
+    ],
+    "description": "Nothing Dial watchface. Source code here: https://github.com/novvember/amazfit-watchfaces"
   },
-  "permissions": [],
   "runtime": {
     "apiVersion": {
       "compatible": "1.0.0",
@@ -23,27 +22,34 @@
       "minVersion": "1.0.0"
     }
   },
+  "permissions": [],
   "targets": {
-    "416x416-amazfit-gtr-mini": {
+    "common": {
       "module": {
         "watchface": {
           "path": "watchface/index",
           "main": 1,
           "editable": 0,
-          "lockscreen": 1
+          "lockscreen": 1,
+          "photoscreen": 0
         }
       },
       "platforms": [
         {
-          "name": "LeidenW",
-          "deviceSource": 251
+          "st": "r"
         }
       ],
-      "designWidth": 416
+      "designWidth": 480
     }
   },
   "i18n": {
     "en-US": {
+      "appName": "Nothing Dial"
+    },
+    "ru-RU": {
+      "appName": "Nothing Dial"
+    },
+    "uk-UA": {
       "appName": "Nothing Dial"
     }
   },
