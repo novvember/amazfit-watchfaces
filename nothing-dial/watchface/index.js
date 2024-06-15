@@ -207,9 +207,14 @@ WatchFace({
 
       updateWeatherIcons(isNight(timeSensor));
 
+      const icon =
+        iconIndex && iconIndex !== 'undefined'
+          ? WEATHER_ICONS[iconIndex]
+          : WEATHER_ICONS[25];
+
       iconWidget.setProperty(hmUI.prop.MORE, {
         ...WEATHER_ICON_PROPS,
-        src: WEATHER_ICONS[iconIndex],
+        src: icon,
       });
 
       tempWidget.setProperty(hmUI.prop.TEXT, formatTemperature(temp));
