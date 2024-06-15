@@ -71,7 +71,6 @@ export const STEPS = {
 export const WEATHER_ICON = {
   x: px(224),
   y: px(354),
-  images: new Array(29).fill(null).map((_, i) => `weather_icon/${i}.png`),
 };
 
 export const WEATHER_TEMP = {

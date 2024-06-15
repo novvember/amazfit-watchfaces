@@ -14,6 +14,7 @@ import {
   WEATHER_ICON,
   WEATHER_TEMP,
 } from '../utils/constants';
+import { WEATHER_ICONS } from '../utils/weatherIcons';
 
 export const BACKGROUND_CIRCLE_PROPS = {
   center_x: SCREEN.centerX,
@@ -192,8 +193,8 @@ export const DISCONNECT_STATUS_PROPS = {
 export const WEATHER_ICON_PROPS = {
   x: WEATHER_ICON.x,
   y: WEATHER_ICON.y,
-  image_array: WEATHER_ICON.images,
-  image_length: 29,
+  image_array: WEATHER_ICONS,
+  image_length: WEATHER_ICONS.length,
   type: hmUI.data_type.WEATHER_CURRENT,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
