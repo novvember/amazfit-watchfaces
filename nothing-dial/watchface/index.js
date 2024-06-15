@@ -1,6 +1,8 @@
 import { DATE, STEPS } from '../utils/constants';
 import { decline } from '../utils/decline';
+import { formatTemperature } from '../utils/formatTemperature';
 import { getTimeString } from '../utils/getTimeString';
+import { WEATHER_ICONS } from '../utils/weatherIcons';
 import {
   BACKGROUND_CIRCLE_AOD_PROPS,
   BACKGROUND_CIRCLE_PROPS,
@@ -193,7 +195,30 @@ WatchFace({
   },
 
   buildWeather() {
-    hmUI.createWidget(hmUI.widget.IMG_LEVEL, WEATHER_ICON_PROPS);
-    hmUI.createWidget(hmUI.widget.TEXT_FONT, WEATHER_TEMP_PROPS);
+    const iconWidget = hmUI.createWidget(hmUI.widget.IMG, null);
+    const tempWidget = hmUI.createWidget(hmUI.widget.TEXT, WEATHER_TEMP_PROPS);
+
+    const update = () => {
+      const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
+      const iconIndex = weatherSensor.curAirIconIndex;
+      const temp = weatherSensor.current;
+
+      iconWidget.setProperty(hmUI.prop.MORE, {
+        ...WEATHER_ICON_PROPS,
+        src: WEATHER_ICONS[iconIndex],
+      });
+
+      tempWidget.setProperty(hmUI.prop.TEXT, formatTemperature(temp));
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          update();
+        }
+      },
+    });
   },
 });
