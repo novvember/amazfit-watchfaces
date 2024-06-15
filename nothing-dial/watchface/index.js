@@ -2,7 +2,8 @@ import { DATE, STEPS } from '../utils/constants';
 import { decline } from '../utils/decline';
 import { formatTemperature } from '../utils/formatTemperature';
 import { getTimeString } from '../utils/getTimeString';
-import { WEATHER_ICONS } from '../utils/weatherIcons';
+import { isNight } from '../utils/isNight';
+import { WEATHER_ICONS, updateWeatherIcons } from '../utils/weatherIcons';
 import {
   BACKGROUND_CIRCLE_AOD_PROPS,
   BACKGROUND_CIRCLE_PROPS,
@@ -200,8 +201,11 @@ WatchFace({
 
     const update = () => {
       const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
+      const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
       const iconIndex = weatherSensor.curAirIconIndex;
       const temp = weatherSensor.current;
+
+      updateWeatherIcons(isNight(timeSensor));
 
       iconWidget.setProperty(hmUI.prop.MORE, {
         ...WEATHER_ICON_PROPS,
