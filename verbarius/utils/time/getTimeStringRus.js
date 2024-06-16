@@ -237,9 +237,9 @@ function getTime10(hour, minute) {
 }
 
 /**
- * Девять ровно
- * Час ровно
- * Одиннадцать ровно
+ * Ровно девять
+ * Ровно час
+ * Ровно одиннадцать
  */
 function getTime11(hour, minute) {
   if (minute !== 0) {
@@ -249,10 +249,10 @@ function getTime11(hour, minute) {
   const hour12Format = getHour12Format(hour);
 
   if (hour12Format === 1) {
-    return 'час ровно';
+    return 'ровно час';
   }
 
-  return CARDINAL_NUMBERS_MASCULINE[hour12Format] + '\n' + 'ровно';
+  return 'ровно' + '\n' + CARDINAL_NUMBERS_MASCULINE[hour12Format];
 }
 
 /**
