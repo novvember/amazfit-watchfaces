@@ -55,3 +55,4 @@ To add a new watchface to your device:
 | ![](./spin-2/demo.png)         | Spin 2         | All round watches | ✅ Done             	|
 | ![](./11-weeks/demo.png)       | 11 weeks       | All round watches | ✅ Done             	|
 | ![](./nothing-glyphs/demo.png) | Nothing Glyphs | All round watches | ✅ Done             	|
+| ![](./verbarius/demo.png)      | Verbarius      | All round watches | ✅ Done             	|
