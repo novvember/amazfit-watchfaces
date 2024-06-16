@@ -240,7 +240,10 @@ function getTime12(hour, minute) {
       hourNum = 12;
     }
 
-    return CARDINAL_NUMBERS_MASCULINE[hourNum] + ' ' + postfix;
+    const hourString =
+      hourNum === 1 ? 'час' : CARDINAL_NUMBERS_MASCULINE[hourNum];
+
+    return hourString + ' ' + postfix;
   }
 }
 
@@ -248,22 +251,11 @@ function getTime12(hour, minute) {
  * Три дня
  * Час ночи
  * Шесть вечера
+ * Два часа дня
  */
 function getTime13(hour, minute) {
   if (minute !== 0) {
     return;
-  }
-
-  let postfix = '';
-
-  if (hour < 4) {
-    postfix = 'ночи';
-  } else if (hour < 12) {
-    postfix = 'утра';
-  } else if (hour < 18) {
-    postfix = 'дня';
-  } else {
-    postfix = 'ночи';
   }
 
   let hourNum = hour % 12;
@@ -272,7 +264,25 @@ function getTime13(hour, minute) {
     hourNum = 12;
   }
 
-  return CARDINAL_NUMBERS_MASCULINE[hourNum] + ' ' + postfix;
+  let hourString = hourNum === 1 ? 'час' : CARDINAL_NUMBERS_MASCULINE[hourNum];
+
+  if (hour === 14) {
+    hourString = 'два часа';
+  }
+
+  let postfix = '';
+
+  if (hour < 4) {
+    postfix = 'ночи';
+  } else if (hour < 12) {
+    postfix = 'утра';
+  } else if (hour < 17) {
+    postfix = 'дня';
+  } else {
+    postfix = 'вечера';
+  }
+
+  return hourString + ' ' + postfix;
 }
 
 export function getTimeString(hour, minute) {
