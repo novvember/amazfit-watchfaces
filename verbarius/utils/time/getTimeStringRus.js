@@ -6,6 +6,7 @@ import {
   CARDINAL_NUMBERS_MASCULINE,
   ORDINAL_NUMBERS_MASCULINE_GENITIVUS,
 } from '../numbers/numbers_rus';
+import { getHour12Format, getNextHour12Format } from './formatTime';
 
 /**
  * Час двадцать пять
@@ -14,6 +15,28 @@ import {
  */
 function getTime01(hour, minute) {
   const hoursString = hour === 1 ? 'час' : CARDINAL_NUMBERS_MASCULINE[hour];
+
+  const minString =
+    minute < 10
+      ? CARDINAL_NUMBERS_FEMININE[0] + ' ' + CARDINAL_NUMBERS_FEMININE[minute]
+      : CARDINAL_NUMBERS_FEMININE[minute];
+
+  return [hoursString, minString].join('\n');
+}
+
+/**
+ * Час двадцать пять
+ * Три ноль одна
+ */
+function getTime01b(hour, minute) {
+  if (hour < 13) {
+    return;
+  }
+
+  const hour12Format = getHour12Format(hour);
+
+  const hoursString =
+    hour12Format === 1 ? 'час' : CARDINAL_NUMBERS_MASCULINE[hour12Format];
 
   const minString =
     minute < 10
@@ -33,6 +56,30 @@ function getTime02(hour, minute) {
     CARDINAL_NUMBERS_MASCULINE[hour] +
     ' ' +
     decline(hour, ['час', 'часа', 'часов']);
+
+  const minString =
+    CARDINAL_NUMBERS_FEMININE[minute] +
+    ' ' +
+    decline(minute, ['минута', 'минуты', 'минут']);
+
+  return [hourString, minString].join('\n');
+}
+
+/**
+ * Одиннадцать часов пятьдесят семь минут
+ * Четыре часа ноль минут
+ */
+function getTime02b(hour, minute) {
+  if (hour < 13) {
+    return;
+  }
+
+  const hour12Format = getHour12Format(hour);
+
+  const hourString =
+    CARDINAL_NUMBERS_MASCULINE[hour12Format] +
+    ' ' +
+    decline(hour12Format, ['час', 'часа', 'часов']);
 
   const minString =
     CARDINAL_NUMBERS_FEMININE[minute] +
@@ -71,7 +118,8 @@ function getTime04(hour, minute) {
       ' ' +
       decline(minute, ['минута', 'минуты', 'минут']);
 
-    const hourString = ORDINAL_NUMBERS_MASCULINE_GENITIVUS[(hour % 12) + 1];
+    const nextHour12Format = getNextHour12Format(hour);
+    const hourString = ORDINAL_NUMBERS_MASCULINE_GENITIVUS[nextHour12Format];
 
     return [minString, hourString].join('\n');
   }
@@ -86,9 +134,11 @@ function getTime05(hour, minute) {
     const minLeft = 60 - minute;
     const minString = 'без ' + CARDINAL_NUMBERS_FEMININE_GENITIVUS[minLeft];
 
-    const nextHour = (hour % 12) + 1;
+    const nextHour12Format = getNextHour12Format(hour);
     const hourString =
-      nextHour === 1 ? 'час' : CARDINAL_NUMBERS_MASCULINE[nextHour];
+      nextHour12Format === 1
+        ? 'час'
+        : CARDINAL_NUMBERS_MASCULINE[nextHour12Format];
 
     return [minString, hourString].join('\n');
   }
@@ -99,18 +149,20 @@ function getTime05(hour, minute) {
  * Без четверти час
  */
 function getTime06(hour, minute) {
-  const nextHour = (hour % 12) + 1;
+  const nextHour12Format = getNextHour12Format(hour);
 
   if (minute === 15) {
     const minString = 'четверть';
-    const hourString = ORDINAL_NUMBERS_MASCULINE_GENITIVUS[nextHour];
+    const hourString = ORDINAL_NUMBERS_MASCULINE_GENITIVUS[nextHour12Format];
     return [minString, hourString].join('\n');
   }
 
   if (minute === 45) {
     const minString = 'без четверти';
     const hourString =
-      nextHour === 1 ? 'час' : CARDINAL_NUMBERS_MASCULINE[nextHour];
+      nextHour12Format === 1
+        ? 'час'
+        : CARDINAL_NUMBERS_MASCULINE[nextHour12Format];
     return [minString, hourString].join('\n');
   }
 }
@@ -124,9 +176,9 @@ function getTime07(hour, minute) {
     return;
   }
 
-  const nextHour = (hour % 12) + 1;
+  const nextHour12Format = getNextHour12Format(hour);
   const minString = 'половина';
-  const hourString = ORDINAL_NUMBERS_MASCULINE_GENITIVUS[nextHour];
+  const hourString = ORDINAL_NUMBERS_MASCULINE_GENITIVUS[nextHour12Format];
   return [minString, hourString].join('\n');
 }
 
@@ -139,9 +191,9 @@ function getTime08(hour, minute) {
     return;
   }
 
-  const nextHour = (hour % 12) + 1;
+  const nextHour12Format = getNextHour12Format(hour);
   const minString = 'пол';
-  const hourString = ORDINAL_NUMBERS_MASCULINE_GENITIVUS[nextHour];
+  const hourString = ORDINAL_NUMBERS_MASCULINE_GENITIVUS[nextHour12Format];
   return minString + hourString;
 }
 
@@ -155,13 +207,10 @@ function getTime09(hour, minute) {
     return;
   }
 
-  let hourNum = hour % 12;
-  if (hourNum === 0) {
-    hourNum = 12;
-  }
+  const hour12Format = getHour12Format(hour);
 
   const hourString =
-    CARDINAL_NUMBERS_MASCULINE[hour] +
+    CARDINAL_NUMBERS_MASCULINE[hour12Format] +
     ' ' +
     decline(hour, ['час', 'часа', 'часов']);
 
@@ -178,17 +227,13 @@ function getTime10(hour, minute) {
     return;
   }
 
-  let hourNum = hour % 12;
+  const hour12Format = getHour12Format(hour);
 
-  if (hourNum === 0) {
-    hourNum = 12;
-  }
-
-  if (hourNum === 1) {
+  if (hour12Format === 1) {
     return 'час';
   }
 
-  return CARDINAL_NUMBERS_MASCULINE[hourNum];
+  return CARDINAL_NUMBERS_MASCULINE[hour12Format];
 }
 
 /**
@@ -201,17 +246,13 @@ function getTime11(hour, minute) {
     return;
   }
 
-  let hourNum = hour % 12;
+  const hour12Format = getHour12Format(hour);
 
-  if (hourNum === 0) {
-    hourNum = 12;
-  }
-
-  if (hourNum === 1) {
+  if (hour12Format === 1) {
     return 'час ровно';
   }
 
-  return CARDINAL_NUMBERS_MASCULINE[hourNum] + '\n' + 'ровно';
+  return CARDINAL_NUMBERS_MASCULINE[hour12Format] + '\n' + 'ровно';
 }
 
 /**
@@ -234,14 +275,10 @@ function getTime12(hour, minute) {
   }
 
   if (postfix) {
-    let hourNum = hour % 12;
-
-    if (hourNum === 0) {
-      hourNum = 12;
-    }
+    const hour12Format = getHour12Format(hour);
 
     const hourString =
-      hourNum === 1 ? 'час' : CARDINAL_NUMBERS_MASCULINE[hourNum];
+      hour12Format === 1 ? 'час' : CARDINAL_NUMBERS_MASCULINE[hour12Format];
 
     return hourString + ' ' + postfix;
   }
@@ -258,13 +295,10 @@ function getTime13(hour, minute) {
     return;
   }
 
-  let hourNum = hour % 12;
+  const hour12Format = getHour12Format(hour);
 
-  if (hourNum === 0) {
-    hourNum = 12;
-  }
-
-  let hourString = hourNum === 1 ? 'час' : CARDINAL_NUMBERS_MASCULINE[hourNum];
+  let hourString =
+    hour12Format === 1 ? 'час' : CARDINAL_NUMBERS_MASCULINE[hour12Format];
 
   if (hour === 14) {
     hourString = 'два часа';
@@ -288,7 +322,9 @@ function getTime13(hour, minute) {
 export function getTimeString(hour, minute) {
   const variants = [
     getTime01(hour, minute),
+    getTime01b(hour, minute),
     getTime02(hour, minute),
+    getTime02b(hour, minute),
     getTime03(hour, minute),
     getTime04(hour, minute),
     getTime05(hour, minute),
