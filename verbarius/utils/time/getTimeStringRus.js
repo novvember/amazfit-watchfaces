@@ -212,7 +212,7 @@ function getTime09(hour, minute) {
   const hourString =
     CARDINAL_NUMBERS_MASCULINE[hour12Format] +
     ' ' +
-    decline(hour, ['час', 'часа', 'часов']);
+    decline(hour12Format, ['час', 'часа', 'часов']);
 
   return hourString;
 }
