@@ -295,7 +295,7 @@ export function getStepsArcActiveProps() {
     start_angle: STEPS.angleStart,
     end_angle: STEPS.angleEnd,
     color: COLORS.bgSecondary,
-    line_width: STEPS.width,
+    line_width: STEPS.widthActive,
     level: 0,
     show_level: hmUI.show_level.ONLY_NORMAL,
   };
@@ -339,7 +339,7 @@ export function getSleepArcActiveProps() {
     start_angle: SLEEP_TIME.angleStart,
     end_angle: SLEEP_TIME.angleEnd,
     radius: SLEEP_TIME.orbitRadius,
-    line_width: SLEEP_TIME.width,
+    line_width: SLEEP_TIME.widthActive,
     color: COLORS.bgSecondary,
     type: hmUI.data_type.SLEEP,
     show_level: hmUI.show_level.ONLY_NORMAL,
