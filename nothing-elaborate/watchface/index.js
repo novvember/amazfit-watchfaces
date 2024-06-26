@@ -303,7 +303,7 @@ WatchFace({
 
     const update = () => {
       const { current } = hmSensor.createSensor(hmSensor.id.BATTERY);
-      const level = Math.ceil(current / (100 / 25));
+      const level = Math.round(current * 24 / 100);
       const imageSrc = `battery/${level}.png`;
 
       textWidget.setProperty(hmUI.prop.TEXT, `${current}%\n${BATTERY.postfix}`);
