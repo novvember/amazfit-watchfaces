@@ -1,12 +1,12 @@
 {
   "configVersion": "v3",
   "app": {
-    "appId": 22619,
+    "appId": 1057282,
     "appName": "Bourne",
     "appType": "watchface",
     "version": {
-      "code": 3,
-      "name": "1.0.1"
+      "code": 4,
+      "name": "1.0.2"
     },
     "icon": "icon.png",
     "vender": "novvember",
