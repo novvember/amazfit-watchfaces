@@ -1,12 +1,12 @@
 {
   "configVersion": "v3",
   "app": {
-    "appId": 22719,
+    "appId": 1057781,
     "appName": "Celeste",
     "appType": "watchface",
     "version": {
-      "code": 5,
-      "name": "1.2.1"
+      "code": 6,
+      "name": "1.2.2"
     },
     "icon": "icon.png",
     "vender": "novvember",
