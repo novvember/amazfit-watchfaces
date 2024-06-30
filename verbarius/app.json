@@ -1,12 +1,12 @@
 {
   "configVersion": "v3",
   "app": {
-    "appId": 1057780,
+    "appId": 1057789,
     "appName": "Verbarius",
     "appType": "watchface",
     "version": {
-      "code": 5,
-      "name": "1.1.3"
+      "code": 6,
+      "name": "1.1.4"
     },
     "icon": "icon.png",
     "vender": "novvember",
