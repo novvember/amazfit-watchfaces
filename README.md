@@ -57,3 +57,4 @@ To add a new watchface to your device:
 | ![](./nothing-glyphs/demo.png)    | Nothing Glyphs | All round watches | ✅ Done             	|
 | ![](./verbarius/demo.png)         | Verbarius      | All round watches | ✅ Done             	|
 | ![](./nothing-elaborate/demo.png) | Elaborate      | All round watches | ✅ Done             	|
+| ![](./nothing-sector/demo.png)    | Sektor         | All round watches | ✅ Done             	|
