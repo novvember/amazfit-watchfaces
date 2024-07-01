@@ -86,9 +86,7 @@ WatchFace({
     const update = () => {
       const { current, target } = hmSensor.createSensor(hmSensor.id.STEP);
 
-      let ratio = current / target;
-      ratio = Math.min(ratio, 1);
-
+      const ratio = Math.min(current / target, 1);
       const level = Math.round(ratio * 6);
 
       if (prevValue === level) {
