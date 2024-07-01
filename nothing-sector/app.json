@@ -5,8 +5,8 @@
     "appName": "Sector",
     "appType": "watchface",
     "version": {
-      "code": 1,
-      "name": "1.0.0"
+      "code": 2,
+      "name": "1.0.1"
     },
     "icon": "icon.png",
     "vender": "novvember",

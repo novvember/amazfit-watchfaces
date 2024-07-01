@@ -40,7 +40,10 @@ WatchFace({
 
   buildBattery() {
     hmUI.createWidget(hmUI.widget.IMG, BATTERY_TEXT_PROPS);
-    const progressWidget = hmUI.createWidget(hmUI.widget.IMG, BATTERY_PROGRESS_PROPS);
+    const progressWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      BATTERY_PROGRESS_PROPS,
+    );
     let prevValue = null;
 
     const update = () => {
@@ -74,12 +77,18 @@ WatchFace({
 
   buildSteps() {
     hmUI.createWidget(hmUI.widget.IMG, STEPS_TEXT_PROPS);
-    const progressWidget = hmUI.createWidget(hmUI.widget.IMG, STEPS_PROGRESS_PROPS);
+    const progressWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      STEPS_PROGRESS_PROPS,
+    );
     let prevValue = null;
 
     const update = () => {
       const { current, target } = hmSensor.createSensor(hmSensor.id.STEP);
-      const ratio = current / target;
+
+      let ratio = current / target;
+      ratio = Math.min(ratio, 1);
+
       const level = Math.round(ratio * 6);
 
       if (prevValue === level) {
