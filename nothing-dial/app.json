@@ -1,12 +1,12 @@
 {
   "configVersion": "v3",
   "app": {
-    "appId": 23589,
+    "appId": 1057782,
     "appName": "Nothing Dial",
     "appType": "watchface",
     "version": {
-      "code": 2,
-      "name": "1.3.2"
+      "code": 3,
+      "name": "1.3.3"
     },
     "icon": "icon.png",
     "vender": "novvember",
