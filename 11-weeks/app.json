@@ -1,12 +1,12 @@
 {
   "configVersion": "v3",
   "app": {
-    "appId": 22011,
+    "appId": 1057783,
     "appName": "11 weeks",
     "appType": "watchface",
     "version": {
-      "code": 10,
-      "name": "2.1.4"
+      "code": 11,
+      "name": "2.1.5"
     },
     "icon": "icon.png",
     "vender": "novvember",
