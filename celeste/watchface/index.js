@@ -55,7 +55,7 @@ WatchFace({
 
     const update = () => {
       const { current, target } = hmSensor.createSensor(hmSensor.id.STEP);
-      const angle = (360 * current) / target;
+      const angle = Math.max((360 * current) / target, 5);
 
       arcProgress.setProperty(hmUI.prop.MORE, {
         ...TARGET_ARC_PROGRESS_PROPS,
