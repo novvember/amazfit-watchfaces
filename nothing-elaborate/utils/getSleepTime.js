@@ -13,8 +13,12 @@ function getWakeTime(sleepSensor) {
     .reduce((sum, { start, stop }) => sum + stop - start + 1, 0);
 }
 
+export function getSleepTimeTotal(sleepSensor) {
+  return sleepSensor.getTotalTime();
+}
+
 export function getSleepTimeString(sleepSensor) {
-  const totalTime = sleepSensor.getTotalTime();
+  const totalTime = getSleepTimeTotal(sleepSensor);
 
   if (totalTime) {
     return formatTime(totalTime - getWakeTime(sleepSensor));

@@ -1,4 +1,4 @@
-import { getSleepTimeString } from '../utils/getSleepTime';
+import { getSleepTimeString, getSleepTimeTotal } from '../utils/getSleepTime';
 import {
   BATTERY,
   COLORS,
@@ -75,14 +75,26 @@ WatchFace({
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           const sleepTime = getSleepTimeString(sleepSensor);
           const sleepString = `${sleepTime}\n${SLEEP.postfix}`;
-          const { startTime, endTime } = sleepSensor.getBasicInfo();
+          const totalSleepTimeHours = getSleepTimeTotal(sleepSensor) / 60;
+          let { startTime, endTime } = sleepSensor.getBasicInfo();
+
+          let angleStart = getAngleFromTime(startTime);
+          let angleEnd = getAngleFromTime(endTime);
+
+          if (angleEnd < angleStart) {
+            angleEnd += 360;
+          }
+
+          if (totalSleepTimeHours >= 12) {
+            angleEnd += 360;
+          }
 
           if (sleepTime) {
             textWidget.setProperty(hmUI.prop.TEXT, sleepString);
             arcWidget.setProperty(hmUI.prop.MORE, {
               ...SLEEP_ARC_PROPS,
-              start_angle: getAngleFromTime(startTime),
-              end_angle: getAngleFromTime(endTime),
+              start_angle: angleStart,
+              end_angle: angleEnd,
             });
           } else {
             textWidget.setProperty(hmUI.prop.TEXT, '');
