@@ -85,8 +85,8 @@ export const DATE_TEXT_PROPS = {
 };
 
 export const STEPS_ARC_PROPS = {
-  center_x: px(271) + ARC_SIZE / 2,
-  center_y: px(311) + ARC_SIZE / 2,
+  center_x: px(273) + ARC_SIZE / 2,
+  center_y: px(313) + ARC_SIZE / 2,
   radius: ARC_SIZE / 4,
   start_angle: 0,
   end_angle: 360,
@@ -112,8 +112,8 @@ export const STEPS_TEXT_PROPS = {
 };
 
 export const SLEEP_ARC_PROPS = {
-  center_x: px(271) + ARC_SIZE / 2,
-  center_y: px(255) + ARC_SIZE / 2,
+  center_x: px(273) + ARC_SIZE / 2,
+  center_y: px(257) + ARC_SIZE / 2,
   radius: ARC_SIZE / 4,
   start_angle: 0,
   end_angle: 360,
@@ -139,8 +139,8 @@ export const SLEEP_TEXT_PROPS = {
 };
 
 export const BATTERY_ARC_PROPS = {
-  center_x: px(271) + ARC_SIZE / 2,
-  center_y: px(367) + ARC_SIZE / 2,
+  center_x: px(273) + ARC_SIZE / 2,
+  center_y: px(369) + ARC_SIZE / 2,
   radius: ARC_SIZE / 4,
   start_angle: 0,
   end_angle: 360,
@@ -162,5 +162,13 @@ export const BATTERY_TEXT_PROPS = {
   align_v: hmUI.align.CENTER_V,
   font: FONT_FAMILY.secondary,
   text: '00%',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const DISCONNECT_STATUS_PROPS = {
+  x: px(276),
+  y: px(417),
+  type: hmUI.system_status.DISCONNECT,
+  src: 'disconnect.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };

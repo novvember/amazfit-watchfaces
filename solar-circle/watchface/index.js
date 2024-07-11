@@ -6,6 +6,7 @@ import {
   BATTERY_ARC_PROPS,
   BATTERY_TEXT_PROPS,
   DATE_TEXT_PROPS,
+  DISCONNECT_STATUS_PROPS,
   HOURS_TEXT_PROPS,
   LUNAR_IMAGE_PROPS,
   MINS_TEXT_PROPS,
@@ -34,6 +35,7 @@ WatchFace({
     this.buildSteps();
     this.buildSleepTime();
     this.buildBattery();
+    this.buildDisconnectStatus();
   },
 
   onDestroy() {
@@ -262,5 +264,9 @@ WatchFace({
         }
       },
     });
+  },
+
+  buildDisconnectStatus() {
+    hmUI.createWidget(hmUI.widget.IMG_STATUS, DISCONNECT_STATUS_PROPS);
   },
 });

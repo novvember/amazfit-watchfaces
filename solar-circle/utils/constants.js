@@ -29,7 +29,7 @@ export const WEEKDAYS = isRusLang
   ? ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС']
   : ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
-export const ARC_SIZE = px(40);
+export const ARC_SIZE = px(36);
 
 export const SOLAR_SIZE = {
   paddingTop: px(22),
