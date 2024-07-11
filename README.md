@@ -58,3 +58,4 @@ To add a new watchface to your device:
 | ![](./verbarius/demo.png)         | Verbarius      | All round watches | ✅ Done             	|
 | ![](./nothing-elaborate/demo.png) | Elaborate      | All round watches | ✅ Done             	|
 | ![](./nothing-sector/demo.png)    | Sektor         | All round watches | ✅ Done             	|
+| ![](./solar-circle/demo.png)      | Solar circle   | All round watches | ✅ Done             	|
