@@ -1,4 +1,4 @@
-# Nothing Dial
+# Anicorn K452 Nemesis
 Watchface for Amazfit GTR Mini and other round ZeppOS watches
 
 ![demo](./demo-gtr-mini.png)
