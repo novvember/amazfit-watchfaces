@@ -11,7 +11,7 @@ export const HOUR_POINTER_PROPS = {
   hour_posX: SCREEN.centerX,
   hour_posY: SCREEN.centerY,
   hour_path: 'hours/pointer.png',
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
 };
 
 export const MINUTE_BACKGROUND_PROPS = {
@@ -27,14 +27,14 @@ export const MINUTE_POINTER_PROPS = {
   minute_posX: SCREEN.centerX,
   minute_posY: SCREEN.centerY,
   minute_path: 'minutes/pointer.png',
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
 };
 
 export const SECOND_BACKGROUND_PROPS = {
   x: 0,
   y: 0,
   src: 'seconds/background.png',
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
 };
 
 export const SECOND_POINTER_PROPS = {
@@ -50,7 +50,7 @@ export const BEZEL_BACKGROUND_PROPS = {
   x: 0,
   y: 0,
   src: 'bezel/background.png',
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
 };
 
 export const BEZEL_CIRCLE_TEXT_PROPS = {
