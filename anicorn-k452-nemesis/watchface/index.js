@@ -1,4 +1,10 @@
-import { WEEKDAYS } from '../utils/constants';
+import {
+  BATTERY_TEXT,
+  DATE_TEXT,
+  SLEEP_TEXT,
+  STEPS_TEXT,
+  WEEKDAYS,
+} from '../utils/constants';
 import { createCircleTextWidget } from '../utils/createCircleTextWidget';
 import { getSleepTimeString } from '../utils/getSleepTime';
 import {
@@ -67,7 +73,9 @@ WatchFace({
       const { day, week } = hmSensor.createSensor(hmSensor.id.TIME);
       const dateText = day.toString().padStart(2, '0');
       const weekdayText = WEEKDAYS[week - 1];
-      const text = `${dateText} ${weekdayText}`;
+      const text = DATE_TEXT.textTemplate
+        .replace('%date', dateText)
+        .replace('%weekday', weekdayText);
 
       if (prevValue === text) {
         return;
@@ -104,7 +112,7 @@ WatchFace({
 
     const update = () => {
       const { current } = hmSensor.createSensor(hmSensor.id.STEP);
-      updateText(`STEPS ${current || 0}`);
+      updateText(STEPS_TEXT.textTemplate.replace('%s', current || 0));
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -123,7 +131,7 @@ WatchFace({
 
     const update = () => {
       const { current } = hmSensor.createSensor(hmSensor.id.BATTERY);
-      updateText(`BATTERY ${current}%`);
+      updateText(BATTERY_TEXT.textTemplate.replace('%s', current));
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -145,7 +153,7 @@ WatchFace({
       const sleepTimeString = getSleepTimeString(sleepSensor);
 
       if (sleepTimeString) {
-        updateText(`SLEEP ${sleepTimeString}`);
+        updateText(SLEEP_TEXT.textTemplate.replace('%s', sleepTimeString));
       } else {
         updateText('');
       }

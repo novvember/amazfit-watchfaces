@@ -1,4 +1,12 @@
-import { BEZEL_TEXT, SCREEN } from '../utils/constants';
+import {
+  TEXT_CHARS_PARAMS,
+  SCREEN,
+  BEZEL_TEXT,
+  DATE_TEXT,
+  STEPS_TEXT,
+  BATTERY_TEXT,
+  SLEEP_TEXT,
+} from '../utils/constants';
 import {
   TEXT_CHARS,
   TEXT_CHAR_HEIGHT,
@@ -54,33 +62,33 @@ export const BEZEL_BACKGROUND_PROPS = {
 };
 
 export const BEZEL_CIRCLE_TEXT_PROPS = {
-  maxLength: '→→ INDICATOR →→'.length,
-  text: '→→INDICATOR→→',
+  maxLength: BEZEL_TEXT.maxLength,
+  text: BEZEL_TEXT.text,
   angleStart: -67,
-  radius: BEZEL_TEXT.radius,
-  gap: BEZEL_TEXT.gap,
+  radius: TEXT_CHARS_PARAMS.radius,
+  gap: TEXT_CHARS_PARAMS.gap,
   charImages: TEXT_CHARS,
   imageWidth: TEXT_CHAR_WIDTH,
   imageHeight: TEXT_CHAR_HEIGHT,
 };
 
 export const DATE_CIRCLE_TEXT_PROPS = {
-  maxLength: '00 WEDNESDAY'.length,
+  maxLength: DATE_TEXT.maxLength,
   text: '',
   angleStart: 7,
-  radius: BEZEL_TEXT.radius,
-  gap: BEZEL_TEXT.gap,
+  radius: TEXT_CHARS_PARAMS.radius,
+  gap: TEXT_CHARS_PARAMS.gap,
   charImages: TEXT_CHARS,
   imageWidth: TEXT_CHAR_WIDTH,
   imageHeight: TEXT_CHAR_HEIGHT,
 };
 
 export const STEPS_CIRCLE_TEXT_PROPS = {
-  maxLength: 'STEPS 00000'.length,
+  maxLength: STEPS_TEXT.maxLength,
   text: '',
   angleStart: -20,
-  radius: BEZEL_TEXT.radius,
-  gap: BEZEL_TEXT.gap,
+  radius: TEXT_CHARS_PARAMS.radius,
+  gap: TEXT_CHARS_PARAMS.gap,
   charImages: TEXT_CHARS,
   imageWidth: TEXT_CHAR_WIDTH,
   imageHeight: TEXT_CHAR_HEIGHT,
@@ -88,11 +96,11 @@ export const STEPS_CIRCLE_TEXT_PROPS = {
 };
 
 export const BATTERY_CIRCLE_TEXT_PROPS = {
-  maxLength: 'BATTERY 000%'.length,
+  maxLength: BATTERY_TEXT.maxLength,
   text: '',
-  angleStart: 55,
-  radius: BEZEL_TEXT.radius,
-  gap: BEZEL_TEXT.gap,
+  angleStart: 50,
+  radius: TEXT_CHARS_PARAMS.radius,
+  gap: TEXT_CHARS_PARAMS.gap,
   charImages: TEXT_CHARS,
   imageWidth: TEXT_CHAR_WIDTH,
   imageHeight: TEXT_CHAR_HEIGHT,
@@ -100,11 +108,11 @@ export const BATTERY_CIRCLE_TEXT_PROPS = {
 };
 
 export const SLEEP_CIRCLE_TEXT_PROPS = {
-  maxLength: 'SLEEP 00:00'.length,
+  maxLength: SLEEP_TEXT.maxLength,
   text: '',
   angleStart: -90,
-  radius: BEZEL_TEXT.radius,
-  gap: BEZEL_TEXT.gap,
+  radius: TEXT_CHARS_PARAMS.radius,
+  gap: TEXT_CHARS_PARAMS.gap,
   charImages: TEXT_CHARS,
   imageWidth: TEXT_CHAR_WIDTH,
   imageHeight: TEXT_CHAR_HEIGHT,
