@@ -1,4 +1,4 @@
-# Spin 2 Watchface
+# Spin 3 Watchface
 Watchface for Amazfit GTR Mini and for other round ZeppOS watch.
 
 ![demo](./demo-gtr-mini.png)
@@ -6,15 +6,16 @@ Watchface for Amazfit GTR Mini and for other round ZeppOS watch.
 ## Features
 
 **Main features**
-It is a combination of two other watchfaces -- orbit logic from *Spin* and cool colors and fonts from *Nothing Dial*.
-- time: hour in center (12/24), minutes around, red dot for second hand
-- date and day of the week
+- time: hour in center (12/24), minutes around
+- date, month and day of the week
 - steps
 - sleep time
-- UV index
 - bluetooth connection status
+- moon phase
 
-**Model compatibility:** Amazfit GTR Mini, Amazfit GTR 4 and all oter round ZeppOS watches
+![description](./description.png)
+
+**Model compatibility:** Amazfit GTR Mini, Amazfit GTR 4 and all other round ZeppOS watches
 
 **AOD:** Yes
 
@@ -22,7 +23,7 @@ It is a combination of two other watchfaces -- orbit logic from *Spin* and cool 
 
 **Language:** English, Russian
 
-**Inspired:** Radii Watch Face by The Design Cycle
+**Inspired:** [TTMMORE Watch Face by TTMM](https://ttmm.is/portfolio/ttmmore-vs/)
 
 ## Download ⏬
 
