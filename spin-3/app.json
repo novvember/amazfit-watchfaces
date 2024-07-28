@@ -1,0 +1,58 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 1059547,
+    "appName": "Spin 3",
+    "appType": "watchface",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "icon": "icon.png",
+    "vender": "novvember",
+    "cover": [
+      "cover.png"
+    ],
+    "description": "Spin 3 watchface. Source code here: https://github.com/novvember/amazfit-watchfaces"
+  },
+  "runtime": {
+    "apiVersion": {
+      "compatible": "1.0.0",
+      "target": "1.0.1",
+      "minVersion": "1.0.0"
+    }
+  },
+  "permissions": [],
+  "targets": {
+    "common": {
+      "module": {
+        "watchface": {
+          "path": "watchface/index",
+          "main": 1,
+          "editable": 0,
+          "lockscreen": 1,
+          "photoscreen": 0
+        }
+      },
+      "platforms": [
+        {
+          "st": "r"
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "Spin 3"
+    },
+    "ru-RU": {
+      "appName": "Spin 3"
+    },
+    "uk-UA": {
+      "appName": "Spin 3"
+    }
+  },
+  "defaultLanguage": "en-US",
+  "debug": false
+}
