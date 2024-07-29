@@ -61,3 +61,4 @@ To add a new watchface to your device:
 | ![](./solar-circle/demo.png)          | Solar circle          | All round watches | ✅ Done             	|
 | ![](./anicorn-k452-nemesis/demo.png)  | Anicorn K452 Nemesis  | All round watches | ✅ Done             	|
 | ![](./spin-3/demo.png)                | Spin 3                | All round watches | ✅ Done             	|
+| ![](./g-shock/demo.png)               | G-Shock               | All round watches | ⚒️ In progress        |
