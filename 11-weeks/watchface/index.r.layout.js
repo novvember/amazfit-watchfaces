@@ -12,6 +12,7 @@ import {
   CONNECTION_STATUS,
   ALARM_STATUS,
   FONT,
+  GRID_RECT,
 } from '../utils/constants';
 
 // CELL
@@ -36,9 +37,26 @@ export function getCellDateImageProps(centerPosition, text, isPartOfBigDigit) {
 // YEAR
 export function getYearImageProps(cellToRight, value) {
   return {
-    x: cellToRight.centerPosition.x - GRID.cell.width / 2 - CALENDAR.year.width - px(2),
+    x:
+      cellToRight.centerPosition.x -
+      GRID.cell.width / 2 -
+      CALENDAR.year.width -
+      px(2),
     y: cellToRight.centerPosition.y - CALENDAR.year.height / 2,
     src: `year/${value}.png`,
+    show_level: hmUI.show_level.ONLY_NORMAL,
+  };
+}
+
+export function getYearDotImageProps(cellToRight) {
+  return {
+    x:
+      cellToRight.centerPosition.x -
+      GRID.cell.width / 2 -
+      CALENDAR.year.width -
+      px(2),
+    y: cellToRight.centerPosition.y - CALENDAR.year.height / 2,
+    src: `dot/dot.png`,
     show_level: hmUI.show_level.ONLY_NORMAL,
   };
 }
@@ -53,6 +71,15 @@ export function getMonthImageProps(cellToLeft, value) {
   };
 }
 
+export function getMonthDotImageProps(cellToLeft) {
+  return {
+    x: cellToLeft.centerPosition.x + GRID.cell.width / 2 + px(2),
+    y: cellToLeft.centerPosition.y - CALENDAR.month.height / 2,
+    src: `dot/dot.png`,
+    show_level: hmUI.show_level.ONLY_NORMAL,
+  };
+}
+
 // WEEKDAY
 export function getWeekDayImageProps(cellToBottom, index) {
   return {
@@ -62,6 +89,15 @@ export function getWeekDayImageProps(cellToBottom, index) {
       CALENDAR.date.height / 2 -
       CALENDAR.weekDay.height,
     src: CALENDAR.weekDay.images[index],
+    show_level: hmUI.show_level.ONLY_NORMAL,
+  };
+}
+
+export function getweekDayDotImageProps(column) {
+  return {
+    x: GRID_RECT.xLeft + GRID.cell.width * column,
+    y: GRID_RECT.yTop - GRID.cell.height * 1.7,
+    src: `dot/dot.png`,
     show_level: hmUI.show_level.ONLY_NORMAL,
   };
 }

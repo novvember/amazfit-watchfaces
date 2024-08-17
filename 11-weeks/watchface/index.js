@@ -34,6 +34,9 @@ import {
   getSleepArcBackgroundProps,
   getSleepArcActiveProps,
   getSleepTimeProps,
+  getYearDotImageProps,
+  getMonthDotImageProps,
+  getweekDayDotImageProps,
 } from './index.r.layout';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
@@ -144,6 +147,7 @@ WatchFace({
 
     const digitMatrix = this.getDigitMatrix(hour, minute);
     const { dateMatrix } = this.getCalendarData(day, month, year);
+    const weekDayDotWidget = hmUI.createWidget(hmUI.widget.IMG, null);
 
     for (let row = 0; row < GRID.size.rows; row++) {
       for (let column = 0; column < GRID.size.columns; column++) {
@@ -159,6 +163,12 @@ WatchFace({
 
         const isPartOfBigDigit = digitMatrix[row][column];
         const isCurrentDay = dateMatrix[row][column].isCurrentDay;
+
+        if (isCurrentDay)
+          weekDayDotWidget.setProperty(
+            hmUI.prop.MORE,
+            getweekDayDotImageProps(column),
+          );
 
         let newStatus = isPartOfBigDigit ? 'active' : 'normal';
         if (isCurrentDay) newStatus += '_today';
@@ -197,22 +207,31 @@ WatchFace({
     const { yearsList } = this.getCalendarData(day, month, year);
 
     for (let row = 0; row < yearsList.length; row++) {
-      const value = yearsList[row];
+      const year = yearsList[row];
       const widget = this.years[row];
       const cellToRight = this.grid[row][0];
 
-      if (widget === null && value !== null) {
+      const hasYear = year !== null;
+      const hasDot = row === CALENDAR.currentWeekIndex && !hasYear;
+      const hasContent = hasDot || hasYear;
+      const hasWidget = widget !== null;
+
+      if (!hasWidget && hasContent) {
         this.years[row] = hmUI.createWidget(
           hmUI.widget.IMG,
-          getYearImageProps(cellToRight, value),
+          hasDot
+            ? getYearDotImageProps(cellToRight)
+            : getYearImageProps(cellToRight, year),
         );
-      } else if (widget !== null && value === null) {
+      } else if (hasWidget && !hasContent) {
         hmUI.deleteWidget(widget);
         this.years[row] = null;
-      } else if (widget !== null && value !== null) {
+      } else if (hasWidget && hasContent) {
         widget.setProperty(
           hmUI.prop.MORE,
-          getYearImageProps(cellToRight, value),
+          hasDot
+            ? getYearDotImageProps(cellToRight)
+            : getYearImageProps(cellToRight, year),
         );
       }
     }
@@ -229,18 +248,27 @@ WatchFace({
       const widget = this.months[row];
       const cellToLeft = this.grid[row][GRID.size.columns - 1];
 
-      if (widget === null && value !== null) {
+      const hasWidget = widget !== null;
+      const hasMonth = value !== null;
+      const hasDot = row === CALENDAR.currentWeekIndex && !hasMonth;
+      const hasContent = hasDot || hasMonth;
+
+      if (!hasWidget && hasContent) {
         this.months[row] = hmUI.createWidget(
           hmUI.widget.IMG,
-          getMonthImageProps(cellToLeft, value),
+          hasDot
+            ? getMonthDotImageProps(cellToLeft)
+            : getMonthImageProps(cellToLeft, value),
         );
-      } else if (widget !== null && value === null) {
+      } else if (hasWidget && !hasContent) {
         hmUI.deleteWidget(widget);
         this.months[row] = null;
-      } else if (widget !== null && value !== null) {
+      } else if (hasWidget && hasContent) {
         widget.setProperty(
           hmUI.prop.MORE,
-          getMonthImageProps(cellToLeft, value),
+          hasDot
+            ? getMonthDotImageProps(cellToLeft)
+            : getMonthImageProps(cellToLeft, value),
         );
       }
     }

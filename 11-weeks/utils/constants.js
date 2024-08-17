@@ -28,6 +28,13 @@ export const GRID = {
   },
 };
 
+export const GRID_RECT = {
+  xLeft: SCREEN.centerX - (GRID.cell.width * GRID.size.columns) / 2,
+  xRight: SCREEN.centerX + (GRID.cell.width * GRID.size.columns) / 2,
+  yTop: SCREEN.centerY - (GRID.cell.height * GRID.size.rows) / 2,
+  yBottom: SCREEN.centerY + (GRID.cell.height * GRID.size.rows) / 2,
+};
+
 export const CALENDAR = {
   currentWeekIndex: 3,
   date: {
