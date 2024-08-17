@@ -4,6 +4,8 @@ const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
 const { width, height } = hmSetting.getDeviceInfo();
 
 export const SCREEN = {
+  width,
+  height,
   centerX: width / 2,
   centerY: height / 2,
 };
@@ -21,8 +23,8 @@ export const GRID = {
     rows: 11,
   },
   cell: {
-    width: px(32),
-    height: px(32),
+    width: px(30),
+    height: px(30),
   },
 };
 
@@ -66,7 +68,7 @@ export const SPECIAL_CHARS = {
 };
 
 export const SECONDS_PROGRESS_BAR = {
-  width: px(224),
+  width: GRID.size.columns * GRID.cell.width,
   height: GRID.cell.height,
 };
 

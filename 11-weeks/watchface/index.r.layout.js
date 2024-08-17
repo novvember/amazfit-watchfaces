@@ -36,7 +36,7 @@ export function getCellDateImageProps(centerPosition, text, isPartOfBigDigit) {
 // YEAR
 export function getYearImageProps(cellToRight, value) {
   return {
-    x: cellToRight.centerPosition.x - GRID.cell.width / 2 - CALENDAR.year.width,
+    x: cellToRight.centerPosition.x - GRID.cell.width / 2 - CALENDAR.year.width - px(2),
     y: cellToRight.centerPosition.y - CALENDAR.year.height / 2,
     src: `year/${value}.png`,
     show_level: hmUI.show_level.ONLY_NORMAL,
@@ -46,7 +46,7 @@ export function getYearImageProps(cellToRight, value) {
 // MONTH
 export function getMonthImageProps(cellToLeft, value) {
   return {
-    x: cellToLeft.centerPosition.x + GRID.cell.width / 2,
+    x: cellToLeft.centerPosition.x + GRID.cell.width / 2 + px(2),
     y: cellToLeft.centerPosition.y - CALENDAR.month.height / 2,
     src: CALENDAR.month.images[value],
     show_level: hmUI.show_level.ONLY_NORMAL,
