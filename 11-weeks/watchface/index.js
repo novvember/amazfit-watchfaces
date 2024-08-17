@@ -354,7 +354,7 @@ WatchFace({
             });
           } else {
             sleepTimeWidget.setProperty(hmUI.widget.MORE, {
-              text: '— —',
+              text: '',
               color: COLORS.secondary,
             });
           }
