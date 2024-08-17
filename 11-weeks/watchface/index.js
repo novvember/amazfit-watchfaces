@@ -4,39 +4,30 @@ import { withWeakCache } from '../utils/withWeakCache';
 import { makeEmptyGrid } from '../utils/makeEmptyGrid';
 import { getSleepTimeString } from '../utils/getSleepTime';
 
-import {
-  CALENDAR,
-  DIGITS,
-  GRID,
-  SCREEN,
-  SECONDS_PROGRESS_BAR,
-  COLORS,
-} from '../utils/constants';
+import { CALENDAR, DIGITS, GRID, SCREEN, COLORS } from '../utils/constants';
 
 import {
-  getCellDateImageProps,
-  getCellBackgroundImageProps,
-  getYearImageProps,
-  getMonthImageProps,
-  getWeekDayImageProps,
-  getSecondsImageTimeProps,
-  getSecondProgressBarImageProps,
-  getStepsTextImageProps,
-  getStepsArcBackgroundProps,
-  getStepsArcActiveProps,
-  getBatteryTextImageProps,
-  getBatteryArcBackgroundProps,
-  getBatteryArcActiveProps,
-  getConnectImageProps,
-  getDisconnectImageProps,
-  getAlarmOffImageProps,
-  getAlarmOnImageProps,
-  getSleepArcBackgroundProps,
-  getSleepArcActiveProps,
-  getSleepTimeProps,
-  getYearDotImageProps,
-  getMonthDotImageProps,
-  getweekDayDotImageProps,
+  CELL_BACKGROUND_IMAGE_PROPS,
+  CELL_DATE_IMAGE_PROPS,
+  DOT_IMAGE_PROPS,
+  YEAR_IMAGE_PROPS,
+  MONTH_IMAGE_PROPS,
+  WEEKDAY_IMAGE_PROPS,
+  SECONDS_IMAGE_TIME_PROPS,
+  SECONDS_PROGRESS_BAR_PROPS,
+  STEPS_TEXT_IMAGE_PROPS,
+  STEPS_ARC_BACKGROUND_PROPS,
+  STEPS_ARC_ACTIVE_PROPS,
+  BATTERY_TEXT_IMAGE_PROPS,
+  BATTERY_ARC_BACKGROUND_PROPS,
+  BATTERY_ARC_ACTIVE_PROPS,
+  SLEEP_ARC_BACKGROUND_PROPS,
+  SLEEP_ARC_ACTIVE_PROPS,
+  SLEEP_TEXT_PROPS,
+  CONNECT_IMAGE_PROPS,
+  DISCONNECT_IMAGE_PROPS,
+  ALARM_OFF_IMAGE_PROPS,
+  ALARM_ON_IMAGE_PROPS,
 } from './index.r.layout';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
@@ -44,11 +35,11 @@ const makeCalendarDataCached = withWeakCache(makeCalendarData);
 
 WatchFace({
   onInit() {
-    console.log('watchface on INIT invoke');
+    console.log('watchface initing');
   },
 
   build() {
-    console.log('watchface on BUILD invoke');
+    console.log('watchface building');
 
     this.buildGrid();
     this.buildWeekDays();
@@ -63,7 +54,7 @@ WatchFace({
   },
 
   onDestroy() {
-    console.log('watchface on DESTROY invoke');
+    console.log('watchface destroying');
 
     timer.stopTimer(this.renderGridTimer);
     timer.stopTimer(this.renderSecondsTimer);
@@ -90,6 +81,8 @@ WatchFace({
   },
 
   buildGrid() {
+    console.log('empty grid building');
+
     this.grid = makeEmptyGrid(
       SCREEN.centerX,
       SCREEN.centerY,
@@ -98,48 +91,47 @@ WatchFace({
       GRID.cell.width,
       GRID.cell.height,
     );
+
     this.years = new Array(GRID.size.rows).fill(null);
     this.months = new Array(GRID.size.rows).fill(null);
 
+    let prevMinute = null;
+    let prevDay = null;
+
+    const update = () => {
+      const { minute, day } = hmSensor.createSensor(hmSensor.id.TIME);
+
+      if (minute !== prevMinute) {
+        prevMinute = minute;
+        this.renderGrid();
+      }
+
+      if (day !== prevDay) {
+        prevDay = day;
+        this.renderYears();
+        this.renderMonths();
+      }
+    };
+
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        console.log('ui resume (widget delegate)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          this.renderGridTimer = timer.createTimer(
-            500,
-            500,
-            this.handleRenderGridTimer.bind(this),
-          );
-          this.handleRenderGridTimer();
+          this.renderGridTimer = timer.createTimer(1000, 1000, update);
+          update();
         }
       },
       pause_call: () => {
-        console.log('ui pause');
+        console.log('ui pause (widget delegate)');
 
         timer.stopTimer(this.renderGridTimer);
       },
     });
   },
 
-  handleRenderGridTimer() {
-    const { hour, minute, day } = hmSensor.createSensor(hmSensor.id.TIME);
-    const newTime = [hour, minute].join('-');
-
-    if (this.time !== newTime) {
-      this.time = newTime;
-      this.renderGrid();
-    }
-
-    if (this.day !== day) {
-      this.day = day;
-      this.renderYears();
-      this.renderMonths();
-    }
-  },
-
   renderGrid() {
-    console.log('grid rerendered');
+    console.log('date grid rendering');
 
     const { hour, minute, day, month, year } = hmSensor.createSensor(
       hmSensor.id.TIME,
@@ -147,54 +139,51 @@ WatchFace({
 
     const digitMatrix = this.getDigitMatrix(hour, minute);
     const { dateMatrix } = this.getCalendarData(day, month, year);
-    const weekDayDotWidget = hmUI.createWidget(hmUI.widget.IMG, null);
+    const dotWidget = hmUI.createWidget(hmUI.widget.IMG, null);
 
     for (let row = 0; row < GRID.size.rows; row++) {
       for (let column = 0; column < GRID.size.columns; column++) {
         const cell = this.grid[row][column];
 
-        const {
-          centerPosition,
-          backgroundImageWidget,
-          dateWidget,
-          status,
-          dateText,
-        } = cell;
+        const { backgroundImageWidget, dateWidget, status, dateText, x, y } =
+          cell;
 
         const isPartOfBigDigit = digitMatrix[row][column];
         const isCurrentDay = dateMatrix[row][column].isCurrentDay;
-
-        if (isCurrentDay)
-          weekDayDotWidget.setProperty(
-            hmUI.prop.MORE,
-            getweekDayDotImageProps(column),
-          );
+        const newDateText = dateMatrix[row][column].text;
 
         let newStatus = isPartOfBigDigit ? 'active' : 'normal';
         if (isCurrentDay) newStatus += '_today';
 
-        const newDateText = dateMatrix[row][column].text;
+        if (isCurrentDay && dateText !== newDateText)
+          dotWidget.setProperty(hmUI.prop.MORE, {
+            ...DOT_IMAGE_PROPS,
+            x,
+            y: CALENDAR.weekDay.dotY,
+          });
 
         if (status !== newStatus) {
           cell.status = newStatus;
 
-          backgroundImageWidget.setProperty(
-            hmUI.prop.MORE,
-            getCellBackgroundImageProps(centerPosition, newStatus),
-          );
+          backgroundImageWidget.setProperty(hmUI.prop.MORE, {
+            ...CELL_BACKGROUND_IMAGE_PROPS,
+            x,
+            y,
+            src: `cell/${newStatus}.png`,
+          });
         }
 
         if (dateText !== newDateText || status !== newStatus) {
           cell.dateText = newDateText;
 
-          dateWidget.setProperty(
-            hmUI.prop.MORE,
-            getCellDateImageProps(
-              centerPosition,
-              newDateText,
-              isPartOfBigDigit,
-            ),
-          );
+          dateWidget.setProperty(hmUI.prop.MORE, {
+            ...CELL_DATE_IMAGE_PROPS,
+            x,
+            y,
+            src: `${
+              isPartOfBigDigit ? 'date_dark' : 'date'
+            }/${newDateText}.png`,
+          });
         }
       }
     }
@@ -209,30 +198,39 @@ WatchFace({
     for (let row = 0; row < yearsList.length; row++) {
       const year = yearsList[row];
       const widget = this.years[row];
-      const cellToRight = this.grid[row][0];
+      const { x, y } = this.grid[row][0];
 
       const hasYear = year !== null;
       const hasDot = row === CALENDAR.currentWeekIndex && !hasYear;
-      const hasContent = hasDot || hasYear;
+      const hasValue = hasDot || hasYear;
       const hasWidget = widget !== null;
 
-      if (!hasWidget && hasContent) {
-        this.years[row] = hmUI.createWidget(
-          hmUI.widget.IMG,
-          hasDot
-            ? getYearDotImageProps(cellToRight)
-            : getYearImageProps(cellToRight, year),
-        );
-      } else if (hasWidget && !hasContent) {
+      let imageProps = null;
+
+      if (hasValue) {
+        const imageX = x - CALENDAR.year.width - CALENDAR.year.gap;
+
+        imageProps = hasDot
+          ? {
+              ...DOT_IMAGE_PROPS,
+              x: imageX,
+              y,
+            }
+          : {
+              ...YEAR_IMAGE_PROPS,
+              x: imageX,
+              y,
+              src: `year/${year}.png`,
+            };
+      }
+
+      if (!hasWidget && hasValue) {
+        this.years[row] = hmUI.createWidget(hmUI.widget.IMG, imageProps);
+      } else if (hasWidget && !hasValue) {
         hmUI.deleteWidget(widget);
         this.years[row] = null;
-      } else if (hasWidget && hasContent) {
-        widget.setProperty(
-          hmUI.prop.MORE,
-          hasDot
-            ? getYearDotImageProps(cellToRight)
-            : getYearImageProps(cellToRight, year),
-        );
+      } else if (hasWidget && hasValue) {
+        widget.setProperty(hmUI.prop.MORE, imageProps);
       }
     }
   },
@@ -244,102 +242,102 @@ WatchFace({
     const { monthsList } = this.getCalendarData(day, month, year);
 
     for (let row = 0; row < monthsList.length; row++) {
-      const value = monthsList[row];
+      const month = monthsList[row];
       const widget = this.months[row];
-      const cellToLeft = this.grid[row][GRID.size.columns - 1];
+      const { x, y } = this.grid[row][GRID.size.columns - 1];
 
       const hasWidget = widget !== null;
-      const hasMonth = value !== null;
+      const hasMonth = month !== null;
       const hasDot = row === CALENDAR.currentWeekIndex && !hasMonth;
-      const hasContent = hasDot || hasMonth;
+      const hasValue = hasDot || hasMonth;
 
-      if (!hasWidget && hasContent) {
-        this.months[row] = hmUI.createWidget(
-          hmUI.widget.IMG,
-          hasDot
-            ? getMonthDotImageProps(cellToLeft)
-            : getMonthImageProps(cellToLeft, value),
-        );
-      } else if (hasWidget && !hasContent) {
+      let imageProps = null;
+
+      if (hasValue) {
+        const imageX = x + CALENDAR.date.width + CALENDAR.month.gap;
+
+        imageProps = hasDot
+          ? {
+              ...DOT_IMAGE_PROPS,
+              x: imageX,
+              y,
+            }
+          : {
+              ...MONTH_IMAGE_PROPS,
+              x: imageX,
+              y,
+              src: CALENDAR.month.images[month],
+            };
+      }
+
+      if (!hasWidget && hasValue) {
+        this.months[row] = hmUI.createWidget(hmUI.widget.IMG, imageProps);
+      } else if (hasWidget && !hasValue) {
         hmUI.deleteWidget(widget);
         this.months[row] = null;
-      } else if (hasWidget && hasContent) {
-        widget.setProperty(
-          hmUI.prop.MORE,
-          hasDot
-            ? getMonthDotImageProps(cellToLeft)
-            : getMonthImageProps(cellToLeft, value),
-        );
+      } else if (hasWidget && hasValue) {
+        widget.setProperty(hmUI.prop.MORE, imageProps);
       }
     }
   },
 
   buildWeekDays() {
-    new Array(7).fill(null).map((_, index) => {
-      const cellToBottom = this.grid[0][index];
-      hmUI.createWidget(
-        hmUI.widget.IMG,
-        getWeekDayImageProps(cellToBottom, index),
-      );
-    });
+    for (let i = 0; i < 7; i++) {
+      const { x, y } = this.grid[0][i];
+
+      hmUI.createWidget(hmUI.widget.IMG, {
+        ...WEEKDAY_IMAGE_PROPS,
+        x,
+        y: y - CALENDAR.weekDay.height,
+        src: CALENDAR.weekDay.images[i],
+      });
+    }
   },
 
   buildSeconds() {
-    const bottomRow = this.grid[GRID.size.rows - 1];
-    const centralBottomCell = bottomRow[Math.floor(bottomRow.length / 2)];
+    const { x, y } = this.grid[GRID.size.rows - 1][0];
+    const progressBarY = y + CALENDAR.date.height;
 
-    const secondX = centralBottomCell.centerPosition.x - DIGITS.width;
-    const secondY =
-      centralBottomCell.centerPosition.y + GRID.cell.height - DIGITS.height / 2;
-
-    const progressBarX =
-      centralBottomCell.centerPosition.x - SECONDS_PROGRESS_BAR.width / 2;
-    const progressBarY =
-      centralBottomCell.centerPosition.y +
-      GRID.cell.height -
-      SECONDS_PROGRESS_BAR.height / 2;
-
-    hmUI.createWidget(
-      hmUI.widget.IMG_TIME,
-      getSecondsImageTimeProps(secondX, secondY),
-    );
+    hmUI.createWidget(hmUI.widget.IMG_TIME, {
+      ...SECONDS_IMAGE_TIME_PROPS,
+      second_startX: SCREEN.centerX - DIGITS.width,
+      second_startY: y + CALENDAR.date.height * 1.5 - DIGITS.height / 2,
+    });
 
     const progressBar = hmUI.createWidget(hmUI.widget.IMG, null);
 
-    const handleRenderSecondsTimer = () => {
+    let prevSecondRound = null;
+
+    const update = () => {
       const { second } = hmSensor.createSensor(hmSensor.id.TIME);
-      const newSecondRound = Math.round(second / 10) * 10;
+      const secondRound = Math.round(second / 10) * 10;
 
-      if (this.secondRound !== newSecondRound) {
-        console.log('seconds progress bar rerendered');
-
-        this.secondRound = newSecondRound;
-        progressBar.setProperty(
-          hmUI.prop.MORE,
-          getSecondProgressBarImageProps(
-            progressBarX,
-            progressBarY,
-            newSecondRound,
-          ),
-        );
+      if (prevSecondRound === secondRound) {
+        return;
       }
+
+      console.log('seconds progress bar rerendered');
+      prevSecondRound = secondRound;
+
+      progressBar.setProperty(hmUI.prop.MORE, {
+        ...SECONDS_PROGRESS_BAR_PROPS,
+        x,
+        y: progressBarY,
+        src: `seconds_progress_bar/${secondRound}.png`,
+      });
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        console.log('ui resume (widget delegate)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          this.renderSecondsTimer = timer.createTimer(
-            500,
-            500,
-            handleRenderSecondsTimer,
-          );
-          handleRenderSecondsTimer();
+          this.renderSecondsTimer = timer.createTimer(1000, 1000, update);
+          update();
         }
       },
       pause_call: () => {
-        console.log('ui pause');
+        console.log('ui pause (widget delegate)');
 
         timer.stopTimer(this.renderSecondsTimer);
       },
@@ -347,24 +345,24 @@ WatchFace({
   },
 
   buildSteps() {
-    hmUI.createWidget(hmUI.widget.TEXT_IMG, getStepsTextImageProps());
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getStepsArcBackgroundProps());
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getStepsArcActiveProps());
+    hmUI.createWidget(hmUI.widget.TEXT_IMG, STEPS_TEXT_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, STEPS_ARC_BACKGROUND_PROPS);
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, STEPS_ARC_ACTIVE_PROPS);
   },
 
   buildBattery() {
-    hmUI.createWidget(hmUI.widget.TEXT_IMG, getBatteryTextImageProps());
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getBatteryArcBackgroundProps());
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getBatteryArcActiveProps());
+    hmUI.createWidget(hmUI.widget.TEXT_IMG, BATTERY_TEXT_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, BATTERY_ARC_BACKGROUND_PROPS);
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, BATTERY_ARC_ACTIVE_PROPS);
   },
 
   buildSleepTime() {
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getSleepArcBackgroundProps());
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, getSleepArcActiveProps());
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, SLEEP_ARC_BACKGROUND_PROPS);
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, SLEEP_ARC_ACTIVE_PROPS);
 
     const sleepTimeWidget = hmUI.createWidget(
       hmUI.widget.TEXT,
-      getSleepTimeProps(),
+      SLEEP_TEXT_PROPS,
     );
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
 
@@ -378,12 +376,10 @@ WatchFace({
           if (sleepTime) {
             sleepTimeWidget.setProperty(hmUI.widget.MORE, {
               text: sleepTime,
-              color: COLORS.primary,
             });
           } else {
             sleepTimeWidget.setProperty(hmUI.widget.MORE, {
               text: '',
-              color: COLORS.secondary,
             });
           }
         }
@@ -392,12 +388,12 @@ WatchFace({
   },
 
   buildDisconnectionStatus() {
-    hmUI.createWidget(hmUI.widget.IMG, getConnectImageProps());
-    hmUI.createWidget(hmUI.widget.IMG_STATUS, getDisconnectImageProps());
+    hmUI.createWidget(hmUI.widget.IMG, CONNECT_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG_STATUS, DISCONNECT_IMAGE_PROPS);
   },
 
   buildAlarmStatus() {
-    hmUI.createWidget(hmUI.widget.IMG, getAlarmOffImageProps());
-    hmUI.createWidget(hmUI.widget.IMG_STATUS, getAlarmOnImageProps());
+    hmUI.createWidget(hmUI.widget.IMG, ALARM_OFF_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG_STATUS, ALARM_ON_IMAGE_PROPS);
   },
 });

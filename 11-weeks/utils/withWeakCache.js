@@ -6,6 +6,7 @@ export function withWeakCache(fn) {
     const key = args.join('-');
 
     if (prevKey !== key) {
+      prevKey = key;
       prevResult = fn(...args);
     }
 

@@ -28,13 +28,6 @@ export const GRID = {
   },
 };
 
-export const GRID_RECT = {
-  xLeft: SCREEN.centerX - (GRID.cell.width * GRID.size.columns) / 2,
-  xRight: SCREEN.centerX + (GRID.cell.width * GRID.size.columns) / 2,
-  yTop: SCREEN.centerY - (GRID.cell.height * GRID.size.rows) / 2,
-  yBottom: SCREEN.centerY + (GRID.cell.height * GRID.size.rows) / 2,
-};
-
 export const CALENDAR = {
   currentWeekIndex: 3,
   date: {
@@ -47,10 +40,12 @@ export const CALENDAR = {
     images: new Array(7)
       .fill(null)
       .map((_, i) => `${isRusLang ? 'week_rus' : 'week'}/${i}.png`),
+    dotY: px(20),
   },
   year: {
     width: GRID.cell.width,
     height: GRID.cell.height,
+    gap: px(2),
   },
   month: {
     width: px(40),
@@ -58,6 +53,7 @@ export const CALENDAR = {
     images: new Array(12)
       .fill(null)
       .map((_, i) => `${isRusLang ? 'month_rus' : 'month'}/${i}.png`),
+    gap: px(2),
   },
 };
 
@@ -75,7 +71,6 @@ export const SPECIAL_CHARS = {
 };
 
 export const SECONDS_PROGRESS_BAR = {
-  width: GRID.size.columns * GRID.cell.width,
   height: GRID.cell.height,
 };
 

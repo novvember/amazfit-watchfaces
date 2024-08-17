@@ -1,3 +1,13 @@
+/**
+ * Builds calendar data to display: 2d array of dates, array of months, array of years
+ * @param {Number} day
+ * @param {Number} month
+ * @param {Number} year
+ * @param {Number} width
+ * @param {Number} height
+ * @param {Number} currentDayRowIndex
+ * @returns
+ */
 export function makeCalendarData(
   day,
   month,
@@ -6,6 +16,8 @@ export function makeCalendarData(
   height,
   currentDayRowIndex,
 ) {
+  console.log('calendar matrix updated');
+
   const currentDate = new Date(year, month - 1, day);
   const currentDayColumnIndex = [6, 0, 1, 2, 3, 4, 5][currentDate.getDay()];
 
@@ -29,7 +41,6 @@ export function makeCalendarData(
       }
 
       return {
-        date: new Date(date),
         text: date.getDate(),
         isCurrentDay:
           row === currentDayRowIndex && column === currentDayColumnIndex,

@@ -1,30 +1,13 @@
-function getFirstCellPosition(
-  centerX,
-  centerY,
-  columnsCount,
-  rowsCount,
-  cellWidth,
-  cellHeight,
-) {
-  return {
-    x: centerX - Math.floor(columnsCount / 2) * cellWidth,
-    y: centerY - Math.floor(rowsCount / 2) * cellHeight,
-  };
-}
-
-function getCellPosition(
-  row,
-  column,
-  firstCellPosition,
-  cellWidth,
-  cellHeight,
-) {
-  return {
-    x: firstCellPosition.x + column * cellWidth,
-    y: firstCellPosition.y + row * cellHeight,
-  };
-}
-
+/**
+ * Builds empty data grid to represent date matrix for the watchface
+ * @param {Number} centerX
+ * @param {Number} centerY
+ * @param {Number} columnsCount
+ * @param {Number} rowsCount
+ * @param {Number} cellWidth
+ * @param {Number} cellHeight
+ * @returns 2D array wath data for each cell
+ */
 export function makeEmptyGrid(
   centerX,
   centerY,
@@ -33,28 +16,14 @@ export function makeEmptyGrid(
   cellWidth,
   cellHeight,
 ) {
-  const firstCellPosition = getFirstCellPosition(
-    centerX,
-    centerY,
-    columnsCount,
-    rowsCount,
-    cellWidth,
-    cellHeight,
-  );
-
   return new Array(rowsCount).fill(null).map((_, row) =>
     new Array(columnsCount).fill(null).map((_, column) => ({
-      centerPosition: getCellPosition(
-        row,
-        column,
-        firstCellPosition,
-        cellWidth,
-        cellHeight,
-      ),
       backgroundImageWidget: hmUI.createWidget(hmUI.widget.IMG, null),
       dateWidget: hmUI.createWidget(hmUI.widget.IMG, null),
       status: '',
       dateText: '',
+      x: centerX - (cellWidth * columnsCount) / 2 + cellWidth * column,
+      y: centerY - (cellHeight * rowsCount) / 2 + cellHeight * row,
     })),
   );
 }

@@ -105,7 +105,17 @@ function fillMatrixWithDigit(matrix, y0, x0, digit) {
   }
 }
 
+/**
+ * Builds 2d array of cells to display time over the grid
+ * @param {Number} hours
+ * @param {Number} mins
+ * @param {Number} width
+ * @param {Number} height
+ * @returns {Number[][]}
+ */
 export function makeDigitMatrix(hours, mins, width, height) {
+  console.log('digit matrix updated');
+
   const DIGIT_WIDTH = 3;
   const DIGIT_HEIGHT = 5;
   const COLUMN_GAP = 1;
