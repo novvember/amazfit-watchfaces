@@ -13,7 +13,7 @@ import {
 } from '../utils/constants';
 
 // CELL
-export const CELL_BACKGROUND_IMAGE_PROPS = {
+export const CELL_IMAGE_PROPS = {
   x: 0,
   y: 0,
   src: '',
@@ -51,6 +51,7 @@ export const WEEKDAY_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+// DOT
 export const DOT_IMAGE_PROPS = {
   x: 0,
   y: 0,

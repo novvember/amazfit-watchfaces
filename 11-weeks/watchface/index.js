@@ -7,8 +7,6 @@ import { getSleepTimeString } from '../utils/getSleepTime';
 import { CALENDAR, DIGITS, GRID, SCREEN, COLORS } from '../utils/constants';
 
 import {
-  CELL_BACKGROUND_IMAGE_PROPS,
-  CELL_DATE_IMAGE_PROPS,
   DOT_IMAGE_PROPS,
   YEAR_IMAGE_PROPS,
   MONTH_IMAGE_PROPS,
@@ -28,6 +26,7 @@ import {
   DISCONNECT_IMAGE_PROPS,
   ALARM_OFF_IMAGE_PROPS,
   ALARM_ON_IMAGE_PROPS,
+  CELL_IMAGE_PROPS,
 } from './index.r.layout';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
@@ -145,8 +144,7 @@ WatchFace({
       for (let column = 0; column < GRID.size.columns; column++) {
         const cell = this.grid[row][column];
 
-        const { backgroundImageWidget, dateWidget, status, dateText, x, y } =
-          cell;
+        const { imageWidget, status, dateText, x, y } = cell;
 
         const isPartOfBigDigit = digitMatrix[row][column];
         const isCurrentDay = dateMatrix[row][column].isCurrentDay;
@@ -162,27 +160,15 @@ WatchFace({
             y: CALENDAR.weekDay.dotY,
           });
 
-        if (status !== newStatus) {
-          cell.status = newStatus;
-
-          backgroundImageWidget.setProperty(hmUI.prop.MORE, {
-            ...CELL_BACKGROUND_IMAGE_PROPS,
-            x,
-            y,
-            src: `cell/${newStatus}.png`,
-          });
-        }
-
         if (dateText !== newDateText || status !== newStatus) {
           cell.dateText = newDateText;
+          cell.status = newStatus;
 
-          dateWidget.setProperty(hmUI.prop.MORE, {
-            ...CELL_DATE_IMAGE_PROPS,
+          imageWidget.setProperty(hmUI.prop.MORE, {
+            ...CELL_IMAGE_PROPS,
             x,
             y,
-            src: `${
-              isPartOfBigDigit ? 'date_dark' : 'date'
-            }/${newDateText}.png`,
+            src: `cell_${newStatus}/${newDateText}.png`,
           });
         }
       }
