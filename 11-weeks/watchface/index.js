@@ -354,13 +354,17 @@ WatchFace({
 
   buildSeconds() {
     const { x, y } = this.grid[GRID.size.rows - 1][0];
-    const progressBarY = y + CALENDAR.date.height;
+    const progressBarY = y + CALENDAR.date.height + SECONDS_PROGRESS_BAR.gapTop;
     const progressBarX = SCREEN.centerX - SECONDS_PROGRESS_BAR.width / 2;
 
     hmUI.createWidget(hmUI.widget.IMG_TIME, {
       ...SECONDS_IMAGE_TIME_PROPS,
       second_startX: SCREEN.centerX - DIGITS.width,
-      second_startY: y + CALENDAR.date.height * 1.5 - DIGITS.height / 2,
+      second_startY:
+        y +
+        CALENDAR.date.height * 1.5 -
+        DIGITS.height / 2 +
+        SECONDS_PROGRESS_BAR.gapTop,
     });
 
     const progressBar = hmUI.createWidget(hmUI.widget.IMG, null);
@@ -471,9 +475,7 @@ WatchFace({
       updateWeatherIcons(isNight(timeSensor));
 
       const icon =
-        iconIndex && iconIndex !== 'undefined'
-          ? WEATHER_ICONS[iconIndex]
-          : '';
+        iconIndex && iconIndex !== 'undefined' ? WEATHER_ICONS[iconIndex] : '';
 
       iconWidget.setProperty(hmUI.prop.MORE, {
         ...WEATHER_ICON_PROPS,
