@@ -40,7 +40,7 @@ export const CALENDAR = {
     images: new Array(7)
       .fill(null)
       .map((_, i) => `${isRusLang ? 'week_rus' : 'week'}/${i}.png`),
-    dotY: px(25),
+    dotY: px(26),
   },
   year: {
     width: GRID.cell.width,
@@ -68,11 +68,20 @@ export const SPECIAL_CHARS = {
     width: px(19),
     src: 'special_chars/percent.png',
   },
+  degree: {
+    src: 'special_chars/degree.png',
+    width: px(9),
+  },
+  minus: {
+    src: 'special_chars/minus.png',
+    width: px(9),
+  },
 };
 
 export const SECONDS_PROGRESS_BAR = {
   height: GRID.cell.height,
   width: px(210),
+  gapTop: px(2),
 };
 
 export const ARC = {
@@ -114,4 +123,16 @@ export const ALARM_STATUS = {
   width: px(28),
   height: px(28),
   x: px(58),
+};
+
+export const WEATHER_ICON = {
+  x: px(205),
+  y: px(439),
+  height: px(32),
+  width: px(32),
+};
+
+export const WEATHER_TEXT = {
+  x: px(243),
+  y: px(446),
 };

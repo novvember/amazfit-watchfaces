@@ -10,6 +10,8 @@ import {
   ALARM_STATUS,
   FONT,
   COLORS,
+  WEATHER_ICON,
+  WEATHER_TEXT,
 } from '../utils/constants';
 
 // CELL
@@ -219,5 +221,25 @@ export const ALARM_ON_IMAGE_PROPS = {
   y: SCREEN.centerY - ALARM_STATUS.height / 2,
   type: hmUI.system_status.CLOCK,
   src: 'alarm/alarm_on.png',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+// WEATHER
+export const WEATHER_ICON_PROPS = {
+  x: WEATHER_ICON.x,
+  y: WEATHER_ICON.y,
+  src: '',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const WEATHER_TEXT_PROPS = {
+  x: WEATHER_TEXT.x,
+  y: WEATHER_TEXT.y,
+  type: hmUI.data_type.WEATHER_CURRENT,
+  font_array: DIGITS.images,
+  align_h: hmUI.align.LEFT,
+  unit_en: SPECIAL_CHARS.degree.src,
+  negative_image: SPECIAL_CHARS.minus.src,
+  invalid_image: 'empty.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
