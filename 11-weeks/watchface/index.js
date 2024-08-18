@@ -4,7 +4,13 @@ import { withWeakCache } from '../utils/withWeakCache';
 import { makeEmptyGrid } from '../utils/makeEmptyGrid';
 import { getSleepTimeString } from '../utils/getSleepTime';
 
-import { CALENDAR, DIGITS, GRID, SCREEN, COLORS } from '../utils/constants';
+import {
+  CALENDAR,
+  DIGITS,
+  GRID,
+  SCREEN,
+  SECONDS_PROGRESS_BAR,
+} from '../utils/constants';
 
 import {
   DOT_IMAGE_PROPS,
@@ -40,7 +46,7 @@ WatchFace({
   build() {
     console.log('watchface building');
 
-    this.buildGrid();
+    this.initGrid();
     this.buildWeekDays();
     this.buildSeconds();
 
@@ -55,10 +61,14 @@ WatchFace({
   onDestroy() {
     console.log('watchface destroying');
 
-    timer.stopTimer(this.renderGridTimer);
+    timer.stopTimer(this.renderDatesTimer);
     timer.stopTimer(this.renderSecondsTimer);
+    timer.stopTimer(this.buildWeekDaysTimer);
   },
 
+  /**
+   * Provides optimized calendar data
+   */
   getCalendarData(day, month, year) {
     return makeCalendarDataCached(
       day,
@@ -70,6 +80,9 @@ WatchFace({
     );
   },
 
+  /**
+   * Provides optimized big digits data
+   */
   getDigitMatrix(hour, minute) {
     return makeDigitMatrixCached(
       hour,
@@ -79,7 +92,10 @@ WatchFace({
     );
   },
 
-  buildGrid() {
+  /**
+   * Prepares initial data
+   */
+  initGrid() {
     console.log('empty grid building');
 
     this.grid = makeEmptyGrid(
@@ -91,8 +107,8 @@ WatchFace({
       GRID.cell.height,
     );
 
-    this.years = new Array(GRID.size.rows).fill(null);
-    this.months = new Array(GRID.size.rows).fill(null);
+    this.yearWidgets = new Array(GRID.size.rows).fill(null);
+    this.monthWidgets = new Array(GRID.size.rows).fill(null);
 
     let prevMinute = null;
     let prevDay = null;
@@ -102,7 +118,7 @@ WatchFace({
 
       if (minute !== prevMinute) {
         prevMinute = minute;
-        this.renderGrid();
+        this.renderDates();
       }
 
       if (day !== prevDay) {
@@ -117,20 +133,23 @@ WatchFace({
         console.log('ui resume (widget delegate)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          this.renderGridTimer = timer.createTimer(1000, 1000, update);
+          this.renderDatesTimer = timer.createTimer(500, 500, update);
           update();
         }
       },
       pause_call: () => {
         console.log('ui pause (widget delegate)');
 
-        timer.stopTimer(this.renderGridTimer);
+        timer.stopTimer(this.renderDatesTimer);
       },
     });
   },
 
-  renderGrid() {
-    console.log('date grid rendering');
+  /**
+   * Fully rerenders calendar grid with dates
+   */
+  renderDates() {
+    console.log('dates grid rendering');
 
     const { hour, minute, day, month, year } = hmSensor.createSensor(
       hmSensor.id.TIME,
@@ -138,27 +157,21 @@ WatchFace({
 
     const digitMatrix = this.getDigitMatrix(hour, minute);
     const { dateMatrix } = this.getCalendarData(day, month, year);
-    const dotWidget = hmUI.createWidget(hmUI.widget.IMG, null);
+
+    let countWidgets = 0;
 
     for (let row = 0; row < GRID.size.rows; row++) {
       for (let column = 0; column < GRID.size.columns; column++) {
         const cell = this.grid[row][column];
-
         const { imageWidget, status, dateText, x, y } = cell;
 
         const isPartOfBigDigit = digitMatrix[row][column];
         const isCurrentDay = dateMatrix[row][column].isCurrentDay;
+
         const newDateText = dateMatrix[row][column].text;
-
-        let newStatus = isPartOfBigDigit ? 'active' : 'normal';
-        if (isCurrentDay) newStatus += '_today';
-
-        if (isCurrentDay && dateText !== newDateText)
-          dotWidget.setProperty(hmUI.prop.MORE, {
-            ...DOT_IMAGE_PROPS,
-            x,
-            y: CALENDAR.weekDay.dotY,
-          });
+        const newStatus = `${isPartOfBigDigit ? 'active' : 'normal'}${
+          isCurrentDay ? '_today' : ''
+        }`;
 
         if (dateText !== newDateText || status !== newStatus) {
           cell.dateText = newDateText;
@@ -170,11 +183,18 @@ WatchFace({
             y,
             src: `cell_${newStatus}/${newDateText}.png`,
           });
+
+          countWidgets++;
         }
       }
     }
+
+    console.log(`${countWidgets} widgets updated`);
   },
 
+  /**
+   * Fully rerenders left column (year values)
+   */
   renderYears() {
     console.log('years rerendered');
 
@@ -183,7 +203,7 @@ WatchFace({
 
     for (let row = 0; row < yearsList.length; row++) {
       const year = yearsList[row];
-      const widget = this.years[row];
+      const widget = this.yearWidgets[row];
       const { x, y } = this.grid[row][0];
 
       const hasYear = year !== null;
@@ -196,31 +216,36 @@ WatchFace({
       if (hasValue) {
         const imageX = x - CALENDAR.year.width - CALENDAR.year.gap;
 
-        imageProps = hasDot
-          ? {
-              ...DOT_IMAGE_PROPS,
-              x: imageX,
-              y,
-            }
-          : {
-              ...YEAR_IMAGE_PROPS,
-              x: imageX,
-              y,
-              src: `year/${year}.png`,
-            };
+        if (hasDot) {
+          imageProps = {
+            ...DOT_IMAGE_PROPS,
+            x: imageX,
+            y,
+          };
+        } else {
+          imageProps = {
+            ...YEAR_IMAGE_PROPS,
+            x: imageX,
+            y,
+            src: `year/${year}.png`,
+          };
+        }
       }
 
       if (!hasWidget && hasValue) {
-        this.years[row] = hmUI.createWidget(hmUI.widget.IMG, imageProps);
+        this.yearWidgets[row] = hmUI.createWidget(hmUI.widget.IMG, imageProps);
       } else if (hasWidget && !hasValue) {
         hmUI.deleteWidget(widget);
-        this.years[row] = null;
+        this.yearWidgets[row] = null;
       } else if (hasWidget && hasValue) {
         widget.setProperty(hmUI.prop.MORE, imageProps);
       }
     }
   },
 
+  /**
+   * Fully rerenders right column (month values)
+   */
   renderMonths() {
     console.log('months rerendered');
 
@@ -229,7 +254,7 @@ WatchFace({
 
     for (let row = 0; row < monthsList.length; row++) {
       const month = monthsList[row];
-      const widget = this.months[row];
+      const widget = this.monthWidgets[row];
       const { x, y } = this.grid[row][GRID.size.columns - 1];
 
       const hasWidget = widget !== null;
@@ -242,25 +267,27 @@ WatchFace({
       if (hasValue) {
         const imageX = x + CALENDAR.date.width + CALENDAR.month.gap;
 
-        imageProps = hasDot
-          ? {
-              ...DOT_IMAGE_PROPS,
-              x: imageX,
-              y,
-            }
-          : {
-              ...MONTH_IMAGE_PROPS,
-              x: imageX,
-              y,
-              src: CALENDAR.month.images[month],
-            };
+        if (hasDot) {
+          imageProps = {
+            ...DOT_IMAGE_PROPS,
+            x: imageX,
+            y,
+          };
+        } else {
+          imageProps = {
+            ...MONTH_IMAGE_PROPS,
+            x: imageX,
+            y,
+            src: CALENDAR.month.images[month],
+          };
+        }
       }
 
       if (!hasWidget && hasValue) {
-        this.months[row] = hmUI.createWidget(hmUI.widget.IMG, imageProps);
+        this.monthWidgets[row] = hmUI.createWidget(hmUI.widget.IMG, imageProps);
       } else if (hasWidget && !hasValue) {
         hmUI.deleteWidget(widget);
-        this.months[row] = null;
+        this.monthWidgets[row] = null;
       } else if (hasWidget && hasValue) {
         widget.setProperty(hmUI.prop.MORE, imageProps);
       }
@@ -278,11 +305,51 @@ WatchFace({
         src: CALENDAR.weekDay.images[i],
       });
     }
+
+    const dotWidget = hmUI.createWidget(hmUI.widget.IMG, null);
+    let prevWeek = null;
+
+    const update = () => {
+      const { week } = hmSensor.createSensor(hmSensor.id.TIME);
+
+      if (prevWeek === week) {
+        return;
+      }
+
+      console.log('weekday rerendered');
+      prevWeek = week;
+
+      dotWidget.setProperty(hmUI.prop.MORE, {
+        ...DOT_IMAGE_PROPS,
+        x:
+          SCREEN.centerX -
+          (GRID.cell.width * GRID.size.columns) / 2 +
+          GRID.cell.width * (week - 1),
+        y: CALENDAR.weekDay.dotY,
+      });
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume (widget delegate)');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          this.buildWeekDaysTimer = timer.createTimer(1000, 1000, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        console.log('ui pause (widget delegate)');
+
+        timer.stopTimer(this.buildWeekDaysTimer);
+      },
+    });
   },
 
   buildSeconds() {
     const { x, y } = this.grid[GRID.size.rows - 1][0];
     const progressBarY = y + CALENDAR.date.height;
+    const progressBarX = SCREEN.centerX - SECONDS_PROGRESS_BAR.width / 2;
 
     hmUI.createWidget(hmUI.widget.IMG_TIME, {
       ...SECONDS_IMAGE_TIME_PROPS,
@@ -307,7 +374,7 @@ WatchFace({
 
       progressBar.setProperty(hmUI.prop.MORE, {
         ...SECONDS_PROGRESS_BAR_PROPS,
-        x,
+        x: progressBarX,
         y: progressBarY,
         src: `seconds_progress_bar/${secondRound}.png`,
       });
@@ -318,7 +385,7 @@ WatchFace({
         console.log('ui resume (widget delegate)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          this.renderSecondsTimer = timer.createTimer(1000, 1000, update);
+          this.renderSecondsTimer = timer.createTimer(500, 500, update);
           update();
         }
       },
@@ -354,9 +421,11 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        console.log('ui resume (widget delegate)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          console.log('sleep time updated');
+
           const sleepTime = getSleepTimeString(sleepSensor);
 
           if (sleepTime) {

@@ -40,7 +40,7 @@ export const CALENDAR = {
     images: new Array(7)
       .fill(null)
       .map((_, i) => `${isRusLang ? 'week_rus' : 'week'}/${i}.png`),
-    dotY: px(24),
+    dotY: px(25),
   },
   year: {
     width: GRID.cell.width,
@@ -72,6 +72,7 @@ export const SPECIAL_CHARS = {
 
 export const SECONDS_PROGRESS_BAR = {
   height: GRID.cell.height,
+  width: px(210),
 };
 
 export const ARC = {
@@ -88,18 +89,18 @@ export const STEPS = {
 
 export const BATTERY = {
   x: px(37),
-  y: px(294),
+  y: px(290),
   angleStart: 230,
   angleEnd: 265,
 };
 
 export const SLEEP = {
   x: px(35),
-  y: px(156),
+  y: px(160),
   angleStart: 275,
   angleEnd: 310,
   width: px(50),
-  height: px(32),
+  height: px(30),
   textSize: px(21),
 };
 

@@ -16,7 +16,7 @@ export function makeCalendarData(
   height,
   currentDayRowIndex,
 ) {
-  console.log('calendar matrix updated');
+  console.log('calendar data updated');
 
   const currentDate = new Date(year, month - 1, day);
   const currentDayColumnIndex = [6, 0, 1, 2, 3, 4, 5][currentDate.getDay()];

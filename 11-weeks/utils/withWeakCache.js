@@ -3,7 +3,7 @@ export function withWeakCache(fn) {
   let prevResult;
 
   return (...args) => {
-    const key = args.join('-');
+    const key = args.join('_');
 
     if (prevKey !== key) {
       prevKey = key;

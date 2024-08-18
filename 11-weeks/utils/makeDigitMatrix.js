@@ -114,7 +114,7 @@ function fillMatrixWithDigit(matrix, y0, x0, digit) {
  * @returns {Number[][]}
  */
 export function makeDigitMatrix(hours, mins, width, height) {
-  console.log('digit matrix updated');
+  console.log('big digit data updated');
 
   const DIGIT_WIDTH = 3;
   const DIGIT_HEIGHT = 5;
