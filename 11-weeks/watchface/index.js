@@ -161,7 +161,10 @@ WatchFace({
       hmSensor.id.TIME,
     );
 
-    const digitMatrix = this.getDigitMatrix(hour, minute);
+    const is12HourFormat = hmSetting.getTimeFormat() === 0;
+    const hourValue = is12HourFormat ? hour % 12 || 12 : hour;
+
+    const digitMatrix = this.getDigitMatrix(hourValue, minute);
     const { dateMatrix } = this.getCalendarData(day, month, year);
 
     let countWidgets = 0;
