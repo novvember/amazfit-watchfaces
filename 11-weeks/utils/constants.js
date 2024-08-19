@@ -40,7 +40,7 @@ export const CALENDAR = {
     images: new Array(7)
       .fill(null)
       .map((_, i) => `${isRusLang ? 'week_rus' : 'week'}/${i}.png`),
-    dotY: px(26),
+    dotY: px(28),
   },
   year: {
     width: GRID.cell.width,
