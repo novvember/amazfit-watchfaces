@@ -191,7 +191,7 @@ export const SLEEP_TEXT_PROPS = {
 // CONNECTION STATUS
 export const CONNECT_IMAGE_PROPS = {
   x: CONNECTION_STATUS.x,
-  y: SCREEN.centerY - CONNECTION_STATUS.height / 2,
+  y: CONNECTION_STATUS.y,
   w: CONNECTION_STATUS.width,
   h: CONNECTION_STATUS.height,
   src: 'connect/connect.png',
@@ -200,7 +200,7 @@ export const CONNECT_IMAGE_PROPS = {
 
 export const DISCONNECT_IMAGE_PROPS = {
   x: CONNECTION_STATUS.x,
-  y: SCREEN.centerY - CONNECTION_STATUS.height / 2,
+  y: CONNECTION_STATUS.y,
   type: hmUI.system_status.DISCONNECT,
   src: 'connect/disconnect.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
@@ -209,7 +209,7 @@ export const DISCONNECT_IMAGE_PROPS = {
 // ALARM STATUS
 export const ALARM_OFF_IMAGE_PROPS = {
   x: ALARM_STATUS.x,
-  y: SCREEN.centerY - ALARM_STATUS.height / 2,
+  y: ALARM_STATUS.y,
   w: ALARM_STATUS.width,
   h: ALARM_STATUS.height,
   src: 'alarm/alarm_off.png',
@@ -218,7 +218,7 @@ export const ALARM_OFF_IMAGE_PROPS = {
 
 export const ALARM_ON_IMAGE_PROPS = {
   x: ALARM_STATUS.x,
-  y: SCREEN.centerY - ALARM_STATUS.height / 2,
+  y: ALARM_STATUS.y,
   type: hmUI.system_status.CLOCK,
   src: 'alarm/alarm_on.png',
   show_level: hmUI.show_level.ONLY_NORMAL,

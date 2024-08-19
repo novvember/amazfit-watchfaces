@@ -117,22 +117,24 @@ export const CONNECTION_STATUS = {
   width: px(28),
   height: px(28),
   x: px(27),
+  y: SCREEN.centerY - px(28) / 2,
 };
 
 export const ALARM_STATUS = {
   width: px(28),
   height: px(28),
   x: px(58),
+  y: SCREEN.centerY - px(28) / 2,
 };
 
 export const WEATHER_ICON = {
-  x: px(205),
-  y: px(439),
+  x: px(8),
+  y: px(224),
   height: px(32),
   width: px(32),
 };
 
 export const WEATHER_TEXT = {
-  x: px(243),
-  y: px(446),
+  x: px(46),
+  y: px(231),
 };
