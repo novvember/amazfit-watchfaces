@@ -116,14 +116,15 @@ WatchFace({
     this.yearWidgets = new Array(GRID.size.rows).fill(null);
     this.monthWidgets = new Array(GRID.size.rows).fill(null);
 
-    let prevMinute = null;
+    let prevTime = null;
     let prevDay = null;
 
     const update = () => {
-      const { minute, day } = hmSensor.createSensor(hmSensor.id.TIME);
+      const { hour, minute, day } = hmSensor.createSensor(hmSensor.id.TIME);
+      const time = [hour, minute].join(':');
 
-      if (minute !== prevMinute) {
-        prevMinute = minute;
+      if (time !== prevTime) {
+        prevTime = time;
         this.renderDates();
       }
 
