@@ -138,3 +138,9 @@ export const WEATHER_TEXT = {
   x: px(46),
   y: px(231),
 };
+
+export const TIME_DIGITS_AOD = {
+  images: new Array(10).fill(null).map((_, i) => `time_digits_aod/${i}.png`),
+  width: px(120),
+  height: px(180),
+};

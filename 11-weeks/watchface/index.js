@@ -35,6 +35,8 @@ import {
   CELL_IMAGE_PROPS,
   WEATHER_ICON_PROPS,
   WEATHER_TEXT_PROPS,
+  AOD_HOURS_PROPS,
+  AOD_MINUTES_PROPS,
 } from './index.r.layout';
 import { isNight } from '../utils/isNight';
 import { WEATHER_ICONS, updateWeatherIcons } from '../utils/weatherIcons';
@@ -60,6 +62,8 @@ WatchFace({
 
     this.buildDisconnectionStatus();
     this.buildAlarmStatus();
+
+    this.buildAod();
 
     // this.buildWeather();
   },
@@ -464,6 +468,11 @@ WatchFace({
   buildAlarmStatus() {
     hmUI.createWidget(hmUI.widget.IMG, ALARM_OFF_IMAGE_PROPS);
     hmUI.createWidget(hmUI.widget.IMG_STATUS, ALARM_ON_IMAGE_PROPS);
+  },
+
+  buildAod() {
+    hmUI.createWidget(hmUI.widget.IMG_TIME, AOD_HOURS_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG_TIME, AOD_MINUTES_PROPS);
   },
 
   buildWeather() {

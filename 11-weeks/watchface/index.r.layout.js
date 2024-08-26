@@ -12,6 +12,7 @@ import {
   COLORS,
   WEATHER_ICON,
   WEATHER_TEXT,
+  TIME_DIGITS_AOD,
 } from '../utils/constants';
 
 // CELL
@@ -242,4 +243,23 @@ export const WEATHER_TEXT_PROPS = {
   negative_image: SPECIAL_CHARS.minus.src,
   invalid_image: 'empty.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+// AOD
+export const AOD_HOURS_PROPS = {
+  hour_zero: 1,
+  hour_startX: px(120),
+  hour_startY: px(60),
+  hour_array: TIME_DIGITS_AOD.images,
+  hour_align: hmUI.align.LEFT,
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
+export const AOD_MINUTES_PROPS = {
+  minute_zero: 1,
+  minute_startX: px(120),
+  minute_startY: px(240),
+  minute_array: TIME_DIGITS_AOD.images,
+  minute_align: hmUI.align.LEFT,
+  show_level: hmUI.show_level.ONAL_AOD,
 };
