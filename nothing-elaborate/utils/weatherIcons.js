@@ -24,7 +24,7 @@ const WEATHER_ICON_NAMES = [
   'sand_blowing.png',
   'strong_sandstorm.png',
   'rainstorm.png',
-  'unknown_weather.png',
+  'empty.png',
   'cloudy_at_night.png',
   'shower_at_night.png',
   'clear_night.png',
