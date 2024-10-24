@@ -51,6 +51,15 @@ export const SLEEP_ARC_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const SLEEP_WAKE_STAGE_ARC_PROPS = {
+  ...SLEEP_ARC_PROPS,
+  radius: SLEEP.wakeStagesArcRadius,
+  color: COLORS.bgOnAccent,
+  line_width: SLEEP.wakeStagesArcWidth,
+  start_angle: 0,
+  end_angle: 0,
+};
+
 export const DATE_WEEK_PROPS = {
   x: DATE_WEEK.x,
   y: DATE_WEEK.y,

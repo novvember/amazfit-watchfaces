@@ -15,6 +15,7 @@ export const COLORS = {
   bgPrimary: 0xebebed,
   bgSecondary: 0x54575f,
   bgTertiary: 0x2d3134,
+  bgOnAccent: 0x000000,
   textPrimary: 0x000000,
   textSecondary: 0xebebed,
 };
@@ -35,6 +36,8 @@ export const SLEEP = {
   height: px(120),
   postfix: isRusLang ? 'сон' : 'sleep',
   lineWidth: px(10),
+  wakeStagesArcRadius: px(55),
+  wakeStagesArcWidth: px(4),
 };
 
 export const SUN = {

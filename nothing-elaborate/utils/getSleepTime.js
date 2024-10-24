@@ -4,12 +4,15 @@ function formatTime(minutes) {
   return `${hh}:${mm}`;
 }
 
-function getWakeTime(sleepSensor) {
+export function getWakeStages(sleepSensor) {
   const modelData = sleepSensor.getSleepStageModel();
   const sleepStages = sleepSensor.getSleepStageData();
 
-  return sleepStages
-    .filter((stage) => stage.model === modelData.WAKE_STAGE)
+  return sleepStages.filter((stage) => stage.model === modelData.WAKE_STAGE);
+}
+
+function getWakeTime(sleepSensor) {
+  return getWakeStages(sleepSensor)
     .reduce((sum, { start, stop }) => sum + stop - start + 1, 0);
 }
 

@@ -1,4 +1,4 @@
-import { getSleepTimeString } from '../utils/getSleepTime';
+import { getSleepTimeString, getWakeStages } from '../utils/getSleepTime';
 import {
   BATTERY,
   DATE_TEXT,
@@ -34,12 +34,14 @@ import {
   WEATHER_TEXT_PROPS,
   PULSE_PREV_POINTER_PROPS,
   SLEEP_NO_DATA_IMAGE_PROPS,
+  SLEEP_WAKE_STAGE_ARC_PROPS,
 } from './index.r.layout';
 import { decline } from '../utils/decline';
 import { formatNumber } from '../utils/formatNumber';
 import { getIndicatorAngle } from '../utils/getIndicatorAngle';
 import { getSleepArcData } from '../utils/getSleepArcData';
 import { getClosestSunriseSunsetTime } from '../utils/getClosestSunriseSunsetTime';
+import { getAngleFromTime } from '../utils/getAngleFromTime';
 
 WatchFace({
   onInit() {
@@ -70,6 +72,8 @@ WatchFace({
   buildSleep() {
     const noDataWidget = hmUI.createWidget(hmUI.widget.IMG, SLEEP_NO_DATA_IMAGE_PROPS);
     const arcWidget = hmUI.createWidget(hmUI.widget.ARC_PROGRESS, null);
+    let wakeArcWidgets = [];
+    let prevSleepTime = '';
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, SLEEP_TEXT_PROPS);
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
@@ -79,37 +83,65 @@ WatchFace({
       resume_call: () => {
         console.log('ui resume');
 
+        const removeWakeArcWidgets = () => {
+          wakeArcWidgets.forEach(widget => hmUI.deleteWidget(widget));
+          wakeArcWidgets = [];
+        };
+
         const showSleepTime = sleepTime => {
           const sleepString = `${sleepTime}\n${SLEEP.postfix}`;
           const [angleStart, angleEnd] = getSleepArcData(sleepSensor);
-  
+
           noDataWidget.setProperty(hmUI.prop.ALPHA, 0);
           textWidget.setProperty(hmUI.prop.TEXT, sleepString);
+
           arcWidget.setProperty(hmUI.prop.MORE, {
             ...SLEEP_ARC_PROPS,
             start_angle: angleStart,
             end_angle: angleEnd,
+          });
+
+          if (prevSleepTime === sleepTime) {
+            return;
+          }
+
+          prevSleepTime = sleepTime;
+
+          getWakeStages(sleepSensor).forEach(stage => {
+            wakeArcWidgets.push(
+              hmUI.createWidget(
+                hmUI.widget.ARC_PROGRESS,
+                {
+                  ...SLEEP_WAKE_STAGE_ARC_PROPS,
+                  start_angle: getAngleFromTime(stage.start),
+                  end_angle: getAngleFromTime(stage.stop),
+                },
+              )
+            );
           });
         };
 
         const showSunriseSunset = () => {
           let sunString = '';
           const sunObj = getClosestSunriseSunsetTime(timeSensor, weatherSensor);
-  
+
           if (sunObj) {
             const { type, hour, minute } = sunObj;
             const is12HourFormat = hmSetting.getTimeFormat() === 0;
             const sunTime = getTimeString(hour, minute, is12HourFormat);
             sunString = `${sunTime}\n${SUN[type]}`;
           }
-  
+
           noDataWidget.setProperty(hmUI.prop.ALPHA, 255);
           textWidget.setProperty(hmUI.prop.TEXT, sunString);
+
           arcWidget.setProperty(hmUI.prop.MORE, {
             ...SLEEP_ARC_PROPS,
             start_angle: 0,
             end_angle: 0,
           });
+          removeWakeArcWidgets();
+          prevSleepTime = '';
         };
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
@@ -293,35 +325,38 @@ WatchFace({
       hmUI.widget.IMG,
       PULSE_CURRENT_POINTER_PROPS,
     );
-    const prevPointerWidgets = [];
+    let prevPointerWidgets = [];
+    let prevDay = 0;
     const { angleStart, angleEnd, pointer: { minValue, maxValue } } = PULSE;
 
     const getAngle = pulseValue => getIndicatorAngle(pulseValue, minValue, maxValue, angleStart, angleEnd);
 
     const update = () => {
       const { last, today } = hmSensor.createSensor(hmSensor.id.HEART);
+      const { day } = hmSensor.createSensor(hmSensor.id.TIME);
 
       textWidget.setProperty(hmUI.prop.TEXT, last.toString());
       currentPointerWidget.setProperty(hmUI.prop.ANGLE, getAngle(last));
 
-      if (today.length < prevPointerWidgets.length) {
+      if (today.length < prevPointerWidgets.length || prevDay !== day) {
         prevPointerWidgets.forEach(widget => hmUI.deleteWidget(widget));
+        prevPointerWidgets = [];
       }
+
+      prevDay = day;
 
       today.forEach((value, index) => {
         if (prevPointerWidgets[index]) {
           return;
         }
 
-        const widget = hmUI.createWidget(
+        prevPointerWidgets.push(hmUI.createWidget(
           hmUI.widget.IMG,
           {
             ...PULSE_PREV_POINTER_PROPS,
             angle: getAngle(value),
           },
-        );
-
-        prevPointerWidgets.push(widget);
+        ));
       });
     };
 
