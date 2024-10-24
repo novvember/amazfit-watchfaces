@@ -196,7 +196,7 @@ export const PULSE_ICON_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const PULSE_POINTER_PROPS = {
+export const PULSE_CURRENT_POINTER_PROPS = {
   x: PULSE.x,
   y: PULSE.y,
   w: PULSE.width,
@@ -206,8 +206,13 @@ export const PULSE_POINTER_PROPS = {
   center_x: PULSE.width / 2,
   center_y: PULSE.height / 2,
   angle: PULSE.angleStart,
-  src: 'pulse/pointer.png',
+  src: 'pulse/currentPointer.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const PULSE_PREV_POINTER_PROPS = {
+  ...PULSE_CURRENT_POINTER_PROPS,
+  src: 'pulse/prevPointer.png',
 };
 
 export const PULSE_ARC_PROPS = {

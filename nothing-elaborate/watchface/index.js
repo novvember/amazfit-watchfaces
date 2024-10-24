@@ -18,7 +18,7 @@ import {
   DISCONNECT_PROPS,
   PULSE_ARC_PROPS,
   PULSE_ICON_PROPS,
-  PULSE_POINTER_PROPS,
+  PULSE_CURRENT_POINTER_PROPS,
   PULSE_TEXT_PROPS,
   SECONDS_BACKGROUND_PROPS,
   SECONDS_POINTER_PROPS,
@@ -32,6 +32,7 @@ import {
   WEATHER_BACKGROUND_PROPS,
   WEATHER_ICON_PROPS,
   WEATHER_TEXT_PROPS,
+  PULSE_PREV_POINTER_PROPS,
 } from './index.r.layout';
 import { decline } from '../utils/decline';
 import { getAngleFromTime } from '../utils/getAngleFromTime';
@@ -271,13 +272,13 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, PULSE_ARC_PROPS);
     hmUI.createWidget(hmUI.widget.IMG, PULSE_ICON_PROPS);
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, PULSE_TEXT_PROPS);
-    const pointerWidget = hmUI.createWidget(
+    const currentPointerWidget = hmUI.createWidget(
       hmUI.widget.IMG,
-      PULSE_POINTER_PROPS,
+      PULSE_CURRENT_POINTER_PROPS,
     );
+    const prevPointerWidgets = [];
 
-    const update = () => {
-      const { last } = hmSensor.createSensor(hmSensor.id.HEART);
+    const getAngle = pulseValue => {
       const {
         angleStart,
         angleEnd,
@@ -285,14 +286,41 @@ WatchFace({
       } = PULSE;
 
       let angle =
-        ((last - minValue) / (maxValue - minValue)) * (angleEnd - angleStart) +
+        ((pulseValue - minValue) / (maxValue - minValue)) * (angleEnd - angleStart) +
         angleStart;
 
       angle = Math.min(angle, angleEnd);
       angle = Math.max(angle, angleStart);
 
+      return angle;
+    };
+
+    const update = () => {
+      const { last, today } = hmSensor.createSensor(hmSensor.id.HEART);
+
+      const angle = getAngle(last);
       textWidget.setProperty(hmUI.prop.TEXT, last.toString());
-      pointerWidget.setProperty(hmUI.prop.ANGLE, angle);
+      currentPointerWidget.setProperty(hmUI.prop.ANGLE, angle);
+
+      if (today.length < prevPointerWidgets.length) {
+        prevPointerWidgets.forEach(widget => hmUI.deleteWidget(widget));
+      }
+
+      today.forEach((value, index) => {
+        if (prevPointerWidgets[index]) {
+          return;
+        }
+
+        const widget = hmUI.createWidget(
+          hmUI.widget.IMG,
+          {
+            ...PULSE_PREV_POINTER_PROPS,
+            angle: getAngle(value),
+          },
+        );
+
+        prevPointerWidgets.push(widget);
+      });
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
