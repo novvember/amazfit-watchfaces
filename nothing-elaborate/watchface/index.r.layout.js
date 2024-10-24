@@ -158,6 +158,13 @@ export const WEATHER_TEXT_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const WEATHER_NO_ICON_TEXT_PROPS = {
+  ...WEATHER_TEXT_PROPS,
+  x: WEATHER.x,
+  w: WEATHER.width,
+  align_h: hmUI.align.CENTER_H,
+};
+
 export const STEPS_TEXT_PROPS = {
   x: STEPS.x,
   y: STEPS.y,

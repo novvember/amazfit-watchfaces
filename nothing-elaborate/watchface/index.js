@@ -35,6 +35,7 @@ import {
   PULSE_PREV_POINTER_PROPS,
   SLEEP_NO_DATA_IMAGE_PROPS,
   SLEEP_WAKE_STAGE_ARC_PROPS,
+  WEATHER_NO_ICON_TEXT_PROPS,
 } from './index.r.layout';
 import { decline } from '../utils/decline';
 import { formatNumber } from '../utils/formatNumber';
@@ -242,8 +243,7 @@ WatchFace({
 
   buildWeather() {
     hmUI.createWidget(hmUI.widget.FILL_RECT, WEATHER_BACKGROUND_PROPS);
-    hmUI.createWidget(hmUI.widget.TEXT_FONT, WEATHER_TEXT_PROPS);
-
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT_FONT, WEATHER_TEXT_PROPS);
     const iconWidget = hmUI.createWidget(hmUI.widget.IMG, null);
 
     const update = () => {
@@ -253,15 +253,17 @@ WatchFace({
 
       updateWeatherIcons(isNight(timeSensor));
 
-      const icon =
-        iconIndex && iconIndex !== 'undefined'
-          ? WEATHER_ICONS[iconIndex]
-          : WEATHER_ICONS[25];
+      const hasIcon = iconIndex && iconIndex !== 'undefined' && iconIndex !== 25;
 
       iconWidget.setProperty(hmUI.prop.MORE, {
         ...WEATHER_ICON_PROPS,
-        src: icon,
+        src: hasIcon ? WEATHER_ICONS[iconIndex] : '',
       });
+
+      textWidget.setProperty(
+        hmUI.prop.MORE,
+        hasIcon ? WEATHER_TEXT_PROPS : WEATHER_NO_ICON_TEXT_PROPS,
+      );
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
