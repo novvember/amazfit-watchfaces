@@ -5,6 +5,7 @@ import {
   PULSE,
   SLEEP,
   STEPS,
+  SUN,
 } from '../utils/constants';
 import { getTimeString } from '../utils/getTimeString';
 import { isNight } from '../utils/isNight';
@@ -38,6 +39,7 @@ import { decline } from '../utils/decline';
 import { formatNumber } from '../utils/formatNumber';
 import { getIndicatorAngle } from '../utils/getIndicatorAngle';
 import { getSleepArcData } from '../utils/getSleepArcData';
+import { getClosestSunriseSunsetTime } from '../utils/getClosestSunriseSunsetTime';
 
 WatchFace({
   onInit() {
@@ -70,33 +72,53 @@ WatchFace({
     const arcWidget = hmUI.createWidget(hmUI.widget.ARC_PROGRESS, null);
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, SLEEP_TEXT_PROPS);
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+    const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         console.log('ui resume');
 
+        const showSleepTime = sleepTime => {
+          const sleepString = `${sleepTime}\n${SLEEP.postfix}`;
+          const [angleStart, angleEnd] = getSleepArcData(sleepSensor);
+  
+          noDataWidget.setProperty(hmUI.prop.ALPHA, 0);
+          textWidget.setProperty(hmUI.prop.TEXT, sleepString);
+          arcWidget.setProperty(hmUI.prop.MORE, {
+            ...SLEEP_ARC_PROPS,
+            start_angle: angleStart,
+            end_angle: angleEnd,
+          });
+        };
+
+        const showSunriseSunset = () => {
+          let sunString = '';
+          const sunObj = getClosestSunriseSunsetTime(timeSensor, weatherSensor);
+  
+          if (sunObj) {
+            const { type, hour, minute } = sunObj;
+            const is12HourFormat = hmSetting.getTimeFormat() === 0;
+            const sunTime = getTimeString(hour, minute, is12HourFormat);
+            sunString = `${sunTime}\n${SUN[type]}`;
+          }
+  
+          noDataWidget.setProperty(hmUI.prop.ALPHA, 255);
+          textWidget.setProperty(hmUI.prop.TEXT, sunString);
+          arcWidget.setProperty(hmUI.prop.MORE, {
+            ...SLEEP_ARC_PROPS,
+            start_angle: 0,
+            end_angle: 0,
+          });
+        };
+
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           const sleepTime = getSleepTimeString(sleepSensor);
-          
-          if (sleepTime) {
-            const sleepString = `${sleepTime}\n${SLEEP.postfix}`;
-            const [angleStart, angleEnd] = getSleepArcData(sleepSensor);
 
-            noDataWidget.setProperty(hmUI.prop.ALPHA, 0);
-            textWidget.setProperty(hmUI.prop.TEXT, sleepString);
-            arcWidget.setProperty(hmUI.prop.MORE, {
-              ...SLEEP_ARC_PROPS,
-              start_angle: angleStart,
-              end_angle: angleEnd,
-            });
+          if (sleepTime) {
+            showSleepTime(sleepTime);
           } else {
-            noDataWidget.setProperty(hmUI.prop.ALPHA, 255);
-            textWidget.setProperty(hmUI.prop.TEXT, '');
-            arcWidget.setProperty(hmUI.prop.MORE, {
-              ...SLEEP_ARC_PROPS,
-              start_angle: 0,
-              end_angle: 0,
-            });
+            showSunriseSunset();
           }
         }
       },
@@ -156,7 +178,8 @@ WatchFace({
 
     const update = () => {
       const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
-      const timeString = getTimeString(timeSensor, is12HourFormat);
+      const { hour, minute } = timeSensor;
+      const timeString = getTimeString(hour, minute, is12HourFormat);
 
       if (prevTime === timeString) {
         return;

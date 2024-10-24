@@ -37,6 +37,11 @@ export const SLEEP = {
   lineWidth: px(10),
 };
 
+export const SUN = {
+  sunrise: isRusLang ? 'восход' : 'sunrise',
+  sunset: isRusLang ? 'закат' : 'sunset',
+};
+
 export const DATE_TEXT = {
   x: px(180),
   y: px(58),
@@ -45,33 +50,33 @@ export const DATE_TEXT = {
   textSize: px(18),
   months: isRusLang
     ? [
-        'Янв',
-        'Фев',
-        'Мар',
-        'Апр',
-        'Май',
-        'Июн',
-        'Июл',
-        'Авг',
-        'Сен',
-        'Окт',
-        'Ноя',
-        'Дек',
-      ]
+      'Янв',
+      'Фев',
+      'Мар',
+      'Апр',
+      'Май',
+      'Июн',
+      'Июл',
+      'Авг',
+      'Сен',
+      'Окт',
+      'Ноя',
+      'Дек',
+    ]
     : [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ],
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ],
 };
 
 export const DATE_WEEK = {

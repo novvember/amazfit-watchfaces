@@ -1,11 +1,10 @@
 /**
  * Gets and format time in 00:00 format
- * @param {*} timeSensor - hmSensor.id.TIME
+ * @param {Number} hour
+ * @param {Number} minute
  * @returns {String}
  */
-export function getTimeString(timeSensor, is12HourFormat = false) {
-  let { hour, minute } = timeSensor;
-
+export function getTimeString(hour, minute, is12HourFormat = false) {
   if (!is12HourFormat) {
     const hoursText = hour.toString().padStart(2, '0');
     const minsText = minute.toString().padStart(2, '0');
