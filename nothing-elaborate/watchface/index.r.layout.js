@@ -14,6 +14,16 @@ import {
   WEATHER,
 } from '../utils/constants';
 
+export const SLEEP_NO_DATA_IMAGE_PROPS = {
+  x: SLEEP.x,
+  y: SLEEP.y,
+  w: SLEEP.width,
+  h: SLEEP.height,
+  src: 'sleep/no_data.png',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+  alpha: 255,
+};
+
 export const SLEEP_TEXT_PROPS = {
   x: SLEEP.x,
   y: SLEEP.y,

@@ -1,7 +1,6 @@
-import { getSleepTimeString, getSleepTimeTotal } from '../utils/getSleepTime';
+import { getSleepTimeString } from '../utils/getSleepTime';
 import {
   BATTERY,
-  COLORS,
   DATE_TEXT,
   PULSE,
   SLEEP,
@@ -33,10 +32,12 @@ import {
   WEATHER_ICON_PROPS,
   WEATHER_TEXT_PROPS,
   PULSE_PREV_POINTER_PROPS,
+  SLEEP_NO_DATA_IMAGE_PROPS,
 } from './index.r.layout';
 import { decline } from '../utils/decline';
-import { getAngleFromTime } from '../utils/getAngleFromTime';
 import { formatNumber } from '../utils/formatNumber';
+import { getIndicatorAngle } from '../utils/getIndicatorAngle';
+import { getSleepArcData } from '../utils/getSleepArcData';
 
 WatchFace({
   onInit() {
@@ -65,6 +66,7 @@ WatchFace({
   },
 
   buildSleep() {
+    const noDataWidget = hmUI.createWidget(hmUI.widget.IMG, SLEEP_NO_DATA_IMAGE_PROPS);
     const arcWidget = hmUI.createWidget(hmUI.widget.ARC_PROGRESS, null);
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, SLEEP_TEXT_PROPS);
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
@@ -75,22 +77,12 @@ WatchFace({
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           const sleepTime = getSleepTimeString(sleepSensor);
-          const sleepString = `${sleepTime}\n${SLEEP.postfix}`;
-          const totalSleepTimeHours = getSleepTimeTotal(sleepSensor) / 60;
-          let { startTime, endTime } = sleepSensor.getBasicInfo();
-
-          let angleStart = getAngleFromTime(startTime);
-          let angleEnd = getAngleFromTime(endTime);
-
-          if (angleEnd < angleStart) {
-            angleEnd += 360;
-          }
-
-          if (totalSleepTimeHours >= 12) {
-            angleEnd += 360;
-          }
-
+          
           if (sleepTime) {
+            const sleepString = `${sleepTime}\n${SLEEP.postfix}`;
+            const [angleStart, angleEnd] = getSleepArcData(sleepSensor);
+
+            noDataWidget.setProperty(hmUI.prop.ALPHA, 0);
             textWidget.setProperty(hmUI.prop.TEXT, sleepString);
             arcWidget.setProperty(hmUI.prop.MORE, {
               ...SLEEP_ARC_PROPS,
@@ -98,10 +90,12 @@ WatchFace({
               end_angle: angleEnd,
             });
           } else {
+            noDataWidget.setProperty(hmUI.prop.ALPHA, 255);
             textWidget.setProperty(hmUI.prop.TEXT, '');
             arcWidget.setProperty(hmUI.prop.MORE, {
               ...SLEEP_ARC_PROPS,
-              color: COLORS.bgTertiary,
+              start_angle: 0,
+              end_angle: 0,
             });
           }
         }
@@ -277,30 +271,15 @@ WatchFace({
       PULSE_CURRENT_POINTER_PROPS,
     );
     const prevPointerWidgets = [];
+    const { angleStart, angleEnd, pointer: { minValue, maxValue } } = PULSE;
 
-    const getAngle = pulseValue => {
-      const {
-        angleStart,
-        angleEnd,
-        pointer: { minValue, maxValue },
-      } = PULSE;
-
-      let angle =
-        ((pulseValue - minValue) / (maxValue - minValue)) * (angleEnd - angleStart) +
-        angleStart;
-
-      angle = Math.min(angle, angleEnd);
-      angle = Math.max(angle, angleStart);
-
-      return angle;
-    };
+    const getAngle = pulseValue => getIndicatorAngle(pulseValue, minValue, maxValue, angleStart, angleEnd);
 
     const update = () => {
       const { last, today } = hmSensor.createSensor(hmSensor.id.HEART);
 
-      const angle = getAngle(last);
       textWidget.setProperty(hmUI.prop.TEXT, last.toString());
-      currentPointerWidget.setProperty(hmUI.prop.ANGLE, angle);
+      currentPointerWidget.setProperty(hmUI.prop.ANGLE, getAngle(last));
 
       if (today.length < prevPointerWidgets.length) {
         prevPointerWidgets.forEach(widget => hmUI.deleteWidget(widget));
