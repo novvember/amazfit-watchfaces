@@ -164,5 +164,5 @@ export const BATTERY = {
 
 export const DISCONNECT = {
   x: px(220),
-  y: px(429),
+  y: px(436),
 };
