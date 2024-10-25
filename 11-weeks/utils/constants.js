@@ -23,8 +23,8 @@ export const GRID = {
     rows: 11,
   },
   cell: {
-    width: px(30),
-    height: px(30),
+    width: px(27),
+    height: px(27),
   },
 };
 
@@ -48,7 +48,7 @@ export const CALENDAR = {
     gap: px(2),
   },
   month: {
-    width: px(40),
+    width: px(42),
     height: GRID.cell.height,
     images: new Array(12)
       .fill(null)
@@ -80,7 +80,7 @@ export const SPECIAL_CHARS = {
 
 export const SECONDS_PROGRESS_BAR = {
   height: GRID.cell.height,
-  width: px(210),
+  width: px(196),
   gapTop: px(2),
 };
 
