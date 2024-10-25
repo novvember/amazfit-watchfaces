@@ -148,8 +148,8 @@ export const PULSE = {
     y: px(343),
   },
   pointer: {
-    minValue: 0,
-    maxValue: 160,
+    minValue: 30,
+    maxValue: 150,
     size: px(16),
   },
 };
