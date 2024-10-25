@@ -36,6 +36,7 @@ import {
   SLEEP_NO_DATA_IMAGE_PROPS,
   SLEEP_WAKE_STAGE_ARC_PROPS,
   WEATHER_NO_ICON_TEXT_PROPS,
+  PULSE_PREV_POINTER_GROUP_PROPS,
 } from './index.r.layout';
 import { decline } from '../utils/decline';
 import { formatNumber } from '../utils/formatNumber';
@@ -323,12 +324,13 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, PULSE_ARC_PROPS);
     hmUI.createWidget(hmUI.widget.IMG, PULSE_ICON_PROPS);
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, PULSE_TEXT_PROPS);
+    let prevPointerWidgets = [];
+    let prevDay = 0;
+    const prevPointerGroup = hmUI.createWidget(hmUI.widget.GROUP, PULSE_PREV_POINTER_GROUP_PROPS);
     const currentPointerWidget = hmUI.createWidget(
       hmUI.widget.IMG,
       PULSE_CURRENT_POINTER_PROPS,
     );
-    let prevPointerWidgets = [];
-    let prevDay = 0;
     const { angleStart, angleEnd, pointer: { minValue, maxValue } } = PULSE;
 
     const getAngle = pulseValue => getIndicatorAngle(pulseValue, minValue, maxValue, angleStart, angleEnd);
@@ -352,7 +354,7 @@ WatchFace({
           return;
         }
 
-        prevPointerWidgets.push(hmUI.createWidget(
+        prevPointerWidgets.push(prevPointerGroup.createWidget(
           hmUI.widget.IMG,
           {
             ...PULSE_PREV_POINTER_PROPS,
