@@ -56,7 +56,7 @@ To add a new watchface to your device:
 | ![](./11-weeks/demo.png)              | 11 weeks              | All round watches | ✅ Done             	|
 | ![](./nothing-glyphs/demo.png)        | Nothing Glyphs        | All round watches | ✅ Done             	|
 | ![](./verbarius/demo.png)             | Verbarius             | All round watches | ✅ Done             	|
-| ![](./nothing-elaborate/demo.png)     | Elaborate             | All round watches | ✅ Done             	|
+| ![](./elaborate/demo.png)             | Elaborate             | All round watches | ✅ Done             	|
 | ![](./nothing-sector/demo.png)        | Sektor                | All round watches | ✅ Done             	|
 | ![](./solar-circle/demo.png)          | Solar circle          | All round watches | ✅ Done             	|
 | ![](./anicorn-k452-nemesis/demo.png)  | Anicorn K452 Nemesis  | All round watches | ✅ Done             	|
