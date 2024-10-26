@@ -10,7 +10,6 @@ import {
   GRID,
   SCREEN,
   SECONDS_PROGRESS_BAR,
-  SLEEP,
 } from '../utils/constants';
 
 import {
@@ -359,7 +358,7 @@ WatchFace({
   },
 
   buildSeconds() {
-    const { x, y } = this.grid[GRID.size.rows - 1][0];
+    const { y } = this.grid[GRID.size.rows - 1][0];
     const progressBarY = y + CALENDAR.date.height + SECONDS_PROGRESS_BAR.gapTop;
     const progressBarX = SCREEN.centerX - SECONDS_PROGRESS_BAR.width / 2;
 
@@ -380,6 +379,7 @@ WatchFace({
     const update = () => {
       const { second } = hmSensor.createSensor(hmSensor.id.TIME);
       const secondRound = Math.round(second / 10) * 10;
+      const level = secondRound / 10;
 
       if (prevSecondRound === secondRound) {
         return;
@@ -392,7 +392,7 @@ WatchFace({
         ...SECONDS_PROGRESS_BAR_PROPS,
         x: progressBarX,
         y: progressBarY,
-        src: `seconds_progress_bar/${secondRound}.png`,
+        src: `seconds_progress_bar/${level}.png`,
       });
     };
 
