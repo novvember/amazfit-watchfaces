@@ -135,18 +135,6 @@ export const ALARM_STATUS = {
   y: px(226),
 };
 
-export const WEATHER_ICON = {
-  x: px(8),
-  y: px(224),
-  height: px(32),
-  width: px(32),
-};
-
-export const WEATHER_TEXT = {
-  x: px(46),
-  y: px(231),
-};
-
 export const TIME_DIGITS_AOD = {
   images: new Array(10).fill(null).map((_, i) => `time_digits_aod/${i}.png`),
   width: px(120),

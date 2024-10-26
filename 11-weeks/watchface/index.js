@@ -28,8 +28,6 @@ import {
   ALARM_OFF_IMAGE_PROPS,
   ALARM_ON_IMAGE_PROPS,
   CELL_IMAGE_PROPS,
-  WEATHER_ICON_PROPS,
-  WEATHER_TEXT_PROPS,
   AOD_HOURS_PROPS,
   AOD_MINUTES_PROPS,
   SLEEP_PROGRESS_PROPS,
@@ -37,8 +35,6 @@ import {
   STEPS_PROGRESS_PROPS,
   SLEEP_POSTFIX_PROPS,
 } from './index.r.layout';
-import { isNight } from '../utils/isNight';
-import { WEATHER_ICONS, updateWeatherIcons } from '../utils/weatherIcons';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
 const makeCalendarDataCached = withWeakCache(makeCalendarData);
@@ -509,37 +505,5 @@ WatchFace({
   buildAod() {
     hmUI.createWidget(hmUI.widget.IMG_TIME, AOD_HOURS_PROPS);
     hmUI.createWidget(hmUI.widget.IMG_TIME, AOD_MINUTES_PROPS);
-  },
-
-  buildWeather() {
-    hmUI.createWidget(hmUI.widget.TEXT_IMG, WEATHER_TEXT_PROPS);
-
-    const iconWidget = hmUI.createWidget(hmUI.widget.IMG, null);
-
-    const update = () => {
-      const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
-      const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
-      const iconIndex = weatherSensor.curAirIconIndex;
-
-      updateWeatherIcons(isNight(timeSensor));
-
-      const icon =
-        iconIndex && iconIndex !== 'undefined' ? WEATHER_ICONS[iconIndex] : '';
-
-      iconWidget.setProperty(hmUI.prop.MORE, {
-        ...WEATHER_ICON_PROPS,
-        src: icon,
-      });
-    };
-
-    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
-      resume_call: () => {
-        console.log('ui resume');
-
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          update();
-        }
-      },
-    });
   },
 });
