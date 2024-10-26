@@ -23,8 +23,8 @@ export const GRID = {
     rows: 11,
   },
   cell: {
-    width: px(28),
-    height: px(28),
+    width: px(27),
+    height: px(27),
   },
 };
 
