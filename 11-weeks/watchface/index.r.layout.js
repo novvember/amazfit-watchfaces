@@ -1,18 +1,15 @@
 import {
-  ARC,
   DIGITS,
   SPECIAL_CHARS,
-  SCREEN,
   STEPS,
   BATTERY,
   SLEEP,
   CONNECTION_STATUS,
   ALARM_STATUS,
-  FONT,
+  FONTS,
   COLORS,
-  WEATHER_ICON,
-  WEATHER_TEXT,
   TIME_DIGITS_AOD,
+  PULSE,
 } from '../utils/constants';
 
 // CELL
@@ -80,40 +77,68 @@ export const SECONDS_PROGRESS_BAR_PROPS = {
 };
 
 // STEPS
+export const STEPS_PROGRESS_PROPS = {
+  x: STEPS.progressImage.x,
+  y: STEPS.progressImage.y,
+  src: 'steps/0.png',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
 export const STEPS_TEXT_IMAGE_PROPS = {
-  x: SCREEN.centerX + ARC.radius - ARC.width - DIGITS.width * 5,
-  y: SCREEN.centerY - DIGITS.height / 2,
+  x: STEPS.x,
+  y: STEPS.y,
   type: hmUI.data_type.STEP,
   font_array: DIGITS.images,
   align_h: hmUI.align.RIGHT,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const STEPS_ARC_BACKGROUND_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
-  radius: ARC.radius,
-  start_angle: STEPS.angleStart,
-  end_angle: STEPS.angleEnd,
-  color: ARC.colorBackground,
-  line_width: ARC.width,
-  level: 100,
+// PULSE
+export const PULSE_PROGRESS_PROPS = {
+  x: PULSE.progressImage.x,
+  y: PULSE.progressImage.y,
+  src: 'pulse/0.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const STEPS_ARC_ACTIVE_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
-  radius: ARC.radius,
-  start_angle: STEPS.angleStart,
-  end_angle: STEPS.angleEnd,
-  color: ARC.colorActive,
-  line_width: ARC.width,
-  type: hmUI.data_type.STEP,
+export const PULSE_TEXT_IMAGE_PROPS = {
+  x: PULSE.x,
+  y: PULSE.y,
+  type: hmUI.data_type.HEART,
+  font_array: DIGITS.images,
+  unit_en: SPECIAL_CHARS.heart.src,
+  align_h: hmUI.align.RIGHT,
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const PULSE_MIN_TEXT_PROPS = {
+  x: PULSE.min.x,
+  y: PULSE.min.y,
+  w: PULSE.width,
+  h: PULSE.height,
+  color: COLORS.primary,
+  text_size: PULSE.textSize,
+  align_h: hmUI.align.RIGHT,
+  align_v: hmUI.align.TOP,
+  font: FONTS.digits,
+  text: '',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const PULSE_MAX_TEXT_PROPS = {
+  ...PULSE_MIN_TEXT_PROPS,
+  x: PULSE.max.x,
+  y: PULSE.max.y,
 };
 
 // BATTERY
+export const BATTERY_PROGRESS_PROPS = {
+  x: BATTERY.progressImage.x,
+  y: BATTERY.progressImage.y,
+  src: 'battery/0.png',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
 export const BATTERY_TEXT_IMAGE_PROPS = {
   x: BATTERY.x,
   y: BATTERY.y,
@@ -124,68 +149,33 @@ export const BATTERY_TEXT_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const BATTERY_ARC_BACKGROUND_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
-  radius: ARC.radius,
-  start_angle: BATTERY.angleStart,
-  end_angle: BATTERY.angleEnd,
-  color: ARC.colorBackground,
-  line_width: ARC.width,
-  level: 100,
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
-export const BATTERY_ARC_ACTIVE_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
-  start_angle: BATTERY.angleStart,
-  end_angle: BATTERY.angleEnd,
-  radius: ARC.radius,
-  line_width: ARC.width,
-  corner_flag: 0,
-  color: ARC.colorActive,
-  type: hmUI.data_type.BATTERY,
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
 // SLEEP TIME
-export const SLEEP_ARC_BACKGROUND_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
-  radius: ARC.radius,
-  start_angle: SLEEP.angleStart,
-  end_angle: SLEEP.angleEnd,
-  color: ARC.colorBackground,
-  line_width: ARC.width,
-  level: 100,
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
-export const SLEEP_ARC_ACTIVE_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
-  start_angle: SLEEP.angleStart,
-  end_angle: SLEEP.angleEnd,
-  radius: ARC.radius,
-  line_width: ARC.width,
-  corner_flag: 0,
-  color: ARC.colorActive,
-  type: hmUI.data_type.SLEEP,
+export const SLEEP_PROGRESS_PROPS = {
+  x: SLEEP.progressImage.x,
+  y: SLEEP.progressImage.y,
+  src: 'sleep/0.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const SLEEP_TEXT_PROPS = {
-  x: SLEEP.x,
+  x: SLEEP.x + SPECIAL_CHARS.moon.width,
   y: SLEEP.y,
   w: SLEEP.width,
   h: SLEEP.height,
   color: COLORS.primary,
   text_size: SLEEP.textSize,
   align_h: hmUI.align.LEFT,
-  align_v: hmUI.align.CENTER_V,
-  font: FONT,
+  align_v: hmUI.align.TOP,
+  font: FONTS.digits,
   text: '',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const SLEEP_ICON_IMAGE_PROPS = {
+  x: SLEEP.x,
+  y: SLEEP.y + px(4),
+  src: SPECIAL_CHARS.moon.src,
+  alpha: 255,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -225,31 +215,11 @@ export const ALARM_ON_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-// WEATHER
-export const WEATHER_ICON_PROPS = {
-  x: WEATHER_ICON.x,
-  y: WEATHER_ICON.y,
-  src: '',
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
-export const WEATHER_TEXT_PROPS = {
-  x: WEATHER_TEXT.x,
-  y: WEATHER_TEXT.y,
-  type: hmUI.data_type.WEATHER_CURRENT,
-  font_array: DIGITS.images,
-  align_h: hmUI.align.LEFT,
-  unit_en: SPECIAL_CHARS.degree.src,
-  negative_image: SPECIAL_CHARS.minus.src,
-  invalid_image: 'empty.png',
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
 // AOD
 export const AOD_HOURS_PROPS = {
   hour_zero: 1,
-  hour_startX: px(120),
-  hour_startY: px(60),
+  hour_startX: px(128),
+  hour_startY: px(72),
   hour_array: TIME_DIGITS_AOD.images,
   hour_align: hmUI.align.LEFT,
   show_level: hmUI.show_level.ONAL_AOD,
@@ -257,7 +227,7 @@ export const AOD_HOURS_PROPS = {
 
 export const AOD_MINUTES_PROPS = {
   minute_zero: 1,
-  minute_startX: px(120),
+  minute_startX: px(128),
   minute_startY: px(240),
   minute_array: TIME_DIGITS_AOD.images,
   minute_align: hmUI.align.LEFT,

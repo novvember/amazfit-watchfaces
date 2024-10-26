@@ -15,7 +15,9 @@ export const COLORS = {
   secondary: 0x343334,
 };
 
-export const FONT = 'fonts/Alatsi-Regular.ttf';
+export const FONTS = {
+  digits: 'fonts/Alatsi-Regular.ttf',
+};
 
 export const GRID = {
   size: {
@@ -40,7 +42,7 @@ export const CALENDAR = {
     images: new Array(7)
       .fill(null)
       .map((_, i) => `${isRusLang ? 'week_rus' : 'week'}/${i}.png`),
-    dotY: px(28),
+    dotY: px(40),
   },
   year: {
     width: GRID.cell.width,
@@ -76,6 +78,18 @@ export const SPECIAL_CHARS = {
     src: 'special_chars/minus.png',
     width: px(9),
   },
+  dot: {
+    src: 'special_chars/dot.png',
+    width: px(6),
+  },
+  heart: {
+    src: 'special_chars/heart.png',
+    width: px(22),
+  },
+  moon: {
+    src: 'special_chars/moon.png',
+    width: px(20),
+  },
 };
 
 export const SECONDS_PROGRESS_BAR = {
@@ -84,63 +98,73 @@ export const SECONDS_PROGRESS_BAR = {
   gapTop: px(2),
 };
 
-export const ARC = {
-  colorBackground: COLORS.secondary,
-  colorActive: COLORS.primary,
-  radius: px(231),
-  width: px(14),
+export const STEPS = {
+  x: px(376),
+  y: px(147),
+  progressImage: {
+    x: px(382),
+    y: px(84),
+    count: 10,
+  },
 };
 
-export const STEPS = {
-  angleStart: 130,
-  angleEnd: 50,
+export const PULSE = {
+  x: px(382),
+  y: px(315),
+  textSize: px(20),
+  width: px(50),
+  height: px(30),
+  progressImage: {
+    x: px(382),
+    y: px(240),
+  },
+  min: {
+    x: px(354),
+    y: px(382),
+  },
+  max: {
+    x: px(402),
+    y: px(242),
+  },
 };
 
 export const BATTERY = {
-  x: px(37),
-  y: px(290),
-  angleStart: 230,
-  angleEnd: 265,
+  x: px(48),
+  y: px(315),
+  progressImage: {
+    x: px(0),
+    y: px(240),
+  },
 };
 
 export const SLEEP = {
-  x: px(35),
-  y: px(160),
-  angleStart: 275,
-  angleEnd: 310,
-  width: px(50),
+  x: px(43),
+  y: px(144),
+  width: px(60),
   height: px(30),
-  textSize: px(21),
+  textSize: px(20),
+  progressImage: {
+    x: px(0),
+    y: px(84),
+  },
 };
 
 export const CONNECTION_STATUS = {
   width: px(28),
   height: px(28),
-  x: px(27),
-  y: SCREEN.centerY - px(28) / 2,
+  x: px(41),
+  y: px(226),
 };
 
 export const ALARM_STATUS = {
   width: px(28),
   height: px(28),
-  x: px(58),
-  y: SCREEN.centerY - px(28) / 2,
-};
-
-export const WEATHER_ICON = {
-  x: px(8),
-  y: px(224),
-  height: px(32),
-  width: px(32),
-};
-
-export const WEATHER_TEXT = {
-  x: px(46),
-  y: px(231),
+  x: px(72),
+  y: px(226),
 };
 
 export const TIME_DIGITS_AOD = {
   images: new Array(10).fill(null).map((_, i) => `time_digits_aod/${i}.png`),
-  width: px(120),
-  height: px(180),
+  width: px(112),
+  height: px(168),
 };
