@@ -76,6 +76,10 @@ export const SPECIAL_CHARS = {
     src: 'special_chars/minus.png',
     width: px(9),
   },
+  dot: {
+    src: 'special_chars/dot.png',
+    width: px(6),
+  },
 };
 
 export const SECONDS_PROGRESS_BAR = {
@@ -85,11 +89,12 @@ export const SECONDS_PROGRESS_BAR = {
 };
 
 export const STEPS = {
-  x: px(391),
-  y: px(231),
+  x: px(372),
+  y: px(147),
   progressImage: {
     x: px(382),
     y: px(84),
+    count: 10,
   },
 };
 

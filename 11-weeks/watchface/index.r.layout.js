@@ -88,9 +88,10 @@ export const STEPS_PROGRESS_PROPS = {
 
 export const STEPS_TEXT_IMAGE_PROPS = {
   x: STEPS.x,
-  y: SCREEN.centerY - DIGITS.height / 2,
+  y: STEPS.y,
   type: hmUI.data_type.STEP,
   font_array: DIGITS.images,
+  unit_en: SPECIAL_CHARS.dot.src,
   align_h: hmUI.align.RIGHT,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };

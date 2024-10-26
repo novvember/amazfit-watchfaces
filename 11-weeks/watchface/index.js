@@ -10,6 +10,7 @@ import {
   GRID,
   SCREEN,
   SECONDS_PROGRESS_BAR,
+  STEPS,
 } from '../utils/constants';
 
 import {
@@ -420,7 +421,7 @@ WatchFace({
     const update = () => {
       const { current, target } = hmSensor.createSensor(hmSensor.id.STEP);
       const ratio = (current || 0) / (target || 10000);
-      const level = Math.min(Math.floor(21 * ratio), 21);
+      const level = Math.min(Math.floor(STEPS.progressImage.count * ratio), STEPS.progressImage.count);
       const imageSrc = `steps/${level}.png`;
       progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
     };
