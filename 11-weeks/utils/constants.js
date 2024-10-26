@@ -119,14 +119,14 @@ export const SLEEP = {
 export const CONNECTION_STATUS = {
   width: px(28),
   height: px(28),
-  x: px(39),
+  x: px(41),
   y: px(226),
 };
 
 export const ALARM_STATUS = {
   width: px(28),
   height: px(28),
-  x: px(70),
+  x: px(72),
   y: px(226),
 };
 
