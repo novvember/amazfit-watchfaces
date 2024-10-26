@@ -1,5 +1,4 @@
 import {
-  ARC,
   DIGITS,
   SPECIAL_CHARS,
   SCREEN,
@@ -80,8 +79,15 @@ export const SECONDS_PROGRESS_BAR_PROPS = {
 };
 
 // STEPS
+export const STEPS_PROGRESS_PROPS = {
+  x: STEPS.progressImage.x,
+  y: STEPS.progressImage.y,
+  src: 'steps/0.png',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
 export const STEPS_TEXT_IMAGE_PROPS = {
-  x: SCREEN.centerX + ARC.radius - ARC.width - DIGITS.width * 5,
+  x: STEPS.x,
   y: SCREEN.centerY - DIGITS.height / 2,
   type: hmUI.data_type.STEP,
   font_array: DIGITS.images,
@@ -89,31 +95,14 @@ export const STEPS_TEXT_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const STEPS_ARC_BACKGROUND_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
-  radius: ARC.radius,
-  start_angle: STEPS.angleStart,
-  end_angle: STEPS.angleEnd,
-  color: ARC.colorBackground,
-  line_width: ARC.width,
-  level: 100,
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
-export const STEPS_ARC_ACTIVE_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
-  radius: ARC.radius,
-  start_angle: STEPS.angleStart,
-  end_angle: STEPS.angleEnd,
-  color: ARC.colorActive,
-  line_width: ARC.width,
-  type: hmUI.data_type.STEP,
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
 // BATTERY
+export const BATTERY_PROGRESS_PROPS = {
+  x: BATTERY.progressImage.x,
+  y: BATTERY.progressImage.y,
+  src: 'battery/0.png',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
 export const BATTERY_TEXT_IMAGE_PROPS = {
   x: BATTERY.x,
   y: BATTERY.y,
@@ -124,54 +113,11 @@ export const BATTERY_TEXT_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const BATTERY_ARC_BACKGROUND_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
-  radius: ARC.radius,
-  start_angle: BATTERY.angleStart,
-  end_angle: BATTERY.angleEnd,
-  color: ARC.colorBackground,
-  line_width: ARC.width,
-  level: 100,
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
-export const BATTERY_ARC_ACTIVE_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
-  start_angle: BATTERY.angleStart,
-  end_angle: BATTERY.angleEnd,
-  radius: ARC.radius,
-  line_width: ARC.width,
-  corner_flag: 0,
-  color: ARC.colorActive,
-  type: hmUI.data_type.BATTERY,
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
 // SLEEP TIME
-export const SLEEP_ARC_BACKGROUND_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
-  radius: ARC.radius,
-  start_angle: SLEEP.angleStart,
-  end_angle: SLEEP.angleEnd,
-  color: ARC.colorBackground,
-  line_width: ARC.width,
-  level: 100,
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
-export const SLEEP_ARC_ACTIVE_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
-  start_angle: SLEEP.angleStart,
-  end_angle: SLEEP.angleEnd,
-  radius: ARC.radius,
-  line_width: ARC.width,
-  corner_flag: 0,
-  color: ARC.colorActive,
-  type: hmUI.data_type.SLEEP,
+export const SLEEP_PROGRESS_PROPS = {
+  x: SLEEP.progressImage.x,
+  y: SLEEP.progressImage.y,
+  src: 'sleep/0.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -183,10 +129,17 @@ export const SLEEP_TEXT_PROPS = {
   color: COLORS.primary,
   text_size: SLEEP.textSize,
   align_h: hmUI.align.LEFT,
-  align_v: hmUI.align.CENTER_V,
+  align_v: hmUI.align.TOP,
+  line_space: SLEEP.lineSpace,
   font: FONT,
   text: '',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const SLEEP_POSTFIX_PROPS = {
+  ...SLEEP_TEXT_PROPS,
+  y: SLEEP.y + SLEEP.lineSpace,
+  text: SLEEP.postfix,
 };
 
 // CONNECTION STATUS

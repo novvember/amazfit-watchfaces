@@ -84,47 +84,50 @@ export const SECONDS_PROGRESS_BAR = {
   gapTop: px(2),
 };
 
-export const ARC = {
-  colorBackground: COLORS.secondary,
-  colorActive: COLORS.primary,
-  radius: px(231),
-  width: px(14),
-};
-
 export const STEPS = {
-  angleStart: 130,
-  angleEnd: 50,
+  x: px(391),
+  y: px(231),
+  progressImage: {
+    x: px(382),
+    y: px(84),
+  },
 };
 
 export const BATTERY = {
-  x: px(37),
-  y: px(290),
-  angleStart: 230,
-  angleEnd: 265,
+  x: px(48),
+  y: px(315),
+  progressImage: {
+    x: px(0),
+    y: px(240),
+  },
 };
 
 export const SLEEP = {
-  x: px(35),
-  y: px(160),
-  angleStart: 275,
-  angleEnd: 310,
-  width: px(50),
+  x: px(48),
+  y: px(138),
+  width: px(60),
   height: px(30),
   textSize: px(21),
+  lineSpace: px(28),
+  progressImage: {
+    x: px(0),
+    y: px(84),
+  },
+  postfix: isRusLang ? 'сон' : 'sleep',
 };
 
 export const CONNECTION_STATUS = {
   width: px(28),
   height: px(28),
-  x: px(27),
-  y: SCREEN.centerY - px(28) / 2,
+  x: px(39),
+  y: px(226),
 };
 
 export const ALARM_STATUS = {
   width: px(28),
   height: px(28),
-  x: px(58),
-  y: SCREEN.centerY - px(28) / 2,
+  x: px(70),
+  y: px(226),
 };
 
 export const WEATHER_ICON = {
