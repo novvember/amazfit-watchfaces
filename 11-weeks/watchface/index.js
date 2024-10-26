@@ -459,8 +459,8 @@ WatchFace({
       const imageSrc = `pulse/${level}.png`;
 
       progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
-      minTextWidget.setProperty(hmUI.widget.MORE, { text: min > 0 ? min.toString() : '' });
-      maxTextWidget.setProperty(hmUI.widget.MORE, { text: max > 0 ? max.toString() : '' });
+      minTextWidget.setProperty(hmUI.prop.TEXT, min > 0 ? min.toString() : '' );
+      maxTextWidget.setProperty(hmUI.prop.TEXT, max > 0 ? max.toString() : '' );
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -510,14 +510,12 @@ WatchFace({
         const hours = Math.min(getSleepTimeHours(sleepSensor), 8);
         const imageSrc = `sleep/${hours}.png`;
 
-        textWidget.setProperty(hmUI.widget.MORE, {
-          text: sleepTime,
-        });
-        postfixWidget.setProperty(hmUI.widget.MORE, SLEEP_POSTFIX_PROPS);
+        textWidget.setProperty(hmUI.prop.TEXT, sleepTime);
+        postfixWidget.setProperty(hmUI.prop.MORE, SLEEP_POSTFIX_PROPS);
         progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
       } else {
-        textWidget.setProperty(hmUI.widget.MORE, { text: '' });
-        postfixWidget.setProperty(hmUI.widget.MORE, { text: '' });
+        textWidget.setProperty(hmUI.prop.TEXT, '');
+        postfixWidget.setProperty(hmUI.prop.TEXT, '');
         progressWidget.setProperty(hmUI.prop.MORE, SLEEP_PROGRESS_PROPS);
       }
     };

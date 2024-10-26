@@ -103,9 +103,9 @@ export const STEPS = {
 };
 
 export const PULSE = {
-  x: px(396),
+  x: px(398),
   y: px(315),
-  textSize: px(21),
+  textSize: px(19),
   width: px(40),
   height: px(30),
   progressImage: {
@@ -114,11 +114,11 @@ export const PULSE = {
   },
   min: {
     x: px(362),
-    y: px(378),
+    y: px(382),
   },
   max: {
-    x: px(408),
-    y: px(235),
+    x: px(410),
+    y: px(242),
   },
 };
 
@@ -133,11 +133,11 @@ export const BATTERY = {
 
 export const SLEEP = {
   x: px(48),
-  y: px(138),
+  y: px(144),
   width: px(60),
   height: px(30),
-  textSize: px(21),
-  lineSpace: px(28),
+  textSize: px(19),
+  lineSpace: px(22),
   progressImage: {
     x: px(0),
     y: px(84),
