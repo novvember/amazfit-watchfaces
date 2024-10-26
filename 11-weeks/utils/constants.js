@@ -40,7 +40,7 @@ export const CALENDAR = {
     images: new Array(7)
       .fill(null)
       .map((_, i) => `${isRusLang ? 'week_rus' : 'week'}/${i}.png`),
-    dotY: px(28),
+    dotY: px(40),
   },
   year: {
     width: GRID.cell.width,
@@ -80,6 +80,10 @@ export const SPECIAL_CHARS = {
     src: 'special_chars/dot.png',
     width: px(6),
   },
+  heart: {
+    src: 'special_chars/heart.png',
+    width: px(18),
+  },
 };
 
 export const SECONDS_PROGRESS_BAR = {
@@ -95,6 +99,26 @@ export const STEPS = {
     x: px(382),
     y: px(84),
     count: 10,
+  },
+};
+
+export const PULSE = {
+  x: px(396),
+  y: px(315),
+  textSize: px(21),
+  width: px(40),
+  height: px(30),
+  progressImage: {
+    x: px(382),
+    y: px(240),
+  },
+  min: {
+    x: px(362),
+    y: px(378),
+  },
+  max: {
+    x: px(408),
+    y: px(235),
   },
 };
 

@@ -34,6 +34,10 @@ import {
   BATTERY_PROGRESS_PROPS,
   STEPS_PROGRESS_PROPS,
   SLEEP_POSTFIX_PROPS,
+  PULSE_TEXT_IMAGE_PROPS,
+  PULSE_PROGRESS_PROPS,
+  PULSE_MIN_TEXT_PROPS,
+  PULSE_MAX_TEXT_PROPS,
 } from './index.r.layout';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
@@ -52,6 +56,7 @@ WatchFace({
     this.buildSeconds();
 
     this.buildSteps();
+    this.buildPulse();
     this.buildBattery();
     this.buildSleepTime();
 
@@ -59,8 +64,6 @@ WatchFace({
     this.buildAlarmStatus();
 
     this.buildAod();
-
-    // this.buildWeather();
   },
 
   onDestroy() {
@@ -420,6 +423,44 @@ WatchFace({
       const level = Math.min(Math.floor(STEPS.progressImage.count * ratio), STEPS.progressImage.count);
       const imageSrc = `steps/${level}.png`;
       progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          update();
+        }
+      },
+    });
+  },
+
+  buildPulse() {
+    hmUI.createWidget(hmUI.widget.TEXT_IMG, PULSE_TEXT_IMAGE_PROPS);
+    const progressWidget = hmUI.createWidget(hmUI.widget.IMG, PULSE_PROGRESS_PROPS);
+    const minTextWidget = hmUI.createWidget(hmUI.widget.TEXT, PULSE_MIN_TEXT_PROPS);
+    const maxTextWidget = hmUI.createWidget(hmUI.widget.TEXT, PULSE_MAX_TEXT_PROPS);
+
+    const update = () => {
+      const { last, today } = hmSensor.createSensor(hmSensor.id.HEART);
+      let min = today.length ? Math.min(...today) : 0;
+      let max = today.length ? Math.max(...today) : 0;
+
+      if (min === max) {
+        min = 0;
+        max = 0;
+      }
+
+      const level = min && max && last ?
+        Math.min(1 + Math.round(1 + 9 * (last - min) / ((max - min) || 1)), 10) :
+        0;
+
+      const imageSrc = `pulse/${level}.png`;
+
+      progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
+      minTextWidget.setProperty(hmUI.widget.MORE, { text: min > 0 ? min.toString() : '' });
+      maxTextWidget.setProperty(hmUI.widget.MORE, { text: max > 0 ? max.toString() : '' });
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {

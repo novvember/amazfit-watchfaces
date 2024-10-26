@@ -9,6 +9,7 @@ import {
   FONT,
   COLORS,
   TIME_DIGITS_AOD,
+  PULSE,
 } from '../utils/constants';
 
 // CELL
@@ -93,6 +94,44 @@ export const STEPS_TEXT_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+// PULSE
+export const PULSE_PROGRESS_PROPS = {
+  x: PULSE.progressImage.x,
+  y: PULSE.progressImage.y,
+  src: 'pulse/0.png',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const PULSE_TEXT_IMAGE_PROPS = {
+  x: PULSE.x,
+  y: PULSE.y,
+  type: hmUI.data_type.HEART,
+  font_array: DIGITS.images,
+  // unit_en: SPECIAL_CHARS.heart.src,
+  align_h: hmUI.align.RIGHT,
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const PULSE_MIN_TEXT_PROPS = {
+  x: PULSE.min.x,
+  y: PULSE.min.y,
+  w: PULSE.width,
+  h: PULSE.height,
+  color: COLORS.primary,
+  text_size: PULSE.textSize,
+  align_h: hmUI.align.RIGHT,
+  align_v: hmUI.align.TOP,
+  font: FONT,
+  text: '',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const PULSE_MAX_TEXT_PROPS = {
+  ...PULSE_MIN_TEXT_PROPS,
+  x: PULSE.max.x,
+  y: PULSE.max.y,
+};
+
 // BATTERY
 export const BATTERY_PROGRESS_PROPS = {
   x: BATTERY.progressImage.x,
@@ -128,7 +167,6 @@ export const SLEEP_TEXT_PROPS = {
   text_size: SLEEP.textSize,
   align_h: hmUI.align.LEFT,
   align_v: hmUI.align.TOP,
-  line_space: SLEEP.lineSpace,
   font: FONT,
   text: '',
   show_level: hmUI.show_level.ONLY_NORMAL,
