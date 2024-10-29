@@ -1,4 +1,4 @@
-# Grotesque Watchface
+# Time Machine Watchface
 Watchface for Amazfit GTR Mini and for other round ZeppOS watch.
 
 ![demo](./preview.png)
