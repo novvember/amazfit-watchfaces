@@ -63,3 +63,4 @@ To add a new watchface to your device:
 | ![](./spin-3/demo.png)                | Spin 3                | All round watches | ✅ Done             	|
 | ![](./g-shock/demo.png)               | G-Shock               | All round watches | ✅ Done                |
 | ![](./grotesque/demo.png)             | Grotesque             | All round watches | ✅ Done                |
+| ![](./time-machine/demo.png)          | Time Machine          | All round watches | ✅ Done                |
