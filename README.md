@@ -41,6 +41,11 @@ To add a new watchface to your device:
 
 4. Utilize any compatible app to install the watchface from your phone's internal storage.
 
+### Important Notes!
+- Some texts are displayed with custom fonts. It requires devices with ZeppOS 2 and higher and is not compatible with older models like the GTR 3 and GTR 3.
+
+- Please restart the watch after installation to ensure proper font display.
+
 ## Watchfaces Gallery
 
 | Image 	                               | Name       	          | Devices supported | Development Status 	  |

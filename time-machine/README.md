@@ -16,7 +16,7 @@ Designer Daniel Duarte and his [Time Machine](https://design-milk.com/time-machi
 
 **Model compatibility:** Amazfit GTR Mini, Amazfit GTR 4 and all other round ZeppOS watches
 
-**Note: Time text- requires devices with ZeppOS 2 and higher and is not compatible with older models like the GTR 3 and GTR 3.**
+**Note: Time text requires devices with ZeppOS 2 and higher and is not compatible with older models like the GTR 3 and GTR 3.**
 
 **AOD:** No
 
