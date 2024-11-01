@@ -1,4 +1,10 @@
-import { COLORS, FONTS, MINUTE_TEXT, SCREEN, TEXT_SIZE } from '../utils/constants';
+import {
+  COLORS,
+  FONTS,
+  MINUTE_TEXT,
+  SCREEN,
+  TEXT_SIZE,
+} from '../utils/constants';
 
 export const TIME_TEXT_PROPS = {
   x: MINUTE_TEXT.x,
@@ -12,7 +18,7 @@ export const TIME_TEXT_PROPS = {
   font: FONTS.time,
   text: '00',
   show_level: hmUI.show_level.ONLY_NORMAL,
-}
+};
 
 export const HOUR_TEXT_PROPS = {
   ...TIME_TEXT_PROPS,
@@ -46,7 +52,7 @@ export const BOTTOM_RECT_PROPS = {
 export const HEART_TEXT_PROPS = {
   x: px(148),
   y: px(14),
-  w: px(100),
+  w: px(120),
   h: px(54),
   color: COLORS.data,
   text_size: TEXT_SIZE.data,
@@ -60,7 +66,7 @@ export const HEART_TEXT_PROPS = {
 
 export const STEPS_TEXT_PROPS = {
   ...HEART_TEXT_PROPS,
-  x: px(272),
+  x: px(280),
 };
 
 export const DATE_TEXT_PROPS = {
@@ -71,5 +77,5 @@ export const DATE_TEXT_PROPS = {
 
 export const BATTERY_TEXT_PROPS = {
   ...DATE_TEXT_PROPS,
-  x: px(272),
+  x: px(280),
 };

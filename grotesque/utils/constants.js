@@ -17,7 +17,9 @@ export const COLORS = {
 
 export const FONTS = {
   time: 'fonts/HankenGrotesk-Medium.ttf',
-  data: isRusLang ? 'fonts/Overpass-Light.ttf' : 'fonts/HankenGrotesk-Light.ttf',
+  data: isRusLang
+    ? 'fonts/Overpass-Light.ttf'
+    : 'fonts/HankenGrotesk-Light.ttf',
 };
 
 export const TEXT_SIZE = {
@@ -37,48 +39,36 @@ export const HEART_POSTFIX = isRusLang ? 'пульс' : 'bpm';
 export const STEPS_POSTFIX = isRusLang ? 'шаги' : 'steps';
 export const BATTERY_POSTFIX = isRusLang ? 'заряд' : 'battery';
 
-export const WEEKDAYS = isRusLang ? [
-  'пн',
-  'вт',
-  'ср',
-  'чт',
-  'пт',
-  'сб',
-  'вс',
-] : [
-  'mon',
-  'tue',
-  'wed',
-  'thu',
-  'fri',
-  'sat',
-  'sun',
-];
+export const WEEKDAYS = isRusLang
+  ? ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']
+  : ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
-export const MONTHS = isRusLang ? [
-  'январь',
-  'февраль',
-  'март',
-  'апрель',
-  'май',
-  'июнь',
-  'июль',
-  'август',
-  'сентябрь',
-  'октябрь',
-  'ноябрь',
-  'декабрь',
-] : [
-  'january',
-  'february',
-  'march',
-  'april',
-  'may',
-  'june',
-  'july',
-  'august',
-  'september',
-  'october',
-  'november',
-  'december'
-];
+export const MONTHS = isRusLang
+  ? [
+      'январь',
+      'февраль',
+      'март',
+      'апрель',
+      'май',
+      'июнь',
+      'июль',
+      'август',
+      'сентябрь',
+      'октябрь',
+      'ноябрь',
+      'декабрь',
+    ]
+  : [
+      'january',
+      'february',
+      'march',
+      'april',
+      'may',
+      'june',
+      'july',
+      'august',
+      'september',
+      'october',
+      'november',
+      'december',
+    ];

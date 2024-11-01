@@ -1,7 +1,7 @@
 # Grotesque Watchface
 Watchface for Amazfit GTR Mini and for other round ZeppOS watch.
 
-![demo](./preview.png)
+![demo](./demo-gtr-mini.png)
 
 ## Features
 

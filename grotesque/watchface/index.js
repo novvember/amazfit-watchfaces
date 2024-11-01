@@ -1,7 +1,23 @@
-import { BATTERY_POSTFIX, HEART_POSTFIX, MINUTE_TEXT, MONTHS, STEPS_POSTFIX, WEEKDAYS } from '../utils/constants';
+import {
+  BATTERY_POSTFIX,
+  HEART_POSTFIX,
+  MINUTE_TEXT,
+  MONTHS,
+  STEPS_POSTFIX,
+  WEEKDAYS,
+} from '../utils/constants';
 import { formatNumber } from '../utils/formatNumber';
-import { BATTERY_TEXT_PROPS, BOTTOM_RECT_PROPS, DATE_TEXT_PROPS, HEART_TEXT_PROPS, HOUR_BG_PROPS, HOUR_TEXT_PROPS, STEPS_TEXT_PROPS, TIME_TEXT_PROPS, TOP_RECT_PROPS } from './index.r.layout';
-
+import {
+  BATTERY_TEXT_PROPS,
+  BOTTOM_RECT_PROPS,
+  DATE_TEXT_PROPS,
+  HEART_TEXT_PROPS,
+  HOUR_BG_PROPS,
+  HOUR_TEXT_PROPS,
+  STEPS_TEXT_PROPS,
+  TIME_TEXT_PROPS,
+  TOP_RECT_PROPS,
+} from './index.r.layout';
 
 WatchFace({
   onInit() {
@@ -27,9 +43,14 @@ WatchFace({
 
   buildTime() {
     const hourWidget = hmUI.createWidget(hmUI.widget.TEXT, HOUR_TEXT_PROPS);
-    const nextHourBgWidget = hmUI.createWidget(hmUI.widget.FILL_RECT, HOUR_BG_PROPS);
+    const nextHourBgWidget = hmUI.createWidget(
+      hmUI.widget.FILL_RECT,
+      HOUR_BG_PROPS,
+    );
     const nextHourWidget = hmUI.createWidget(hmUI.widget.TEXT, HOUR_TEXT_PROPS);
-    const minuteWidgets = new Array(4).fill(null).map(() => hmUI.createWidget(hmUI.widget.TEXT, TIME_TEXT_PROPS));
+    const minuteWidgets = new Array(4)
+      .fill(null)
+      .map(() => hmUI.createWidget(hmUI.widget.TEXT, TIME_TEXT_PROPS));
 
     const currentMinuteIndex = 1;
     const fullPathLength = MINUTE_TEXT.height + MINUTE_TEXT.lineSpace;
@@ -39,11 +60,15 @@ WatchFace({
     let updateTimer = undefined;
 
     const getY = (second, index) => {
-      return MINUTE_TEXT.y - (second / 60) * fullPathLength + (index - currentMinuteIndex) * fullPathLength;
+      return (
+        MINUTE_TEXT.y -
+        (second / 60) * fullPathLength +
+        (index - currentMinuteIndex) * fullPathLength
+      );
     };
 
-    const formatHour = hour => {
-      const value = is12HourFormat ? (hour % 12 || 12) : hour;
+    const formatHour = (hour) => {
+      const value = is12HourFormat ? hour % 12 || 12 : hour;
       return value.toString().padStart(2, '0');
     };
 
@@ -86,7 +111,7 @@ WatchFace({
           text,
         });
       });
-    }
+    };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
