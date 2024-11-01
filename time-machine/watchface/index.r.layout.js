@@ -1,4 +1,4 @@
-import { OPTIONAL_TYPES, SCREEN } from '../utils/constants'
+import { OPTIONAL_TYPES, SCREEN } from '../utils/constants';
 
 export const BACKGROUND_IMAGE_PROPS = {
   x: 0,
@@ -59,7 +59,7 @@ export const TIME_TEXT_PROPS = {
   font: 'fonts/Inter_18pt-Regular.ttf',
   text: '',
   show_level: hmUI.show_level.ONLY_NORMAL,
-}
+};
 
 export const TIME_TEXT_EDIT_GROUP_PROPS = {
   edit_id: 101,
@@ -74,7 +74,7 @@ export const TIME_TEXT_EDIT_GROUP_PROPS = {
     {
       type: OPTIONAL_TYPES.disabled,
       preview: 'edit/text_off.png',
-      title_en: 'Off'
+      title_en: 'Off',
     },
     {
       type: OPTIONAL_TYPES.enabled,
@@ -103,7 +103,7 @@ export const MARKS_EDIT_GROUP_PROPS = {
     {
       type: OPTIONAL_TYPES.disabled,
       preview: 'edit/marks_off.png',
-      title_en: 'Off'
+      title_en: 'Off',
     },
     {
       type: OPTIONAL_TYPES.enabled,

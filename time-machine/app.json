@@ -5,15 +5,14 @@
     "appName": "Time Machine",
     "appType": "watchface",
     "version": {
-      "code": 1,
-      "name": "1.0.0"
+      "code": 2,
+      "name": "1.0.1"
     },
     "icon": "icon.png",
     "vender": "novvember",
     "cover": [
       "cover.png",
-      "cover2.png",
-      "cover3.png"
+      "cover2.png"
     ],
     "description": "Time Machine watchface. Source code here: https://github.com/novvember/amazfit-watchfaces. Original idea by Daniel Duarte"
   },

@@ -1,6 +1,15 @@
 import { OPTIONAL_TYPES } from '../utils/constants';
-import { BACKGROUND_IMAGE_PROPS, EDIT_BACKGROUND_IMAGE_PROPS, HOUR_POINTER_PROPS, MARKS_EDIT_GROUP_PROPS, MARKS_IMAGE_PROPS, MINUTE_POINTER_PROPS, SECOND_POINTER_PROPS, TIME_TEXT_EDIT_GROUP_PROPS, TIME_TEXT_PROPS } from './index.r.layout';
-
+import {
+  BACKGROUND_IMAGE_PROPS,
+  EDIT_BACKGROUND_IMAGE_PROPS,
+  HOUR_POINTER_PROPS,
+  MARKS_EDIT_GROUP_PROPS,
+  MARKS_IMAGE_PROPS,
+  MINUTE_POINTER_PROPS,
+  SECOND_POINTER_PROPS,
+  TIME_TEXT_EDIT_GROUP_PROPS,
+  TIME_TEXT_PROPS,
+} from './index.r.layout';
 
 WatchFace({
   onInit() {
@@ -27,8 +36,12 @@ WatchFace({
   },
 
   buildMarks() {
-    const editGroup = hmUI.createWidget(hmUI.widget.WATCHFACE_EDIT_GROUP, MARKS_EDIT_GROUP_PROPS);
-    const isMarksEnabled = editGroup.getProperty(hmUI.prop.CURRENT_TYPE) === OPTIONAL_TYPES.enabled;
+    const editGroup = hmUI.createWidget(
+      hmUI.widget.WATCHFACE_EDIT_GROUP,
+      MARKS_EDIT_GROUP_PROPS,
+    );
+    const isMarksEnabled =
+      editGroup.getProperty(hmUI.prop.CURRENT_TYPE) === OPTIONAL_TYPES.enabled;
 
     if (isMarksEnabled) {
       hmUI.createWidget(hmUI.widget.IMG, MARKS_IMAGE_PROPS);
@@ -45,8 +58,12 @@ WatchFace({
   },
 
   handleBuildTimeText() {
-    const editGroup = hmUI.createWidget(hmUI.widget.WATCHFACE_EDIT_GROUP, TIME_TEXT_EDIT_GROUP_PROPS);
-    const isTextTimeEnabled = editGroup.getProperty(hmUI.prop.CURRENT_TYPE) === OPTIONAL_TYPES.enabled;
+    const editGroup = hmUI.createWidget(
+      hmUI.widget.WATCHFACE_EDIT_GROUP,
+      TIME_TEXT_EDIT_GROUP_PROPS,
+    );
+    const isTextTimeEnabled =
+      editGroup.getProperty(hmUI.prop.CURRENT_TYPE) === OPTIONAL_TYPES.enabled;
 
     if (isTextTimeEnabled) {
       this.buildTimeText();
@@ -60,10 +77,12 @@ WatchFace({
 
     const update = () => {
       const { hour, minute } = hmSensor.createSensor(hmSensor.id.TIME);
-      const hourText = (is12HourFormat ? (hour % 12 || 12) : hour).toString().padStart(2, '0');
+      const hourText = (is12HourFormat ? hour % 12 || 12 : hour)
+        .toString()
+        .padStart(2, '0');
       const minuteText = minute.toString().padStart(2, '0');
       textWidget.setProperty(hmUI.prop.TEXT, `${hourText} ${minuteText}`);
-    }
+    };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
@@ -80,5 +99,5 @@ WatchFace({
         timer.stopTimer(updateTimer);
       },
     });
-  }
+  },
 });
