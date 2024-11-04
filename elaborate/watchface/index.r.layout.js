@@ -145,11 +145,11 @@ export const WEATHER_ICON_PROPS = {
 
 export const WEATHER_TEXT_PROPS = {
   x: WEATHER.text.x,
-  y: WEATHER.y,
+  y: WEATHER.text.y,
   w: WEATHER.text.width,
   h: WEATHER.height,
   align_h: hmUI.align.LEFT,
-  align_v: hmUI.align.CENTER_V,
+  align_v: hmUI.align.TOP,
   text_size: FONT_SIZE.primary,
   color: COLORS.textSecondary,
   type: hmUI.data_type.WEATHER_CURRENT,

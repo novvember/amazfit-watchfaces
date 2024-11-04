@@ -36,7 +36,7 @@ export const SLEEP = {
   height: px(120),
   postfix: isRusLang ? 'сон' : 'sleep',
   lineWidth: px(10),
-  wakeStagesArcRadius: px(55),
+  wakeStagesArcRadius: px(54),
   wakeStagesArcWidth: px(4),
 };
 
@@ -114,6 +114,7 @@ export const WEATHER = {
   },
   text: {
     x: px(139),
+    y: px(223),
     width: px(97),
   },
 };
