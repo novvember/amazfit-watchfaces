@@ -57,3 +57,13 @@ export function getSleepTimeString(sleepSensor) {
     return formatTime(sleepTime);
   }
 }
+
+/**
+ * Calculates number of slept hours
+ * @param {Object} sleepSensor
+ * @returns {Number}
+ */
+export function getSleepTimeHours(sleepSensor) {
+  const minutes = getSleepTime(sleepSensor);
+  return Math.floor(minutes / 60);
+}

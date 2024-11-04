@@ -2,7 +2,7 @@ import { makeCalendarData } from '../utils/makeCalendarData';
 import { makeDigitMatrix } from '../utils/makeDigitMatrix';
 import { withWeakCache } from '../utils/withWeakCache';
 import { makeEmptyGrid } from '../utils/makeEmptyGrid';
-import { getSleepTimeString } from '../utils/getSleepTime';
+import { getSleepTimeHours, getSleepTimeString } from '../utils/getSleepTime';
 
 import {
   CALENDAR,
@@ -10,6 +10,7 @@ import {
   GRID,
   SCREEN,
   SECONDS_PROGRESS_BAR,
+  STEPS,
 } from '../utils/constants';
 
 import {
@@ -20,26 +21,24 @@ import {
   SECONDS_IMAGE_TIME_PROPS,
   SECONDS_PROGRESS_BAR_PROPS,
   STEPS_TEXT_IMAGE_PROPS,
-  STEPS_ARC_BACKGROUND_PROPS,
-  STEPS_ARC_ACTIVE_PROPS,
   BATTERY_TEXT_IMAGE_PROPS,
-  BATTERY_ARC_BACKGROUND_PROPS,
-  BATTERY_ARC_ACTIVE_PROPS,
-  SLEEP_ARC_BACKGROUND_PROPS,
-  SLEEP_ARC_ACTIVE_PROPS,
   SLEEP_TEXT_PROPS,
   CONNECT_IMAGE_PROPS,
   DISCONNECT_IMAGE_PROPS,
   ALARM_OFF_IMAGE_PROPS,
   ALARM_ON_IMAGE_PROPS,
   CELL_IMAGE_PROPS,
-  WEATHER_ICON_PROPS,
-  WEATHER_TEXT_PROPS,
   AOD_HOURS_PROPS,
   AOD_MINUTES_PROPS,
+  SLEEP_PROGRESS_PROPS,
+  BATTERY_PROGRESS_PROPS,
+  STEPS_PROGRESS_PROPS,
+  PULSE_TEXT_IMAGE_PROPS,
+  PULSE_PROGRESS_PROPS,
+  PULSE_MIN_TEXT_PROPS,
+  PULSE_MAX_TEXT_PROPS,
+  SLEEP_ICON_IMAGE_PROPS,
 } from './index.r.layout';
-import { isNight } from '../utils/isNight';
-import { WEATHER_ICONS, updateWeatherIcons } from '../utils/weatherIcons';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
 const makeCalendarDataCached = withWeakCache(makeCalendarData);
@@ -57,6 +56,7 @@ WatchFace({
     this.buildSeconds();
 
     this.buildSteps();
+    this.buildPulse();
     this.buildBattery();
     this.buildSleepTime();
 
@@ -64,8 +64,6 @@ WatchFace({
     this.buildAlarmStatus();
 
     this.buildAod();
-
-    // this.buildWeather();
   },
 
   onDestroy() {
@@ -361,7 +359,7 @@ WatchFace({
   },
 
   buildSeconds() {
-    const { x, y } = this.grid[GRID.size.rows - 1][0];
+    const { y } = this.grid[GRID.size.rows - 1][0];
     const progressBarY = y + CALENDAR.date.height + SECONDS_PROGRESS_BAR.gapTop;
     const progressBarX = SCREEN.centerX - SECONDS_PROGRESS_BAR.width / 2;
 
@@ -382,6 +380,7 @@ WatchFace({
     const update = () => {
       const { second } = hmSensor.createSensor(hmSensor.id.TIME);
       const secondRound = Math.round(second / 10) * 10;
+      const level = secondRound / 10;
 
       if (prevSecondRound === secondRound) {
         return;
@@ -394,7 +393,7 @@ WatchFace({
         ...SECONDS_PROGRESS_BAR_PROPS,
         x: progressBarX,
         y: progressBarY,
-        src: `seconds_progress_bar/${secondRound}.png`,
+        src: `seconds_progress_bar/${level}.png`,
       });
     };
 
@@ -417,44 +416,142 @@ WatchFace({
 
   buildSteps() {
     hmUI.createWidget(hmUI.widget.TEXT_IMG, STEPS_TEXT_IMAGE_PROPS);
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, STEPS_ARC_BACKGROUND_PROPS);
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, STEPS_ARC_ACTIVE_PROPS);
+    const progressWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      STEPS_PROGRESS_PROPS,
+    );
+
+    const update = () => {
+      const { current, target } = hmSensor.createSensor(hmSensor.id.STEP);
+      const ratio = (current || 0) / (target || 10000);
+      const level = Math.min(
+        Math.floor(STEPS.progressImage.count * ratio),
+        STEPS.progressImage.count,
+      );
+      const imageSrc = `steps/${level}.png`;
+      progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          update();
+        }
+      },
+    });
+  },
+
+  buildPulse() {
+    hmUI.createWidget(hmUI.widget.TEXT_IMG, PULSE_TEXT_IMAGE_PROPS);
+    const progressWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      PULSE_PROGRESS_PROPS,
+    );
+    const minTextWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      PULSE_MIN_TEXT_PROPS,
+    );
+    const maxTextWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      PULSE_MAX_TEXT_PROPS,
+    );
+
+    const update = () => {
+      const { last, today } = hmSensor.createSensor(hmSensor.id.HEART);
+      let min = today.length ? Math.min(...today) : 0;
+      let max = today.length ? Math.max(...today) : 0;
+
+      if (min === max) {
+        min = 0;
+        max = 0;
+      }
+
+      const level =
+        min && max && last
+          ? Math.min(Math.round(1 + (9 * (last - min)) / (max - min || 1)), 10)
+          : 0;
+
+      const imageSrc = `pulse/${level}.png`;
+
+      progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
+      minTextWidget.setProperty(hmUI.prop.TEXT, min > 0 ? min.toString() : '');
+      maxTextWidget.setProperty(hmUI.prop.TEXT, max > 0 ? max.toString() : '');
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          update();
+        }
+      },
+    });
   },
 
   buildBattery() {
     hmUI.createWidget(hmUI.widget.TEXT_IMG, BATTERY_TEXT_IMAGE_PROPS);
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, BATTERY_ARC_BACKGROUND_PROPS);
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, BATTERY_ARC_ACTIVE_PROPS);
+    const progressWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      BATTERY_PROGRESS_PROPS,
+    );
+
+    const update = () => {
+      const { current } = hmSensor.createSensor(hmSensor.id.BATTERY);
+      const level = Math.round((current || 0) / 10);
+      const imageSrc = `battery/${level}.png`;
+      progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          update();
+        }
+      },
+    });
   },
 
   buildSleepTime() {
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, SLEEP_ARC_BACKGROUND_PROPS);
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, SLEEP_ARC_ACTIVE_PROPS);
-
-    const sleepTimeWidget = hmUI.createWidget(
-      hmUI.widget.TEXT,
-      SLEEP_TEXT_PROPS,
+    const progressWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      SLEEP_PROGRESS_PROPS,
+    );
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, SLEEP_TEXT_PROPS);
+    const iconWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      SLEEP_ICON_IMAGE_PROPS,
     );
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
+
+    const update = () => {
+      console.log('sleep time updated');
+      const sleepTime = getSleepTimeString(sleepSensor);
+
+      if (sleepTime) {
+        const hours = Math.min(getSleepTimeHours(sleepSensor), 8);
+        const imageSrc = `sleep/${hours}.png`;
+
+        textWidget.setProperty(hmUI.prop.TEXT, sleepTime);
+        iconWidget.setProperty(hmUI.prop.ALPHA, 255);
+        progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
+      } else {
+        textWidget.setProperty(hmUI.prop.TEXT, '');
+        iconWidget.setProperty(hmUI.prop.ALPHA, 0);
+        progressWidget.setProperty(hmUI.prop.MORE, SLEEP_PROGRESS_PROPS);
+      }
+    };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         console.log('ui resume (widget delegate)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          console.log('sleep time updated');
-
-          const sleepTime = getSleepTimeString(sleepSensor);
-
-          if (sleepTime) {
-            sleepTimeWidget.setProperty(hmUI.widget.MORE, {
-              text: sleepTime,
-            });
-          } else {
-            sleepTimeWidget.setProperty(hmUI.widget.MORE, {
-              text: '',
-            });
-          }
+          update();
         }
       },
     });
@@ -473,37 +570,5 @@ WatchFace({
   buildAod() {
     hmUI.createWidget(hmUI.widget.IMG_TIME, AOD_HOURS_PROPS);
     hmUI.createWidget(hmUI.widget.IMG_TIME, AOD_MINUTES_PROPS);
-  },
-
-  buildWeather() {
-    hmUI.createWidget(hmUI.widget.TEXT_IMG, WEATHER_TEXT_PROPS);
-
-    const iconWidget = hmUI.createWidget(hmUI.widget.IMG, null);
-
-    const update = () => {
-      const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
-      const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
-      const iconIndex = weatherSensor.curAirIconIndex;
-
-      updateWeatherIcons(isNight(timeSensor));
-
-      const icon =
-        iconIndex && iconIndex !== 'undefined' ? WEATHER_ICONS[iconIndex] : '';
-
-      iconWidget.setProperty(hmUI.prop.MORE, {
-        ...WEATHER_ICON_PROPS,
-        src: icon,
-      });
-    };
-
-    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
-      resume_call: () => {
-        console.log('ui resume');
-
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          update();
-        }
-      },
-    });
   },
 });
