@@ -3,6 +3,13 @@ const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
 
 const { width, height } = hmSetting.getDeviceInfo();
 
+// Needed to scale images and fonts properly
+const scaleRatio = width / 480;
+// Cells must have no gap between
+const GRID_CELL_SIZE = scaleRatio < 1 ? px(27) : px(28);
+// Texts with custom fonts mast have the same visual size as text with images
+const TEXT_SIZE = scaleRatio < 1 ? px(20) : px(21);
+
 export const SCREEN = {
   width,
   height,
@@ -25,8 +32,8 @@ export const GRID = {
     rows: 11,
   },
   cell: {
-    width: px(27),
-    height: px(27),
+    width: GRID_CELL_SIZE,
+    height: GRID_CELL_SIZE,
   },
 };
 
@@ -111,7 +118,7 @@ export const STEPS = {
 export const PULSE = {
   x: px(382),
   y: px(315),
-  textSize: px(20),
+  textSize: TEXT_SIZE,
   width: px(50),
   height: px(30),
   progressImage: {
@@ -142,7 +149,7 @@ export const SLEEP = {
   y: px(144),
   width: px(60),
   height: px(30),
-  textSize: px(20),
+  textSize: TEXT_SIZE,
   progressImage: {
     x: px(0),
     y: px(84),

@@ -181,8 +181,9 @@ WatchFace({
         const isCurrentDay = dateMatrix[row][column].isCurrentDay;
 
         const newDateText = dateMatrix[row][column].text;
-        const newStatus = `${isPartOfBigDigit ? 'active' : 'normal'}${isCurrentDay ? '_today' : ''
-          }`;
+        const newStatus = `${isPartOfBigDigit ? 'active' : 'normal'}${
+          isCurrentDay ? '_today' : ''
+        }`;
 
         if (dateText !== newDateText || status !== newStatus) {
           cell.dateText = newDateText;
@@ -415,12 +416,18 @@ WatchFace({
 
   buildSteps() {
     hmUI.createWidget(hmUI.widget.TEXT_IMG, STEPS_TEXT_IMAGE_PROPS);
-    const progressWidget = hmUI.createWidget(hmUI.widget.IMG, STEPS_PROGRESS_PROPS);
+    const progressWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      STEPS_PROGRESS_PROPS,
+    );
 
     const update = () => {
       const { current, target } = hmSensor.createSensor(hmSensor.id.STEP);
       const ratio = (current || 0) / (target || 10000);
-      const level = Math.min(Math.floor(STEPS.progressImage.count * ratio), STEPS.progressImage.count);
+      const level = Math.min(
+        Math.floor(STEPS.progressImage.count * ratio),
+        STEPS.progressImage.count,
+      );
       const imageSrc = `steps/${level}.png`;
       progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
     };
@@ -438,9 +445,18 @@ WatchFace({
 
   buildPulse() {
     hmUI.createWidget(hmUI.widget.TEXT_IMG, PULSE_TEXT_IMAGE_PROPS);
-    const progressWidget = hmUI.createWidget(hmUI.widget.IMG, PULSE_PROGRESS_PROPS);
-    const minTextWidget = hmUI.createWidget(hmUI.widget.TEXT, PULSE_MIN_TEXT_PROPS);
-    const maxTextWidget = hmUI.createWidget(hmUI.widget.TEXT, PULSE_MAX_TEXT_PROPS);
+    const progressWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      PULSE_PROGRESS_PROPS,
+    );
+    const minTextWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      PULSE_MIN_TEXT_PROPS,
+    );
+    const maxTextWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      PULSE_MAX_TEXT_PROPS,
+    );
 
     const update = () => {
       const { last, today } = hmSensor.createSensor(hmSensor.id.HEART);
@@ -452,9 +468,10 @@ WatchFace({
         max = 0;
       }
 
-      const level = min && max && last ?
-        Math.min(Math.round(1 + 9 * (last - min) / ((max - min) || 1)), 10) :
-        0;
+      const level =
+        min && max && last
+          ? Math.min(Math.round(1 + (9 * (last - min)) / (max - min || 1)), 10)
+          : 0;
 
       const imageSrc = `pulse/${level}.png`;
 
@@ -476,7 +493,10 @@ WatchFace({
 
   buildBattery() {
     hmUI.createWidget(hmUI.widget.TEXT_IMG, BATTERY_TEXT_IMAGE_PROPS);
-    const progressWidget = hmUI.createWidget(hmUI.widget.IMG, BATTERY_PROGRESS_PROPS);
+    const progressWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      BATTERY_PROGRESS_PROPS,
+    );
 
     const update = () => {
       const { current } = hmSensor.createSensor(hmSensor.id.BATTERY);
@@ -497,9 +517,15 @@ WatchFace({
   },
 
   buildSleepTime() {
-    const progressWidget = hmUI.createWidget(hmUI.widget.IMG, SLEEP_PROGRESS_PROPS);
+    const progressWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      SLEEP_PROGRESS_PROPS,
+    );
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, SLEEP_TEXT_PROPS);
-    const iconWidget = hmUI.createWidget(hmUI.widget.IMG, SLEEP_ICON_IMAGE_PROPS);
+    const iconWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      SLEEP_ICON_IMAGE_PROPS,
+    );
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
 
     const update = () => {
