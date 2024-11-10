@@ -37,6 +37,8 @@ import {
   SLEEP_WAKE_STAGE_ARC_PROPS,
   WEATHER_NO_ICON_TEXT_PROPS,
   PULSE_PREV_POINTER_GROUP_PROPS,
+  BACKGROUND_AOD_IMAGE_PROPS,
+  TIME_AOD_TEXT_PROPS,
 } from './index.r.layout';
 import { decline } from '../utils/decline';
 import { formatNumber } from '../utils/formatNumber';
@@ -52,6 +54,8 @@ WatchFace({
 
   build() {
     console.log('index page.js on build invoke');
+
+    this.buildBackground();
 
     this.buildSleep();
     this.buildDate();
@@ -69,6 +73,10 @@ WatchFace({
 
   onDestroy() {
     console.log('index page.js on destroy invoke');
+  },
+
+  buildBackground() {
+    hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_AOD_IMAGE_PROPS);
   },
 
   buildSleep() {
@@ -205,6 +213,7 @@ WatchFace({
   buildTime() {
     hmUI.createWidget(hmUI.widget.FILL_RECT, TIME_BACKGROUND_PROPS);
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, TIME_TEXT_PROPS);
+    const textAodWidget = hmUI.createWidget(hmUI.widget.TEXT, TIME_AOD_TEXT_PROPS);
     const is12HourFormat = hmSetting.getTimeFormat() === 0;
 
     let prevTime = '';
@@ -223,6 +232,7 @@ WatchFace({
       prevTime = timeString;
 
       textWidget.setProperty(hmUI.prop.TEXT, timeString);
+      textAodWidget.setProperty(hmUI.prop.TEXT, timeString);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -231,6 +241,9 @@ WatchFace({
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           updateTimer = timer.createTimer(1000, 1000, update);
+          update();
+        } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
+          updateTimer = timer.createTimer(3000, 3000, update);
           update();
         }
       },

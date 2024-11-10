@@ -7,12 +7,22 @@ import {
   FONT_FAMILY,
   FONT_SIZE,
   PULSE,
+  SCREEN,
   SECONDS,
   SLEEP,
   STEPS,
   TIME,
   WEATHER,
 } from '../utils/constants';
+
+export const BACKGROUND_AOD_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  w: SCREEN.width,
+  h: SCREEN.height,
+  src: 'background/aod.png',
+  show_level: hmUI.show_level.ONAL_AOD,
+};
 
 export const SLEEP_NO_DATA_IMAGE_PROPS = {
   x: SLEEP.x,
@@ -124,6 +134,12 @@ export const TIME_TEXT_PROPS = {
   font: FONT_FAMILY.primary,
   text: '00:00',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const TIME_AOD_TEXT_PROPS = {
+  ...TIME_TEXT_PROPS,
+  color: COLORS.aod,
+  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const WEATHER_BACKGROUND_PROPS = {

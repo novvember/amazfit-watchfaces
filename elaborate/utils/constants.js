@@ -18,6 +18,7 @@ export const COLORS = {
   bgOnAccent: 0x000000,
   textPrimary: 0x000000,
   textSecondary: 0xebebed,
+  aod: 0xebebed,
 };
 
 export const FONT_FAMILY = {
@@ -53,33 +54,33 @@ export const DATE_TEXT = {
   textSize: px(18),
   months: isRusLang
     ? [
-      'Янв',
-      'Фев',
-      'Мар',
-      'Апр',
-      'Май',
-      'Июн',
-      'Июл',
-      'Авг',
-      'Сен',
-      'Окт',
-      'Ноя',
-      'Дек',
-    ]
+        'Янв',
+        'Фев',
+        'Мар',
+        'Апр',
+        'Май',
+        'Июн',
+        'Июл',
+        'Авг',
+        'Сен',
+        'Окт',
+        'Ноя',
+        'Дек',
+      ]
     : [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ],
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ],
 };
 
 export const DATE_WEEK = {

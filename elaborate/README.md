@@ -26,7 +26,7 @@ One of the default watchfaces for CMF by Nothing Watch [Elaborate 2](https://int
 
 **Model compatibility:** Amazfit GTR Mini (round, 416 x 416 pixels) / GTR 4 / T-Rex 2 and other round watches with ZeppOS 2+
 
-**AOD:** No
+**AOD:** Yes
 
 **Tap-zones:** No
 
