@@ -116,7 +116,7 @@ export const STEPS = {
 };
 
 export const PULSE = {
-  x: px(382),
+  x: px(398),
   y: px(315),
   textSize: TEXT_SIZE,
   width: px(50),

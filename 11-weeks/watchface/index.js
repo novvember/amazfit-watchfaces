@@ -38,6 +38,7 @@ import {
   PULSE_MIN_TEXT_PROPS,
   PULSE_MAX_TEXT_PROPS,
   SLEEP_ICON_IMAGE_PROPS,
+  PULSE_ICON_IMAGE_PROPS,
 } from './index.r.layout';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
@@ -445,6 +446,7 @@ WatchFace({
 
   buildPulse() {
     hmUI.createWidget(hmUI.widget.TEXT_IMG, PULSE_TEXT_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, PULSE_ICON_IMAGE_PROPS);
     const progressWidget = hmUI.createWidget(
       hmUI.widget.IMG,
       PULSE_PROGRESS_PROPS,

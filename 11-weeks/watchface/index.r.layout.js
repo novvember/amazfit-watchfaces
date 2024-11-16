@@ -106,8 +106,14 @@ export const PULSE_TEXT_IMAGE_PROPS = {
   y: PULSE.y,
   type: hmUI.data_type.HEART,
   font_array: DIGITS.images,
-  unit_en: SPECIAL_CHARS.heart.src,
   align_h: hmUI.align.RIGHT,
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const PULSE_ICON_IMAGE_PROPS = {
+  x: PULSE.x + px(14),
+  y: PULSE.y - px(22),
+  src: SPECIAL_CHARS.heart.src,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -158,7 +164,7 @@ export const SLEEP_PROGRESS_PROPS = {
 };
 
 export const SLEEP_TEXT_PROPS = {
-  x: SLEEP.x + SPECIAL_CHARS.moon.width,
+  x: SLEEP.x,
   y: SLEEP.y,
   w: SLEEP.width,
   h: SLEEP.height,
@@ -173,7 +179,7 @@ export const SLEEP_TEXT_PROPS = {
 
 export const SLEEP_ICON_IMAGE_PROPS = {
   x: SLEEP.x,
-  y: SLEEP.y + px(4),
+  y: SLEEP.y + px(28),
   src: SPECIAL_CHARS.moon.src,
   alpha: 255,
   show_level: hmUI.show_level.ONLY_NORMAL,
