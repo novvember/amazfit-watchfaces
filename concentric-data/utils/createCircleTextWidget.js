@@ -73,16 +73,21 @@ export function createCircleTextWidget({
   );
 
   const updateText = (newText) => {
-    newText = newText.toLowerCase();
+    const newTextChars = newText
+    .toLowerCase()
+    .slice(0, maxLength)
+    .padEnd(maxLength, ' ')
+    .split('');
 
     for (let i = 0; i < chars.length; i++) {
-      if (!newText[i]) newText[i] = ' ';
-      if (chars[i] === newText[i]) continue;
+      if (chars[i] === newTextChars[i]) continue;
 
       widgets[i].setProperty(
         hmUI.prop.SRC,
-        charImages[newText[i]] || charImages[' '],
+        charImages[newTextChars[i]] || charImages[' '],
       );
+
+      chars[i] = newTextChars[i];
     }
   };
 
