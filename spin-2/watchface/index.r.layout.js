@@ -177,7 +177,7 @@ export function getSecondsAnimationProps(angle, nextAngle) {
     anim_fps: 25,
     anim_auto_start: 1,
     anim_auto_destroy: 1,
-    anim_repeat: 1,
+    anim_repeat: 0,
   };
 }
 
