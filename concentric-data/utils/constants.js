@@ -28,6 +28,21 @@ export const FONTS = {
   tertiary: 'fonts/FiraSans-Medium.ttf',
 };
 
+export const TIME_TEXTS = [
+  '00',
+  '05',
+  '10',
+  '15',
+  '20',
+  '25',
+  '30',
+  '35',
+  '40',
+  '45',
+  '50',
+  '55',
+];
+
 export const SECOND = {
   image: {
     src: 'time/second.png',
