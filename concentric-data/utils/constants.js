@@ -18,8 +18,8 @@ export const SCREEN = {
 
 export const COLORS = {
   primary: 0xffffff,
-  secondary: 0xbdbdbd,
-  tertiary: 0x525457,
+  secondary: 0x848484,
+  tertiary: 0x525252,
 };
 
 export const FONTS = {
@@ -46,10 +46,11 @@ export const TIME_TEXTS = [
 export const SECOND = {
   image: {
     src: 'time/second.png',
+    size: px(480),
   },
   text: {
-    width: px(30),
-    height: px(30),
+    width: px(28),
+    height: px(20),
     textSize: px(22),
     color: COLORS.secondary,
     radius: px(224),
@@ -59,35 +60,36 @@ export const SECOND = {
 export const MINUTE = {
   image: {
     src: 'time/minute.png',
+    size: px(310),
   },
   text: {
-    width: px(40),
-    height: px(40),
+    width: px(34),
+    height: px(24),
     textSize: px(28),
     color: COLORS.secondary,
-    radius: px(112),
+    radius: px(110),
   },
 };
 
 export const CURRENT_HOUR = {
-  width: px(140),
-  height: px(140),
+  width: px(110),
+  height: px(110),
   textSize: px(110),
   color: COLORS.primary,
 };
 
 export const CURRENT_MINUTE = {
-  width: px(70),
-  height: px(70),
+  width: px(60),
+  height: px(60),
   textSize: px(54),
   color: COLORS.primary,
-  radius: px(100),
+  radius: px(102),
 };
 
 export const MIN_ANGLE_TO_UPDATE_WHEEL = 0.7;
 
 export const DATA = {
-  radius: px(186),
+  radius: px(185),
   circleText: {
     charImages: TEXT_CHARS,
     imageWidth: TEXT_CHAR_WIDTH,
