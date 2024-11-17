@@ -22,8 +22,8 @@ import {
   BATTERY_CURRENT_ARC_PROPS,
   CURRENT_HOUR_TEXT_PROPS,
   CURRENT_MINUTE_TEXT_PROPS,
-  DATE_DAY_CIRCLE_TEXT_PROPS,
-  DATE_WEEK_CIRCLE_TEXT_PROPS,
+  DATE_DAY_TEXT_PROPS,
+  DATE_WEEK_TEXT_PROPS,
   FRAME_IMAGE_PROPS,
   HEART_BACKGROUND_ARC_PROPS,
   HEART_CIRCLE_TEXT_PROPS,
@@ -48,8 +48,7 @@ WatchFace({
     console.log('index page.js on build invoke');
 
     this.buildTime();
-    this.buildDateDay();
-    this.buildDateWeek();
+    this.buildDate();
     this.buildBattery();
     this.buildHeartRate();
     this.buildSteps();
@@ -145,7 +144,7 @@ WatchFace({
       }
 
       prevMinuteAngle = angle;
-      
+
       updateWheel(
         angle,
         minuteImage,
@@ -200,33 +199,14 @@ WatchFace({
     });
   },
 
-  buildDateDay() {
-    const { updateText } = createCircleTextWidget(DATE_DAY_CIRCLE_TEXT_PROPS);
+  buildDate() {
+    const dateText = hmUI.createWidget(hmUI.widget.TEXT, DATE_DAY_TEXT_PROPS);
+    const weekText = hmUI.createWidget(hmUI.widget.TEXT, DATE_WEEK_TEXT_PROPS);
 
     const update = () => {
-      const { day } = hmSensor.createSensor(hmSensor.id.TIME);
-      const text = day.toString().padStart(2, ' ');
-      updateText(text);
-    };
-
-    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
-      resume_call: () => {
-        console.log('ui resume');
-
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          update();
-        }
-      },
-    });
-  },
-
-  buildDateWeek() {
-    const { updateText } = createCircleTextWidget(DATE_WEEK_CIRCLE_TEXT_PROPS);
-
-    const update = () => {
-      const { week } = hmSensor.createSensor(hmSensor.id.TIME);
-      const text = WEEKDAYS[week - 1];
-      updateText(text);
+      const { day, week } = hmSensor.createSensor(hmSensor.id.TIME);
+      dateText.setProperty(hmUI.prop.TEXT, day.toString());
+      weekText.setProperty(hmUI.prop.TEXT, WEEKDAYS[week - 1]);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {

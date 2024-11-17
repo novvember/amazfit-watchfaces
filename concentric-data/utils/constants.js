@@ -88,6 +88,12 @@ export const CURRENT_MINUTE = {
 
 export const MIN_ANGLE_TO_UPDATE_WHEEL = 0.7;
 
+export const DATE = {
+  width: px(60),
+  height: px(30),
+  textSize: px(28),
+};
+
 export const DATA = {
   radius: px(185),
   circleText: {
@@ -102,4 +108,4 @@ export const DATA = {
 
 export const WEEKDAYS = isRusLang
   ? ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС']
-  : ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+  : ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];

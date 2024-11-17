@@ -3,6 +3,7 @@ import {
   CURRENT_HOUR,
   CURRENT_MINUTE,
   DATA,
+  DATE,
   FONTS,
   MINUTE,
   SCREEN,
@@ -100,43 +101,52 @@ export const CURRENT_MINUTE_TEXT_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const DATE_DAY_CIRCLE_TEXT_PROPS = {
-  maxLength: 2,
+export const DATE_DAY_TEXT_PROPS = {
+  x: SCREEN.centerX - DATA.radius - DATE.width / 2,
+  y: SCREEN.centerY - DATE.height,
+  w: DATE.width,
+  h: DATE.height,
+  color: COLORS.primary,
+  text_size: DATE.textSize,
+  align_h: hmUI.align.CENTER_H,
+  align_v: hmUI.align.CENTER_V,
+  font: FONTS.secondary,
   text: '00',
-  angleStart: -11,
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const DATE_WEEK_TEXT_PROPS = {
+  x: SCREEN.centerX - DATA.radius - DATE.width / 2,
+  y: SCREEN.centerY,
+  w: DATE.width,
+  h: DATE.height,
+  color: COLORS.primary,
+  text_size: DATE.textSize,
+  align_h: hmUI.align.CENTER_H,
+  align_v: hmUI.align.CENTER_V,
+  font: FONTS.secondary,
+  text: 'XX',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const BATTERY_CIRCLE_TEXT_PROPS = {
   radius: DATA.radius - DATA.circleText.imageHeight / 2,
   gap: px(-1),
   charImages: DATA.circleText.charImages,
   imageWidth: DATA.circleText.imageWidth,
   imageHeight: DATA.circleText.imageHeight,
   isTextReversed: true,
-};
-
-export const DATE_WEEK_CIRCLE_TEXT_PROPS = {
-  maxLength: 3,
-  text: 'XXX',
-  angleStart: 3,
-  radius: DATA.radius - DATA.circleText.imageHeight / 2,
-  gap: px(-2),
-  charImages: DATA.circleText.charImages,
-  imageWidth: px(19),
-  imageHeight: DATA.circleText.imageHeight,
-  isTextReversed: true,
-};
-
-export const BATTERY_CIRCLE_TEXT_PROPS = {
-  ...DATE_DAY_CIRCLE_TEXT_PROPS,
   maxLength: 4,
   text: '100%',
-  angleStart: 57,
+  angleStart: 51,
 };
 
 export const BATTERY_BACKGROUND_ARC_PROPS = {
   center_x: SCREEN.centerX,
   center_y: SCREEN.centerY,
   radius: DATA.radius,
-  start_angle: 129,
-  end_angle: 155,
+  start_angle: 135,
+  end_angle: 170,
   color: COLORS.tertiary,
   line_width: DATA.arc.width,
   level: 100,
@@ -149,18 +159,18 @@ export const BATTERY_CURRENT_ARC_PROPS = {
 };
 
 export const HEART_CIRCLE_TEXT_PROPS = {
-  ...DATE_DAY_CIRCLE_TEXT_PROPS,
+  ...BATTERY_CIRCLE_TEXT_PROPS,
   maxLength: 4,
   text: '000→',
-  angleStart: -40,
+  angleStart: -30,
 };
 
 export const HEART_BACKGROUND_ARC_PROPS = {
   center_x: SCREEN.centerX,
   center_y: SCREEN.centerY,
   radius: DATA.radius,
-  start_angle: 225,
-  end_angle: 260,
+  start_angle: 215,
+  end_angle: 250,
   color: COLORS.tertiary,
   line_width: DATA.arc.width,
   level: 100,
@@ -182,7 +192,7 @@ export const HEART_DOT_PROPS = {
 };
 
 export const STEPS_CIRCLE_TEXT_PROPS = {
-  ...DATE_DAY_CIRCLE_TEXT_PROPS,
+  ...BATTERY_CIRCLE_TEXT_PROPS,
   maxLength: 6,
   text: '00000→',
   angleStart: -30,
@@ -193,7 +203,7 @@ export const STEPS_BACKGROUND_ARC_PROPS = {
   center_x: SCREEN.centerX,
   center_y: SCREEN.centerY,
   radius: DATA.radius,
-  start_angle: 280,
+  start_angle: 290,
   end_angle: 325,
   color: COLORS.tertiary,
   line_width: DATA.arc.width,
@@ -207,7 +217,7 @@ export const STEPS_CURRENT_ARC_PROPS = {
 };
 
 export const SLEEP_CIRCLE_TEXT_PROPS = {
-  ...DATE_DAY_CIRCLE_TEXT_PROPS,
+  ...BATTERY_CIRCLE_TEXT_PROPS,
   maxLength: 6,
   text: '00:00 ',
   angleStart: 30,
