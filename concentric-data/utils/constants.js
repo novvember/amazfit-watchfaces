@@ -20,6 +20,7 @@ export const COLORS = {
   primary: 0xffffff,
   secondary: 0x848484,
   tertiary: 0x525252,
+  aod: 0xd3d3d3,
 };
 
 export const FONTS = {
@@ -48,6 +49,9 @@ export const SECOND = {
     src: 'time/second.png',
     size: px(480),
   },
+  image_aod: {
+    src: 'time/second_aod.png',
+  },
   text: {
     width: px(28),
     height: px(20),
@@ -60,7 +64,10 @@ export const SECOND = {
 export const MINUTE = {
   image: {
     src: 'time/minute.png',
-    size: px(310),
+    size: px(312),
+  },
+  image_aod: {
+    src: 'time/minute_aod.png',
   },
   text: {
     width: px(34),

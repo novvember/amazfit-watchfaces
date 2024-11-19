@@ -20,17 +20,23 @@ import {
   BATTERY_BACKGROUND_ARC_PROPS,
   BATTERY_CIRCLE_TEXT_PROPS,
   BATTERY_CURRENT_ARC_PROPS,
+  CURRENT_HOUR_AOD_TEXT_PROPS,
   CURRENT_HOUR_TEXT_PROPS,
+  CURRENT_MINUTE_AOD_TEXT_PROPS,
   CURRENT_MINUTE_TEXT_PROPS,
   DATE_DAY_TEXT_PROPS,
   DATE_WEEK_TEXT_PROPS,
+  DISCONNECT_ICON_PROPS,
+  FRAME_IMAGE_AOD_PROPS,
   FRAME_IMAGE_PROPS,
   HEART_BACKGROUND_ARC_PROPS,
   HEART_CIRCLE_TEXT_PROPS,
   HEART_CURRENT_ARC_PROPS,
   HEART_DOT_PROPS,
+  MINUTE_IMAGE_AOD_PROPS,
   MINUTE_IMAGE_PROPS,
   MINUTE_TEXT_PROPS,
+  SECOND_IMAGE_AOD_PROPS,
   SECOND_IMAGE_PROPS,
   SECOND_TEXT_PROPS,
   SLEEP_CIRCLE_TEXT_PROPS,
@@ -47,16 +53,25 @@ WatchFace({
   build() {
     console.log('index page.js on build invoke');
 
+    this.buildBackgroundAod();
+
     this.buildTime();
     this.buildDate();
     this.buildBattery();
     this.buildHeartRate();
     this.buildSteps();
     this.buildSleepTime();
+    this.buildDisconnectStatus();
   },
 
   onDestroy() {
     console.log('index page.js on destroy invoke');
+  },
+
+  buildBackgroundAod() {
+    hmUI.createWidget(hmUI.widget.IMG, SECOND_IMAGE_AOD_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, MINUTE_IMAGE_AOD_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, FRAME_IMAGE_AOD_PROPS);
   },
 
   buildTime() {
@@ -84,6 +99,15 @@ WatchFace({
     const currentMinuteText = hmUI.createWidget(
       hmUI.widget.TEXT,
       CURRENT_MINUTE_TEXT_PROPS,
+    );
+
+    const currentHourAodText = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      CURRENT_HOUR_AOD_TEXT_PROPS,
+    );
+    const currentMinuteAodText = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      CURRENT_MINUTE_AOD_TEXT_PROPS,
     );
 
     let updateTimer = undefined;
@@ -174,6 +198,9 @@ WatchFace({
 
       currentHourText.setProperty(hmUI.prop.TEXT, hourText);
       currentMinuteText.setProperty(hmUI.prop.TEXT, minuteText);
+
+      currentHourAodText.setProperty(hmUI.prop.TEXT, hourText);
+      currentMinuteAodText.setProperty(hmUI.prop.TEXT, minuteText);
     };
 
     const update = () => {
@@ -182,13 +209,22 @@ WatchFace({
       updateCurrentTime(timeSensor);
     };
 
+    const updateAod = () => {
+      updateCurrentTime(timeSensor);
+    };
+
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         console.log('ui resume');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(250, 250, update);
+          timer.stopTimer(updateTimer);
+          updateTimer = timer.createTimer(330, 330, update);
           update();
+        } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
+          timer.stopTimer(updateTimer);
+          updateTimer = timer.createTimer(5000, 5000, updateAod);
+          updateAod();
         }
       },
       pause_call: () => {
@@ -380,5 +416,9 @@ WatchFace({
         }
       },
     });
+  },
+
+  buildDisconnectStatus() {
+    hmUI.createWidget(hmUI.widget.IMG_STATUS, DISCONNECT_ICON_PROPS);
   },
 });
