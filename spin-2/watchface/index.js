@@ -15,7 +15,6 @@ import {
   getMinutesCircleProps,
   getMinutesTextAODProps,
   getMinutesTextProps,
-  getSecondsAnimationProps,
   getSecondsFakePointerProps,
   getSecondsImageProps,
   getSleepArcActiveProps,
@@ -177,69 +176,35 @@ WatchFace({
 
   buildSeconds() {
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
-    let animationTimer = undefined;
-    let prevTime = 0;
 
     hmUI.createWidget(hmUI.widget.TIME_POINTER, getSecondsFakePointerProps());
     const widget = hmUI.createWidget(hmUI.widget.IMG, getSecondsImageProps());
 
-    const startAnimation = () => {
-      const { second, utc } = timeSensor;
-      prevTime = utc;
+    let updateTimer = undefined;
 
-      const angle =
-        widget.getProperty(hmUI.prop.ANIM)?.anim_steps?.anim_to ||
-        getAngleFromSeconds(second);
-      const nextAngle = getAngleFromSeconds(
-        second + SECONDS.animationDuration / 1000,
-      );
+    const update = () => {
+      const { utc } = timeSensor;
+      const date = new Date(utc);
+      const second = date.getSeconds() + date.getMilliseconds() / 1000;
+      const angle = getAngleFromSeconds(second) % 360;
 
-      widget.setProperty(
-        hmUI.prop.ANIM,
-        getSecondsAnimationProps(angle, nextAngle),
-      );
-    };
-
-    const stopAnimation = () => {
-      if (animationTimer) {
-        timer.stopTimer(animationTimer);
-        animationTimer = undefined;
-      }
+      widget.setProperty(hmUI.prop.ANGLE, angle);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         console.log('ui resume');
 
-        if (hmSetting.getScreenType() === hmSetting.screen_type.AOD) {
-          stopAnimation();
-          return;
-        }
-
-        if (animationTimer) {
-          return;
-        }
-
-        const diffTime = timeSensor.utc - prevTime;
-        const delay =
-          diffTime < SECONDS.animationDuration
-            ? SECONDS.animationDuration - diffTime
-            : SECONDS.animationDuration;
-
-        animationTimer = timer.createTimer(
-          delay,
-          SECONDS.animationDuration,
-          startAnimation,
-        );
-
-        if (delay === SECONDS.animationDuration) {
-          startAnimation();
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          timer.stopTimer(updateTimer);
+          updateTimer = timer.createTimer(330, 330, update);
+          update();
         }
       },
       pause_call: function () {
         console.log('ui pause');
 
-        stopAnimation();
+        timer.stopTimer(updateTimer);
       },
     });
   },

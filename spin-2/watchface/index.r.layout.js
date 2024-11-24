@@ -163,24 +163,6 @@ export function getSecondsImageProps() {
   };
 }
 
-export function getSecondsAnimationProps(angle, nextAngle) {
-  return {
-    anim_steps: [
-      {
-        anim_rate: 'linear',
-        anim_duration: SECONDS.animationDuration,
-        anim_from: angle,
-        anim_to: nextAngle,
-        anim_key: 'angle',
-      },
-    ],
-    anim_fps: 25,
-    anim_auto_start: 1,
-    anim_auto_destroy: 1,
-    anim_repeat: 0,
-  };
-}
-
 // DATE
 export function getDateCircleProps() {
   return {
