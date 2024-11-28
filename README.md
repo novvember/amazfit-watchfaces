@@ -70,3 +70,4 @@ To add a new watchface to your device:
 | ![](./grotesque/demo.png)             | Grotesque             | All round watches | ✅ Done                |
 | ![](./time-machine/demo.png)          | Time Machine          | All round watches | ✅ Done                |
 | ![](./concentric-data/demo.png)       | Concentric Data       | All round watches | ✅ Done                |
+| ![](./opposite-time/demo.png)         | Opposite Time         | All round watches | ✅ Done                |
