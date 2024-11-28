@@ -111,6 +111,8 @@ WatchFace({
     const distanceSensor = hmSensor.createSensor(hmSensor.id.DISTANCE);
     const batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
 
+    let updateTimer = undefined;
+
     const getHeartRateText = (heartSensor) => {
       const { last } = heartSensor;
       return `:${last}`;
