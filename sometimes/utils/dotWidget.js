@@ -1,3 +1,7 @@
+/**
+ * Simple widget to represent a dot and to contol it
+ * visibility (opacity change) or active/disable state (can change color/radius)
+ */
 export class DotWidget {
   constructor({
     center_x,
@@ -54,13 +58,5 @@ export class DotWidget {
 
     this._circleWidget.setProperty(hmUI.prop.COLOR, color);
     this._circleWidget.setProperty(hmUI.prop.RADIUS, radius);
-  }
-
-  getIsVisible() {
-    return this._isVisible;
-  }
-
-  getIsDisabled() {
-    return this._isDisabled;
   }
 }

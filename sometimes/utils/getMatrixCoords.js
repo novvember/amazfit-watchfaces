@@ -1,3 +1,10 @@
+/**
+ * Calculates x/y-coordinates for all elements in a grid
+ * @param {[Number, Number]} matrixSizes - x- and y-direction grid sizes
+ * @param {[Number, Number]} cellSizes -  width and height of every cell
+ * @param {[Number, Number]} startCoords - x- and y- coordinates of the first element of the grid
+ * @returns {[Number, Number][]}
+ */
 export function getMatrixCoords(matrixSizes, cellSizes, startCoords) {
   const [matrixSizeX, matrixSizeY] = matrixSizes;
   const [cellSizeX, cellSizeY] = cellSizes;

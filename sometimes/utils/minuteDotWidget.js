@@ -1,6 +1,10 @@
 import { DotWidget } from './dotWidget';
 import { getMatrixCoords } from './getMatrixCoords';
 
+/**
+ * Dot to represent minute value.
+ * Can have values 0...5
+ */
 export class MinuteDotWidget {
   constructor(bigDotProps, smallDotProps, smallDotGap) {
     const smallDotsCoords = getMatrixCoords(

@@ -21,6 +21,52 @@ export const COLORS = {
   textAccent: 0xf41d09,
 };
 
+export const ACCENT_COLORS = [
+  {
+    type: 100001,
+    preview: 'edit/color_preview_red.png',
+    title_en: 'Red',
+    color: 0xf41d09,
+  },
+  {
+    type: 100002,
+    preview: 'edit/color_preview_yellow.png',
+    title_en: 'Yellow',
+    color: 0xffa300,
+  },
+  {
+    type: 100003,
+    preview: 'edit/color_preview_blue.png',
+    title_en: 'Blue',
+    color: 0x004cff,
+  },
+  {
+    type: 100004,
+    preview: 'edit/color_preview_green.png',
+    title_en: 'Green',
+    color: 0x4ae300,
+  },
+  {
+    type: 100005,
+    preview: 'edit/color_preview_white.png',
+    title_en: 'White',
+    color: 0xffffff,
+  },
+];
+
+export const DATE_TYPES = [
+  {
+    type: 100201,
+    preview: 'edit/date_preview_month.png',
+    title_en: 'Month',
+  },
+  {
+    type: 100202,
+    preview: 'edit/date_preview_weekday.png',
+    title_en: 'Weekday',
+  },
+];
+
 export const FONT = 'fonts/FiraSans-SemiBold.ttf';
 
 export const DOT_SIZE = {
@@ -48,3 +94,10 @@ export const MINUTE_COORD = getMatrixCoords(
     HOUR_COORD[0][1] + 2 * (DOT_SIZE.l + GAP_Y),
   ],
 );
+
+export const M_TEXT = isRusLang ? 'м' : 'm';
+export const KM_TEXT = isRusLang ? 'км' : 'km';
+
+const WEEKDAYS_EN = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+const WEEKDAYS_RU = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
+export const WEEKDAYS = isRusLang ? WEEKDAYS_RU : WEEKDAYS_EN;

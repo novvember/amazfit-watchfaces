@@ -1,5 +1,5 @@
 /**
- * Gets and format time in 00:00 format
+ * Formats time in 0:00 format
  * @param {Number} hour
  * @param {Number} minute
  * @returns {String}
