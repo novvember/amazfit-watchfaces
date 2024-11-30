@@ -157,3 +157,16 @@ export const DATE_EDIT_GROUP_PROPS = {
   tips_width: px(90),
   tips_margin: px(5),
 };
+
+export const AOD_BACKGROUND_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  src: 'aod/background.png',
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
+export const AOD_TIME_TEXT_PROPS = {
+  ...TIME_TEXT_PROPS,
+  color: COLORS.aod,
+  show_level: hmUI.show_level.ONAL_AOD,
+};

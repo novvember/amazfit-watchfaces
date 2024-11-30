@@ -14,6 +14,8 @@ import { getTimeString } from '../utils/getTimeString';
 import { HourDotWidget } from '../utils/hourDotWidget';
 import { MinuteDotWidget } from '../utils/minuteDotWidget';
 import {
+  AOD_BACKGROUND_IMAGE_PROPS,
+  AOD_TIME_TEXT_PROPS,
   COLOR_EDIT_GROUP_PROPS,
   DATA_1_EDIT_GROUP_PROPS,
   DATA_1_TEXT_PROPS,
@@ -36,6 +38,8 @@ WatchFace({
   build() {
     console.log('watchface build');
 
+    this.buildBackground();
+
     this.setAccentColor();
     this.setDateType();
     this.setDataWidgetType();
@@ -49,9 +53,12 @@ WatchFace({
     console.log('watchface destroy');
   },
 
-  setAccentColor() {
+  buildBackground() {
     hmUI.createWidget(hmUI.widget.IMG, EDIT_BACKGROUND_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, AOD_BACKGROUND_IMAGE_PROPS);
+  },
 
+  setAccentColor() {
     const colorEditGroup = hmUI.createWidget(
       hmUI.widget.WATCHFACE_EDIT_GROUP,
       COLOR_EDIT_GROUP_PROPS,
@@ -59,7 +66,7 @@ WatchFace({
 
     const accentColorType = colorEditGroup.getProperty(hmUI.prop.CURRENT_TYPE);
 
-    this.accenColor = ACCENT_COLORS.find(
+    this.accentColor = ACCENT_COLORS.find(
       (obj) => obj.type === accentColorType,
     )?.color;
   },
@@ -85,7 +92,8 @@ WatchFace({
     );
 
     const dateType = dateEditGroup.getProperty(hmUI.prop.CURRENT_TYPE);
-    this.dateType = dateType === DATE_TYPES[0].type ? 'month' : 'weekday';
+    console.log(dateType);
+    this.dateType = DATE_TYPES.find((type) => type.type === dateType)?.type_id;
   },
 
   buildTime() {
@@ -105,22 +113,24 @@ WatchFace({
             ...MINUTE_BIG_DOT_PROPS,
             center_x: MINUTE_COORD[i][0],
             center_y: MINUTE_COORD[i][1],
-            color: this.accenColor,
+            color: this.accentColor,
           },
           {
             ...MINUTE_SMALL_DOT_PROPS,
-            color: this.accenColor,
+            color: this.accentColor,
           },
           MINUTE_SMALL_DOT_GAP,
         ),
     );
 
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, TIME_TEXT_PROPS);
+    const aodTextWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      AOD_TIME_TEXT_PROPS,
+    );
 
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
     const is12HourFormat = hmSetting.getTimeFormat() === 0;
-
-    let updateTimer = undefined;
 
     const updateHour = () => {
       const { hour } = timeSensor;
@@ -150,6 +160,7 @@ WatchFace({
       const { hour, minute } = timeSensor;
       const text = getTimeString(hour, minute, is12HourFormat);
       textWidget.setProperty(hmUI.prop.TEXT, text);
+      aodTextWidget.setProperty(hmUI.prop.TEXT, text);
     };
 
     const update = () => {
@@ -161,19 +172,30 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(1000, 1000, update);
+          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
+          update();
+        } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
+          timeSensor.addEventListener(timeSensor.event.MINUTEEND, updateText);
           update();
         }
       },
       pause_call: () => {
-        timer.stopTimer(updateTimer);
+        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
+        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, updateText);
       },
     });
   },
 
   buildDataWidgets() {
-    this.buildData(this.data1Type, DATA_1_TEXT_PROPS);
-    this.buildData(this.data2Type, DATA_2_TEXT_PROPS);
+    this.buildData(this.data1Type, {
+      ...DATA_1_TEXT_PROPS,
+      color: this.accentColor,
+    });
+
+    this.buildData(this.data2Type, {
+      ...DATA_2_TEXT_PROPS,
+      color: this.accentColor,
+    });
   },
 
   buildData(type, props) {
@@ -214,7 +236,6 @@ WatchFace({
   buildDate() {
     const text = hmUI.createWidget(hmUI.widget.TEXT, DATE_TEXT_PROPS);
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
-    let updateTimer = undefined;
 
     const getDateText = () => {
       const { day, month, week } = timeSensor;
@@ -233,23 +254,19 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(3000, 3000, update);
+          timeSensor.addEventListener(timeSensor.event.DAYCHANGE, update);
           update();
         }
       },
       pause_call: () => {
-        timer.stopTimer(updateTimer);
+        timeSensor.removeEventListener(timeSensor.event.DAYCHANGE, update);
       },
     });
   },
 
   buildHeart(props) {
-    const text = hmUI.createWidget(hmUI.widget.TEXT, {
-      ...props,
-      color: this.accenColor,
-    });
+    const text = hmUI.createWidget(hmUI.widget.TEXT, props);
     const heartSensor = hmSensor.createSensor(hmSensor.id.HEART);
-    let updateTimer = undefined;
 
     const getHeartText = () => {
       const { last } = heartSensor;
@@ -263,23 +280,19 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(3000, 3000, update);
+          heartSensor.addEventListener(hmSensor.event.LAST, update);
           update();
         }
       },
       pause_call: () => {
-        timer.stopTimer(updateTimer);
+        heartSensor.removeEventListener(hmSensor.event.LAST, update);
       },
     });
   },
 
   buildSteps(props) {
-    const text = hmUI.createWidget(hmUI.widget.TEXT, {
-      ...props,
-      color: this.accenColor,
-    });
+    const text = hmUI.createWidget(hmUI.widget.TEXT, props);
     const stepSensor = hmSensor.createSensor(hmSensor.id.STEP);
-    let updateTimer = undefined;
 
     const getStepsText = () => {
       const { current } = stepSensor;
@@ -293,23 +306,19 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(3000, 3000, update);
+          stepSensor.addEventListener(hmSensor.event.CHANGE, update);
           update();
         }
       },
       pause_call: () => {
-        timer.stopTimer(updateTimer);
+        stepSensor.removeEventListener(hmSensor.event.CHANGE, update);
       },
     });
   },
 
   buildSleep(props) {
-    const text = hmUI.createWidget(hmUI.widget.TEXT, {
-      ...props,
-      color: this.accenColor,
-    });
+    const text = hmUI.createWidget(hmUI.widget.TEXT, props);
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
-    let updateTimer = undefined;
 
     const getSleepText = (sleepSensor) => {
       return getSleepTimeString(sleepSensor) || '';
@@ -322,23 +331,15 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(3000, 3000, update);
           update();
         }
-      },
-      pause_call: () => {
-        timer.stopTimer(updateTimer);
       },
     });
   },
 
   buildCalorie(props) {
-    const text = hmUI.createWidget(hmUI.widget.TEXT, {
-      ...props,
-      color: this.accenColor,
-    });
+    const text = hmUI.createWidget(hmUI.widget.TEXT, props);
     const calorieSensor = hmSensor.createSensor(hmSensor.id.CALORIE);
-    let updateTimer = undefined;
 
     const getCalorieText = (calorieSensor) => {
       const { current = 0 } = calorieSensor;
@@ -352,23 +353,19 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(3000, 3000, update);
+          calorieSensor.addEventListener(hmSensor.event.CHANGE, update);
           update();
         }
       },
       pause_call: () => {
-        timer.stopTimer(updateTimer);
+        calorieSensor.removeEventListener(hmSensor.event.CHANGE, update);
       },
     });
   },
 
   buildDistance(props) {
-    const text = hmUI.createWidget(hmUI.widget.TEXT, {
-      ...props,
-      color: this.accenColor,
-    });
+    const text = hmUI.createWidget(hmUI.widget.TEXT, props);
     const distanceSensor = hmSensor.createSensor(hmSensor.id.DISTANCE);
-    let updateTimer = undefined;
 
     const getDistanceText = (distanceSensor) => {
       const { current } = distanceSensor;
@@ -387,23 +384,19 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(3000, 3000, update);
+          distanceSensor.addEventListener(hmSensor.event.CHANGE, update);
           update();
         }
       },
       pause_call: () => {
-        timer.stopTimer(updateTimer);
+        distanceSensor.removeEventListener(hmSensor.event.CHANGE, update);
       },
     });
   },
 
   buildBattery(props) {
-    const text = hmUI.createWidget(hmUI.widget.TEXT, {
-      ...props,
-      color: this.accenColor,
-    });
+    const text = hmUI.createWidget(hmUI.widget.TEXT, props);
     const batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
-    let updateTimer = undefined;
 
     const getBatteryText = (batterySensor) => {
       const { current } = batterySensor;
@@ -417,12 +410,12 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(3000, 3000, update);
+          batterySensor.addEventListener(hmSensor.event.CHANGE, update);
           update();
         }
       },
       pause_call: () => {
-        timer.stopTimer(updateTimer);
+        batterySensor.removeEventListener(hmSensor.event.CHANGE, update);
       },
     });
   },
@@ -430,7 +423,6 @@ WatchFace({
   buildWeather(props) {
     hmUI.createWidget(hmUI.widget.TEXT_FONT, {
       ...props,
-      color: this.accenColor,
       type: hmUI.data_type.WEATHER_CURRENT,
       unit_type: 1,
     });
