@@ -1,4 +1,4 @@
-# Opposite Time Watchface
+# Sometimes Watchface
 Watchface for Amazfit GTR Mini and for other round ZeppOS watch.
 
 ![demo](./demo-gtr-mini.png)
@@ -6,8 +6,18 @@ Watchface for Amazfit GTR Mini and for other round ZeppOS watch.
 ## Features
 
 **Main features**
-- Time is displayed with a word for every digit.
-- Lots of extra data
+- The top space is for 12 dots to reflect the hour.
+- In the middle there are minutes. 1 small dot stands for 1 minute, 1 larger dot is a 5-minute period.
+- At the bottom there are some text info
+  - time
+  - date
+  - 2 extra data widgets to select.
+
+**Editable options**
+- Accent color
+- Date format (with month or weekday)
+- 2 sensor info widgets
+
 
 **Legend**
 
@@ -15,15 +25,13 @@ Watchface for Amazfit GTR Mini and for other round ZeppOS watch.
 
 `*` – calories
 
-`´` – active time
-
 `:` – heart rate
 
 `%` – battery
 
 **Original watchface by:**
 
-TTMM studia and their [OPPOSITTMM watchface for Fitbit Versa](https://ttmm.is/portfolio/opposittmm/).
+TTMM studio and their [SUMTTMM watchface for Fitbit Versa](https://ttmm.is/portfolio/sumttmm/).
 
 **Model compatibility:** Amazfit GTR Mini, Amazfit GTR 4 and all other round ZeppOS watches
 
