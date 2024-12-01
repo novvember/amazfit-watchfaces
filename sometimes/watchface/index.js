@@ -176,7 +176,7 @@ WatchFace({
           update();
         } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
           timeSensor.addEventListener(timeSensor.event.MINUTEEND, updateText);
-          update();
+          updateText();
         }
       },
       pause_call: () => {
@@ -254,12 +254,12 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          timeSensor.addEventListener(timeSensor.event.DAYCHANGE, update);
+          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
           update();
         }
       },
       pause_call: () => {
-        timeSensor.removeEventListener(timeSensor.event.DAYCHANGE, update);
+        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
       },
     });
   },
