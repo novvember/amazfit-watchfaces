@@ -18,37 +18,29 @@ WatchFace({
 
   buildTime() {
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, TIME_TEXT_PROPS);
-
-    let prevTime = '';
-    let updateTimer = undefined;
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
     const update = () => {
-      const { hour, minute } = hmSensor.createSensor(hmSensor.id.TIME);
-      const time = `${hour}${minute}`;
-
-      if (prevTime === time) {
-        return;
-      }
-
       console.log('time rerendered');
-      prevTime = time;
-
-      textWidget.setProperty(hmUI.prop.TEXT, getTimeString(hour, minute));
+      
+      const { hour, minute } = timeSensor;
+      const timeString = getTimeString(hour, minute);
+      textWidget.setProperty(hmUI.prop.TEXT, timeString);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        console.log('ui resume (buildTime)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(1000, 1000, update);
+          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
           update();
         }
       },
       pause_call: () => {
-        console.log('ui pause');
+        console.log('ui pause (buildTime)');
 
-        timer.stopTimer(updateTimer);
+        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
       },
     });
   },
