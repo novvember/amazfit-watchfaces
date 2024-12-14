@@ -1,3 +1,4 @@
+import { getHasCustomFontSupport } from '../utils/getHasCustomFontSupport';
 import { getTimeString } from '../utils/time/getTimeStringRus';
 import { AOD_TIME_TEXT_PROPS, TIME_TEXT_PROPS } from './index.r.layout';
 
@@ -25,6 +26,7 @@ WatchFace({
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
     let prevTimeStamp = '';
+    let updateTimer;
 
     const update = () => {
       const { hour, minute } = timeSensor;
@@ -50,14 +52,20 @@ WatchFace({
           hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE ||
           hmSetting.getScreenType() == hmSetting.screen_type.AOD
         ) {
-          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
+          if (getHasCustomFontSupport()) {
+            timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
+          } else {
+            updateTimer = timer.createTimer(2000, 2000, update);
+          }
+
           update();
         }
       },
       pause_call: () => {
         console.log('ui pause (buildTime)');
 
-        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
+        timer.stopTimer(updateTimer);
       },
     });
   },
