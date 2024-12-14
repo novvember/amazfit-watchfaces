@@ -20,3 +20,9 @@ export const TIME_TEXT_PROPS = {
   text_style: hmUI.text_style.WRAP,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
+
+export const AOD_TIME_TEXT_PROPS = {
+  ...TIME_TEXT_PROPS,
+  show_level: hmUI.show_level.ONAL_AOD,
+  color: COLORS.aod,
+};

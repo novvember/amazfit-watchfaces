@@ -11,6 +11,7 @@ export const SCREEN = {
 
 export const COLORS = {
   text: 0xd9d9d9,
+  aod:  0xd3d3d3,
 };
 
 export const FONT_FAMILY = {
