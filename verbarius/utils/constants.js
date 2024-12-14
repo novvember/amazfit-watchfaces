@@ -1,3 +1,5 @@
+import { getHasCustomFontSupport } from './getHasCustomFontSupport';
+
 const { width, height } = hmSetting.getDeviceInfo();
 
 export const SCREEN = {
@@ -12,11 +14,11 @@ export const COLORS = {
 };
 
 export const FONT_FAMILY = {
-  text: 'fonts/handjet-medium.ttf',
+  text: getHasCustomFontSupport() ? 'fonts/handjet-medium.ttf' : undefined,
 };
 
 export const FONT_SIZE = {
-  text: px(56),
+  text: getHasCustomFontSupport() ? px(56) : px(42),
 };
 
 export const TIME_SIZE = {

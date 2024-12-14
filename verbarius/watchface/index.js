@@ -22,7 +22,7 @@ WatchFace({
 
     const update = () => {
       console.log('time rerendered');
-      
+
       const { hour, minute } = timeSensor;
       const timeString = getTimeString(hour, minute);
       textWidget.setProperty(hmUI.prop.TEXT, timeString);
