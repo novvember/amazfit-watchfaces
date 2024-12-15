@@ -130,7 +130,6 @@ WatchFace({
     );
 
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
-    const is12HourFormat = hmSetting.getTimeFormat() === 0;
 
     const updateHour = () => {
       const { hour } = timeSensor;
@@ -158,6 +157,7 @@ WatchFace({
 
     const updateText = () => {
       const { hour, minute } = timeSensor;
+      const is12HourFormat = hmSetting.getTimeFormat() === 0;
       const text = getTimeString(hour, minute, is12HourFormat);
       textWidget.setProperty(hmUI.prop.TEXT, text);
       aodTextWidget.setProperty(hmUI.prop.TEXT, text);
