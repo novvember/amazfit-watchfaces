@@ -32,6 +32,7 @@ This repository contains multiple folders, each dedicated to a different watchfa
 | ![](./concentric-data/demo.png)       | Concentric Data       | All round watches | ✅ Done                |
 | ![](./opposite-time/demo.png)         | Opposite Time         | All round watches | ✅ Done                |
 | ![](./sometimes/demo.png)             | Sometimes             | All round watches | ✅ Done                |
+| ![](./rider-1991/demo.png)            | Rider 1991            | All round watches | ✅ Done                |
 
 
 ## Installation Instructions
