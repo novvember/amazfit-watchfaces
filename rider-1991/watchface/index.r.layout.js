@@ -15,8 +15,8 @@ export const TIME_POINTER_PROPS = {
   second_path: 'time/second.png',
 
   second_cover_path: 'time/center.png',
-  second_cover_x: SCREEN.centerX - px(18) / 2,
-  second_cover_y: SCREEN.centerY - px(18) / 2,
+  second_cover_x: SCREEN.centerX - px(26) / 2,
+  second_cover_y: SCREEN.centerY - px(26) / 2,
 
   minute_centerX: SCREEN.centerX,
   minute_centerY: SCREEN.centerY,
