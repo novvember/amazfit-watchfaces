@@ -171,7 +171,7 @@ export const ALARM_STATUS = {
 };
 
 export const TIME_DIGITS_AOD = {
-  images: new Array(10).fill(null).map((_, i) => `time_digits_aod/${i}.png`),
+  images: new Array(10).fill(null).map((_, i) => `aod/${i}.png`),
   width: px(112),
   height: px(168),
 };

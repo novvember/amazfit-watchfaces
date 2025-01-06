@@ -222,6 +222,13 @@ export const ALARM_ON_IMAGE_PROPS = {
 };
 
 // AOD
+export const AOD_BACKGROUND_PROPS = {
+  x: px(114),
+  y: px(58),
+  src: 'aod/background.png',
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
 export const AOD_HOURS_PROPS = {
   hour_zero: 1,
   hour_startX: px(128),

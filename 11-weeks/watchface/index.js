@@ -39,6 +39,7 @@ import {
   PULSE_MAX_TEXT_PROPS,
   SLEEP_ICON_IMAGE_PROPS,
   PULSE_ICON_IMAGE_PROPS,
+  AOD_BACKGROUND_PROPS,
 } from './index.r.layout';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
@@ -592,6 +593,7 @@ WatchFace({
   },
 
   buildAod() {
+    hmUI.createWidget(hmUI.widget.IMG, AOD_BACKGROUND_PROPS);
     hmUI.createWidget(hmUI.widget.IMG_TIME, AOD_HOURS_PROPS);
     hmUI.createWidget(hmUI.widget.IMG_TIME, AOD_MINUTES_PROPS);
   },
