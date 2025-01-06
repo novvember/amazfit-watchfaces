@@ -69,10 +69,6 @@ WatchFace({
 
   onDestroy() {
     console.log('watchface destroying');
-
-    timer.stopTimer(this.renderDatesTimer);
-    timer.stopTimer(this.renderSecondsTimer);
-    timer.stopTimer(this.buildWeekDaysTimer);
   },
 
   /**
@@ -119,11 +115,13 @@ WatchFace({
     this.yearWidgets = new Array(GRID.size.rows).fill(null);
     this.monthWidgets = new Array(GRID.size.rows).fill(null);
 
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+
     let prevTime = null;
     let prevDay = null;
 
     const update = () => {
-      const { hour, minute, day } = hmSensor.createSensor(hmSensor.id.TIME);
+      const { hour, minute, day } = timeSensor;
       const time = [hour, minute].join(':');
 
       if (time !== prevTime) {
@@ -143,14 +141,14 @@ WatchFace({
         console.log('ui resume (widget delegate)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          this.renderDatesTimer = timer.createTimer(500, 500, update);
+          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
           update();
         }
       },
       pause_call: () => {
         console.log('ui pause (widget delegate)');
 
-        timer.stopTimer(this.renderDatesTimer);
+        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
       },
     });
   },
@@ -320,10 +318,11 @@ WatchFace({
     }
 
     const dotWidget = hmUI.createWidget(hmUI.widget.IMG, null);
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
     let prevWeek = null;
 
     const update = () => {
-      const { week } = hmSensor.createSensor(hmSensor.id.TIME);
+      const { week } = timeSensor;
 
       if (prevWeek === week) {
         return;
@@ -347,14 +346,14 @@ WatchFace({
         console.log('ui resume (widget delegate)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          this.buildWeekDaysTimer = timer.createTimer(1000, 1000, update);
+          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
           update();
         }
       },
       pause_call: () => {
         console.log('ui pause (widget delegate)');
 
-        timer.stopTimer(this.buildWeekDaysTimer);
+        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
       },
     });
   },
@@ -376,10 +375,13 @@ WatchFace({
 
     const progressBar = hmUI.createWidget(hmUI.widget.IMG, null);
 
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+
     let prevSecondRound = null;
+    let updateTimer = undefined;
 
     const update = () => {
-      const { second } = hmSensor.createSensor(hmSensor.id.TIME);
+      const { second } = timeSensor;
       const secondRound = Math.round(second / 10) * 10;
       const level = secondRound / 10;
 
@@ -403,14 +405,16 @@ WatchFace({
         console.log('ui resume (widget delegate)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          this.renderSecondsTimer = timer.createTimer(500, 500, update);
+          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
+          updateTimer = timer.createTimer(1000, 1000, update);
           update();
         }
       },
       pause_call: () => {
         console.log('ui pause (widget delegate)');
 
-        timer.stopTimer(this.renderSecondsTimer);
+        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
+        timer.stopTimer(updateTimer);
       },
     });
   },
@@ -422,8 +426,10 @@ WatchFace({
       STEPS_PROGRESS_PROPS,
     );
 
+    const stepSensor = hmSensor.createSensor(hmSensor.id.STEP);
+
     const update = () => {
-      const { current, target } = hmSensor.createSensor(hmSensor.id.STEP);
+      const { current, target } = stepSensor;
       const ratio = (current || 0) / (target || 10000);
       const level = Math.min(
         Math.floor(STEPS.progressImage.count * ratio),
@@ -438,8 +444,12 @@ WatchFace({
         console.log('ui resume');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          stepSensor.addEventListener(hmSensor.event.CHANGE, update);
           update();
         }
+      },
+      pause_call: () => {
+        stepSensor.removeEventListener(hmSensor.event.CHANGE, update);
       },
     });
   },
@@ -460,8 +470,10 @@ WatchFace({
       PULSE_MAX_TEXT_PROPS,
     );
 
+    const heartSensor = hmSensor.createSensor(hmSensor.id.HEART);
+
     const update = () => {
-      const { last, today } = hmSensor.createSensor(hmSensor.id.HEART);
+      const { last, today } = heartSensor;
       let min = today.length ? Math.min(...today) : 0;
       let max = today.length ? Math.max(...today) : 0;
 
@@ -487,8 +499,12 @@ WatchFace({
         console.log('ui resume');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          heartSensor.addEventListener(hmSensor.event.LAST, update);
           update();
         }
+      },
+      pause_call: () => {
+        heartSensor.removeEventListener(hmSensor.event.LAST, update);
       },
     });
   },
@@ -500,8 +516,10 @@ WatchFace({
       BATTERY_PROGRESS_PROPS,
     );
 
+    const batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
+
     const update = () => {
-      const { current } = hmSensor.createSensor(hmSensor.id.BATTERY);
+      const { current } = batterySensor;
       const level = Math.round((current || 0) / 10);
       const imageSrc = `battery/${level}.png`;
       progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
@@ -512,8 +530,12 @@ WatchFace({
         console.log('ui resume');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          batterySensor.addEventListener(hmSensor.event.CHANGE, update);
           update();
         }
+      },
+      pause_call: () => {
+        batterySensor.removeEventListener(hmSensor.event.CHANGE, update);
       },
     });
   },
