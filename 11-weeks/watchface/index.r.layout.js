@@ -280,3 +280,10 @@ export const AOD_MINUTES_PROPS = {
   minute_align: hmUI.align.LEFT,
   show_level: hmUI.show_level.ONAL_AOD,
 };
+
+export const AOD_DATE_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  src: 'cell_aod/0.png',
+  show_level: hmUI.show_level.ONAL_AOD,
+};

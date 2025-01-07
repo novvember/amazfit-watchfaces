@@ -43,6 +43,7 @@ import {
   PULSE_LAST_ARC_PROPS,
   STEPS_ICON_IMAGE_PROPS,
   BATTERY_ICON_IMAGE_PROPS,
+  AOD_DATE_IMAGE_PROPS,
 } from './index.r.layout';
 import { clamp } from '../utils/clamp';
 
@@ -631,5 +632,31 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.IMG, AOD_BACKGROUND_PROPS);
     hmUI.createWidget(hmUI.widget.IMG_TIME, AOD_HOURS_PROPS);
     hmUI.createWidget(hmUI.widget.IMG_TIME, AOD_MINUTES_PROPS);
+
+    const dateImage = hmUI.createWidget(hmUI.widget.IMG, AOD_DATE_IMAGE_PROPS);
+
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+
+    const update = () => {
+      const { week, day } = timeSensor;
+      const { x, y } = this.grid[3][week - 1];
+
+      dateImage.setProperty(hmUI.prop.MORE, {
+        ...AOD_DATE_IMAGE_PROPS,
+        x,
+        y,
+        src: `cell_aod/${day}.png`,
+      });
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume (widget delegate)');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
+          update();
+        }
+      },
+    });
   },
 });
