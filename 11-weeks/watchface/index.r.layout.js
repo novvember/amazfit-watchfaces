@@ -13,7 +13,7 @@ import {
   SCREEN,
 } from '../utils/constants';
 
-// CELL
+// #region Cell
 export const CELL_IMAGE_PROPS = {
   x: 0,
   y: 0,
@@ -28,7 +28,7 @@ export const CELL_DATE_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-// YEAR
+// #region Year
 export const YEAR_IMAGE_PROPS = {
   x: 0,
   y: 0,
@@ -36,7 +36,7 @@ export const YEAR_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-// MONTH
+// #region Month
 export const MONTH_IMAGE_PROPS = {
   x: 0,
   y: 0,
@@ -44,7 +44,7 @@ export const MONTH_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-// WEEKDAY
+// #region Weekday
 export const WEEKDAY_IMAGE_PROPS = {
   x: 0,
   y: 0,
@@ -52,7 +52,7 @@ export const WEEKDAY_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-// DOT
+// #region Dot
 export const DOT_IMAGE_PROPS = {
   x: 0,
   y: 0,
@@ -60,7 +60,7 @@ export const DOT_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-// SECONDS
+// #region Seconds
 export const SECONDS_IMAGE_TIME_PROPS = {
   second_zero: 0,
   second_startX: 0,
@@ -77,7 +77,7 @@ export const SECONDS_PROGRESS_BAR_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-// STEPS
+// #region Steps
 export const STEPS_PROGRESS_PROPS = {
   x: STEPS.progressImage.x,
   y: STEPS.progressImage.y,
@@ -86,15 +86,15 @@ export const STEPS_PROGRESS_PROPS = {
 };
 
 export const STEPS_TEXT_IMAGE_PROPS = {
-  x: STEPS.x,
-  y: STEPS.y,
+  x: STEPS.text.x,
+  y: STEPS.text.y,
   type: hmUI.data_type.STEP,
   font_array: DIGITS.images,
   align_h: hmUI.align.RIGHT,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-// PULSE
+// #region Pulse
 export const PULSE_BACKGROUND_ARC_PROPS = {
   center_x: SCREEN.centerX,
   center_y: SCREEN.centerY,
@@ -108,7 +108,7 @@ export const PULSE_BACKGROUND_ARC_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const PULSE_ARC_PROPS = {
+export const PULSE_TODAY_ARC_PROPS = {
   ...PULSE_BACKGROUND_ARC_PROPS,
   color: COLORS.primary,
   corner_flag: 0,
@@ -117,13 +117,13 @@ export const PULSE_ARC_PROPS = {
 export const PULSE_LAST_ARC_PROPS = {
   ...PULSE_BACKGROUND_ARC_PROPS,
   color: COLORS.accent,
-  line_width: PULSE.progressArc.lineWidth - px(2),
+  line_width: PULSE.progressArc.lineWidth - 2,
   corner_flag: 0,
 };
 
 export const PULSE_TEXT_IMAGE_PROPS = {
-  x: PULSE.x,
-  y: PULSE.y,
+  x: PULSE.text.x,
+  y: PULSE.text.y,
   type: hmUI.data_type.HEART,
   font_array: DIGITS.images,
   align_h: hmUI.align.RIGHT,
@@ -131,19 +131,19 @@ export const PULSE_TEXT_IMAGE_PROPS = {
 };
 
 export const PULSE_ICON_IMAGE_PROPS = {
-  x: PULSE.x + px(16),
-  y: PULSE.y - px(22),
+  x: PULSE.text.x + px(16),
+  y: PULSE.text.y - px(22),
   src: SPECIAL_CHARS.heart.src,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const PULSE_MIN_TEXT_PROPS = {
-  x: PULSE.min.x,
-  y: PULSE.min.y,
-  w: PULSE.width,
-  h: PULSE.height,
+  x: PULSE.minText.x,
+  y: PULSE.minText.y,
+  w: PULSE.text.width,
+  h: PULSE.text.height,
   color: COLORS.primary,
-  text_size: PULSE.textSize,
+  text_size: PULSE.text.textSize,
   align_h: hmUI.align.RIGHT,
   align_v: hmUI.align.TOP,
   font: FONTS.digits,
@@ -153,11 +153,11 @@ export const PULSE_MIN_TEXT_PROPS = {
 
 export const PULSE_MAX_TEXT_PROPS = {
   ...PULSE_MIN_TEXT_PROPS,
-  x: PULSE.max.x,
-  y: PULSE.max.y,
+  x: PULSE.maxText.x,
+  y: PULSE.maxText.y,
 };
 
-// BATTERY
+// #region Battery
 export const BATTERY_PROGRESS_PROPS = {
   x: BATTERY.progressImage.x,
   y: BATTERY.progressImage.y,
@@ -166,8 +166,8 @@ export const BATTERY_PROGRESS_PROPS = {
 };
 
 export const BATTERY_TEXT_IMAGE_PROPS = {
-  x: BATTERY.x,
-  y: BATTERY.y,
+  x: BATTERY.text.x,
+  y: BATTERY.text.y,
   type: hmUI.data_type.BATTERY,
   font_array: DIGITS.images,
   unit_en: SPECIAL_CHARS.percent.src,
@@ -175,7 +175,7 @@ export const BATTERY_TEXT_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-// SLEEP TIME
+// #region Sleep time
 export const SLEEP_PROGRESS_PROPS = {
   x: SLEEP.progressImage.x,
   y: SLEEP.progressImage.y,
@@ -184,12 +184,12 @@ export const SLEEP_PROGRESS_PROPS = {
 };
 
 export const SLEEP_TEXT_PROPS = {
-  x: SLEEP.x,
-  y: SLEEP.y,
-  w: SLEEP.width,
-  h: SLEEP.height,
+  x: SLEEP.text.x,
+  y: SLEEP.text.y,
+  w: SLEEP.text.width,
+  h: SLEEP.text.height,
   color: COLORS.primary,
-  text_size: SLEEP.textSize,
+  text_size: SLEEP.text.textSize,
   align_h: hmUI.align.LEFT,
   align_v: hmUI.align.TOP,
   font: FONTS.digits,
@@ -198,14 +198,14 @@ export const SLEEP_TEXT_PROPS = {
 };
 
 export const SLEEP_ICON_IMAGE_PROPS = {
-  x: SLEEP.x,
-  y: SLEEP.y + px(28),
+  x: SLEEP.text.x,
+  y: SLEEP.text.y + px(28),
   src: SPECIAL_CHARS.moon.src,
   alpha: 255,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-// CONNECTION STATUS
+// #region Connection status
 export const CONNECT_IMAGE_PROPS = {
   x: CONNECTION_STATUS.x,
   y: CONNECTION_STATUS.y,
@@ -223,7 +223,7 @@ export const DISCONNECT_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-// ALARM STATUS
+// #region Alarm status
 export const ALARM_OFF_IMAGE_PROPS = {
   x: ALARM_STATUS.x,
   y: ALARM_STATUS.y,
@@ -241,7 +241,7 @@ export const ALARM_ON_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-// AOD
+// #region AOD
 export const AOD_BACKGROUND_PROPS = {
   x: px(114),
   y: px(58),

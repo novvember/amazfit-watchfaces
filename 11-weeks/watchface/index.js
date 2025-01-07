@@ -10,7 +10,6 @@ import {
   GRID,
   SCREEN,
   SECONDS_PROGRESS_BAR,
-  STEPS,
 } from '../utils/constants';
 
 import {
@@ -40,9 +39,10 @@ import {
   PULSE_ICON_IMAGE_PROPS,
   AOD_BACKGROUND_PROPS,
   PULSE_BACKGROUND_ARC_PROPS,
-  PULSE_ARC_PROPS,
+  PULSE_TODAY_ARC_PROPS,
   PULSE_LAST_ARC_PROPS,
 } from './index.r.layout';
+import { clamp } from '../utils/clamp';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
 const makeCalendarDataCached = withWeakCache(makeCalendarData);
@@ -434,10 +434,7 @@ WatchFace({
     const update = () => {
       const { current, target } = stepSensor;
       const ratio = (current || 0) / (target || 10000);
-      const level = Math.min(
-        Math.floor(STEPS.progressImage.count * ratio),
-        STEPS.progressImage.count,
-      );
+      const level = clamp(0, Math.floor(10 * ratio), 10);
       const imageSrc = `steps/${level}.png`;
       progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
     };
@@ -471,28 +468,33 @@ WatchFace({
     );
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, PULSE_BACKGROUND_ARC_PROPS);
-    const arc = hmUI.createWidget(hmUI.widget.ARC_PROGRESS, PULSE_ARC_PROPS);
-    const lastArc = hmUI.createWidget(hmUI.widget.ARC_PROGRESS, PULSE_LAST_ARC_PROPS);
+    const todayArc = hmUI.createWidget(
+      hmUI.widget.ARC_PROGRESS,
+      PULSE_TODAY_ARC_PROPS,
+    );
+    const lastArc = hmUI.createWidget(
+      hmUI.widget.ARC_PROGRESS,
+      PULSE_LAST_ARC_PROPS,
+    );
 
     const heartSensor = hmSensor.createSensor(hmSensor.id.HEART);
 
-      const getAnglePosition = (heartRate) => {
-        if (!heartRate) {
-          return;
-        }
+    const getAnglePosition = (heartRate) => {
+      if (!heartRate) {
+        return;
+      }
 
-        const MIN_VALUE = 40;
-        const MAX_VALUE = 140;
-  
-        let level = (heartRate - MIN_VALUE) / (MAX_VALUE - MIN_VALUE);
-        level = Math.min(level, 1);
-        level = Math.max(level, 0);
-  
-        const { start_angle, end_angle } = PULSE_BACKGROUND_ARC_PROPS;
-        const angle = level * (end_angle - start_angle) + start_angle;
-  
-        return angle;
-      };
+      const MIN_VALUE = 40;
+      const MAX_VALUE = 140;
+
+      const ratio = (heartRate - MIN_VALUE) / (MAX_VALUE - MIN_VALUE);
+      const ratioClamped = clamp(0, ratio, 1);
+
+      const { start_angle, end_angle } = PULSE_BACKGROUND_ARC_PROPS;
+      const angle = ratioClamped * (end_angle - start_angle) + start_angle;
+
+      return angle;
+    };
 
     const update = () => {
       const { last, today } = heartSensor;
@@ -508,8 +510,8 @@ WatchFace({
       const minAngle = getAnglePosition(min);
       const maxAngle = getAnglePosition(max);
 
-      arc.setProperty(hmUI.prop.MORE, {
-        ...PULSE_ARC_PROPS,
+      todayArc.setProperty(hmUI.prop.MORE, {
+        ...PULSE_TODAY_ARC_PROPS,
         start_angle: maxAngle,
         end_angle: minAngle,
       });
@@ -550,7 +552,7 @@ WatchFace({
 
     const update = () => {
       const { current } = batterySensor;
-      const level = Math.round((current || 0) / 10);
+      const level = clamp(0, Math.round((current || 0) / 10), 10);
       const imageSrc = `battery/${level}.png`;
       progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
     };
@@ -580,6 +582,7 @@ WatchFace({
       hmUI.widget.IMG,
       SLEEP_ICON_IMAGE_PROPS,
     );
+
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
 
     const update = () => {
@@ -587,12 +590,11 @@ WatchFace({
       const sleepTime = getSleepTimeString(sleepSensor);
 
       if (sleepTime) {
-        const hours = Math.min(getSleepTimeHours(sleepSensor), 8);
-        const imageSrc = `sleep/${hours}.png`;
+        const level = clamp(0, getSleepTimeHours(sleepSensor), 8);
 
         textWidget.setProperty(hmUI.prop.TEXT, sleepTime);
         iconWidget.setProperty(hmUI.prop.ALPHA, 255);
-        progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
+        progressWidget.setProperty(hmUI.prop.SRC, `sleep/${level}.png`);
       } else {
         textWidget.setProperty(hmUI.prop.TEXT, '');
         iconWidget.setProperty(hmUI.prop.ALPHA, 0);
