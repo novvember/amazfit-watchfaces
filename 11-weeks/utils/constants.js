@@ -98,6 +98,14 @@ export const SPECIAL_CHARS = {
     src: 'special_chars/moon.png',
     width: px(20),
   },
+  walk: {
+    src: 'special_chars/walk.png',
+    width: px(18),
+  },
+  battery: {
+    src: 'special_chars/battery.png',
+    width: px(26),
+  },
 };
 
 export const SECONDS_PROGRESS_BAR = {
@@ -114,6 +122,10 @@ export const STEPS = {
   text: {
     x: px(380),
     y: px(147),
+  },
+  icon: {
+    x: px(423),
+    y: px(170),
   },
 };
 
@@ -132,13 +144,17 @@ export const PULSE = {
     height: px(30),
   },
   minText: {
-    x: px(358),
-    y: px(382),
+    x: px(364),
+    y: px(354),
   },
   maxText: {
     x: px(406),
     y: px(242),
   },
+  icon: {
+    x: px(417),
+    y: px(292),
+  }
 };
 
 export const BATTERY = {
@@ -149,6 +165,10 @@ export const BATTERY = {
   text: {
     x: px(43),
     y: px(315),
+  },
+  icon: {
+    x: px(43),
+    y: px(292),
   },
 };
 
@@ -164,6 +184,10 @@ export const SLEEP = {
     height: px(30),
     textSize: TEXT_SIZE,
   },
+  icon: {
+    x: px(38),
+    y: px(170),
+  }
 };
 
 export const CONNECTION_STATUS = {

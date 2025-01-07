@@ -41,6 +41,8 @@ import {
   PULSE_BACKGROUND_ARC_PROPS,
   PULSE_TODAY_ARC_PROPS,
   PULSE_LAST_ARC_PROPS,
+  STEPS_ICON_IMAGE_PROPS,
+  BATTERY_ICON_IMAGE_PROPS,
 } from './index.r.layout';
 import { clamp } from '../utils/clamp';
 
@@ -424,6 +426,7 @@ WatchFace({
 
   buildSteps() {
     hmUI.createWidget(hmUI.widget.TEXT_IMG, STEPS_TEXT_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, STEPS_ICON_IMAGE_PROPS);
     const progressWidget = hmUI.createWidget(
       hmUI.widget.IMG,
       STEPS_PROGRESS_PROPS,
@@ -543,6 +546,7 @@ WatchFace({
 
   buildBattery() {
     hmUI.createWidget(hmUI.widget.TEXT_IMG, BATTERY_TEXT_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, BATTERY_ICON_IMAGE_PROPS);
     const progressWidget = hmUI.createWidget(
       hmUI.widget.IMG,
       BATTERY_PROGRESS_PROPS,

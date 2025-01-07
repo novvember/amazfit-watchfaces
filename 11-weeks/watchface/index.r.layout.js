@@ -94,6 +94,13 @@ export const STEPS_TEXT_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const STEPS_ICON_IMAGE_PROPS = {
+  x: STEPS.icon.x,
+  y: STEPS.icon.y,
+  src: SPECIAL_CHARS.walk.src,
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
 // #region Pulse
 export const PULSE_BACKGROUND_ARC_PROPS = {
   center_x: SCREEN.centerX,
@@ -131,8 +138,8 @@ export const PULSE_TEXT_IMAGE_PROPS = {
 };
 
 export const PULSE_ICON_IMAGE_PROPS = {
-  x: PULSE.text.x + px(16),
-  y: PULSE.text.y - px(22),
+  x: PULSE.icon.x,
+  y: PULSE.icon.y,
   src: SPECIAL_CHARS.heart.src,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
@@ -175,6 +182,13 @@ export const BATTERY_TEXT_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const BATTERY_ICON_IMAGE_PROPS = {
+  x: BATTERY.icon.x,
+  y: BATTERY.icon.y,
+  src: SPECIAL_CHARS.battery.src,
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
 // #region Sleep time
 export const SLEEP_PROGRESS_PROPS = {
   x: SLEEP.progressImage.x,
@@ -198,8 +212,8 @@ export const SLEEP_TEXT_PROPS = {
 };
 
 export const SLEEP_ICON_IMAGE_PROPS = {
-  x: SLEEP.text.x,
-  y: SLEEP.text.y + px(28),
+  x: SLEEP.icon.x,
+  y: SLEEP.icon.y,
   src: SPECIAL_CHARS.moon.src,
   alpha: 255,
   show_level: hmUI.show_level.ONLY_NORMAL,
