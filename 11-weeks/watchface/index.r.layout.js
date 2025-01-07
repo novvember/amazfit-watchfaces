@@ -10,6 +10,7 @@ import {
   COLORS,
   TIME_DIGITS_AOD,
   PULSE,
+  SCREEN,
 } from '../utils/constants';
 
 // CELL
@@ -94,11 +95,30 @@ export const STEPS_TEXT_IMAGE_PROPS = {
 };
 
 // PULSE
-export const PULSE_PROGRESS_PROPS = {
-  x: PULSE.progressImage.x,
-  y: PULSE.progressImage.y,
-  src: 'pulse/0.png',
+export const PULSE_BACKGROUND_ARC_PROPS = {
+  center_x: SCREEN.centerX,
+  center_y: SCREEN.centerY,
+  radius: PULSE.progressArc.radius,
+  start_angle: PULSE.progressArc.angleStart,
+  end_angle: PULSE.progressArc.angleEnd,
+  color: COLORS.secondary,
+  line_width: PULSE.progressArc.lineWidth,
+  level: 100,
+  corner_flag: 3,
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const PULSE_ARC_PROPS = {
+  ...PULSE_BACKGROUND_ARC_PROPS,
+  color: COLORS.primary,
+  corner_flag: 0,
+};
+
+export const PULSE_LAST_ARC_PROPS = {
+  ...PULSE_BACKGROUND_ARC_PROPS,
+  color: COLORS.accent,
+  line_width: PULSE.progressArc.lineWidth - px(2),
+  corner_flag: 0,
 };
 
 export const PULSE_TEXT_IMAGE_PROPS = {
@@ -111,7 +131,7 @@ export const PULSE_TEXT_IMAGE_PROPS = {
 };
 
 export const PULSE_ICON_IMAGE_PROPS = {
-  x: PULSE.x + px(14),
+  x: PULSE.x + px(16),
   y: PULSE.y - px(22),
   src: SPECIAL_CHARS.heart.src,
   show_level: hmUI.show_level.ONLY_NORMAL,

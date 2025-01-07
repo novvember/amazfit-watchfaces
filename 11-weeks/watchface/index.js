@@ -34,12 +34,14 @@ import {
   BATTERY_PROGRESS_PROPS,
   STEPS_PROGRESS_PROPS,
   PULSE_TEXT_IMAGE_PROPS,
-  PULSE_PROGRESS_PROPS,
   PULSE_MIN_TEXT_PROPS,
   PULSE_MAX_TEXT_PROPS,
   SLEEP_ICON_IMAGE_PROPS,
   PULSE_ICON_IMAGE_PROPS,
   AOD_BACKGROUND_PROPS,
+  PULSE_BACKGROUND_ARC_PROPS,
+  PULSE_ARC_PROPS,
+  PULSE_LAST_ARC_PROPS,
 } from './index.r.layout';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
@@ -458,10 +460,7 @@ WatchFace({
   buildPulse() {
     hmUI.createWidget(hmUI.widget.TEXT_IMG, PULSE_TEXT_IMAGE_PROPS);
     hmUI.createWidget(hmUI.widget.IMG, PULSE_ICON_IMAGE_PROPS);
-    const progressWidget = hmUI.createWidget(
-      hmUI.widget.IMG,
-      PULSE_PROGRESS_PROPS,
-    );
+
     const minTextWidget = hmUI.createWidget(
       hmUI.widget.TEXT,
       PULSE_MIN_TEXT_PROPS,
@@ -471,7 +470,29 @@ WatchFace({
       PULSE_MAX_TEXT_PROPS,
     );
 
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, PULSE_BACKGROUND_ARC_PROPS);
+    const arc = hmUI.createWidget(hmUI.widget.ARC_PROGRESS, PULSE_ARC_PROPS);
+    const lastArc = hmUI.createWidget(hmUI.widget.ARC_PROGRESS, PULSE_LAST_ARC_PROPS);
+
     const heartSensor = hmSensor.createSensor(hmSensor.id.HEART);
+
+      const getAnglePosition = (heartRate) => {
+        if (!heartRate) {
+          return;
+        }
+
+        const MIN_VALUE = 40;
+        const MAX_VALUE = 140;
+  
+        let level = (heartRate - MIN_VALUE) / (MAX_VALUE - MIN_VALUE);
+        level = Math.min(level, 1);
+        level = Math.max(level, 0);
+  
+        const { start_angle, end_angle } = PULSE_BACKGROUND_ARC_PROPS;
+        const angle = level * (end_angle - start_angle) + start_angle;
+  
+        return angle;
+      };
 
     const update = () => {
       const { last, today } = heartSensor;
@@ -483,14 +504,22 @@ WatchFace({
         max = 0;
       }
 
-      const level =
-        min && max && last
-          ? Math.min(Math.round(1 + (9 * (last - min)) / (max - min || 1)), 10)
-          : 0;
+      const lastAngle = getAnglePosition(last);
+      const minAngle = getAnglePosition(min);
+      const maxAngle = getAnglePosition(max);
 
-      const imageSrc = `pulse/${level}.png`;
+      arc.setProperty(hmUI.prop.MORE, {
+        ...PULSE_ARC_PROPS,
+        start_angle: maxAngle,
+        end_angle: minAngle,
+      });
 
-      progressWidget.setProperty(hmUI.prop.SRC, imageSrc);
+      lastArc.setProperty(hmUI.prop.MORE, {
+        ...PULSE_LAST_ARC_PROPS,
+        start_angle: lastAngle ? lastAngle + 1 : undefined,
+        end_angle: lastAngle ? lastAngle - 1 : undefined,
+      });
+
       minTextWidget.setProperty(hmUI.prop.TEXT, min > 0 ? min.toString() : '');
       maxTextWidget.setProperty(hmUI.prop.TEXT, max > 0 ? max.toString() : '');
     };

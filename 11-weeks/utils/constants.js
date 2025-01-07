@@ -20,6 +20,7 @@ export const SCREEN = {
 export const COLORS = {
   primary: 0xd9d9d9,
   secondary: 0x343334,
+  accent: 0xF54A1B,
 };
 
 export const FONTS = {
@@ -106,7 +107,7 @@ export const SECONDS_PROGRESS_BAR = {
 };
 
 export const STEPS = {
-  x: px(376),
+  x: px(380),
   y: px(147),
   progressImage: {
     x: px(382),
@@ -116,27 +117,30 @@ export const STEPS = {
 };
 
 export const PULSE = {
-  x: px(398),
+  x: px(402),
   y: px(315),
   textSize: TEXT_SIZE,
   width: px(50),
   height: px(30),
-  progressImage: {
-    x: px(382),
-    y: px(240),
-  },
+
   min: {
-    x: px(354),
+    x: px(358),
     y: px(382),
   },
   max: {
-    x: px(402),
+    x: px(406),
     y: px(242),
   },
+  progressArc: {
+    radius: px(230),
+    lineWidth: px(10),
+    angleStart: 130,
+    angleEnd: 93,
+  }
 };
 
 export const BATTERY = {
-  x: px(48),
+  x: px(43),
   y: px(315),
   progressImage: {
     x: px(0),
@@ -145,7 +149,7 @@ export const BATTERY = {
 };
 
 export const SLEEP = {
-  x: px(43),
+  x: px(39),
   y: px(144),
   width: px(60),
   height: px(30),
