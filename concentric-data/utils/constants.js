@@ -27,6 +27,7 @@ export const FONTS = {
   primary: 'fonts/FiraSansCondensed-Medium.ttf',
   secondary: 'fonts/FiraSans-Regular.ttf',
   tertiary: 'fonts/FiraSans-Medium.ttf',
+  aod: 'fonts/FiraSansCondensed-Thin.ttf',
 };
 
 export const TIME_TEXTS = [
@@ -49,9 +50,6 @@ export const SECOND = {
     src: 'time/second.png',
     size: px(480),
   },
-  image_aod: {
-    src: 'time/second_aod.png',
-  },
   text: {
     width: px(28),
     height: px(20),
@@ -65,9 +63,6 @@ export const MINUTE = {
   image: {
     src: 'time/minute.png',
     size: px(312),
-  },
-  image_aod: {
-    src: 'time/minute_aod.png',
   },
   text: {
     width: px(34),

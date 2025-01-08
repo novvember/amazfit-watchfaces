@@ -10,6 +10,13 @@ import {
   SECOND,
 } from '../utils/constants';
 
+export const BACKGROUND_IMAGE_AOD_PROPS = {
+  x: 0,
+  y: 0,
+  src: 'aod/background.png',
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
 export const SECOND_IMAGE_PROPS = {
   x: 0,
   y: 0,
@@ -36,12 +43,6 @@ export const SECOND_TEXT_PROPS = {
   font: FONTS.tertiary,
   text: '00',
   show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
-export const SECOND_IMAGE_AOD_PROPS = {
-  ...SECOND_IMAGE_PROPS,
-  src: SECOND.image_aod.src,
-  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const MINUTE_IMAGE_PROPS = {
@@ -72,23 +73,11 @@ export const MINUTE_TEXT_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const MINUTE_IMAGE_AOD_PROPS = {
-  ...MINUTE_IMAGE_PROPS,
-  src: MINUTE.image_aod.src,
-  show_level: hmUI.show_level.ONAL_AOD,
-};
-
 export const FRAME_IMAGE_PROPS = {
   x: px(296),
   y: px(196),
   src: 'time/frame.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
-export const FRAME_IMAGE_AOD_PROPS = {
-  ...FRAME_IMAGE_PROPS,
-  src: 'time/frame_aod.png',
-  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const CURRENT_HOUR_TEXT_PROPS = {
@@ -107,6 +96,7 @@ export const CURRENT_HOUR_TEXT_PROPS = {
 
 export const CURRENT_HOUR_AOD_TEXT_PROPS = {
   ...CURRENT_HOUR_TEXT_PROPS,
+  font: FONTS.aod,
   color: COLORS.aod,
   show_level: hmUI.show_level.ONAL_AOD,
 };
@@ -127,6 +117,7 @@ export const CURRENT_MINUTE_TEXT_PROPS = {
 
 export const CURRENT_MINUTE_AOD_TEXT_PROPS = {
   ...CURRENT_MINUTE_TEXT_PROPS,
+  font: FONTS.aod,
   color: COLORS.aod,
   show_level: hmUI.show_level.ONAL_AOD,
 };

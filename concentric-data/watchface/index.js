@@ -17,6 +17,7 @@ import { getCoordsFromAngle } from '../utils/getCoordsFromAngle';
 import { getSleepTimeString } from '../utils/getSleepTime';
 import { getTimeString } from '../utils/getTimeString';
 import {
+  BACKGROUND_IMAGE_AOD_PROPS,
   BATTERY_BACKGROUND_ARC_PROPS,
   BATTERY_CIRCLE_TEXT_PROPS,
   BATTERY_CURRENT_ARC_PROPS,
@@ -27,16 +28,13 @@ import {
   DATE_DAY_TEXT_PROPS,
   DATE_WEEK_TEXT_PROPS,
   DISCONNECT_ICON_PROPS,
-  FRAME_IMAGE_AOD_PROPS,
   FRAME_IMAGE_PROPS,
   HEART_BACKGROUND_ARC_PROPS,
   HEART_CIRCLE_TEXT_PROPS,
   HEART_CURRENT_ARC_PROPS,
   HEART_DOT_PROPS,
-  MINUTE_IMAGE_AOD_PROPS,
   MINUTE_IMAGE_PROPS,
   MINUTE_TEXT_PROPS,
-  SECOND_IMAGE_AOD_PROPS,
   SECOND_IMAGE_PROPS,
   SECOND_TEXT_PROPS,
   SLEEP_CIRCLE_TEXT_PROPS,
@@ -69,9 +67,7 @@ WatchFace({
   },
 
   buildBackgroundAod() {
-    hmUI.createWidget(hmUI.widget.IMG, SECOND_IMAGE_AOD_PROPS);
-    hmUI.createWidget(hmUI.widget.IMG, MINUTE_IMAGE_AOD_PROPS);
-    hmUI.createWidget(hmUI.widget.IMG, FRAME_IMAGE_AOD_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_IMAGE_AOD_PROPS);
   },
 
   buildTime() {
