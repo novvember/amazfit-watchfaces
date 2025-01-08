@@ -219,11 +219,11 @@ WatchFace({
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           timer.stopTimer(updateTimer);
-          updateTimer = timer.createTimer(330, 330, update);
+          updateTimer = timer.createTimer(500, 500, update);
           update();
         } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
           timer.stopTimer(updateTimer);
-          updateTimer = timer.createTimer(5000, 5000, updateAod);
+          timeSensor.addEventListener(timeSensor.event.MINUTEEND, updateAod);
           updateAod();
         }
       },
@@ -231,6 +231,7 @@ WatchFace({
         console.log('ui pause');
 
         timer.stopTimer(updateTimer);
+        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, updateAod);
       },
     });
   },
@@ -239,8 +240,10 @@ WatchFace({
     const dateText = hmUI.createWidget(hmUI.widget.TEXT, DATE_DAY_TEXT_PROPS);
     const weekText = hmUI.createWidget(hmUI.widget.TEXT, DATE_WEEK_TEXT_PROPS);
 
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+
     const update = () => {
-      const { day, week } = hmSensor.createSensor(hmSensor.id.TIME);
+      const { day, week } = timeSensor;
       dateText.setProperty(hmUI.prop.TEXT, day.toString());
       weekText.setProperty(hmUI.prop.TEXT, WEEKDAYS[week - 1]);
     };
@@ -250,8 +253,12 @@ WatchFace({
         console.log('ui resume');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
           update();
         }
+      },
+      pause_call: () => {
+        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
       },
     });
   },
@@ -264,9 +271,10 @@ WatchFace({
       BATTERY_CURRENT_ARC_PROPS,
     );
 
-    const update = () => {
-      const { current } = hmSensor.createSensor(hmSensor.id.BATTERY);
+    const batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
 
+    const update = () => {
+      const { current } = batterySensor;
       updateText(`${current}%`);
       arc.setProperty(hmUI.prop.LEVEL, current);
     };
@@ -276,8 +284,12 @@ WatchFace({
         console.log('ui resume');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          batterySensor.addEventListener(hmSensor.event.CHANGE, update);
           update();
         }
+      },
+      pause_call: () => {
+        batterySensor.removeEventListener(hmSensor.event.CHANGE, update);
       },
     });
   },
@@ -290,6 +302,8 @@ WatchFace({
       HEART_CURRENT_ARC_PROPS,
     );
     const dotImage = hmUI.createWidget(hmUI.widget.IMG, HEART_DOT_PROPS);
+
+    const heartSensor = hmSensor.createSensor(hmSensor.id.HEART);
 
     const getAnglePosition = (heartRate) => {
       const MIN_VALUE = 40;
@@ -306,7 +320,7 @@ WatchFace({
     };
 
     const update = () => {
-      const { last, today = [] } = hmSensor.createSensor(hmSensor.id.HEART);
+      const { last, today = [] } = heartSensor;
 
       const dotAngle = getAnglePosition(last);
       const { x, y } = getCoordsFromAngle(
@@ -340,8 +354,12 @@ WatchFace({
         console.log('ui resume');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          heartSensor.addEventListener(hmSensor.event.LAST, update);
           update();
         }
+      },
+      pause_call: () => {
+        heartSensor.removeEventListener(hmSensor.event.LAST, update);
       },
     });
   },
@@ -354,8 +372,10 @@ WatchFace({
       STEPS_CURRENT_ARC_PROPS,
     );
 
+    const stepSensor = hmSensor.createSensor(hmSensor.id.STEP);
+
     const update = () => {
-      const { current, target } = hmSensor.createSensor(hmSensor.id.STEP);
+      const { current, target } = stepSensor;
       const level = Math.min(Math.round((100 * current) / target), 100);
 
       updateText(`${current}▲`);
@@ -367,8 +387,12 @@ WatchFace({
         console.log('ui resume');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          stepSensor.addEventListener(hmSensor.event.CHANGE, update);
           update();
         }
+      },
+      pause_call: () => {
+        stepSensor.removeEventListener(hmSensor.event.CHANGE, update);
       },
     });
   },
@@ -376,13 +400,15 @@ WatchFace({
   buildSleepTime() {
     const { updateText } = createCircleTextWidget(SLEEP_CIRCLE_TEXT_PROPS);
 
+    const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+    const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
+
     const showSleepTime = (sleepTimeString) => {
       updateText(`${sleepTimeString}✱`);
     };
 
     const showSunriseSunset = () => {
-      const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
-      const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
       const sunObj = getClosestSunriseSunsetTime(timeSensor, weatherSensor);
 
       if (!sunObj) {
@@ -397,7 +423,7 @@ WatchFace({
     };
 
     const update = () => {
-      const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
+      sleepSensor.updateInfo();
       const sleepTimeString = getSleepTimeString(sleepSensor);
 
       if (sleepTimeString) {
