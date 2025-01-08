@@ -20,14 +20,12 @@ export const COLORS = {
   primary: 0xffffff,
   secondary: 0x848484,
   tertiary: 0x525252,
-  aod: 0xd3d3d3,
+  aod: 0xb1b1b1,
 };
 
 export const FONTS = {
   primary: 'fonts/FiraSansCondensed-Medium.ttf',
-  secondary: 'fonts/FiraSans-Regular.ttf',
-  tertiary: 'fonts/FiraSans-Medium.ttf',
-  aod: 'fonts/FiraSansCondensed-Thin.ttf',
+  aod: 'fonts/FiraSansCondensed-ExtraLight.ttf',
 };
 
 export const TIME_TEXTS = [
@@ -53,8 +51,6 @@ export const SECOND = {
   text: {
     width: px(28),
     height: px(20),
-    textSize: px(22),
-    color: COLORS.secondary,
     radius: px(224),
   },
 };
@@ -67,8 +63,6 @@ export const MINUTE = {
   text: {
     width: px(34),
     height: px(24),
-    textSize: px(28),
-    color: COLORS.secondary,
     radius: px(110),
   },
 };

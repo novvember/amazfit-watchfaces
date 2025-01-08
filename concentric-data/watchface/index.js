@@ -53,13 +53,15 @@ WatchFace({
 
     this.buildBackgroundAod();
 
-    this.buildTime();
-    this.buildDate();
-    this.buildBattery();
-    this.buildHeartRate();
-    this.buildSteps();
-    this.buildSleepTime();
-    this.buildDisconnectStatus();
+    try {
+      this.buildTime();
+      this.buildDate();
+      this.buildBattery();
+      this.buildHeartRate();
+      this.buildSteps();
+      this.buildSleepTime();
+      this.buildDisconnectStatus();
+    } catch (error) {}
   },
 
   onDestroy() {
@@ -72,20 +74,9 @@ WatchFace({
 
   buildTime() {
     const secondImage = hmUI.createWidget(hmUI.widget.IMG, SECOND_IMAGE_PROPS);
-    const secondTexts = new Array(12).fill(null).map((_, i) =>
-      hmUI.createWidget(hmUI.widget.TEXT, {
-        ...SECOND_TEXT_PROPS,
-        text: TIME_TEXTS[i],
-      }),
-    );
-
+    const secondTexts = new Array(12).fill(null).map(() => hmUI.createWidget(hmUI.widget.IMG, SECOND_TEXT_PROPS));
     const minuteImage = hmUI.createWidget(hmUI.widget.IMG, MINUTE_IMAGE_PROPS);
-    const minuteTexts = new Array(12).fill(null).map((_, i) =>
-      hmUI.createWidget(hmUI.widget.TEXT, {
-        ...MINUTE_TEXT_PROPS,
-        text: TIME_TEXTS[i],
-      }),
-    );
+    const minuteTexts = new Array(12).fill(null).map(() => hmUI.createWidget(hmUI.widget.IMG, MINUTE_TEXT_PROPS));
 
     hmUI.createWidget(hmUI.widget.IMG, FRAME_IMAGE_PROPS);
     const currentHourText = hmUI.createWidget(
@@ -132,8 +123,12 @@ WatchFace({
           SCREEN,
         );
 
-        textWidget.setProperty(hmUI.prop.X, x);
-        textWidget.setProperty(hmUI.prop.Y, y);
+        textWidget.setProperty(hmUI.prop.MORE, {
+          ...textWidgetProps,
+          x,
+          y,
+          src: textWidgetProps.src.replace('%s', TIME_TEXTS[i]),
+        });
       });
     };
 
@@ -203,6 +198,7 @@ WatchFace({
       updateSecond(timeSensor);
       updateMinute(timeSensor);
       updateCurrentTime(timeSensor);
+      updateTimer = timer.createTimer(500, 0, update);
     };
 
     const updateAod = () => {
@@ -215,7 +211,6 @@ WatchFace({
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           timer.stopTimer(updateTimer);
-          updateTimer = timer.createTimer(500, 500, update);
           update();
         } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
           timer.stopTimer(updateTimer);

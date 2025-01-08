@@ -36,12 +36,7 @@ export const SECOND_TEXT_PROPS = {
   y: 0,
   w: SECOND.text.width,
   h: SECOND.text.height,
-  color: SECOND.text.color,
-  text_size: SECOND.text.textSize,
-  align_h: hmUI.align.CENTER_H,
-  align_v: hmUI.align.CENTER_V,
-  font: FONTS.tertiary,
-  text: '00',
+  src: 'second/%s.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -64,12 +59,7 @@ export const MINUTE_TEXT_PROPS = {
   y: 0,
   w: MINUTE.text.width,
   h: MINUTE.text.height,
-  color: MINUTE.text.color,
-  text_size: MINUTE.text.textSize,
-  align_h: hmUI.align.CENTER_H,
-  align_v: hmUI.align.CENTER_V,
-  font: FONTS.secondary,
-  text: '00',
+  src: 'minute/%s.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
