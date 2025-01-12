@@ -1,21 +1,20 @@
 {
-  "configVersion": "v2",
+  "configVersion": "v3",
   "app": {
-    "appId": 22503,
+    "appId": 1072015,
     "appName": "Gauge",
     "appType": "watchface",
     "version": {
-      "code": 2,
-      "name": "1.2.0"
+      "code": 3,
+      "name": "2.0.0"
     },
-    "vender": "novvember",
-    "description": "Gauge watchface. Source code here: https://github.com/novvember/amazfit-watchfaces",
     "icon": "icon.png",
+    "vender": "novvember",
     "cover": [
       "cover.png"
-    ]
+    ],
+    "description": "Gauge watchface. Source code here: https://github.com/novvember/amazfit-watchfaces"
   },
-  "permissions": [],
   "runtime": {
     "apiVersion": {
       "compatible": "1.0.0",
@@ -23,27 +22,34 @@
       "minVersion": "1.0.0"
     }
   },
+  "permissions": [],
   "targets": {
-    "416x416-amazfit-gtr-mini": {
+    "common": {
       "module": {
         "watchface": {
           "path": "watchface/index",
           "main": 1,
           "editable": 0,
-          "lockscreen": 1
+          "lockscreen": 1,
+          "photoscreen": 0
         }
       },
       "platforms": [
         {
-          "name": "LeidenW",
-          "deviceSource": 251
+          "st": "r"
         }
       ],
-      "designWidth": 416
+      "designWidth": 480
     }
   },
   "i18n": {
     "en-US": {
+      "appName": "Gauge"
+    },
+    "ru-RU": {
+      "appName": "Gauge"
+    },
+    "uk-UA": {
       "appName": "Gauge"
     }
   },

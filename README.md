@@ -13,7 +13,7 @@ This repository contains multiple folders, each dedicated to a different watchfa
 | ![](./text-lines/demo.png)            | Text Lines 	          | GTR Mini only 	   | ✅ Done             	|
 | ![](./spin/demo.png)       	          | Spin       	          | GTR Mini only 	   | ✅ Done             	|
 | ![](./particles/demo.png)             | Particles  	          | GTR Mini only 	   | 🚫 Has issues          |
-| ![](./gauge/demo.png)      	          | Gauge      	          | GTR Mini only 	   | ✅ Done             	|
+| ![](./gauge/demo.png)      	          | Gauge      	          | All round watches | ✅ Done             	|
 | ![](./bourne/demo.png)                | Bourne     	          | All round watches | ✅ Done             	|
 | ![](./celeste/demo.png)               | Celeste    	          | All round watches | ✅ Done             	|
 | ![](./nothing-dial/demo.png)          | Nothing Dial          | All round watches | ✅ Done             	|

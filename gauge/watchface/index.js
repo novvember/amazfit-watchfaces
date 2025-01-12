@@ -1,69 +1,23 @@
-const { width, height } = hmSetting.getDeviceInfo();
-const centerX = width / 2;
-const centerY = height / 2;
+import { CircleTextWidget } from '../utils/CircleTextWidget/CircleTextWidget';
+import {
+  HEART_TEXT,
+  SLEEP_TEXT,
+  STEPS_POSTFIX,
+  WEEKDAYS,
+} from '../utils/constants';
+import { decline } from '../utils/decline';
+import { getSleepTimeString } from '../utils/getSleepTime';
+import {
+  TIME_BACKGROUND_IMAGE_PROPS,
+  TIME_HOUR_BACKGROUND_IMAGE_PROPS,
+  TIME_HOUR_POINTER_PROPS,
+  TIME_MINUTE_POINTER_PROPS,
+  TIME_SECOND_BACKGROUND_IMAGE_PROPS,
+  TIME_SECOND_POINTER_PROPS,
+  WEATHER_TEXT_IMAGE_PROPS,
+} from './index.r.layout';
 
 WatchFace({
-  initView() {
-    this.buildTime();
-    this.buildDate();
-    this.buildDayOfWeek();
-  },
-
-  buildTime() {
-    hmUI.createWidget(hmUI.widget.IMG, {
-      x: 0,
-      y: 0,
-      w: width,
-      h: height,
-      src: 'digits.png',
-    });
-
-    hmUI.createWidget(hmUI.widget.TIME_POINTER, {
-      minute_centerX: centerX,
-      minute_centerY: centerY,
-      minute_posX: centerX,
-      minute_posY: centerY,
-      minute_path: 'minute-window.png',
-      hour_centerX: centerX,
-      hour_centerY: centerY,
-      hour_posX: centerX,
-      hour_posY: centerY,
-      hour_path: 'hour-window.png',
-    });
-  },
-
-  buildDate() {
-    const VERTICAL_OFFSET = 14.5;
-    const DIGIT_WIDTH = 36;
-    const DIGIT_HEIGHT = 55;
-    const digits = new Array(10).fill(null).map((_, i) => `digits/${i}.png`);
-
-    hmUI.createWidget(hmUI.widget.IMG_DATE, {
-      day_startX: centerX - DIGIT_WIDTH,
-      day_startY: centerY - DIGIT_HEIGHT / 2 - VERTICAL_OFFSET,
-      day_en_array: digits,
-      day_align: hmUI.align.CENTER_H,
-      day_zero: 0,
-      day_follow: 0,
-      day_space: 0,
-      day_is_character: false,
-    });
-  },
-
-  buildDayOfWeek() {
-    const VERTICAL_OFFSET = 18;
-    const WIDTH = 64;
-    const HEIGHT = 30;
-    const days = new Array(7).fill(null).map((_, i) => `day/${i}.png`);
-
-    hmUI.createWidget(hmUI.widget.IMG_WEEK, {
-      x: centerX - WIDTH / 2,
-      y: centerY + VERTICAL_OFFSET,
-      week_en: days,
-    });
-  },
-
-
   onInit() {
     console.log('index page.js on init invoke');
   },
@@ -71,10 +25,190 @@ WatchFace({
   build() {
     console.log('index page.js on build invoke');
 
-    this.initView();
+    this.buildTime();
+    this.buildDate();
+    this.buildHeart();
+    this.buildSleep();
+    this.buildBattery();
+    this.buildSteps();
+    this.buildWeather();
   },
 
   onDestroy() {
     console.log('index page.js on destroy invoke');
   },
-})
+
+  buildTime() {
+    hmUI.createWidget(hmUI.widget.IMG, TIME_BACKGROUND_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, TIME_HOUR_BACKGROUND_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.TIME_POINTER, TIME_HOUR_POINTER_PROPS);
+
+    hmUI.createWidget(hmUI.widget.TIME_POINTER, TIME_MINUTE_POINTER_PROPS);
+
+    hmUI.createWidget(hmUI.widget.IMG, TIME_SECOND_BACKGROUND_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.TIME_POINTER, TIME_SECOND_POINTER_PROPS);
+  },
+
+  buildDate() {
+    const textWidget = new CircleTextWidget({
+      text: '00 XXX',
+      maxLength: 6,
+      angleStart: 15,
+      radius: px(204),
+      gap: px(-3),
+      isTextReversed: false,
+    });
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+
+    const update = () => {
+      const { day, week } = timeSensor;
+      const text = `${day} ${WEEKDAYS[week - 1]}`;
+      textWidget.updateText(text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume (widget delegate)');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        console.log('ui pause (widget delegate)');
+
+        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
+      },
+    });
+  },
+
+  buildHeart() {
+    const textWidget = new CircleTextWidget({
+      text: '000 BPM',
+      maxLength: 7,
+      angleStart: 70,
+      radius: px(204),
+      gap: px(-3),
+      isTextReversed: false,
+    });
+    const heartSensor = hmSensor.createSensor(hmSensor.id.HEART);
+
+    const update = () => {
+      const { last } = heartSensor;
+      const text = HEART_TEXT.replace('%s', last || '--');
+      textWidget.updateText(text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          heartSensor.addEventListener(hmSensor.event.LAST, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        heartSensor.removeEventListener(hmSensor.event.LAST, update);
+      },
+    });
+  },
+
+  buildSleep() {
+    const textWidget = new CircleTextWidget({
+      text: '00:00 SLEEP',
+      maxLength: 11,
+      angleStart: 185,
+      radius: px(204),
+      gap: px(-3),
+      isTextReversed: true,
+    });
+    const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
+
+    const update = () => {
+      sleepSensor.updateInfo();
+      const sleepTime = getSleepTimeString(sleepSensor);
+      const text = SLEEP_TEXT.replace('%s', sleepTime || '--:--');
+      textWidget.updateText(text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume (widget delegate)');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          update();
+        }
+      },
+    });
+  },
+
+  buildBattery() {
+    const textWidget = new CircleTextWidget({
+      text: '000%',
+      maxLength: 4,
+      angleStart: 222,
+      radius: px(204),
+      gap: px(-3),
+      isTextReversed: true,
+    });
+    const batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
+
+    const update = () => {
+      const { current } = batterySensor;
+      const text = `${current}%`;
+      textWidget.updateText(text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          batterySensor.addEventListener(hmSensor.event.CHANGE, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        batterySensor.removeEventListener(hmSensor.event.CHANGE, update);
+      },
+    });
+  },
+
+  buildSteps() {
+    const textWidget = new CircleTextWidget({
+      text: '00000 STEPS',
+      maxLength: 11,
+      angleStart: 245,
+      radius: px(204),
+      gap: px(-3),
+      isTextReversed: false,
+    });
+    const stepSensor = hmSensor.createSensor(hmSensor.id.STEP);
+
+    const update = () => {
+      const { current } = stepSensor;
+      const text = `${current} ${decline(current, STEPS_POSTFIX)}`;
+      textWidget.updateText(text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          stepSensor.addEventListener(hmSensor.event.CHANGE, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        stepSensor.removeEventListener(hmSensor.event.CHANGE, update);
+      },
+    });
+  },
+
+  buildWeather() {
+    hmUI.createWidget(hmUI.widget.TEXT_IMG, WEATHER_TEXT_IMAGE_PROPS);
+  },
+});
