@@ -59,7 +59,7 @@ export const WEATHER_TEXT_IMAGE_PROPS = {
   y: px(25),
   font_array: new Array(10).fill(null).map((_, i) => `text_chars/${i}.png`),
   type: hmUI.data_type.WEATHER_CURRENT,
-  negative_image: 'text_chars/minus.png',
+  negative_image: 'text_chars/-.png',
   unit_en: 'text_chars/degree.png',
   align_h: hmUI.align.RIGHT,
   show_level: hmUI.show_level.ONLY_NORMAL,
