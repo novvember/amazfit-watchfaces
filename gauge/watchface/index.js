@@ -8,6 +8,10 @@ import {
 import { decline } from '../utils/decline';
 import { getSleepTimeString } from '../utils/getSleepTime';
 import {
+  TIME_AOD_HOUR_BACKGROUND_IMAGE_PROPS,
+  TIME_AOD_HOUR_POINTER_PROPS,
+  TIME_AOD_MINUTE_POINTER_PROPS,
+  TIME_AOD_SECOND_BACKGROUND_IMAGE_PROPS,
   TIME_BACKGROUND_IMAGE_PROPS,
   TIME_HOUR_BACKGROUND_IMAGE_PROPS,
   TIME_HOUR_POINTER_PROPS,
@@ -47,6 +51,11 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.IMG, TIME_SECOND_BACKGROUND_IMAGE_PROPS);
     hmUI.createWidget(hmUI.widget.TIME_POINTER, TIME_SECOND_POINTER_PROPS);
+
+    hmUI.createWidget(hmUI.widget.IMG, TIME_AOD_HOUR_BACKGROUND_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.TIME_POINTER, TIME_AOD_HOUR_POINTER_PROPS);
+    hmUI.createWidget(hmUI.widget.TIME_POINTER, TIME_AOD_MINUTE_POINTER_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, TIME_AOD_SECOND_BACKGROUND_IMAGE_PROPS);
   },
 
   buildDate() {

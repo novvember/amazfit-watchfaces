@@ -18,6 +18,15 @@ export const TIME_HOUR_BACKGROUND_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const TIME_AOD_HOUR_BACKGROUND_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  w: px(480),
+  h: px(480),
+  src: 'time/hour_background_aod.png',
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
 export const TIME_SECOND_BACKGROUND_IMAGE_PROPS = {
   x: SCREEN.centerX - px(90) / 2,
   y: SCREEN.centerY - px(90) / 2,
@@ -25,6 +34,15 @@ export const TIME_SECOND_BACKGROUND_IMAGE_PROPS = {
   h: px(90),
   src: 'time/second_background.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const TIME_AOD_SECOND_BACKGROUND_IMAGE_PROPS = {
+  x: SCREEN.centerX - px(90) / 2,
+  y: SCREEN.centerY - px(90) / 2,
+  w: px(90),
+  h: px(90),
+  src: 'time/second_background_aod.png',
+  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const TIME_HOUR_POINTER_PROPS = {
@@ -36,6 +54,15 @@ export const TIME_HOUR_POINTER_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const TIME_AOD_HOUR_POINTER_PROPS = {
+  hour_centerX: SCREEN.centerX,
+  hour_centerY: SCREEN.centerY,
+  hour_posX: px(368) / 2,
+  hour_posY: px(368) / 2,
+  hour_path: 'time/hour_aod.png',
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
 export const TIME_MINUTE_POINTER_PROPS = {
   minute_centerX: SCREEN.centerX,
   minute_centerY: SCREEN.centerY,
@@ -43,6 +70,15 @@ export const TIME_MINUTE_POINTER_PROPS = {
   minute_posY: px(200) / 2,
   minute_path: 'time/minute.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const TIME_AOD_MINUTE_POINTER_PROPS = {
+  minute_centerX: SCREEN.centerX,
+  minute_centerY: SCREEN.centerY,
+  minute_posX: px(200) / 2,
+  minute_posY: px(200) / 2,
+  minute_path: 'time/minute_aod.png',
+  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const TIME_SECOND_POINTER_PROPS = {
