@@ -5,8 +5,8 @@
     "appName": "Gauge",
     "appType": "watchface",
     "version": {
-      "code": 4,
-      "name": "2.0.1"
+      "code": 5,
+      "name": "2.1.0"
     },
     "icon": "icon.png",
     "vender": "novvember",

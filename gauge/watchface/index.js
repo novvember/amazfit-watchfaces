@@ -53,7 +53,7 @@ WatchFace({
     const textWidget = new CircleTextWidget({
       text: '00 XXX',
       maxLength: 6,
-      angleStart: 15,
+      angleStart: 12,
       radius: px(204),
       gap: px(-3),
       isTextReversed: false,
@@ -87,7 +87,7 @@ WatchFace({
     const textWidget = new CircleTextWidget({
       text: '000 BPM',
       maxLength: 7,
-      angleStart: 70,
+      angleStart: 62,
       radius: px(204),
       gap: px(-3),
       isTextReversed: false,
@@ -119,7 +119,7 @@ WatchFace({
     const textWidget = new CircleTextWidget({
       text: '00:00 SLEEP',
       maxLength: 11,
-      angleStart: 185,
+      angleStart: 189,
       radius: px(204),
       gap: px(-3),
       isTextReversed: true,
@@ -129,7 +129,7 @@ WatchFace({
     const update = () => {
       sleepSensor.updateInfo();
       const sleepTime = getSleepTimeString(sleepSensor);
-      const text = SLEEP_TEXT.replace('%s', sleepTime || '--:--');
+      const text = SLEEP_TEXT.replace('%s', sleepTime || '---');
       textWidget.updateText(text);
     };
 
@@ -148,7 +148,7 @@ WatchFace({
     const textWidget = new CircleTextWidget({
       text: '000%',
       maxLength: 4,
-      angleStart: 222,
+      angleStart: 227,
       radius: px(204),
       gap: px(-3),
       isTextReversed: true,
