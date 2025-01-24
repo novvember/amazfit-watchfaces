@@ -5,8 +5,8 @@
     "appName": "11 weeks",
     "appType": "watchface",
     "version": {
-      "code": 19,
-      "name": "2.6.0"
+      "code": 20,
+      "name": "2.7.0"
     },
     "icon": "icon.png",
     "vender": "novvember",

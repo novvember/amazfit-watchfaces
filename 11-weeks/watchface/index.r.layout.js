@@ -11,6 +11,7 @@ import {
   TIME_DIGITS_AOD,
   PULSE,
   SCREEN,
+  WEATHER,
 } from '../utils/constants';
 
 // #region Cell
@@ -123,7 +124,7 @@ export const PULSE_TODAY_ARC_PROPS = {
 
 export const PULSE_LAST_ARC_PROPS = {
   ...PULSE_BACKGROUND_ARC_PROPS,
-  color: COLORS.accent,
+  color: COLORS.accentDark,
   line_width: PULSE.progressArc.lineWidth - 2,
   corner_flag: 0,
 };
@@ -286,4 +287,51 @@ export const AOD_DATE_IMAGE_PROPS = {
   y: 0,
   src: 'cell_aod/0.png',
   show_level: hmUI.show_level.ONAL_AOD,
+};
+
+// #region Weather
+export const WEATHER_PHASE_IMAGE_PROPS = {
+  x: WEATHER.phaseImage.x,
+  y: WEATHER.phaseImage.y,
+  src: WEATHER.phaseImage.src.replace('%s', 0),
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const WEATHER_SUNRISE_TEXT_PROPS = {
+  x: WEATHER.sunriseText.x,
+  y: WEATHER.sunriseText.y,
+  w: WEATHER.text.w,
+  h: WEATHER.text.h,
+  color: COLORS.primary,
+  text_size: WEATHER.text.textSize,
+  align_h: hmUI.align.LEFT,
+  align_v: hmUI.align.TOP,
+  font: FONTS.digits,
+  text: '',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const WEATHER_SUNSET_TEXT_PROPS = {
+  ...WEATHER_SUNRISE_TEXT_PROPS,
+  x: WEATHER.sunsetText.x,
+  y: WEATHER.sunsetText.y,
+  align_h: hmUI.align.RIGHT,
+};
+
+export const WEATHER_TEXT_IMAGE_PROPS = {
+  x: WEATHER.temp.x,
+  y: WEATHER.temp.y,
+  font_array: DIGITS.images,
+  type: hmUI.data_type.WEATHER_CURRENT,
+  negative_image: 'special_chars/minus.png',
+  unit_en: 'special_chars/degree.png',
+  align_h: hmUI.align.CENTER_H,
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const WEATHER_DOT_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  src: 'weather/dot.png',
+  show_level: hmUI.show_level.ONLY_NORMAL,
 };

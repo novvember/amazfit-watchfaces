@@ -10,6 +10,7 @@ import {
   GRID,
   SCREEN,
   SECONDS_PROGRESS_BAR,
+  WEATHER,
 } from '../utils/constants';
 
 import {
@@ -44,8 +45,15 @@ import {
   STEPS_ICON_IMAGE_PROPS,
   BATTERY_ICON_IMAGE_PROPS,
   AOD_DATE_IMAGE_PROPS,
+  WEATHER_SUNRISE_TEXT_PROPS,
+  WEATHER_SUNSET_TEXT_PROPS,
+  WEATHER_TEXT_IMAGE_PROPS,
+  WEATHER_PHASE_IMAGE_PROPS,
+  WEATHER_DOT_IMAGE_PROPS,
 } from './index.r.layout';
 import { clamp } from '../utils/clamp';
+import { getSunriseSunsetTimeStrings } from '../utils/getSunriseSunsetTimeStrings';
+import { getSunDayDuration, getSunPosition } from '../utils/getSunParams';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
 const makeCalendarDataCached = withWeakCache(makeCalendarData);
@@ -66,6 +74,7 @@ WatchFace({
     this.buildPulse();
     this.buildBattery();
     this.buildSleepTime();
+    this.buildWeather();
 
     this.buildDisconnectionStatus();
     this.buildAlarmStatus();
@@ -592,6 +601,8 @@ WatchFace({
 
     const update = () => {
       console.log('sleep time updated');
+
+      sleepSensor.updateInfo();
       const sleepTime = getSleepTimeString(sleepSensor);
 
       if (sleepTime) {
@@ -654,6 +665,85 @@ WatchFace({
         console.log('ui resume (widget delegate)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
+          update();
+        }
+      },
+    });
+  },
+
+  buildWeather() {
+    const phaseImage = hmUI.createWidget(
+      hmUI.widget.IMG,
+      WEATHER_PHASE_IMAGE_PROPS,
+    );
+    const sunriseText = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      WEATHER_SUNRISE_TEXT_PROPS,
+    );
+    const sunsetText = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      WEATHER_SUNSET_TEXT_PROPS,
+    );
+    hmUI.createWidget(hmUI.widget.TEXT_IMG, WEATHER_TEXT_IMAGE_PROPS);
+
+    const dotImage = hmUI.createWidget(
+      hmUI.widget.IMG,
+      WEATHER_DOT_IMAGE_PROPS,
+    );
+
+    const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+    const is12HourFormat = hmSetting.getTimeFormat() === 0;
+
+    const calculatePhase = () => {
+      const sunDayDuration = getSunDayDuration(weatherSensor);
+      const ratio = (100 * sunDayDuration) / (24 * 60);
+      return Math.round(ratio / 5) * 5;
+    };
+
+    const calculateDotPosition = () => {
+      const ratio = getSunPosition(weatherSensor, timeSensor);
+      const { x, y, width, height } = WEATHER.sineWave;
+
+      const yDot =
+        height * (0.5 * Math.sin(ratio / (Math.PI / 20) - Math.PI / 2) + 0.5);
+      const xDot = ratio * width;
+
+      return {
+        x: Math.round(x + xDot - WEATHER.dot.width / 2),
+        y: Math.round(y + height - Math.round(yDot) - WEATHER.dot.height / 2),
+      };
+    };
+
+    const update = () => {
+      console.log('weather data updated');
+
+      const [sunrise, sunset] = getSunriseSunsetTimeStrings(
+        weatherSensor,
+        is12HourFormat,
+      );
+
+      sunriseText.setProperty(hmUI.prop.TEXT, sunrise);
+      sunsetText.setProperty(hmUI.prop.TEXT, sunset);
+
+      phaseImage.setProperty(
+        hmUI.prop.SRC,
+        WEATHER.phaseImage.src.replace('%s', calculatePhase()),
+      );
+
+      const { x, y } = calculateDotPosition();
+      dotImage.setProperty(hmUI.prop.MORE, {
+        ...WEATHER_DOT_IMAGE_PROPS,
+        x,
+        y,
+      });
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume (widget delegate)');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           update();
         }
       },

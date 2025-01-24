@@ -21,6 +21,7 @@ export const COLORS = {
   primary: 0xd9d9d9,
   secondary: 0x343334,
   accent: 0xf54a1b,
+  accentDark: 0xe6461a,
 };
 
 export const FONTS = {
@@ -111,7 +112,7 @@ export const SPECIAL_CHARS = {
 export const SECONDS_PROGRESS_BAR = {
   height: GRID.cell.height,
   width: px(196),
-  gapTop: px(2),
+  gapTop: px(0),
 };
 
 export const STEPS = {
@@ -154,7 +155,7 @@ export const PULSE = {
   icon: {
     x: px(417),
     y: px(292),
-  }
+  },
 };
 
 export const BATTERY = {
@@ -187,7 +188,7 @@ export const SLEEP = {
   icon: {
     x: px(38),
     y: px(170),
-  }
+  },
 };
 
 export const CONNECTION_STATUS = {
@@ -208,4 +209,39 @@ export const TIME_DIGITS_AOD = {
   images: new Array(10).fill(null).map((_, i) => `aod/${i}.png`),
   width: px(112),
   height: px(168),
+};
+
+export const WEATHER = {
+  phaseImage: {
+    x: px(142),
+    y: px(424),
+    src: 'weather/phase_%s.png',
+  },
+  sineWave: {
+    x: px(150),
+    y: px(432),
+    width: px(180),
+    height: px(22),
+  },
+  dot: {
+    width: px(28),
+    height: px(28),
+  },
+  text: {
+    width: px(60),
+    height: px(24),
+    textSize: TEXT_SIZE,
+  },
+  sunriseText: {
+    x: px(116),
+    y: px(422),
+  },
+  sunsetText: {
+    x: px(262),
+    y: px(422),
+  },
+  temp: {
+    x: px(218),
+    y: px(452),
+  },
 };
