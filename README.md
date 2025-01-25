@@ -33,6 +33,7 @@ This repository contains multiple folders, each dedicated to a different watchfa
 | ![](./opposite-time/demo.png)         | Opposite Time         | All round watches | ✅ Done                |
 | ![](./sometimes/demo.png)             | Sometimes             | All round watches | ✅ Done                |
 | ![](./rider-1991/demo.png)            | Rider 1991            | All round watches | ✅ Done                |
+| ![](./kinetik/demo.png)               | Kinetik               | All round watches | ✅ Done                |
 
 
 ## Installation Instructions
