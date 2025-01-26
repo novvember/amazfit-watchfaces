@@ -53,10 +53,10 @@ WatchFace({
       const minuteAngle = (360 / 60) * minute + ANGLE_GAP;
       const secondAngle = (360 / 60) * second;
       const secondAngleStart = isSecondInreasing
-        ? secondAngle + ANGLE_GAP
+        ? secondAngle - ANGLE_GAP
         : ANGLE_GAP;
       const secondAngleEnd = isSecondInreasing
-        ? 360 - ANGLE_GAP
+        ? 360 + ANGLE_GAP
         : secondAngle + ANGLE_GAP;
 
       hourArcWidget.setProperty(hmUI.prop.MORE, {
