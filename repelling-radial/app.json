@@ -1,0 +1,58 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 1073286,
+    "appName": "Repelling Radial",
+    "appType": "watchface",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "icon": "icon.png",
+    "vender": "novvember",
+    "cover": [
+      "cover.png"
+    ],
+    "description": "Repelling Radial watchface. Source code here: https://github.com/novvember/amazfit-watchfaces. Original pattern by Audrey Esarey"
+  },
+  "runtime": {
+    "apiVersion": {
+      "compatible": "1.0.0",
+      "target": "1.0.1",
+      "minVersion": "1.0.0"
+    }
+  },
+  "permissions": [],
+  "targets": {
+    "common": {
+      "module": {
+        "watchface": {
+          "path": "watchface/index",
+          "main": 1,
+          "editable": 0,
+          "lockscreen": 1,
+          "photoscreen": 0
+        }
+      },
+      "platforms": [
+        {
+          "st": "r"
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "Repelling Radial"
+    },
+    "ru-RU": {
+      "appName": "Repelling Radial"
+    },
+    "uk-UA": {
+      "appName": "Repelling Radial"
+    }
+  },
+  "defaultLanguage": "en-US",
+  "debug": false
+}
