@@ -43,14 +43,18 @@ WatchFace({
     let updateTimer = undefined;
 
     const ANGLE_GAP = 2;
-    const UPDATE_INTERVAL = 2000;
+    const UPDATE_INTERVAL = 1000;
 
     const update = () => {
       const { hour, minute, second } = timeSensor;
-      const isSecondInreasing = minute % 2 === 0;
 
-      const hourAngle = (360 / 12) * (hour % 12) + ANGLE_GAP;
-      const minuteAngle = (360 / 60) * minute + ANGLE_GAP;
+      const hourAngleStart = (360 / 12) * (hour % 12) + ANGLE_GAP;
+      const hourAngleEnd = hour % 12 === 0 ? 0 + ANGLE_GAP : 360 + ANGLE_GAP;
+
+      const minuteAngleStart = (360 / 60) * minute + ANGLE_GAP;
+      const minuteAngleEnd = 360 - ANGLE_GAP;
+
+      const isSecondInreasing = minute % 2 === 0;
       const secondAngle = (360 / 60) * second;
       const secondAngleStart = isSecondInreasing
         ? secondAngle - ANGLE_GAP
@@ -61,14 +65,14 @@ WatchFace({
 
       hourArcWidget.setProperty(hmUI.prop.MORE, {
         ...HOUR_ARC_PROPS,
-        start_angle: hourAngle,
-        end_angle: 360 - ANGLE_GAP,
+        start_angle: hourAngleStart,
+        end_angle: hourAngleEnd,
       });
 
       minuteArcWidget.setProperty(hmUI.prop.MORE, {
         ...MINUTE_ARC_PROPS,
-        start_angle: minuteAngle,
-        end_angle: 360 - ANGLE_GAP,
+        start_angle: minuteAngleStart,
+        end_angle: minuteAngleEnd,
       });
 
       secondArcWidget.setProperty(hmUI.prop.MORE, {
