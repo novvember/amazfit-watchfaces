@@ -7,6 +7,13 @@ export const BACKGROUND_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const BACKGROUND_AOD_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  src: 'background_aod.png',
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
 export const HOUR_ARC_PROPS = {
   center_x: SCREEN.centerX,
   center_y: SCREEN.centerY,
@@ -16,7 +23,7 @@ export const HOUR_ARC_PROPS = {
   line_width: px(50),
   level: 100,
   corner_flag: 3,
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
 };
 
 export const MINUTE_ARC_PROPS = {
@@ -27,6 +34,7 @@ export const MINUTE_ARC_PROPS = {
 export const SECOND_ARC_PROPS = {
   ...HOUR_ARC_PROPS,
   radius: px(215),
+  show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const GRID_IMAGE_PROPS = {
@@ -34,4 +42,11 @@ export const GRID_IMAGE_PROPS = {
   y: 0,
   src: 'grid.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const GRID_AOD_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  src: 'grid_aod.png',
+  show_level: hmUI.show_level.ONAL_AOD,
 };

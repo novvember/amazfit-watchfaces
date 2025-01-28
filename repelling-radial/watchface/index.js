@@ -1,5 +1,7 @@
 import {
+  BACKGROUND_AOD_IMAGE_PROPS,
   BACKGROUND_IMAGE_PROPS,
+  GRID_AOD_IMAGE_PROPS,
   GRID_IMAGE_PROPS,
   HOUR_ARC_PROPS,
   MINUTE_ARC_PROPS,
@@ -23,6 +25,7 @@ WatchFace({
 
   buildTime() {
     hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_AOD_IMAGE_PROPS);
 
     const hourArcWidget = hmUI.createWidget(
       hmUI.widget.ARC_PROGRESS,
@@ -38,6 +41,7 @@ WatchFace({
     );
 
     hmUI.createWidget(hmUI.widget.IMG, GRID_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, GRID_AOD_IMAGE_PROPS);
 
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
     let updateTimer = undefined;
@@ -93,6 +97,9 @@ WatchFace({
             UPDATE_INTERVAL,
             update,
           );
+          update();
+        } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
+          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
           update();
         }
       },
