@@ -1,6 +1,8 @@
+import { COLOR_TYPES } from '../utils/constants';
 import {
   BACKGROUND_AOD_IMAGE_PROPS,
   BACKGROUND_IMAGE_PROPS,
+  COLOR_EDIT_GROUP_PROPS,
   GRID_AOD_IMAGE_PROPS,
   GRID_IMAGE_PROPS,
   HOUR_ARC_PROPS,
@@ -16,6 +18,8 @@ WatchFace({
   build() {
     console.log('index page.js on build invoke');
 
+    this.setColor();
+
     this.buildTime();
   },
 
@@ -24,7 +28,10 @@ WatchFace({
   },
 
   buildTime() {
-    hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, {
+      ...BACKGROUND_IMAGE_PROPS,
+      src: this.colorType.data.background_src,
+    });
     hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_AOD_IMAGE_PROPS);
 
     const hourArcWidget = hmUI.createWidget(
@@ -40,7 +47,10 @@ WatchFace({
       SECOND_ARC_PROPS,
     );
 
-    hmUI.createWidget(hmUI.widget.IMG, GRID_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, {
+      ...GRID_IMAGE_PROPS,
+      src: this.colorType.data.grid_src,
+    });
     hmUI.createWidget(hmUI.widget.IMG, GRID_AOD_IMAGE_PROPS);
 
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
@@ -110,5 +120,15 @@ WatchFace({
         timer.stopTimer(updateTimer);
       },
     });
+  },
+
+  setColor() {
+    const colorEditGroup = hmUI.createWidget(
+      hmUI.widget.WATCHFACE_EDIT_GROUP,
+      COLOR_EDIT_GROUP_PROPS,
+    );
+
+    const colorType = colorEditGroup.getProperty(hmUI.prop.CURRENT_TYPE);
+    this.colorType = COLOR_TYPES.find((type) => type.type === colorType);
   },
 });
