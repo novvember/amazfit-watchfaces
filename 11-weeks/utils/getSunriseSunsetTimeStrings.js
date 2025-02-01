@@ -17,8 +17,11 @@ export function getSunriseSunsetTimeStrings(weatherSensor, is12HourFormat) {
     return ['', ''];
   }
 
-  const formatTime = (hour, minute, is12HourFormat) =>
-    `${is12HourFormat ? hour % 12 || 12 : hour}:${minute}`;
+  const formatTime = (hour, minute, is12HourFormat) => {
+    const hourText = (is12HourFormat ? hour % 12 || 12 : hour).toString();
+    const minuteText = minute.toString().padStart(2, '0');
+    return `${hourText}:${minuteText}`;
+  }
 
   return [
     formatTime(sunrise.hour, sunrise.minute, is12HourFormat),
