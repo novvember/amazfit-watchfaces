@@ -1,4 +1,11 @@
-import { ARCS, COLORS, WEEKDAYS, WIDGETS } from '../utils/constants';
+import {
+  ARCS,
+  COLORS,
+  SLEEP_TEXT,
+  WEEKDAYS,
+  WIDGETS,
+  WIND_POSTFIX,
+} from '../utils/constants';
 import { formatNumber } from '../utils/formatNumber';
 import { formatTime } from '../utils/formatTime';
 import { getAnglePosition } from '../utils/getAnglePosition';
@@ -7,7 +14,6 @@ import { getSleepTimeString } from '../utils/getSleepTime';
 import { getSunDayDuration, getSunPosition } from '../utils/getSunParams';
 import {
   DISTANCE_TEXT_PROPS,
-  FLOORS_TEXT_PROPS,
   HEART_ARC_PROPS,
   HEART_LINES_IMAGE_PROPS,
   HEART_TEXT_PROPS,
@@ -26,35 +32,67 @@ import {
   WIDGET_DOT_PROPS,
   WIDGET_TEXT_L_PROPS,
   WIDGET_TEXT_S_PROPS,
+  WIDGET_TEXT_XS_PROPS,
   WIND_IMAGE_LEVEL_PROPS,
 } from './index.r.layout';
 
 WatchFace({
   onInit() {
-    console.log('index page.js on init invoke');
+    console.log('watchface initing');
   },
 
   build() {
-    console.log('index page.js on build invoke');
-
-    this.buildSteps();
-    this.buildHeart();
-    this.buildDistance();
-    this.buildSleep();
+    console.log('watchface building');
 
     this.buildTime();
 
+    this.buildSteps();
+    this.buildHeart();
+
+    this.buildDistance();
+    this.buildSleep();
+
     this.buildTemperature();
-    this.buildDate();
     this.buildUvi();
     this.buildSunPosition();
 
     this.buildWind();
+    this.buildDate();
     this.buildBattery();
   },
 
   onDestroy() {
-    console.log('index page.js on destroy invoke');
+    console.log('watchface destroying');
+  },
+
+  buildTime() {
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, TIME_TEXT_PROPS);
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+
+    const update = () => {
+      const { hour, minute } = timeSensor;
+      const is12HourFormat = hmSetting.getTimeFormat() === 0;
+      textWidget.setProperty(
+        hmUI.prop.TEXT,
+        formatTime(hour, minute, is12HourFormat),
+      );
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume (time updating)');
+
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        console.log('ui pause (widget delegate)');
+
+        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
+      },
+    });
   },
 
   buildSteps() {
@@ -127,7 +165,7 @@ WatchFace({
       });
 
     const update = () => {
-      const { last, today } = heartSensor;
+      const { last = 0, today = [] } = heartSensor;
       let min = today.length ? Math.min(...today) : 0;
       let max = today.length ? Math.max(...today) : 0;
 
@@ -135,14 +173,15 @@ WatchFace({
       const minAngle = getAngle(min);
       const maxAngle = getAngle(max);
 
-      if (min === 0 && max === 0) {
+      markWidget.setProperty(hmUI.prop.ANGLE, lastAngle);
+      textWidget.setProperty(hmUI.prop.TEXT, last ? last.toString() : ' ');
+
+      if (!min || !max) {
         arcWidget.setProperty(hmUI.prop.MORE, {
           ...STEPS_ARC_PROPS,
           start_angle: 0,
           end_angle: 0,
         });
-        textWidget.setProperty(hmUI.prop.TEXT, ' ');
-        markWidget.setProperty(hmUI.prop.ANGLE, lastAngle);
         return;
       }
 
@@ -151,9 +190,6 @@ WatchFace({
         start_angle: minAngle + ARCS.heart.angleGap,
         end_angle: maxAngle - ARCS.heart.angleGap,
       });
-
-      markWidget.setProperty(hmUI.prop.ANGLE, lastAngle);
-      textWidget.setProperty(hmUI.prop.TEXT, last.toString());
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -173,21 +209,19 @@ WatchFace({
 
   buildDistance() {
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, DISTANCE_TEXT_PROPS);
-    hmUI.createWidget(hmUI.widget.TEXT_FONT, FLOORS_TEXT_PROPS);
-
     const distanceSensor = hmSensor.createSensor(hmSensor.id.DISTANCE);
 
     const getDistanceText = (meters) => {
       if (meters < 1000) {
-        return `${meters} m`;
+        return `${meters} M`;
       }
 
-      return `${(meters / 1000).toFixed(1)} km`;
+      return `${(meters / 1000).toFixed(1)} KM`;
     };
 
     const update = () => {
       const { current } = distanceSensor;
-      const text = `${getDistanceText(current)} / ${' '.repeat(7)} fl`;
+      const text = getDistanceText(current);
       textWidget.setProperty(hmUI.prop.TEXT, text);
     };
 
@@ -213,7 +247,7 @@ WatchFace({
     const update = () => {
       sleepSensor.updateInfo();
       const sleepTime = getSleepTimeString(sleepSensor);
-      const text = sleepTime ? `SLEEP ${sleepTime}` : '';
+      const text = sleepTime ? SLEEP_TEXT.replace('%s', sleepTime) : '';
       textWidget.setProperty(hmUI.prop.TEXT, text);
     };
 
@@ -228,51 +262,23 @@ WatchFace({
     });
   },
 
-  buildTime() {
-    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, TIME_TEXT_PROPS);
-    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
-
-    const update = () => {
-      const { hour, minute } = timeSensor;
-      const is12HourFormat = hmSetting.getTimeFormat() === 0;
-      textWidget.setProperty(
-        hmUI.prop.TEXT,
-        formatTime(hour, minute, is12HourFormat),
-      );
-    };
-
-    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
-      resume_call: () => {
-        console.log('ui resume (widget delegate)');
-
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
-          update();
-        }
-      },
-      pause_call: () => {
-        console.log('ui pause (widget delegate)');
-
-        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
-      },
-    });
-  },
-
   buildTemperature() {
     const { x, y, w, h } = WIDGETS[0];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
       ...WIDGET_BACKGROUND_ARC_PROPS,
-      center_x: x + w / 2,
-      center_y: y + h / 2,
+      center_x: centerX,
+      center_y: centerY,
       start_angle: -120,
       end_angle: 120,
     });
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
       ...WIDGET_ACTIVE_ARC_PROPS,
-      center_x: x + w / 2,
-      center_y: y + h / 2,
+      center_x: centerX,
+      center_y: centerY,
       start_angle: -120,
       end_angle: 120,
       type: hmUI.data_type.WEATHER_CURRENT,
@@ -311,11 +317,13 @@ WatchFace({
 
   buildDate() {
     const { x, y, w, h } = WIDGETS[4];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
 
     hmUI.createWidget(hmUI.widget.CIRCLE, {
       ...WIDGET_BACKGROUND_CIRCLE_PROPS,
-      center_x: x + w / 2,
-      center_y: y + h / 2,
+      center_x: centerX,
+      center_y: centerY,
       radius: w / 2,
     });
 
@@ -375,37 +383,37 @@ WatchFace({
 
   buildSunPosition() {
     const { x, y, w, h } = WIDGETS[2];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
 
     const dayArcProps = {
       ...WIDGET_ACTIVE_ARC_PROPS,
-      center_x: x + w / 2,
-      center_y: y + h / 2,
+      center_x: centerX,
+      center_y: centerY,
       start_angle: 0,
       end_angle: 0,
     };
 
     const dotArcProps = {
       ...WIDGET_DOT_PROPS,
-      center_x: x + w / 2,
-      center_y: y + h / 2,
+      center_x: centerX,
+      center_y: centerY,
       start_angle: 0,
       end_angle: 0,
     };
 
     const dotBackgroundProps = {
       ...WIDGET_DOT_BACKGROUND_PROPS,
-      center_x: x + w / 2,
-      center_y: y + h / 2,
+      center_x: centerX,
+      center_y: centerY,
       start_angle: 0,
       end_angle: 0,
     };
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
       ...WIDGET_BACKGROUND_ARC_PROPS,
-      center_x: x + w / 2,
-      center_y: y + h / 2,
-      start_angle: 0,
-      end_angle: 360,
+      center_x: centerX,
+      center_y: centerY,
     });
 
     const dayArc = hmUI.createWidget(hmUI.widget.ARC_PROGRESS, dayArcProps);
@@ -468,11 +476,13 @@ WatchFace({
       const DOT_ANGLE_GAP = 1;
       const DOT_BACKGROUND_ANGLE_GAP = 1;
       const angle = getSunPosition(weatherSensor, timeSensor) * 360 - 180;
+
       dotArcWidget.setProperty(hmUI.prop.MORE, {
         ...dotArcProps,
         start_angle: angle - DOT_ANGLE_GAP,
         end_angle: angle + DOT_ANGLE_GAP,
       });
+
       dotBackgroundArcWidget.setProperty(hmUI.prop.MORE, {
         ...dotBackgroundProps,
         start_angle: angle - DOT_BACKGROUND_ANGLE_GAP,
@@ -499,13 +509,15 @@ WatchFace({
 
   buildWind() {
     const { x, y, w, h } = WIDGETS[3];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
 
     const DIRECTION_SIZE = px(96);
 
     hmUI.createWidget(hmUI.widget.IMG_LEVEL, {
       ...WIND_IMAGE_LEVEL_PROPS,
-      x: x + w / 2 - DIRECTION_SIZE / 2,
-      y: y + h / 2 - DIRECTION_SIZE / 2,
+      x: centerX - DIRECTION_SIZE / 2,
+      y: centerY - DIRECTION_SIZE / 2,
       w: DIRECTION_SIZE,
       h: DIRECTION_SIZE,
     });
@@ -520,29 +532,30 @@ WatchFace({
     });
 
     hmUI.createWidget(hmUI.widget.TEXT, {
-      ...WIDGET_TEXT_S_PROPS,
+      ...WIDGET_TEXT_XS_PROPS,
       x,
       y: y + 0.17 * h,
       w,
       h,
-      text: 'MPS',
-      text_size: px(14),
+      text: WIND_POSTFIX,
     });
   },
 
   buildBattery() {
     const { x, y, w, h } = WIDGETS[5];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
       ...WIDGET_BACKGROUND_ARC_PROPS,
-      center_x: x + w / 2,
-      center_y: y + h / 2,
+      center_x: centerX,
+      center_y: centerY,
     });
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
       ...WIDGET_ACTIVE_ARC_PROPS,
-      center_x: x + w / 2,
-      center_y: y + h / 2,
+      center_x: centerX,
+      center_y: centerY,
       type: hmUI.data_type.BATTERY,
     });
 

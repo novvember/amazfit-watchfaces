@@ -1,4 +1,12 @@
-import { FONTS, SCREEN, ARCS, WIDGETS, COLORS } from '../utils/constants';
+import {
+  FONTS,
+  SCREEN,
+  ARCS,
+  WIDGETS,
+  COLORS,
+  isRusLang,
+  FONT_SIZE,
+} from '../utils/constants';
 
 export const TIME_TEXT_PROPS = {
   x: SCREEN.centerX - px(320) / 2,
@@ -6,11 +14,11 @@ export const TIME_TEXT_PROPS = {
   w: px(320),
   h: px(140),
   color: COLORS.primary,
-  text_size: px(180),
+  text_size: FONT_SIZE.time,
   align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.CENTER_V,
   font: FONTS.time,
-  text: '00:00',
+  text: '--:--',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -36,13 +44,13 @@ export const HEART_ARC_PROPS = {
 export const STEPS_LINES_IMAGE_PROPS = {
   x: 0,
   y: 0,
-  src: 'background/lines_left.png',
+  src: isRusLang ? 'scale/left_ru.png' : 'scale/left.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const HEART_LINES_IMAGE_PROPS = {
   ...STEPS_LINES_IMAGE_PROPS,
-  src: 'background/lines_right.png',
+  src: isRusLang ? 'scale/right_ru.png' : 'scale/right.png',
 };
 
 export const STEPS_TEXT_PROPS = {
@@ -50,7 +58,7 @@ export const STEPS_TEXT_PROPS = {
   y: -1 * px(6),
   w: SCREEN.width + px(12),
   h: SCREEN.height + px(12),
-  text_size: px(24),
+  text_size: FONT_SIZE.scale,
   color: COLORS.secondary,
   text: '---',
   align_h: hmUI.align.LEFT,
@@ -80,36 +88,28 @@ export const MARK_IMAGE_PROPS = {
   center_x: SCREEN.centerX,
   center_y: SCREEN.centerY,
   angle: 0,
-  src: 'background/mark.png',
+  src: 'scale/mark.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const DISTANCE_TEXT_PROPS = {
-  x: px(126),
+  x: px(150),
   y: px(442),
   w: px(180),
   h: px(28),
   color: COLORS.accent,
-  text_size: px(24),
-  align_h: hmUI.align.RIGHT,
+  text_size: FONT_SIZE.bottom,
+  align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.CENTER_V,
   font: FONTS.widget,
-  text: '00',
+  text: '---',
   show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
-export const FLOORS_TEXT_PROPS = {
-  ...DISTANCE_TEXT_PROPS,
-  x: px(106),
-  type: hmUI.data_type.FLOOR,
 };
 
 export const SLEEP_TEXT_PROPS = {
   ...DISTANCE_TEXT_PROPS,
-  x: px(150),
   y: px(412),
   color: COLORS.accentSecondary,
-  align_h: hmUI.align.CENTER_H,
 };
 
 export const WIDGET_BACKGROUND_CIRCLE_PROPS = {
@@ -121,8 +121,8 @@ export const WIDGET_BACKGROUND_CIRCLE_PROPS = {
 };
 
 export const WIDGET_BACKGROUND_ARC_PROPS = {
-  center_x: px(0),
-  center_y: px(0),
+  center_x: 0,
+  center_y: 0,
   radius: px(40),
   start_angle: 0,
   end_angle: 360,
@@ -144,22 +144,27 @@ export const WIDGET_TEXT_L_PROPS = {
   w: 0,
   h: 0,
   color: COLORS.primary,
-  text_size: px(36),
+  text_size: FONT_SIZE.widgetL,
   align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.CENTER_V,
   font: FONTS.widget,
-  text: '00',
+  text: '--',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const WIDGET_TEXT_S_PROPS = {
   ...WIDGET_TEXT_L_PROPS,
-  text_size: px(22),
+  text_size: FONT_SIZE.widgetS,
+};
+
+export const WIDGET_TEXT_XS_PROPS = {
+  ...WIDGET_TEXT_L_PROPS,
+  text_size: FONT_SIZE.widgetXs,
 };
 
 export const WIDGET_DOT_PROPS = {
-  center_x: px(0),
-  center_y: px(0),
+  center_x: 0,
+  center_y: 0,
   radius: px(40),
   start_angle: 0,
   end_angle: 0,
@@ -186,7 +191,7 @@ export const SUN_ICON_IMAGE_PROPS = {
 export const UVI_IMAGE_LEVEL_PROPS = {
   x: 0,
   y: 0,
-  image_array: new Array(5).fill(null).map((_, i) => `uvi/uvi_${i + 1}.png`),
+  image_array: new Array(5).fill(null).map((_, i) => `uvi/uvi_${i}.png`),
   image_length: 5,
   w: 0,
   h: 0,

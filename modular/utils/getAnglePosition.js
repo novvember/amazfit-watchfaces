@@ -1,9 +1,10 @@
 import { clamp } from './clamp';
 
 /**
- *
- * @param {*} param0
- * @returns
+ * Calculates angle value from the value
+ * depending on min/max possible values and min/max possible angles
+ * @param {Object} param0
+ * @returns {Number}
  */
 export function getAnglePosition({
   value,
