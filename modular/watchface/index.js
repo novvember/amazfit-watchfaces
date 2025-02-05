@@ -28,8 +28,7 @@ import {
   WIDGET_ACTIVE_ARC_PROPS,
   WIDGET_BACKGROUND_ARC_PROPS,
   WIDGET_BACKGROUND_CIRCLE_PROPS,
-  WIDGET_DOT_BACKGROUND_PROPS,
-  WIDGET_DOT_PROPS,
+  WIDGET_DOT_IMAGE_PROPS,
   WIDGET_TEXT_L_PROPS,
   WIDGET_TEXT_S_PROPS,
   WIDGET_TEXT_XS_PROPS,
@@ -394,22 +393,6 @@ WatchFace({
       end_angle: 0,
     };
 
-    const dotArcProps = {
-      ...WIDGET_DOT_PROPS,
-      center_x: centerX,
-      center_y: centerY,
-      start_angle: 0,
-      end_angle: 0,
-    };
-
-    const dotBackgroundProps = {
-      ...WIDGET_DOT_BACKGROUND_PROPS,
-      center_x: centerX,
-      center_y: centerY,
-      start_angle: 0,
-      end_angle: 0,
-    };
-
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
       ...WIDGET_BACKGROUND_ARC_PROPS,
       center_x: centerX,
@@ -418,14 +401,21 @@ WatchFace({
 
     const dayArc = hmUI.createWidget(hmUI.widget.ARC_PROGRESS, dayArcProps);
 
-    const dotBackgroundArcWidget = hmUI.createWidget(
-      hmUI.widget.ARC_PROGRESS,
-      dotBackgroundProps,
-    );
-    const dotArcWidget = hmUI.createWidget(
-      hmUI.widget.ARC_PROGRESS,
-      dotArcProps,
-    );
+    const DOT_SIZE = px(14);
+    const DOT_OVERSIZE = px(2);
+    const dotAreaSize = w + 2 * DOT_OVERSIZE;
+
+    const dotImageWidget = hmUI.createWidget(hmUI.widget.IMG, {
+      ...WIDGET_DOT_IMAGE_PROPS,
+      x: x - DOT_OVERSIZE,
+      y: y - DOT_OVERSIZE,
+      w: dotAreaSize,
+      h: dotAreaSize,
+      pos_x: dotAreaSize / 2 - DOT_SIZE / 2,
+      pox_y: dotAreaSize / 2 - DOT_SIZE / 2,
+      center_x: dotAreaSize / 2,
+      center_y: dotAreaSize / 2,
+    });
 
     const iconWidget = hmUI.createWidget(hmUI.widget.IMG, {
       ...SUN_ICON_IMAGE_PROPS,
@@ -473,21 +463,8 @@ WatchFace({
     };
 
     const updateDotPosition = () => {
-      const DOT_ANGLE_GAP = 1;
-      const DOT_BACKGROUND_ANGLE_GAP = 1;
       const angle = getSunPosition(weatherSensor, timeSensor) * 360 - 180;
-
-      dotArcWidget.setProperty(hmUI.prop.MORE, {
-        ...dotArcProps,
-        start_angle: angle - DOT_ANGLE_GAP,
-        end_angle: angle + DOT_ANGLE_GAP,
-      });
-
-      dotBackgroundArcWidget.setProperty(hmUI.prop.MORE, {
-        ...dotBackgroundProps,
-        start_angle: angle - DOT_BACKGROUND_ANGLE_GAP,
-        end_angle: angle + DOT_BACKGROUND_ANGLE_GAP,
-      });
+      dotImageWidget.setProperty(hmUI.prop.ANGLE, angle);
     };
 
     const update = () => {

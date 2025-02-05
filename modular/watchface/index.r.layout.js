@@ -162,23 +162,18 @@ export const WIDGET_TEXT_XS_PROPS = {
   text_size: FONT_SIZE.widgetXs,
 };
 
-export const WIDGET_DOT_PROPS = {
+export const WIDGET_DOT_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  w: 0,
+  h: 0,
+  pos_x: 0,
+  pox_y: 0,
   center_x: 0,
   center_y: 0,
-  radius: px(40),
-  start_angle: 0,
-  end_angle: 0,
-  color: COLORS.primary,
-  line_width: px(10),
-  level: 100,
-  corner_flag: 0,
+  angle: 0,
+  src: 'widget/dot.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
-export const WIDGET_DOT_BACKGROUND_PROPS = {
-  ...WIDGET_DOT_PROPS,
-  line_width: px(14),
-  color: 0x000000,
 };
 
 export const SUN_ICON_IMAGE_PROPS = {
