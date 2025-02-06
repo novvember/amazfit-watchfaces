@@ -2,7 +2,6 @@ import {
   FONTS,
   SCREEN,
   ARCS,
-  WIDGETS,
   COLORS,
   isRusLang,
   FONT_SIZE,
@@ -20,6 +19,13 @@ export const TIME_TEXT_PROPS = {
   font: FONTS.time,
   text: '--:--',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const TIME_AOD_TEXT_PROPS = {
+  ...TIME_TEXT_PROPS,
+  font: FONTS.aod,
+  color: COLORS.aod,
+  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const STEPS_ARC_PROPS = {

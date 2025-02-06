@@ -23,6 +23,7 @@ import {
   STEPS_LINES_IMAGE_PROPS,
   STEPS_TEXT_PROPS,
   SUN_ICON_IMAGE_PROPS,
+  TIME_AOD_TEXT_PROPS,
   TIME_TEXT_PROPS,
   UVI_IMAGE_LEVEL_PROPS,
   WIDGET_ACTIVE_ARC_PROPS,
@@ -66,6 +67,10 @@ WatchFace({
 
   buildTime() {
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, TIME_TEXT_PROPS);
+    const textAodWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      TIME_AOD_TEXT_PROPS,
+    );
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
     const update = () => {
@@ -75,13 +80,20 @@ WatchFace({
         hmUI.prop.TEXT,
         formatTime(hour, minute, is12HourFormat),
       );
+      textAodWidget.setProperty(
+        hmUI.prop.TEXT,
+        formatTime(hour, minute, is12HourFormat),
+      );
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         console.log('ui resume (time updating)');
 
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+        if (
+          hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE ||
+          hmSetting.getScreenType() == hmSetting.screen_type.AOD
+        ) {
           timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
           update();
         }

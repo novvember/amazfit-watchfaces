@@ -19,6 +19,9 @@ export const FONTS = {
     ? 'fonts/SofiaSansExtraCondensed-Regular.ttf'
     : undefined,
   widget: hasCustomFontSupport ? 'fonts/SofiaSans-SemiBold.ttf' : undefined,
+  aod: hasCustomFontSupport
+    ? 'fonts/SofiaSansExtraCondensed-Thin.ttf'
+    : undefined,
 };
 
 export const FONT_SIZE = {
@@ -36,6 +39,7 @@ export const COLORS = {
   tertiary: 0x1c1c1c,
   accent: 0x60c7f4,
   accentSecondary: 0x34596d,
+  aod: 0xb1b1b1,
 };
 
 export const ARCS = {
