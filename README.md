@@ -12,14 +12,12 @@ This repository contains multiple folders, each dedicated to a different watchfa
 |:-------------------------:            |------------           |------------------ |---------------------    |
 | ![](./text-lines/demo.png)            | Text Lines 	          | GTR Mini only 	   | ✅ Done             	|
 | ![](./spin/demo.png)       	          | Spin       	          | GTR Mini only 	   | ✅ Done             	|
-| ![](./particles/demo.png)             | Particles  	          | GTR Mini only 	   | 🚫 Has issues          |
 | ![](./gauge/demo.png)      	          | Gauge      	          | All round watches | ✅ Done             	|
 | ![](./bourne/demo.png)                | Bourne     	          | All round watches | ✅ Done             	|
 | ![](./celeste/demo.png)               | Celeste    	          | All round watches | ✅ Done             	|
 | ![](./nothing-dial/demo.png)          | Nothing Dial          | All round watches | ✅ Done             	|
 | ![](./spin-2/demo.png)                | Spin 2                | All round watches | ✅ Done             	|
 | ![](./11-weeks/demo.png)              | 11 weeks              | All round watches | ✅ Done             	|
-| ![](./nothing-glyphs/demo.png)        | Nothing Glyphs        | All round watches | ✅ Done             	|
 | ![](./verbarius/demo.png)             | Verbarius             | All round watches | ✅ Done             	|
 | ![](./elaborate/demo.png)             | Elaborate             | All round watches | ✅ Done             	|
 | ![](./nothing-sector/demo.png)        | Sektor                | All round watches | ✅ Done             	|
