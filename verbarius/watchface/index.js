@@ -1,4 +1,4 @@
-import { getHasCustomFontSupport } from '../utils/getHasCustomFontSupport';
+import { hasCustomFontSupport } from '../utils/constants';
 import { getTimeString } from '../utils/time/getTimeStringRus';
 import { AOD_TIME_TEXT_PROPS, TIME_TEXT_PROPS } from './index.r.layout';
 
@@ -39,7 +39,14 @@ WatchFace({
       console.log('time rerendered');
 
       prevTimeStamp = timeStamp;
-      const timeString = getTimeString(hour, minute);
+
+      const [prevStoredTimestamp, prevStoredValue] = this.getPrevValue();
+      const timeString =
+        prevStoredTimestamp === timeStamp
+          ? prevStoredValue
+          : getTimeString(hour, minute);
+      this.setPrevValue(timeStamp, timeString);
+
       textWidget.setProperty(hmUI.prop.TEXT, timeString);
       textAodWidget.setProperty(hmUI.prop.TEXT, timeString);
     };
@@ -52,7 +59,7 @@ WatchFace({
           hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE ||
           hmSetting.getScreenType() == hmSetting.screen_type.AOD
         ) {
-          if (getHasCustomFontSupport()) {
+          if (hasCustomFontSupport) {
             timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
           } else {
             updateTimer = timer.createTimer(2000, 2000, update);
@@ -68,5 +75,16 @@ WatchFace({
         timer.stopTimer(updateTimer);
       },
     });
+  },
+
+  getPrevValue() {
+    const timestamp = hmFS.SysProGetChars('verbarius-prev-timestamp');
+    const value = hmFS.SysProGetChars('verbarius-prev-value');
+    return [timestamp, value];
+  },
+
+  setPrevValue(timestamp, value) {
+    hmFS.SysProSetChars('verbarius-prev-timestamp', timestamp);
+    hmFS.SysProSetChars('verbarius-prev-value', value);
   },
 });
