@@ -1,5 +1,5 @@
 import { hasCustomFontSupport } from '../utils/constants';
-import { getTimeString } from '../utils/time/getTimeStringRus';
+import { getTimeString } from '../utils/time/getTimeString';
 import { AOD_TIME_TEXT_PROPS, TIME_TEXT_PROPS } from './index.r.layout';
 
 WatchFace({

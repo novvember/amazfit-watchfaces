@@ -5,7 +5,7 @@ import {
   CARDINAL_NUMBERS_FEMININE_GENITIVUS,
   CARDINAL_NUMBERS_MASCULINE,
   ORDINAL_NUMBERS_MASCULINE_GENITIVUS,
-} from '../numbers/numbers_rus';
+} from './numbers_rus';
 import { getHour12Format, getNextHour12Format } from './formatTime';
 
 /**
@@ -319,7 +319,7 @@ function getTime13(hour, minute) {
   return hourString + ' ' + postfix;
 }
 
-export function getTimeString(hour, minute) {
+export function getTimeStringRus(hour, minute) {
   const variants = [
     getTime01(hour, minute),
     getTime01b(hour, minute),

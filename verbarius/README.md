@@ -13,11 +13,11 @@ Watchface for Amazfit GTR Mini and other round ZeppOS watches
 
 **Model compatibility:** Amazfit GTR Mini (round, 416 x 416 pixels) / GTR 4 / T-Rex 2 and other round watches
 
-**AOD:** No
+**AOD:** Yes
 
 **Tap-zones:** No
 
-**Language:** Russian
+**Language:** Russian, English
 
 ## Download ⏬
 
