@@ -1,20 +1,30 @@
 import {
   BOTTOM_WIDGET_COORDS,
+  CALORIE_TEXT,
   COLORS,
+  DISTANCE_KM_TEXT,
+  DISTANCE_M_TEXT,
   hasCustomFontSupport,
+  HEART_TEXT,
+  SLEEP_TEXT,
   STEPS_TEXT,
   WEEKDAYS,
 } from '../utils/constants';
 import { decline } from '../utils/decline';
 import { formatNumber } from '../utils/formatNumber';
 import { formatTime } from '../utils/formatTime';
+import { getSleepTimeString } from '../utils/getSleepTime';
 import { isNight } from '../utils/isNight';
 import { WEATHER_ICONS, updateWeatherIcons } from '../utils/weatherIcons';
 import {
   BACKGROUND_CIRCLE_AOD_PROPS,
   BACKGROUND_CIRCLE_PROPS,
   BOTTOM_WIDGET_TEXT_PROPS,
+  DATA_1_EDIT_GROUP_PROPS,
+  DATA_2_EDIT_GROUP_PROPS,
+  DATA_3_EDIT_GROUP_PROPS,
   DISCONNECT_STATUS_PROPS,
+  EDIT_BACKGROUND_PROPS,
   TIME_AOD_CENTER_PROPS,
   TIME_AOD_POINTER_PROPS,
   TIME_CENTER_PROPS,
@@ -35,13 +45,10 @@ WatchFace({
 
     this.buildTimePointers();
     this.buildTimeText();
-
+    this.setDataTypes();
     this.buildDisconnectStatus();
-
     this.buildDate();
-    this.buildSteps();
-    this.buildWeather();
-    this.buildBattery();
+    this.buildDataWidgets();
   },
 
   onDestroy() {
@@ -50,6 +57,74 @@ WatchFace({
 
   buildDisconnectStatus() {
     hmUI.createWidget(hmUI.widget.IMG_STATUS, DISCONNECT_STATUS_PROPS);
+  },
+
+  setDataTypes() {
+    hmUI.createWidget(hmUI.widget.IMG, EDIT_BACKGROUND_PROPS);
+
+    const data1EditGroup = hmUI.createWidget(
+      hmUI.widget.WATCHFACE_EDIT_GROUP,
+      DATA_1_EDIT_GROUP_PROPS,
+    );
+
+    const data2EditGroup = hmUI.createWidget(
+      hmUI.widget.WATCHFACE_EDIT_GROUP,
+      DATA_2_EDIT_GROUP_PROPS,
+    );
+
+    const data3EditGroup = hmUI.createWidget(
+      hmUI.widget.WATCHFACE_EDIT_GROUP,
+      DATA_3_EDIT_GROUP_PROPS,
+    );
+
+    this.data1Type = data1EditGroup.getProperty(hmUI.prop.CURRENT_TYPE);
+    this.data2Type = data2EditGroup.getProperty(hmUI.prop.CURRENT_TYPE);
+    this.data3Type = data3EditGroup.getProperty(hmUI.prop.CURRENT_TYPE);
+  },
+
+  buildDataWidgets() {
+    const dataTypes = [this.data1Type, this.data2Type, this.data3Type];
+
+    dataTypes.forEach((dataType, i) => {
+      this.buildDataWidget(dataType, i + 1);
+    });
+  },
+
+  buildDataWidget(dataType, index) {
+    const { x, y } = BOTTOM_WIDGET_COORDS[index];
+
+    switch (dataType) {
+      case hmUI.edit_type.HEART:
+        this.buildHeart(x, y);
+        break;
+
+      case hmUI.edit_type.STEP:
+        this.buildSteps(x, y);
+        break;
+
+      case hmUI.edit_type.SLEEP:
+        this.buildSleep(x, y);
+        break;
+
+      case hmUI.edit_type.CAL:
+        this.buildCalorie(x, y);
+        break;
+
+      case hmUI.edit_type.DISTANCE:
+        this.buildDistance(x, y);
+        break;
+
+      case hmUI.edit_type.BATTERY:
+        this.buildBattery(x, y);
+        break;
+
+      case hmUI.edit_type.WEATHER:
+        this.buildWeather(x, y);
+        break;
+
+      default:
+        break;
+    }
   },
 
   buildTimePointers() {
@@ -159,9 +234,7 @@ WatchFace({
     });
   },
 
-  buildSteps() {
-    const { x, y } = BOTTOM_WIDGET_COORDS[1];
-
+  buildSteps(x, y) {
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
       ...BOTTOM_WIDGET_TEXT_PROPS,
       x,
@@ -193,9 +266,7 @@ WatchFace({
     });
   },
 
-  buildBattery() {
-    const { x, y } = BOTTOM_WIDGET_COORDS[3];
-
+  buildBattery(x, y) {
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
       ...BOTTOM_WIDGET_TEXT_PROPS,
       x,
@@ -224,9 +295,7 @@ WatchFace({
     });
   },
 
-  buildWeather() {
-    const { x, y } = BOTTOM_WIDGET_COORDS[2];
-
+  buildWeather(x, y) {
     const iconWidget = hmUI.createWidget(hmUI.widget.IMG, {
       ...WEATHER_ICON_PROPS,
       x,
@@ -260,6 +329,118 @@ WatchFace({
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           update();
         }
+      },
+    });
+  },
+
+  buildHeart(x, y) {
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
+      ...BOTTOM_WIDGET_TEXT_PROPS,
+      x,
+      y,
+    });
+    const heartSensor = hmSensor.createSensor(hmSensor.id.HEART);
+
+    const update = () => {
+      const { last = '--' } = heartSensor;
+      const text = HEART_TEXT.replace('%s', last);
+      textWidget.setProperty(hmUI.prop.TEXT, text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          heartSensor.addEventListener?.(hmSensor.event.LAST, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        heartSensor.removeEventListener?.(hmSensor.event.LAST, update);
+      },
+    });
+  },
+
+  buildSleep(x, y) {
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
+      ...BOTTOM_WIDGET_TEXT_PROPS,
+      x,
+      y,
+    });
+    const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
+
+    const update = () => {
+      const time = getSleepTimeString(sleepSensor) || '--:--';
+      const text = SLEEP_TEXT.replace('%s', time);
+      textWidget.setProperty(hmUI.prop.TEXT, text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          update();
+        }
+      },
+    });
+  },
+
+  buildCalorie(x, y) {
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
+      ...BOTTOM_WIDGET_TEXT_PROPS,
+      x,
+      y,
+    });
+    const calorieSensor = hmSensor.createSensor(hmSensor.id.CALORIE);
+
+    const update = () => {
+      const { current = 0 } = calorieSensor;
+      const text = CALORIE_TEXT.replace('%s', current);
+      textWidget.setProperty(hmUI.prop.TEXT, text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          calorieSensor.addEventListener?.(hmSensor.event.CHANGE, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        calorieSensor.removeEventListener?.(hmSensor.event.CHANGE, update);
+      },
+    });
+  },
+
+  buildDistance(x, y) {
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
+      ...BOTTOM_WIDGET_TEXT_PROPS,
+      x,
+      y,
+    });
+    const distanceSensor = hmSensor.createSensor(hmSensor.id.DISTANCE);
+
+    const getDistanceText = (meters) => {
+      if (meters >= 1000) {
+        const kmeters = (meters / 1000).toFixed(1);
+        return DISTANCE_KM_TEXT.replace('%s', kmeters);
+      }
+
+      return DISTANCE_M_TEXT.replace('%s', meters);
+    };
+
+    const update = () => {
+      const { current = 0 } = distanceSensor;
+      textWidget.setProperty(hmUI.prop.TEXT, getDistanceText(current));
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          distanceSensor.addEventListener?.(hmSensor.event.CHANGE, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        distanceSensor.removeEventListener?.(hmSensor.event.CHANGE, update);
       },
     });
   },

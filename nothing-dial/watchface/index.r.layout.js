@@ -132,3 +132,73 @@ export const DISCONNECT_STATUS_PROPS = {
   src: 'disconnect.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
+
+export const EDIT_BACKGROUND_PROPS = {
+  x: 0,
+  y: 0,
+  w: SCREEN.width,
+  h: SCREEN.height,
+  src: 'edit/background.png',
+  show_level: hmUI.show_level.ONLY_EDIT,
+};
+
+export const DATA_1_EDIT_GROUP_PROPS = {
+  edit_id: 101,
+  x: px(216),
+  y: px(314),
+  w: px(200),
+  h: px(34),
+  select_image: 'edit/data_select.png',
+  un_select_image: 'edit/data_unselect.png',
+  optional_types: [
+    {
+      type: hmUI.edit_type.HEART,
+      preview: 'edit/data_preview_heart.png',
+    },
+    {
+      type: hmUI.edit_type.STEP,
+      preview: 'edit/data_preview_step.png',
+    },
+    {
+      type: hmUI.edit_type.SLEEP,
+      preview: 'edit/data_preview_sleep.png',
+    },
+    {
+      type: hmUI.edit_type.CAL,
+      preview: 'edit/data_preview_calorie.png',
+    },
+    {
+      type: hmUI.edit_type.DISTANCE,
+      preview: 'edit/data_preview_distance.png',
+    },
+    {
+      type: hmUI.edit_type.BATTERY,
+      preview: 'edit/data_preview_battery.png',
+    },
+    {
+      type: hmUI.edit_type.WEATHER,
+      preview: 'edit/data_preview_weather.png',
+    },
+  ],
+  default_type: hmUI.edit_type.STEP,
+  count: 7,
+  tips_BG: 'edit/tip.png',
+  tips_x: px(-130),
+  tips_y: px(0),
+  tips_width: px(120),
+  tips_margin: px(5),
+};
+
+export const DATA_2_EDIT_GROUP_PROPS = {
+  ...DATA_1_EDIT_GROUP_PROPS,
+  edit_id: 102,
+  y: px(352),
+  default_type: hmUI.edit_type.WEATHER,
+};
+
+export const DATA_3_EDIT_GROUP_PROPS = {
+  ...DATA_1_EDIT_GROUP_PROPS,
+  edit_id: 103,
+  y: px(390),
+  default_type: hmUI.edit_type.BATTERY,
+};
