@@ -301,7 +301,11 @@ WatchFace({
       x,
       y: y - px(4),
     });
-    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, WEATHER_TEMP_PROPS);
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
+      ...BOTTOM_WIDGET_TEXT_PROPS,
+      x,
+      y,
+    });
 
     const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);

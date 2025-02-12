@@ -119,12 +119,6 @@ export const WEATHER_ICON_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const WEATHER_TEMP_PROPS = {
-  ...BOTTOM_WIDGET_TEXT_PROPS,
-  x: px(268),
-  y: px(358),
-};
-
 export const DISCONNECT_STATUS_PROPS = {
   x: SCREEN.centerX - px(40 / 2),
   y: px(90),
