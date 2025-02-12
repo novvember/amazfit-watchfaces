@@ -6,13 +6,19 @@ Watchface for Amazfit GTR Mini and other round ZeppOS watches
 ## Features
 
 **Main features**
-- time is indicated by minute hand and 2 dots (orange one for hours, white one for seconds)
+- time is indicated by minute hand and 1 dot for hours
 - digital time too
 - date
-- step counter
-- current weather
-- battery level
+- AOD
 - status icon when watch is disconnected from phone
+- editable data widgets
+  - step counter
+  - current weather
+  - battery level
+  - heart rate
+  - calories
+  - sleep time
+  - distance
 
 **Inspired by**
 - [CMF by Nothing Watch default watchface](https://intl.cmf.tech/pages/watch-pro)
@@ -25,6 +31,8 @@ Watchface for Amazfit GTR Mini and other round ZeppOS watches
 **AOD:** Yes
 
 **Tap-zones:** No
+
+**Editable:** Yes
 
 **Language:** English, Russian
 
