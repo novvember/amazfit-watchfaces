@@ -373,6 +373,7 @@ WatchFace({
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
 
     const update = () => {
+      sleepSensor?.updateInfo();
       const time = getSleepTimeString(sleepSensor) || '--:--';
       const text = SLEEP_TEXT.replace('%s', time);
       textWidget.setProperty(hmUI.prop.TEXT, text);
