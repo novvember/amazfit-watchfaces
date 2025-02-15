@@ -56,8 +56,8 @@ const WEEKDAYS_RU = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
 const WEEKDAYS_EN = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 export const WEEKDAYS = isRusLang ? WEEKDAYS_RU : WEEKDAYS_EN;
 
-const STEPS_TEXT_RU = ['шаг', 'шага', 'шагов'];
-const STEPS_TEXT_EN = ['step', 'steps', 'steps'];
+const STEPS_TEXT_RU = ['шаг', 'шага', 'шагов', 'шагов'];
+const STEPS_TEXT_EN = ['step', 'steps'];
 export const STEPS_TEXT = isRusLang ? STEPS_TEXT_RU : STEPS_TEXT_EN;
 
 const HEART_TEXT_RU = '%s уд/мин';
