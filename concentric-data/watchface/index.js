@@ -45,15 +45,14 @@ import {
 
 WatchFace({
   onInit() {
-    console.log('index page.js on init invoke');
+    console.log('watchface initing');
   },
 
   build() {
-    console.log('index page.js on build invoke');
-
-    this.buildBackgroundAod();
+    console.log('watchface building');
 
     try {
+      this.buildBackgroundAod();
       this.buildTime();
       this.buildDate();
       this.buildBattery();
@@ -61,11 +60,13 @@ WatchFace({
       this.buildSteps();
       this.buildSleepTime();
       this.buildDisconnectStatus();
-    } catch (error) {}
+    } catch (error) {
+      console.log('Caught error', error);
+    }
   },
 
   onDestroy() {
-    console.log('index page.js on destroy invoke');
+    console.log('watchface destroying');
   },
 
   buildBackgroundAod() {
@@ -74,9 +75,13 @@ WatchFace({
 
   buildTime() {
     const secondImage = hmUI.createWidget(hmUI.widget.IMG, SECOND_IMAGE_PROPS);
-    const secondTexts = new Array(12).fill(null).map(() => hmUI.createWidget(hmUI.widget.IMG, SECOND_TEXT_PROPS));
+    const secondTexts = new Array(12)
+      .fill(null)
+      .map(() => hmUI.createWidget(hmUI.widget.IMG, SECOND_TEXT_PROPS));
     const minuteImage = hmUI.createWidget(hmUI.widget.IMG, MINUTE_IMAGE_PROPS);
-    const minuteTexts = new Array(12).fill(null).map(() => hmUI.createWidget(hmUI.widget.IMG, MINUTE_TEXT_PROPS));
+    const minuteTexts = new Array(12)
+      .fill(null)
+      .map(() => hmUI.createWidget(hmUI.widget.IMG, MINUTE_TEXT_PROPS));
 
     hmUI.createWidget(hmUI.widget.IMG, FRAME_IMAGE_PROPS);
     const currentHourText = hmUI.createWidget(
@@ -133,10 +138,9 @@ WatchFace({
     };
 
     const updateSecond = (timeSensor) => {
-      const { utc } = timeSensor;
-      const date = new Date(utc);
-      const second = date.getSeconds() + date.getMilliseconds() / 1000;
-      const angle = (90 + getAngleFromSeconds(second)) % 360;
+      const { utc = 0, second } = timeSensor;
+      const secondPrecise = Math.round(((utc / 1000) % 60) * 10) / 10 || second;
+      const angle = (90 + getAngleFromSeconds(secondPrecise)) % 360;
 
       updateWheel(
         angle,
@@ -207,22 +211,22 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        console.log('ui resume (buildTime)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           timer.stopTimer(updateTimer);
           update();
         } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
           timer.stopTimer(updateTimer);
-          timeSensor.addEventListener(timeSensor.event.MINUTEEND, updateAod);
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, updateAod);
           updateAod();
         }
       },
       pause_call: () => {
-        console.log('ui pause');
+        console.log('ui pause (buildTime)');
 
         timer.stopTimer(updateTimer);
-        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, updateAod);
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, updateAod);
       },
     });
   },
@@ -241,15 +245,17 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        console.log('ui resume (buildDate)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           update();
         }
       },
       pause_call: () => {
-        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
+        console.log('ui pause (buildDate)');
+
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
       },
     });
   },
@@ -272,15 +278,15 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        console.log('ui resume (buildBattery)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          batterySensor.addEventListener(hmSensor.event.CHANGE, update);
+          batterySensor.addEventListener?.(hmSensor.event.CHANGE, update);
           update();
         }
       },
       pause_call: () => {
-        batterySensor.removeEventListener(hmSensor.event.CHANGE, update);
+        batterySensor.removeEventListener?.(hmSensor.event.CHANGE, update);
       },
     });
   },
@@ -342,15 +348,15 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        console.log('ui resume (buildHeartRate)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          heartSensor.addEventListener(hmSensor.event.LAST, update);
+          heartSensor.addEventListener?.(hmSensor.event.LAST, update);
           update();
         }
       },
       pause_call: () => {
-        heartSensor.removeEventListener(hmSensor.event.LAST, update);
+        heartSensor.removeEventListener?.(hmSensor.event.LAST, update);
       },
     });
   },
@@ -375,15 +381,15 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        console.log('ui resume (buildSteps)');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          stepSensor.addEventListener(hmSensor.event.CHANGE, update);
+          stepSensor.addEventListener?.(hmSensor.event.CHANGE, update);
           update();
         }
       },
       pause_call: () => {
-        stepSensor.removeEventListener(hmSensor.event.CHANGE, update);
+        stepSensor.removeEventListener?.(hmSensor.event.CHANGE, update);
       },
     });
   },
@@ -426,7 +432,7 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        console.log('ui resume (buildSleepTime');
 
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           update();
