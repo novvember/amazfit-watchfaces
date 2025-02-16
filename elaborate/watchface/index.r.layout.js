@@ -1,8 +1,6 @@
 import {
   BATTERY,
   COLORS,
-  DATE_TEXT,
-  DATE_WEEK,
   DISCONNECT,
   FONT_FAMILY,
   FONT_SIZE,
@@ -13,6 +11,7 @@ import {
   STEPS,
   TIME,
   WEATHER,
+  WEEKDAY_IMAGES,
 } from '../utils/constants';
 
 export const BACKGROUND_AOD_IMAGE_PROPS = {
@@ -71,17 +70,17 @@ export const SLEEP_WAKE_STAGE_ARC_PROPS = {
 };
 
 export const DATE_WEEK_PROPS = {
-  x: DATE_WEEK.x,
-  y: DATE_WEEK.y,
-  week_en: DATE_WEEK.weeksArray,
+  x: px(172),
+  y: px(51),
+  week_en: WEEKDAY_IMAGES,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const DATE_TEXT_PROPS = {
-  x: DATE_TEXT.x,
-  y: DATE_TEXT.y,
-  w: DATE_TEXT.width,
-  h: DATE_TEXT.height,
+  x: px(180),
+  y: px(58),
+  w: px(120),
+  h: px(120),
   color: COLORS.accent,
   text_size: FONT_SIZE.secondary,
   align_h: hmUI.align.CENTER_H,
@@ -117,7 +116,7 @@ export const TIME_BACKGROUND_PROPS = {
   y: TIME.y,
   w: TIME.width,
   h: TIME.height,
-  radius: TIME.radius,
+  radius: px(15),
   color: COLORS.bgPrimary,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
@@ -139,6 +138,8 @@ export const TIME_TEXT_PROPS = {
 export const TIME_AOD_TEXT_PROPS = {
   ...TIME_TEXT_PROPS,
   color: COLORS.aod,
+  font: FONT_FAMILY.primaryAod,
+  text_size: FONT_SIZE.primaryAod,
   show_level: hmUI.show_level.ONAL_AOD,
 };
 
@@ -147,25 +148,25 @@ export const WEATHER_BACKGROUND_PROPS = {
   y: WEATHER.y,
   w: WEATHER.width,
   h: WEATHER.height,
-  radius: WEATHER.radius,
+  radius: px(40),
   color: COLORS.bgSecondary,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const WEATHER_ICON_PROPS = {
-  x: WEATHER.icon.x,
-  y: WEATHER.icon.y,
+  x: WEATHER.x + px(40),
+  y: WEATHER.y + px(26),
   src: '',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const WEATHER_TEXT_PROPS = {
-  x: WEATHER.text.x,
-  y: WEATHER.text.y,
-  w: WEATHER.text.width,
+  x: WEATHER.x + px(87),
+  y: WEATHER.y,
+  w: WEATHER.width - px(87),
   h: WEATHER.height,
   align_h: hmUI.align.LEFT,
-  align_v: hmUI.align.TOP,
+  align_v: hmUI.align.CENTER_V,
   text_size: FONT_SIZE.primary,
   color: COLORS.textSecondary,
   type: hmUI.data_type.WEATHER_CURRENT,
@@ -282,8 +283,8 @@ export const PULSE_ARC_PROPS = {
 export const BATTERY_TEXT_PROPS = {
   x: BATTERY.x,
   y: BATTERY.y,
-  w: BATTERY.width,
-  h: BATTERY.height,
+  w: px(120),
+  h: px(120),
   color: COLORS.textSecondary,
   text_size: FONT_SIZE.secondary,
   align_h: hmUI.align.CENTER_H,
@@ -301,8 +302,8 @@ export const BATTERY_PROGRESS_PROPS = {
 };
 
 export const DISCONNECT_PROPS = {
-  x: DISCONNECT.x,
-  y: DISCONNECT.y,
+  x: px(220),
+  y: px(438),
   type: hmUI.system_status.DISCONNECT,
   src: 'disconnect/disconnect.png',
   show_level: hmUI.show_level.ONLY_NORMAL,

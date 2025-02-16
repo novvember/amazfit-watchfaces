@@ -1,7 +1,11 @@
+import { getHasCustomFontSupport } from './getHasCustomFontSupport';
+
 const lang = DeviceRuntimeCore.HmUtils.getLanguage();
 const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
 
 const { width, height } = hmSetting.getDeviceInfo();
+
+export const hasCustomFontSupport = getHasCustomFontSupport();
 
 export const SCREEN = {
   width,
@@ -18,16 +22,18 @@ export const COLORS = {
   bgOnAccent: 0x000000,
   textPrimary: 0x000000,
   textSecondary: 0xebebed,
-  aod: 0xebebed,
+  aod: 0xb1b1b1,
 };
 
 export const FONT_FAMILY = {
-  primary: 'fonts/martian-mono-regular.ttf',
+  primary: hasCustomFontSupport ? 'fonts/MartianMono-Regular.ttf' : undefined,
+  primaryAod: hasCustomFontSupport ? 'fonts/MartianMono-ExtraLight.ttf' : undefined,
 };
 
 export const FONT_SIZE = {
-  primary: px(28),
-  secondary: px(20),
+  primary: hasCustomFontSupport ? px(28) : px(32),
+  primaryAod: hasCustomFontSupport ? px(32) : px(36),
+  secondary: hasCustomFontSupport ? px(20) : px(26),
 };
 
 export const SLEEP = {
@@ -35,61 +41,57 @@ export const SLEEP = {
   y: px(58),
   width: px(120),
   height: px(120),
-  postfix: isRusLang ? 'сон' : 'sleep',
   lineWidth: px(10),
   wakeStagesArcRadius: px(54),
-  wakeStagesArcWidth: px(4),
+  wakeStagesArcWidth: px(5),
 };
+
+const SLEEP_TEXT_RU = '%s\nсон';
+const SLEEP_TEXT_EN = '%s\nsleep';
+export const SLEEP_TEXT = isRusLang ? SLEEP_TEXT_RU : SLEEP_TEXT_EN;
 
 export const SUN = {
   sunrise: isRusLang ? 'восход' : 'sunrise',
   sunset: isRusLang ? 'закат' : 'sunset',
 };
 
-export const DATE_TEXT = {
-  x: px(180),
-  y: px(58),
-  width: px(120),
-  height: px(120),
-  textSize: px(18),
-  months: isRusLang
-    ? [
-        'Янв',
-        'Фев',
-        'Мар',
-        'Апр',
-        'Май',
-        'Июн',
-        'Июл',
-        'Авг',
-        'Сен',
-        'Окт',
-        'Ноя',
-        'Дек',
-      ]
-    : [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ],
-};
+const MONTH_TEXTS_RU = [
+  'Янв',
+  'Фев',
+  'Мар',
+  'Апр',
+  'Май',
+  'Июн',
+  'Июл',
+  'Авг',
+  'Сен',
+  'Окт',
+  'Ноя',
+  'Дек',
+];
+const MONTH_TEXTS_EN = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
+export const MONTH_TEXTS = isRusLang ? MONTH_TEXTS_RU : MONTH_TEXTS_EN;
 
-export const DATE_WEEK = {
-  x: px(172),
-  y: px(51),
-  weeksArray: isRusLang
-    ? new Array(7).fill(null).map((_, i) => `date_week_rus/${i}.png`)
-    : new Array(7).fill(null).map((_, i) => `date_week/${i}.png`),
-};
+const WEEKDAY_IMAGES_RU = new Array(7)
+  .fill(null)
+  .map((_, i) => `date_week_rus/${i}.png`);
+const WEEKDAY_IMAGES_EN = new Array(7)
+  .fill(null)
+  .map((_, i) => `date_week/${i}.png`);
+export const WEEKDAY_IMAGES = isRusLang ? WEEKDAY_IMAGES_RU : WEEKDAY_IMAGES_EN;
 
 export const SECONDS = {
   x: px(308),
@@ -107,17 +109,6 @@ export const WEATHER = {
   y: px(200),
   width: px(184),
   height: px(80),
-  radius: px(40),
-  textSize: px(28),
-  icon: {
-    x: px(92),
-    y: px(226),
-  },
-  text: {
-    x: px(139),
-    y: px(223),
-    width: px(97),
-  },
 };
 
 export const TIME = {
@@ -125,16 +116,17 @@ export const TIME = {
   y: px(200),
   width: px(184),
   height: px(80),
-  radius: px(15),
-  textSize: px(28),
 };
+
+const STEPS_POSTFIX_RU = ['шаг', 'шага', 'шагов', 'шагов'];
+const STEPS_POSTFIX_EN = ['step', 'steps'];
+export const STEPS_POSTFIX = isRusLang ? STEPS_POSTFIX_RU : STEPS_POSTFIX_EN;
 
 export const STEPS = {
   x: px(52),
   y: px(302),
   width: px(120),
   height: px(120),
-  postfix: isRusLang ? ['шаг', 'шага', 'шагов'] : ['step', 'steps', 'steps'],
 };
 
 export const PULSE = {
@@ -150,8 +142,8 @@ export const PULSE = {
     y: px(343),
   },
   pointer: {
-    minValue: 30,
-    maxValue: 150,
+    minValue: 40,
+    maxValue: 140,
     size: px(16),
   },
 };
@@ -159,12 +151,8 @@ export const PULSE = {
 export const BATTERY = {
   x: px(308),
   y: px(302),
-  width: px(120),
-  height: px(120),
-  postfix: isRusLang ? 'заряд' : 'battery',
 };
 
-export const DISCONNECT = {
-  x: px(220),
-  y: px(438),
-};
+const BATTERY_TEXT_RU = '%s%\nзаряд';
+const BATTERY_TEXT_EN = '%s%\nbattery';
+export const BATTERY_TEXT = isRusLang ? BATTERY_TEXT_RU : BATTERY_TEXT_EN;
