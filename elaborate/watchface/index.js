@@ -96,6 +96,11 @@ WatchFace({
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
     const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
 
+    const clearSleepWakeArcWidgets = () => {
+      sleepWakeArcWidgets.forEach((widget) => hmUI.deleteWidget(widget));
+      sleepWakeArcWidgets = [];
+    };
+
     const hideSunInfo = () => {
       sunImageWidget.setProperty(hmUI.prop.ALPHA, 0);
     };
@@ -107,9 +112,7 @@ WatchFace({
         end_angle: 0,
       });
 
-      sleepWakeArcWidgets.forEach((widget) => hmUI.deleteWidget(widget));
-      sleepWakeArcWidgets = [];
-
+      clearSleepWakeArcWidgets();
       prevSleepTime = '';
     };
 
@@ -130,6 +133,7 @@ WatchFace({
       }
 
       prevSleepTime = sleepTime;
+      clearSleepWakeArcWidgets();
 
       getWakeStages(sleepSensor).forEach((stage) => {
         const MIN_ARC_LENGTH = 10;
