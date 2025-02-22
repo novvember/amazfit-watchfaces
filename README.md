@@ -36,6 +36,7 @@ This repository contains multiple folders, each dedicated to a different watchfa
 | ![](./modular/demo.png)               | Modular               | All round watches | ✅ Done                |
 | ![](./ara/demo.png)                   | Ara                   | All round watches | ✅ Done                |
 | ![](./symmetry-broken/demo.png)       | Symmetry Broken       | All round watches | ✅ Done                |
+| ![](./regulus/demo.png)               | Regulus               | All round watches | ⚒️ In progress         |
 
 
 ## Installation Instructions
