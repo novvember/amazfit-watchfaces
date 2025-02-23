@@ -34,6 +34,9 @@ import {
   TIME_HOUR_PROPS,
   TIME_MINUTE_PROPS,
   TIME_SECOND_PROPS,
+  WORLD_CLOCK_COLON_PROPS,
+  WORLD_CLOCK_HOUR_PROPS,
+  WORLD_CLOCK_MINUTE_PROPS,
 } from './index.r.layout';
 
 WatchFace({
@@ -156,7 +159,7 @@ WatchFace({
       }),
     );
 
-    const shouldRenderWorldClock = false;
+    const shouldRenderWorldClock = true;
 
     if (shouldRenderWorldClock) {
       this.buildWorldClock();
@@ -170,7 +173,73 @@ WatchFace({
     this.buildDisconnect();
   },
 
-  buildWorldClock() {},
+  buildWorldClock() {
+    hmUI.createWidget(hmUI.widget.IMG, WORLD_CLOCK_COLON_PROPS);
+
+    const hourWidget = hmUI.createWidget(
+      hmUI.widget.TEXT_IMG,
+      WORLD_CLOCK_HOUR_PROPS,
+    );
+    const minuteWidget = hmUI.createWidget(
+      hmUI.widget.TEXT_IMG,
+      WORLD_CLOCK_MINUTE_PROPS,
+    );
+
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+    const worldClockSensor = hmSensor.createSensor(hmSensor.id.WORLD_CLOCK);
+
+    const setText = (hh, mm) => {
+      if (hh === undefined || mm == undefined) {
+        hourWidget.setProperty(hmUI.prop.MORE, {
+          ...WORLD_CLOCK_HOUR_PROPS,
+          alpha: 0,
+        });
+        minuteWidget.setProperty(hmUI.prop.MORE, {
+          ...WORLD_CLOCK_MINUTE_PROPS,
+          alpha: 0,
+        });
+      } else {
+        hourWidget.setProperty(hmUI.prop.MORE, {
+          ...WORLD_CLOCK_HOUR_PROPS,
+          alpha: 255,
+          text: hh,
+        });
+        minuteWidget.setProperty(hmUI.prop.MORE, {
+          ...WORLD_CLOCK_MINUTE_PROPS,
+          alpha: 255,
+          text: mm,
+        });
+      }
+    };
+
+    const update = () => {
+      worldClockSensor?.init();
+      const count = worldClockSensor?.getWorldClockCount();
+      const { hour, minute } = worldClockSensor?.getWorldClockInfo(0) || {};
+
+      if (hour === undefined || minute === undefined) {
+        setText();
+        return;
+      }
+
+      const is12HourFormat = hmSetting.getTimeFormat() === 0;
+      const hourText = is12HourFormat ? hour % 12 || 12 : hour;
+      const minuteText = minute.toString().padStart(2, '0');
+      setText(hourText, minuteText);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
+      },
+    });
+  },
 
   buildDate() {
     hmUI.createWidget(hmUI.widget.IMG_WEEK, DATE_WEEK_PROPS);
@@ -187,8 +256,9 @@ WatchFace({
 
     const update = () => {
       worldClockSensor?.init();
-      const text = worldClockSensor?.getWorldClockInfo?.(0)?.city || 'TIME 2';
-      textWidget.setProperty(hmUI.prop.TEXT, text);
+      const count = worldClockSensor?.getWorldClockCount();
+      const text = worldClockSensor?.getWorldClockInfo(0)?.city || 'TIME 2';
+      textWidget.setProperty(hmUI.prop.TEXT, text.toUpperCase());
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {

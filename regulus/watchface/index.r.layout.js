@@ -1,4 +1,5 @@
 import {
+  BOTTOMLINE_COLONS_COORDS,
   BOTTOMLINE_DIGITS_BIG_COORDS,
   BOTTOMLINE_DIGITS_SMALL_COORDS,
   COLORS,
@@ -44,6 +45,12 @@ export const TIME_COLON_PROPS = {
   src: 'colon_big/colon.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
+
+export const WORLD_CLOCK_COLON_PROPS = {
+  ...TIME_COLON_PROPS,
+  x: BOTTOMLINE_COLONS_COORDS[0][0],
+  y: BOTTOMLINE_COLONS_COORDS[0][1],
+}
 
 export const TIME_HOUR_PROPS = {
   hour_zero: 0,
@@ -207,8 +214,8 @@ export const LOCK_STATUS_PROPS = {
 export const BATTERY_LEVEL_IMAGE_PROPS = {
   x: px(390),
   y: px(162),
-  image_array: new Array(4).fill(null).map((_, i) => `battery/${i}.png`),
-  image_length: 4,
+  image_array: new Array(10).fill(null).map((_, i) => `battery/${i}.png`),
+  image_length: 10,
   type: hmUI.data_type.BATTERY,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
@@ -219,3 +226,29 @@ export const FIELD_IMAGE_PROPS = {
   src: 'field/field.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
+
+export const WORLD_CLOCK_HOUR_PROPS = {
+  x: BOTTOMLINE_DIGITS_BIG_COORDS[0][0],
+  y: BOTTOMLINE_DIGITS_BIG_COORDS[0][1],
+  w: px(66) * 2,
+  h: px(96),
+  font_array: new Array(10).fill(null).map((_, i) => `digits_big_extra/${i}.png`),
+  align_h: hmUI.align.RIGHT,
+  h_space: 0,
+  text: '',
+  alpha: 255,
+  show_level: hmUI.show_level.ONLY_NORMAL,
+}
+
+export const WORLD_CLOCK_MINUTE_PROPS = {
+  x: BOTTOMLINE_DIGITS_BIG_COORDS[2][0],
+  y: BOTTOMLINE_DIGITS_BIG_COORDS[2][1],
+  w: px(66) * 2,
+  h: px(96),
+  font_array: new Array(10).fill(null).map((_, i) => `digits_big/${i}.png`),
+  align_h: hmUI.align.LEFT,
+  h_space: 0,
+  text: '',
+  alpha: 255,
+  show_level: hmUI.show_level.ONLY_NORMAL,
+}
