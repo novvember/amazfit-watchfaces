@@ -12,6 +12,7 @@ import { SegmentDigitsWidget } from '../utils/SegmentDigitsWidget';
 import {
   ALARM_IMAGE_PROPS,
   ALARM_STATUS_PROPS,
+  BACKGROUND_AOD_IMAGE_PROPS,
   BATTERY_LEVEL_IMAGE_PROPS,
   BOTTOMLINE_EDIT_GROUP_PROPS,
   CITY1_TEXT_PROPS,
@@ -49,6 +50,8 @@ WatchFace({
   build() {
     console.log('watchface building');
 
+    this.buildBackground();
+
     this.buildTopLine();
     this.buildBottomLine();
     this.buildCentralLine();
@@ -56,6 +59,10 @@ WatchFace({
 
   onDestroy() {
     console.log('watchface destroying');
+  },
+
+  buildBackground() {
+    hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_AOD_IMAGE_PROPS);
   },
 
   buildTopLine() {

@@ -5,8 +5,8 @@
     "appName": "Regulus",
     "appType": "watchface",
     "version": {
-      "code": 5,
-      "name": "1.2.1"
+      "code": 6,
+      "name": "1.2.2"
     },
     "icon": "icon.png",
     "vender": "novvember",

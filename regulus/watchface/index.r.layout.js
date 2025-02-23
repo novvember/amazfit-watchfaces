@@ -51,7 +51,7 @@ export const WORLD_CLOCK_COLON_PROPS = {
   ...TIME_COLON_PROPS,
   x: BOTTOMLINE_COLONS_COORDS[0][0],
   y: BOTTOMLINE_COLONS_COORDS[0][1],
-}
+};
 
 export const TIME_HOUR_PROPS = {
   hour_zero: 0,
@@ -233,13 +233,15 @@ export const WORLD_CLOCK_HOUR_PROPS = {
   y: BOTTOMLINE_DIGITS_BIG_COORDS[0][1],
   w: px(66) * 2,
   h: px(96),
-  font_array: new Array(10).fill(null).map((_, i) => `digits_big_extra/${i}.png`),
+  font_array: new Array(10)
+    .fill(null)
+    .map((_, i) => `digits_big_extra/${i}.png`),
   align_h: hmUI.align.RIGHT,
   h_space: 0,
   text: '',
   alpha: 255,
   show_level: hmUI.show_level.ONLY_NORMAL,
-}
+};
 
 export const WORLD_CLOCK_MINUTE_PROPS = {
   x: BOTTOMLINE_DIGITS_BIG_COORDS[2][0],
@@ -252,7 +254,14 @@ export const WORLD_CLOCK_MINUTE_PROPS = {
   text: '',
   alpha: 255,
   show_level: hmUI.show_level.ONLY_NORMAL,
-}
+};
+
+export const BACKGROUND_AOD_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  src: 'edit/background.png',
+  show_level: hmUI.show_level.ONLY_EDIT,
+};
 
 export const BOTTOMLINE_EDIT_GROUP_PROPS = {
   edit_id: 101,
