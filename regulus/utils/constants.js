@@ -45,3 +45,22 @@ export const BOTTOMLINE_DIGITS_SMALL_COORDS = [
 ];
 
 export const BOTTOMLINE_COLONS_COORDS = [[px(170), px(272)]];
+
+export const BOTTOM_OPTIONAL_TYPES = [
+  {
+    type: 100201,
+    title_en: 'Date',
+    preview: 'edit/bottom_preview_date.png',
+    data: {
+      type: 'date',
+    },
+  },
+  {
+    type: 100202,
+    title_en: 'World Time',
+    preview: 'edit/bottom_preview_world_time.png',
+    data: {
+      type: 'world_time'
+    },
+  },
+];

@@ -1,4 +1,5 @@
 import {
+  BOTTOM_OPTIONAL_TYPES,
   BOTTOMLINE_COLONS_COORDS,
   BOTTOMLINE_DIGITS_BIG_COORDS,
   BOTTOMLINE_DIGITS_SMALL_COORDS,
@@ -12,6 +13,7 @@ import {
   ALARM_IMAGE_PROPS,
   ALARM_STATUS_PROPS,
   BATTERY_LEVEL_IMAGE_PROPS,
+  BOTTOMLINE_EDIT_GROUP_PROPS,
   CITY1_TEXT_PROPS,
   CITY2_TEXT_PROPS,
   COLON_BIG_EMPTY_PROPS,
@@ -126,6 +128,19 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.IMG_LEVEL, BATTERY_LEVEL_IMAGE_PROPS);
   },
 
+  getShouldRenderWorldClock() {
+    const bottomEditGroup = hmUI.createWidget(
+      hmUI.widget.WATCHFACE_EDIT_GROUP,
+      BOTTOMLINE_EDIT_GROUP_PROPS,
+    );
+    const bottomTypeId = bottomEditGroup.getProperty(hmUI.prop.CURRENT_TYPE);
+    const bottomTypeData = BOTTOM_OPTIONAL_TYPES.find(
+      (type) => type.type === bottomTypeId,
+    );
+
+    return bottomTypeData.data.type === 'world_time';
+  },
+
   buildBottomLine() {
     BOTTOMLINE_COLONS_COORDS.forEach(([x, y]) =>
       hmUI.createWidget(hmUI.widget.IMG, {
@@ -159,7 +174,7 @@ WatchFace({
       }),
     );
 
-    const shouldRenderWorldClock = true;
+    const shouldRenderWorldClock = this.getShouldRenderWorldClock();
 
     if (shouldRenderWorldClock) {
       this.buildWorldClock();

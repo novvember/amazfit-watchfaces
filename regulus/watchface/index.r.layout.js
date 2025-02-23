@@ -1,4 +1,5 @@
 import {
+  BOTTOM_OPTIONAL_TYPES,
   BOTTOMLINE_COLONS_COORDS,
   BOTTOMLINE_DIGITS_BIG_COORDS,
   BOTTOMLINE_DIGITS_SMALL_COORDS,
@@ -161,7 +162,7 @@ export const ALARM_IMAGE_PROPS = {
 export const ALARM_STATUS_PROPS = {
   x: px(340),
   y: px(88),
-  type: hmUI.system_status.DISCONNECT,
+  type: hmUI.system_status.CLOCK,
   src: 'alarm/alarm_on.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
@@ -252,3 +253,21 @@ export const WORLD_CLOCK_MINUTE_PROPS = {
   alpha: 255,
   show_level: hmUI.show_level.ONLY_NORMAL,
 }
+
+export const BOTTOMLINE_EDIT_GROUP_PROPS = {
+  edit_id: 101,
+  x: px(58),
+  y: px(266),
+  w: px(360),
+  h: px(126),
+  select_image: 'edit/bottom_select.png',
+  un_select_image: 'edit/bottom_unselect.png',
+  optional_types: BOTTOM_OPTIONAL_TYPES,
+  default_type: BOTTOM_OPTIONAL_TYPES[0],
+  count: BOTTOM_OPTIONAL_TYPES.length,
+  tips_BG: 'edit/tip.png',
+  tips_x: px(10),
+  tips_y: px(-35),
+  tips_width: px(110),
+  tips_margin: px(5),
+};
