@@ -263,7 +263,7 @@ export const BOTTOMLINE_EDIT_GROUP_PROPS = {
   select_image: 'edit/bottom_select.png',
   un_select_image: 'edit/bottom_unselect.png',
   optional_types: BOTTOM_OPTIONAL_TYPES,
-  default_type: BOTTOM_OPTIONAL_TYPES[0],
+  default_type: BOTTOM_OPTIONAL_TYPES[0].type,
   count: BOTTOM_OPTIONAL_TYPES.length,
   tips_BG: 'edit/tip.png',
   tips_x: px(10),
