@@ -3,6 +3,8 @@ import {
   BOTTOMLINE_COLONS_COORDS,
   BOTTOMLINE_DIGITS_BIG_COORDS,
   BOTTOMLINE_DIGITS_SMALL_COORDS,
+  CITY_1_DEFAULT,
+  CITY_2_DEFAULT,
   COLORS,
   TOPLINE_COLONS_COORDS,
   TOPLINE_DIGITS_BIG_COORDS,
@@ -113,8 +115,8 @@ WatchFace({
 
     const update = () => {
       const weatherData = weatherSensor.getForecastWeather();
-      const text = weatherData.cityName.toUpperCase();
-      textWidget.setProperty(hmUI.prop.TEXT, text || 'TIME 1');
+      const text = weatherData.cityName?.toUpperCase() || CITY_1_DEFAULT;
+      textWidget.setProperty(hmUI.prop.TEXT, text);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -279,7 +281,8 @@ WatchFace({
     const update = () => {
       worldClockSensor?.init();
       const count = worldClockSensor?.getWorldClockCount();
-      const text = worldClockSensor?.getWorldClockInfo(0)?.city || 'TIME 2';
+      const text =
+        worldClockSensor?.getWorldClockInfo(0)?.city || CITY_2_DEFAULT;
       textWidget.setProperty(hmUI.prop.TEXT, text.toUpperCase());
     };
 

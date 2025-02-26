@@ -1,40 +1,53 @@
 import {
+  ALARM_OFF_IMAGE,
+  ALARM_ON_IMAGE,
   BOTTOM_OPTIONAL_TYPES,
   BOTTOMLINE_COLONS_COORDS,
   BOTTOMLINE_DIGITS_BIG_COORDS,
   BOTTOMLINE_DIGITS_SMALL_COORDS,
+  COLON_BIG_EMPTY_IMAGE,
+  COLON_BIG_IMAGE,
   COLORS,
+  DIGITS_BIG_EMPTY_IMAGE,
+  DIGITS_BIG_EXTRA_EMPTY_IMAGE,
+  DIGITS_BIG_EXTRA_IMAGES,
+  DIGITS_BIG_IMAGES,
+  DIGITS_SMALL_EMPTY_IMAGE,
+  DIGITS_SMALL_IMAGES,
   FONT,
+  SILENT_OFF_IMAGE,
+  SILENT_ON_IMAGE,
   TOPLINE_COLONS_COORDS,
   TOPLINE_DIGITS_BIG_COORDS,
   TOPLINE_DIGITS_SMALL_COORDS,
+  WEEKDAYS_BIG_EXTRA_IMAGES,
 } from '../utils/constants';
 
 export const DIGIT_BIG_EMPTY_PROPS = {
   x: 0,
   y: 0,
-  src: 'digits_big/empty.png',
+  src: DIGITS_BIG_EMPTY_IMAGE,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const DIGITS_BIG_EXTRA_EMPTY_PROPS = {
   x: 0,
   y: 0,
-  src: 'digits_big_extra/empty.png',
+  src: DIGITS_BIG_EXTRA_EMPTY_IMAGE,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const DIGITS_SMALL_EMPTY_PROPS = {
   x: 0,
   y: 0,
-  src: 'digits_small/empty.png',
+  src: DIGITS_SMALL_EMPTY_IMAGE,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const COLON_BIG_EMPTY_PROPS = {
   x: 0,
   y: 0,
-  src: 'colon_big/colon_empty.png',
+  src: COLON_BIG_EMPTY_IMAGE,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -43,7 +56,7 @@ export const TIME_COLON_PROPS = {
   y: TOPLINE_COLONS_COORDS[0][1],
   w: px(66),
   h: px(96),
-  src: 'colon_big/colon.png',
+  src: COLON_BIG_IMAGE,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -57,7 +70,7 @@ export const TIME_HOUR_PROPS = {
   hour_zero: 0,
   hour_startX: TOPLINE_DIGITS_BIG_COORDS[0][0],
   hour_startY: TOPLINE_DIGITS_BIG_COORDS[0][1],
-  hour_array: new Array(10).fill(null).map((_, i) => `digits_big/${i}.png`),
+  hour_array: DIGITS_BIG_IMAGES,
   hour_space: 0,
   hour_align: hmUI.align.RIGHT,
   show_level: hmUI.show_level.ONLY_NORMAL,
@@ -67,7 +80,7 @@ export const TIME_MINUTE_PROPS = {
   minute_zero: 1,
   minute_startX: TOPLINE_DIGITS_BIG_COORDS[2][0],
   minute_startY: TOPLINE_DIGITS_BIG_COORDS[2][1],
-  minute_array: new Array(10).fill(null).map((_, i) => `digits_big/${i}.png`),
+  minute_array: DIGITS_BIG_IMAGES,
   minute_space: 0,
   minute_align: hmUI.align.LEFT,
   show_level: hmUI.show_level.ONLY_NORMAL,
@@ -77,7 +90,7 @@ export const TIME_SECOND_PROPS = {
   second_zero: 1,
   second_startX: TOPLINE_DIGITS_SMALL_COORDS[0][0],
   second_startY: TOPLINE_DIGITS_SMALL_COORDS[0][1],
-  second_array: new Array(10).fill(null).map((_, i) => `digits_small/${i}.png`),
+  second_array: DIGITS_SMALL_IMAGES,
   second_space: px(1),
   second_align: hmUI.align.LEFT,
   show_level: hmUI.show_level.ONLY_NORMAL,
@@ -105,7 +118,7 @@ export const TIME_AMPM_PROPS = {
 export const DATE_WEEK_PROPS = {
   x: BOTTOMLINE_DIGITS_BIG_COORDS[0][0],
   y: BOTTOMLINE_DIGITS_BIG_COORDS[0][1],
-  week_en: new Array(7).fill(null).map((_, i) => `weekdays_big_extra/${i}.png`),
+  week_en: WEEKDAYS_BIG_EXTRA_IMAGES,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -115,7 +128,7 @@ export const DATE_DAY_PROPS = {
   day_align: hmUI.align.RIGHT,
   day_space: 0,
   day_zero: 0,
-  day_en_array: new Array(10).fill(null).map((_, i) => `digits_big/${i}.png`),
+  day_en_array: DIGITS_BIG_IMAGES,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -125,16 +138,14 @@ export const DATE_MONTH_PROPS = {
   month_align: hmUI.align.RIGHT,
   month_space: px(1),
   month_zero: 0,
-  month_en_array: new Array(10)
-    .fill(null)
-    .map((_, i) => `digits_small/${i}.png`),
+  month_en_array: DIGITS_SMALL_IMAGES,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const CITY1_TEXT_PROPS = {
   x: px(72),
   y: px(88),
-  w: px(250),
+  w: px(210),
   h: px(24),
   color: COLORS.primary,
   text_size: px(18),
@@ -153,32 +164,32 @@ export const CITY2_TEXT_PROPS = {
 };
 
 export const ALARM_IMAGE_PROPS = {
-  x: px(340),
+  x: px(288),
   y: px(88),
-  src: 'alarm/alarm_off.png',
+  src: ALARM_OFF_IMAGE,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const ALARM_STATUS_PROPS = {
-  x: px(340),
+  x: px(288),
   y: px(88),
   type: hmUI.system_status.CLOCK,
-  src: 'alarm/alarm_on.png',
+  src: ALARM_ON_IMAGE,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const DND_IMAGE_PROPS = {
-  x: px(340),
+  x: px(288),
   y: px(367),
-  src: 'silent/silent_off.png',
+  src: SILENT_OFF_IMAGE,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const DND_STATUS_PROPS = {
-  x: px(340),
+  x: px(288),
   y: px(367),
   type: hmUI.system_status.DISTURB,
-  src: 'silent/silent_on.png',
+  src: SILENT_ON_IMAGE,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -233,9 +244,7 @@ export const WORLD_CLOCK_HOUR_PROPS = {
   y: BOTTOMLINE_DIGITS_BIG_COORDS[0][1],
   w: px(66) * 2,
   h: px(96),
-  font_array: new Array(10)
-    .fill(null)
-    .map((_, i) => `digits_big_extra/${i}.png`),
+  font_array: DIGITS_BIG_EXTRA_IMAGES,
   align_h: hmUI.align.RIGHT,
   h_space: 0,
   text: '',
@@ -248,7 +257,7 @@ export const WORLD_CLOCK_MINUTE_PROPS = {
   y: BOTTOMLINE_DIGITS_BIG_COORDS[2][1],
   w: px(66) * 2,
   h: px(96),
-  font_array: new Array(10).fill(null).map((_, i) => `digits_big/${i}.png`),
+  font_array: DIGITS_BIG_IMAGES,
   align_h: hmUI.align.LEFT,
   h_space: 0,
   text: '',
