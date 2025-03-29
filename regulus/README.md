@@ -12,17 +12,17 @@ Watchface for Amazfit GTR Mini and for other round ZeppOS watch.
 - Alarm status.
 - Screen lock status.
 - Bluetooth connection status.
-- Sunrise/sunset time.
+- Additinal data (2 unites): sunset, sunrise, sleep time, heart rate, weather, steps, calories, distance.
 
 **Reference:** Nixon Regulus watch
 
 **Model compatibility:** Amazfit GTR Mini, Amazfit GTR 4 and all other round ZeppOS watches
 
-**AOD:** No
+**AOD:** Yes
 
 **Tap-zones:** No
 
-**Language:** -.
+**Language:** English, Russian.
 
 ## Download ⏬
 
