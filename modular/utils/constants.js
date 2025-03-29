@@ -35,7 +35,7 @@ export const FONT_SIZE = {
 
 export const COLORS = {
   primary: 0xffffff,
-  secondary: 0x8a8a8a,
+  secondary: 0xcfcfcf,
   tertiary: 0x1c1c1c,
   accent: 0x60c7f4,
   accentSecondary: 0x34596d,

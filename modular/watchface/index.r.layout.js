@@ -115,7 +115,7 @@ export const DISTANCE_TEXT_PROPS = {
 export const SLEEP_TEXT_PROPS = {
   ...DISTANCE_TEXT_PROPS,
   y: px(412),
-  color: COLORS.accentSecondary,
+  color: COLORS.secondary,
 };
 
 export const WIDGET_BACKGROUND_CIRCLE_PROPS = {
