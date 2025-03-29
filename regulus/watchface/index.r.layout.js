@@ -5,6 +5,7 @@ import {
   BOTTOMLINE_COLONS_COORDS,
   BOTTOMLINE_DIGITS_BIG_COORDS,
   BOTTOMLINE_DIGITS_SMALL_COORDS,
+  CENTRAL_OPTIONAL_TYPES,
   COLON_BIG_EMPTY_IMAGE,
   COLON_BIG_IMAGE,
   COLORS,
@@ -239,6 +240,13 @@ export const FIELD_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const FIELD_ICON_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  src: '',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
 export const WORLD_CLOCK_HOUR_PROPS = {
   x: BOTTOMLINE_DIGITS_BIG_COORDS[0][0],
   y: BOTTOMLINE_DIGITS_BIG_COORDS[0][1],
@@ -288,4 +296,29 @@ export const BOTTOMLINE_EDIT_GROUP_PROPS = {
   tips_y: px(-35),
   tips_width: px(110),
   tips_margin: px(5),
+};
+
+export const CENTRALLINE_LEFT_EDIT_GROUP_PROPS = {
+  edit_id: 102,
+  x: px(58),
+  y: px(212),
+  w: px(130),
+  h: px(52),
+  select_image: 'edit/central_select.png',
+  un_select_image: 'edit/central_unselect.png',
+  optional_types: CENTRAL_OPTIONAL_TYPES,
+  default_type: CENTRAL_OPTIONAL_TYPES[1].type,
+  count: CENTRAL_OPTIONAL_TYPES.length,
+  tips_BG: 'edit/tip.png',
+  tips_x: px(10),
+  tips_y: px(-35),
+  tips_width: px(110),
+  tips_margin: px(5),
+};
+
+export const CENTRALLINE_RIGHT_EDIT_GROUP_PROPS = {
+  ...CENTRALLINE_LEFT_EDIT_GROUP_PROPS,
+  edit_id: 103,
+  x: px(290),
+  default_type: CENTRAL_OPTIONAL_TYPES[0].type,
 };

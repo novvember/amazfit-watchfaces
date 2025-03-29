@@ -53,20 +53,36 @@ export class SegmentDigitsWidget {
     this._colonWidget.setProperty(hmUI.prop.SRC, this._getColonSrc('empty'));
   }
 
-  setValue(value, type = 'empty') {
+  setValue(value) {
     if (value === undefined) {
       this._clear();
       return;
     }
 
-    this._colonWidget.setProperty(hmUI.prop.SRC, this._getColonSrc(type));
-    const chars = value.toString().slice(0, 4).padStart(4, ' ').split('');
+    if (value.includes('.')) {
+      this._colonWidget.setProperty(hmUI.prop.SRC, this._getColonSrc('dot'));
+    } else if (value.includes(':')) {
+      this._colonWidget.setProperty(hmUI.prop.SRC, this._getColonSrc('colon'));
+    } else {
+      this._colonWidget.setProperty(hmUI.prop.SRC, this._getColonSrc('empty'));
+    }
 
-    chars.forEach((char, i) =>
-      this._digitsWidgets[i].setProperty(
-        hmUI.prop.SRC,
-        this._getDigitSrc(char),
-      ),
-    );
+    value
+      .split('')
+      .filter((char) => !['.', ':'].includes(char))
+      .forEach((char, i) => {
+        this._digitsWidgets[i].setProperty(
+          hmUI.prop.SRC,
+          this._getDigitSrc(char),
+        );
+      });
+  }
+
+  static formatNumber(number) {
+    if (number < 10000) {
+      return number.toString().padStart(4, ' ');
+    }
+
+    return ((number / 1000).toFixed(1) + ' ').padStart(5, ' ');
   }
 }

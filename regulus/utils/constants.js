@@ -123,3 +123,70 @@ export const BOTTOM_OPTIONAL_TYPES = [
     },
   },
 ];
+
+export const CENTRAL_OPTIONAL_TYPES = [
+  {
+    type: 100001,
+    title_en: isRusLang ? 'Закат' : 'Sunset',
+    preview: 'edit/center_preview_time.png',
+    data: {
+      type: 'sunset',
+    },
+  },
+  {
+    type: 100002,
+    title_en: isRusLang ? 'Рассвет' : 'Sunrise',
+    preview: 'edit/center_preview_time.png',
+    data: {
+      type: 'sunrise',
+    },
+  },
+  {
+    type: 100003,
+    title_en: isRusLang ? 'Сон' : 'Sleep',
+    preview: 'edit/center_preview_time.png',
+    data: {
+      type: 'sleep',
+    },
+  },
+  {
+    type: 100004,
+    title_en: isRusLang ? 'Погода' : 'Weather',
+    preview: 'edit/center_preview_weather.png',
+    data: {
+      type: 'weather',
+    },
+  },
+  {
+    type: 100005,
+    title_en: isRusLang ? 'Пульс' : 'Heart Rate',
+    preview: 'edit/center_preview_heart.png',
+    data: {
+      type: 'heart',
+    },
+  },
+  {
+    type: 100006,
+    title_en: isRusLang ? 'Шаги' : 'Steps',
+    preview: 'edit/center_preview_steps.png',
+    data: {
+      type: 'steps',
+    },
+  },
+  {
+    type: 100007,
+    title_en: isRusLang ? 'Калории' : 'Calories',
+    preview: 'edit/center_preview_long.png',
+    data: {
+      type: 'calories',
+    },
+  },
+  {
+    type: 100008,
+    title_en: isRusLang ? 'Расстояние' : 'Distance',
+    preview: 'edit/center_preview_long.png',
+    data: {
+      type: 'distance',
+    },
+  },
+];
