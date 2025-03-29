@@ -6,9 +6,11 @@ import {
   BOTTOMLINE_DIGITS_BIG_COORDS,
   BOTTOMLINE_DIGITS_SMALL_COORDS,
   CENTRAL_OPTIONAL_TYPES,
+  COLON_BIG_AOD_IMAGE,
   COLON_BIG_EMPTY_IMAGE,
   COLON_BIG_IMAGE,
   COLORS,
+  DIGITS_BIG_AOD_IMAGES,
   DIGITS_BIG_EMPTY_IMAGE,
   DIGITS_BIG_EXTRA_EMPTY_IMAGE,
   DIGITS_BIG_EXTRA_IMAGES,
@@ -61,6 +63,15 @@ export const TIME_COLON_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const TIME_AOD_COLON_PROPS = {
+  x: TOPLINE_COLONS_COORDS[0][0],
+  y: TOPLINE_COLONS_COORDS[0][1],
+  w: px(66),
+  h: px(96),
+  src: COLON_BIG_AOD_IMAGE,
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
 export const WORLD_CLOCK_COLON_PROPS = {
   ...TIME_COLON_PROPS,
   x: BOTTOMLINE_COLONS_COORDS[0][0],
@@ -85,6 +96,26 @@ export const TIME_MINUTE_PROPS = {
   minute_space: 0,
   minute_align: hmUI.align.LEFT,
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const TIME_AOD_HOUR_PROPS = {
+  hour_zero: 0,
+  hour_startX: TOPLINE_DIGITS_BIG_COORDS[0][0],
+  hour_startY: TOPLINE_DIGITS_BIG_COORDS[0][1],
+  hour_array: DIGITS_BIG_AOD_IMAGES,
+  hour_space: 0,
+  hour_align: hmUI.align.RIGHT,
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
+export const TIME_AOD_MINUTE_PROPS = {
+  minute_zero: 1,
+  minute_startX: TOPLINE_DIGITS_BIG_COORDS[2][0],
+  minute_startY: TOPLINE_DIGITS_BIG_COORDS[2][1],
+  minute_array: DIGITS_BIG_AOD_IMAGES,
+  minute_space: 0,
+  minute_align: hmUI.align.LEFT,
+  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const TIME_SECOND_PROPS = {

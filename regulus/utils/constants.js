@@ -26,10 +26,14 @@ export const DIGITS_BIG_EXTRA_EMPTY_IMAGE = 'digits_big_extra/empty.png';
 export const DIGITS_SMALL_EMPTY_IMAGE = 'digits_small/empty.png';
 export const COLON_BIG_EMPTY_IMAGE = 'colon_big/colon_empty.png';
 export const COLON_BIG_IMAGE = 'colon_big/colon.png';
+export const COLON_BIG_AOD_IMAGE = 'colon_big_aod/colon.png';
 
 export const DIGITS_BIG_IMAGES = new Array(10)
   .fill(null)
   .map((_, i) => `digits_big/${i}.png`);
+export const DIGITS_BIG_AOD_IMAGES = new Array(10)
+  .fill(null)
+  .map((_, i) => `digits_big_aod/${i}.png`);
 export const DIGITS_SMALL_IMAGES = new Array(10)
   .fill(null)
   .map((_, i) => `digits_small/${i}.png`);

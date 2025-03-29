@@ -40,6 +40,9 @@ import {
   LOCK_STATUS_PROPS,
   TIME_AMPM_BACKGROUND_PROPS,
   TIME_AMPM_PROPS,
+  TIME_AOD_COLON_PROPS,
+  TIME_AOD_HOUR_PROPS,
+  TIME_AOD_MINUTE_PROPS,
   TIME_COLON_PROPS,
   TIME_HOUR_PROPS,
   TIME_MINUTE_PROPS,
@@ -105,6 +108,7 @@ WatchFace({
 
   buildTime() {
     hmUI.createWidget(hmUI.widget.IMG, TIME_COLON_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, TIME_AOD_COLON_PROPS);
 
     hmUI.createWidget(hmUI.widget.IMG_TIME, TIME_HOUR_PROPS);
     hmUI.createWidget(hmUI.widget.IMG_TIME, TIME_MINUTE_PROPS);
@@ -112,6 +116,9 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.IMG, TIME_AMPM_BACKGROUND_PROPS);
     hmUI.createWidget(hmUI.widget.IMG_TIME, TIME_AMPM_PROPS);
+
+    hmUI.createWidget(hmUI.widget.IMG_TIME, TIME_AOD_HOUR_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG_TIME, TIME_AOD_MINUTE_PROPS);
   },
 
   buildCity1() {
