@@ -171,6 +171,14 @@ export const WIDGET_OPTIONAL_TYPES = [
       type: 'humidity',
     },
   },
+  {
+    type: 100009,
+    title_en: isRusLang ? 'Мировое время' : 'World Time',
+    preview: 'edit/widget_preview_worldtime.png',
+    data: {
+      type: 'worldtime',
+    },
+  },
 
   {
     type: 100000,

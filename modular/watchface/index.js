@@ -346,6 +346,10 @@ WatchFace({
         this.buildHumidity(slotNumber);
         break;
 
+      case 'worldtime':
+        this.buildWorldTime(slotNumber);
+        break;
+
       case 'empty':
         break;
 
@@ -696,6 +700,72 @@ WatchFace({
       h,
       type: hmUI.data_type.HUMIDITY,
       unit_type: 0,
+    });
+  },
+
+  buildWorldTime(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
+
+    hmUI.createWidget(hmUI.widget.CIRCLE, {
+      ...WIDGET_BACKGROUND_CIRCLE_PROPS,
+      center_x: centerX,
+      center_y: centerY,
+      radius: w / 2,
+    });
+
+    const timeTextWidget = hmUI.createWidget(hmUI.widget.TEXT, {
+      ...WIDGET_TEXT_S_PROPS,
+      x,
+      y: y - 0.12 * h,
+      w,
+      h,
+      color: COLORS.primary,
+    });
+
+    const cityTextWidget = hmUI.createWidget(hmUI.widget.TEXT, {
+      ...WIDGET_TEXT_S_PROPS,
+      x,
+      y: y + 0.12 * h,
+      w,
+      h,
+      color: COLORS.accent,
+    });
+
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+    const worldClockSensor = hmSensor.createSensor(hmSensor.id.WORLD_CLOCK);
+
+    const update = () => {
+      worldClockSensor?.init();
+      const count = worldClockSensor?.getWorldClockCount();
+      const { hour, minute, city } =
+        worldClockSensor?.getWorldClockInfo(0) || {};
+
+      if (hour === undefined || minute === undefined || !city) {
+        timeTextWidget.setProperty(hmUI.prop.TEXT, '--:--');
+        cityTextWidget.setProperty(hmUI.prop.TEXT, '');
+        return;
+      }
+
+      const is12HourFormat = hmSetting.getTimeFormat() === 0;
+      const timeText = formatTime(hour, minute, is12HourFormat, true);
+      const cityText = city.toUpperCase().slice(0, 3);
+
+      timeTextWidget.setProperty(hmUI.prop.TEXT, timeText);
+      cityTextWidget.setProperty(hmUI.prop.TEXT, cityText);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
+      },
     });
   },
 });
