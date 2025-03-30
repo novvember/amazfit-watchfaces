@@ -277,12 +277,6 @@ WatchFace({
     const EDIT_GROUP_SIZE = px(100);
 
     hmUI.createWidget(hmUI.widget.IMG, EDIT_SCREEN_BACKGROUND_PROPS);
-    hmUI.createWidget(hmUI.widget.FILL_RECT, EDIT_SCREEN_COVER_RECT_TOP_PROPS);
-    hmUI.createWidget(
-      hmUI.widget.FILL_RECT,
-      EDIT_SCREEN_COVER_RECT_BOTTOM_PROPS,
-    );
-    hmUI.createWidget(hmUI.widget.FILL_RECT, EDIT_SCREEN_OVERLAY_PROPS);
 
     new Array(6)
       .fill(null)

@@ -233,31 +233,6 @@ export const WIDGET_EDIT_GROUP_PROPS = {
 export const EDIT_SCREEN_BACKGROUND_PROPS = {
   x: 0,
   y: 0,
-  src: 'cover.png',
-  show_level: hmUI.show_level.ONLY_EDIT,
-};
-
-export const EDIT_SCREEN_COVER_RECT_TOP_PROPS = {
-  x: px(85),
-  y: px(61),
-  w: px(310),
-  h: px(110),
-  radius: px(55),
-  color: 0x000000,
-  show_level: hmUI.show_level.ONLY_EDIT,
-};
-
-export const EDIT_SCREEN_COVER_RECT_BOTTOM_PROPS = {
-  ...EDIT_SCREEN_COVER_RECT_TOP_PROPS,
-  y: px(303),
-};
-
-export const EDIT_SCREEN_OVERLAY_PROPS = {
-  x: 0,
-  y: 0,
-  w: px(480),
-  h: px(480),
-  color: 0x000000,
-  alpha: 128,
+  src: 'edit/background.png',
   show_level: hmUI.show_level.ONLY_EDIT,
 };
