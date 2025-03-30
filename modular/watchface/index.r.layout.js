@@ -5,6 +5,7 @@ import {
   COLORS,
   isRusLang,
   FONT_SIZE,
+  WIDGET_OPTIONAL_TYPES,
 } from '../utils/constants';
 
 export const TIME_TEXT_PROPS = {
@@ -209,4 +210,54 @@ export const WIND_IMAGE_LEVEL_PROPS = {
   h: 0,
   type: hmUI.data_type.WIND_DIRECTION,
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const WIDGET_EDIT_GROUP_PROPS = {
+  edit_id: 0,
+  x: 0,
+  y: 0,
+  w: px(100),
+  h: px(100),
+  select_image: 'edit/widget_select.png',
+  un_select_image: 'edit/widget_unselect.png',
+  optional_types: WIDGET_OPTIONAL_TYPES,
+  default_type: undefined,
+  count: WIDGET_OPTIONAL_TYPES.length,
+  tips_BG: 'edit/tip.png',
+  tips_x: px(-15),
+  tips_y: 0,
+  tips_width: px(120),
+  tips_margin: px(6),
+};
+
+export const EDIT_SCREEN_BACKGROUND_PROPS = {
+  x: 0,
+  y: 0,
+  src: 'cover.png',
+  show_level: hmUI.show_level.ONLY_EDIT,
+};
+
+export const EDIT_SCREEN_COVER_RECT_TOP_PROPS = {
+  x: px(85),
+  y: px(61),
+  w: px(310),
+  h: px(110),
+  radius: px(55),
+  color: 0x000000,
+  show_level: hmUI.show_level.ONLY_EDIT,
+};
+
+export const EDIT_SCREEN_COVER_RECT_BOTTOM_PROPS = {
+  ...EDIT_SCREEN_COVER_RECT_TOP_PROPS,
+  y: px(303),
+};
+
+export const EDIT_SCREEN_OVERLAY_PROPS = {
+  x: 0,
+  y: 0,
+  w: px(480),
+  h: px(480),
+  color: 0x000000,
+  alpha: 128,
+  show_level: hmUI.show_level.ONLY_EDIT,
 };

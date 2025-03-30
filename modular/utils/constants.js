@@ -35,7 +35,7 @@ export const FONT_SIZE = {
 
 export const COLORS = {
   primary: 0xffffff,
-  secondary: 0xcfcfcf,
+  secondary: 0xd0d0d0,
   tertiary: 0x1c1c1c,
   accent: 0x60c7f4,
   accentSecondary: 0x34596d,
@@ -105,3 +105,63 @@ export const WEEKDAYS = isRusLang ? WEEKDAYS_RU : WEEKDAYS_EN;
 const WIND_POSTFIX_EN = 'MPS';
 const WIND_POSTFIX_RU = 'М/С';
 export const WIND_POSTFIX = isRusLang ? WIND_POSTFIX_RU : WIND_POSTFIX_EN;
+
+export const WIDGET_OPTIONAL_TYPES = [
+  {
+    type: 100001,
+    title_en: isRusLang ? 'Температура' : 'Temperature',
+    preview: 'edit/widget_preview_temperature.png',
+    data: {
+      type: 'temperature',
+    },
+  },
+  {
+    type: 100002,
+    title_en: isRusLang ? 'UV-индекс' : 'UV Index',
+    preview: 'edit/widget_preview_uvi.png',
+    data: {
+      type: 'uvi',
+    },
+  },
+  {
+    type: 100003,
+    title_en: isRusLang ? 'Солнце' : 'Sun',
+    preview: 'edit/widget_preview_sun.png',
+    data: {
+      type: 'sun',
+    },
+  },
+  {
+    type: 100004,
+    title_en: isRusLang ? 'Ветер' : 'Wind',
+    preview: 'edit/widget_preview_wind.png',
+    data: {
+      type: 'wind',
+    },
+  },
+  {
+    type: 100005,
+    title_en: isRusLang ? 'Дата' : 'Date',
+    preview: 'edit/widget_preview_date.png',
+    data: {
+      type: 'date',
+    },
+  },
+  {
+    type: 100006,
+    title_en: isRusLang ? 'Батарея' : 'Battery',
+    preview: 'edit/widget_preview_battery.png',
+    data: {
+      type: 'battery',
+    },
+  },
+
+  {
+    type: 100000,
+    title_en: isRusLang ? 'Выключить' : 'Disable',
+    preview: 'edit/widget_preview_empty.png',
+    data: {
+      type: 'empty',
+    },
+  },
+];

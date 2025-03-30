@@ -3,6 +3,7 @@ import {
   COLORS,
   SLEEP_TEXT,
   WEEKDAYS,
+  WIDGET_OPTIONAL_TYPES,
   WIDGETS,
   WIND_POSTFIX,
 } from '../utils/constants';
@@ -14,6 +15,10 @@ import { getSleepTimeString } from '../utils/getSleepTime';
 import { getSunDayDuration, getSunPosition } from '../utils/getSunParams';
 import {
   DISTANCE_TEXT_PROPS,
+  EDIT_SCREEN_BACKGROUND_PROPS,
+  EDIT_SCREEN_COVER_RECT_BOTTOM_PROPS,
+  EDIT_SCREEN_COVER_RECT_TOP_PROPS,
+  EDIT_SCREEN_OVERLAY_PROPS,
   HEART_ARC_PROPS,
   HEART_LINES_IMAGE_PROPS,
   HEART_TEXT_PROPS,
@@ -30,6 +35,7 @@ import {
   WIDGET_BACKGROUND_ARC_PROPS,
   WIDGET_BACKGROUND_CIRCLE_PROPS,
   WIDGET_DOT_IMAGE_PROPS,
+  WIDGET_EDIT_GROUP_PROPS,
   WIDGET_TEXT_L_PROPS,
   WIDGET_TEXT_S_PROPS,
   WIDGET_TEXT_XS_PROPS,
@@ -49,16 +55,10 @@ WatchFace({
     this.buildSteps();
     this.buildHeart();
 
-    this.buildDistance();
     this.buildSleep();
+    this.buildDistance();
 
-    this.buildTemperature();
-    this.buildUvi();
-    this.buildSunPosition();
-
-    this.buildWind();
-    this.buildDate();
-    this.buildBattery();
+    this.buildWidgets();
   },
 
   onDestroy() {
@@ -273,8 +273,88 @@ WatchFace({
     });
   },
 
-  buildTemperature() {
-    const { x, y, w, h } = WIDGETS[0];
+  buildWidgets() {
+    const EDIT_GROUP_SIZE = px(100);
+
+    hmUI.createWidget(hmUI.widget.IMG, EDIT_SCREEN_BACKGROUND_PROPS);
+    hmUI.createWidget(hmUI.widget.FILL_RECT, EDIT_SCREEN_COVER_RECT_TOP_PROPS);
+    hmUI.createWidget(
+      hmUI.widget.FILL_RECT,
+      EDIT_SCREEN_COVER_RECT_BOTTOM_PROPS,
+    );
+    hmUI.createWidget(hmUI.widget.FILL_RECT, EDIT_SCREEN_OVERLAY_PROPS);
+
+    new Array(6)
+      .fill(null)
+      .map((_, index) => {
+        const { x, y, w, h } = WIDGETS[index];
+        const centerX = x + w / 2;
+        const centerY = y + h / 2;
+        const isTipOnBottom = index < 3;
+
+        return hmUI.createWidget(hmUI.widget.WATCHFACE_EDIT_GROUP, {
+          ...WIDGET_EDIT_GROUP_PROPS,
+          edit_id: index,
+          x: centerX - EDIT_GROUP_SIZE / 2,
+          y: centerY - EDIT_GROUP_SIZE / 2,
+          w: EDIT_GROUP_SIZE,
+          h: EDIT_GROUP_SIZE,
+          default_type: WIDGET_OPTIONAL_TYPES[index].type,
+          tips_y: isTipOnBottom
+            ? EDIT_GROUP_SIZE + px(5)
+            : -1 * (px(30) + px(5)),
+        });
+      })
+      .forEach((editGroup, index) => {
+        const typeId = editGroup.getProperty(hmUI.prop.CURRENT_TYPE);
+
+        if (!typeId) {
+          return;
+        }
+
+        const type = WIDGET_OPTIONAL_TYPES.find((item) => item.type === typeId)
+          .data.type;
+        this.buildWidget(type, index);
+      });
+  },
+
+  buildWidget(type, slotNumber) {
+    switch (type) {
+      case 'temperature':
+        this.buildTemperature(slotNumber);
+        break;
+
+      case 'uvi':
+        this.buildUvi(slotNumber);
+        break;
+
+      case 'sun':
+        this.buildSunPosition(slotNumber);
+        break;
+
+      case 'wind':
+        this.buildWind(slotNumber);
+        break;
+
+      case 'date':
+        this.buildDate(slotNumber);
+        break;
+
+      case 'battery':
+        this.buildBattery(slotNumber);
+        break;
+
+      case 'empty':
+        break;
+
+      default:
+        console.warn('Unknown widget type', type);
+        break;
+    }
+  },
+
+  buildTemperature(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
@@ -326,8 +406,8 @@ WatchFace({
     });
   },
 
-  buildDate() {
-    const { x, y, w, h } = WIDGETS[4];
+  buildDate(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
@@ -380,8 +460,8 @@ WatchFace({
     });
   },
 
-  buildUvi() {
-    const { x, y, w, h } = WIDGETS[1];
+  buildUvi(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
 
     hmUI.createWidget(hmUI.widget.IMG_LEVEL, {
       ...UVI_IMAGE_LEVEL_PROPS,
@@ -392,8 +472,8 @@ WatchFace({
     });
   },
 
-  buildSunPosition() {
-    const { x, y, w, h } = WIDGETS[2];
+  buildSunPosition(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
@@ -496,8 +576,8 @@ WatchFace({
     });
   },
 
-  buildWind() {
-    const { x, y, w, h } = WIDGETS[3];
+  buildWind(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
@@ -530,8 +610,8 @@ WatchFace({
     });
   },
 
-  buildBattery() {
-    const { x, y, w, h } = WIDGETS[5];
+  buildBattery(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
