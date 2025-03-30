@@ -19,6 +19,7 @@ import {
   HEART_ARC_PROPS,
   HEART_LINES_IMAGE_PROPS,
   HEART_TEXT_PROPS,
+  HUMIDITY_ICON_IMAGE_PROPS,
   MARK_IMAGE_PROPS,
   SECONDS_BACKGROUND_PROPS,
   SECONDS_POINTER_PROPS,
@@ -341,6 +342,10 @@ WatchFace({
         this.buildSeconds(slotNumber);
         break;
 
+      case 'humidity':
+        this.buildHumidity(slotNumber);
+        break;
+
       case 'empty':
         break;
 
@@ -652,6 +657,45 @@ WatchFace({
       second_centerY: centerY,
       second_cover_x: x,
       second_cover_y: y,
+    });
+  },
+
+  buildHumidity(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
+
+    hmUI.createWidget(hmUI.widget.IMG, {
+      ...HUMIDITY_ICON_IMAGE_PROPS,
+      x,
+      y: y + 0.35 * h,
+    });
+
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
+      ...WIDGET_BACKGROUND_ARC_PROPS,
+      center_x: centerX,
+      center_y: centerY,
+      start_angle: -145,
+      end_angle: 145,
+    });
+
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
+      ...WIDGET_ACTIVE_ARC_PROPS,
+      center_x: centerX,
+      center_y: centerY,
+      start_angle: -145,
+      end_angle: 145,
+      type: hmUI.data_type.HUMIDITY,
+    });
+
+    hmUI.createWidget(hmUI.widget.TEXT_FONT, {
+      ...WIDGET_TEXT_L_PROPS,
+      x,
+      y,
+      w,
+      h,
+      type: hmUI.data_type.HUMIDITY,
+      unit_type: 0,
     });
   },
 });

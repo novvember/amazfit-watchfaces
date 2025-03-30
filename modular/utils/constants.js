@@ -163,6 +163,14 @@ export const WIDGET_OPTIONAL_TYPES = [
       type: 'seconds',
     },
   },
+  {
+    type: 100008,
+    title_en: isRusLang ? 'Влажность' : 'Humidity',
+    preview: 'edit/widget_preview_humidity.png',
+    data: {
+      type: 'humidity',
+    },
+  },
 
   {
     type: 100000,
