@@ -16,13 +16,12 @@ import { getSunDayDuration, getSunPosition } from '../utils/getSunParams';
 import {
   DISTANCE_TEXT_PROPS,
   EDIT_SCREEN_BACKGROUND_PROPS,
-  EDIT_SCREEN_COVER_RECT_BOTTOM_PROPS,
-  EDIT_SCREEN_COVER_RECT_TOP_PROPS,
-  EDIT_SCREEN_OVERLAY_PROPS,
   HEART_ARC_PROPS,
   HEART_LINES_IMAGE_PROPS,
   HEART_TEXT_PROPS,
   MARK_IMAGE_PROPS,
+  SECONDS_BACKGROUND_PROPS,
+  SECONDS_POINTER_PROPS,
   SLEEP_TEXT_PROPS,
   STEPS_ARC_PROPS,
   STEPS_LINES_IMAGE_PROPS,
@@ -338,6 +337,10 @@ WatchFace({
         this.buildBattery(slotNumber);
         break;
 
+      case 'seconds':
+        this.buildSeconds(slotNumber);
+        break;
+
       case 'empty':
         break;
 
@@ -629,6 +632,26 @@ WatchFace({
       w,
       h,
       type: hmUI.data_type.BATTERY,
+    });
+  },
+
+  buildSeconds(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
+
+    hmUI.createWidget(hmUI.widget.IMG, {
+      ...SECONDS_BACKGROUND_PROPS,
+      x,
+      y,
+    });
+
+    hmUI.createWidget(hmUI.widget.TIME_POINTER, {
+      ...SECONDS_POINTER_PROPS,
+      second_centerX: centerX,
+      second_centerY: centerY,
+      second_cover_x: x,
+      second_cover_y: y,
     });
   },
 });

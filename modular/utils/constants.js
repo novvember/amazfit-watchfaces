@@ -155,6 +155,14 @@ export const WIDGET_OPTIONAL_TYPES = [
       type: 'battery',
     },
   },
+  {
+    type: 100007,
+    title_en: isRusLang ? 'Секунды' : 'Seconds',
+    preview: 'edit/widget_preview_seconds.png',
+    data: {
+      type: 'seconds',
+    },
+  },
 
   {
     type: 100000,
