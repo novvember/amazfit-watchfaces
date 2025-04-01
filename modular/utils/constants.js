@@ -179,6 +179,14 @@ export const WIDGET_OPTIONAL_TYPES = [
       type: 'worldtime',
     },
   },
+  {
+    type: 100010,
+    title_en: isRusLang ? 'Погода' : 'Weather',
+    preview: 'edit/widget_preview_weather.png',
+    data: {
+      type: 'weather',
+    },
+  },
 
   {
     type: 100000,

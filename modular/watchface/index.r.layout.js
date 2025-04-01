@@ -183,6 +183,13 @@ export const WIDGET_DOT_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const WIDGET_ICON_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  src: '',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
 export const SUN_ICON_IMAGE_PROPS = {
   x: 0,
   y: 0,

@@ -13,6 +13,8 @@ import { getAnglePosition } from '../utils/getAnglePosition';
 import { getClosestSunriseSunsetTime } from '../utils/getClosestSunriseSunsetTime';
 import { getSleepTimeString } from '../utils/getSleepTime';
 import { getSunDayDuration, getSunPosition } from '../utils/getSunParams';
+import { isNight } from '../utils/isNight';
+import { updateWeatherIcons, WEATHER_ICONS } from '../utils/weatherIcons';
 import {
   DISTANCE_TEXT_PROPS,
   EDIT_SCREEN_BACKGROUND_PROPS,
@@ -36,6 +38,7 @@ import {
   WIDGET_BACKGROUND_CIRCLE_PROPS,
   WIDGET_DOT_IMAGE_PROPS,
   WIDGET_EDIT_GROUP_PROPS,
+  WIDGET_ICON_IMAGE_PROPS,
   WIDGET_TEXT_L_PROPS,
   WIDGET_TEXT_S_PROPS,
   WIDGET_TEXT_XS_PROPS,
@@ -88,8 +91,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume (time updating)');
-
         if (
           hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE ||
           hmSetting.getScreenType() == hmSetting.screen_type.AOD
@@ -99,8 +100,6 @@ WatchFace({
         }
       },
       pause_call: () => {
-        console.log('ui pause (widget delegate)');
-
         timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
       },
     });
@@ -142,8 +141,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           stepSensor.addEventListener(hmSensor.event.CHANGE, update);
           update();
@@ -205,8 +202,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           heartSensor.addEventListener(hmSensor.event.LAST, update);
           update();
@@ -238,8 +233,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           distanceSensor.addEventListener(hmSensor.event.LAST, update);
           update();
@@ -264,8 +257,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume (widget delegate)');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           update();
         }
@@ -348,6 +339,10 @@ WatchFace({
 
       case 'worldtime':
         this.buildWorldTime(slotNumber);
+        break;
+
+      case 'weather':
+        this.buildWeather(slotNumber);
         break;
 
       case 'empty':
@@ -451,16 +446,12 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume (widget delegate)');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
           update();
         }
       },
       pause_call: () => {
-        console.log('ui pause (widget delegate)');
-
         timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
       },
     });
@@ -573,8 +564,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume (widget delegate)');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           update();
         }
@@ -765,6 +754,63 @@ WatchFace({
       },
       pause_call: () => {
         timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
+      },
+    });
+  },
+
+  buildWeather(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
+
+    const ICON_SIZE = px(32);
+
+    hmUI.createWidget(hmUI.widget.CIRCLE, {
+      ...WIDGET_BACKGROUND_CIRCLE_PROPS,
+      center_x: centerX,
+      center_y: centerY,
+      radius: w / 2,
+    });
+
+    const iconWidget = hmUI.createWidget(hmUI.widget.IMG, {
+      ...WIDGET_ICON_IMAGE_PROPS,
+      x: centerX - ICON_SIZE / 2,
+      y: centerY - ICON_SIZE / 2 - 0.15 * h,
+      w: ICON_SIZE,
+      h: ICON_SIZE,
+    });
+
+    hmUI.createWidget(hmUI.widget.TEXT_FONT, {
+      ...WIDGET_TEXT_S_PROPS,
+      x,
+      y: y + 0.25 * h,
+      w,
+      h,
+      color: COLORS.primary,
+      type: hmUI.data_type.WEATHER_CURRENT,
+      unit_type: 1,
+    });
+
+    const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+
+    const update = () => {
+      const iconIndex = weatherSensor.curAirIconIndex;
+      updateWeatherIcons(isNight(timeSensor));
+
+      const hasIcon = !isNaN(iconIndex) && iconIndex !== 25;
+
+      iconWidget.setProperty(
+        hmUI.prop.SRC,
+        hasIcon ? WEATHER_ICONS[iconIndex] : WEATHER_ICONS[25],
+      );
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          update();
+        }
       },
     });
   },
