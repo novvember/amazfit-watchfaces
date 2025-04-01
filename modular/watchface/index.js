@@ -1,6 +1,7 @@
 import {
   ARCS,
   COLORS,
+  MOON_IMAGES,
   SLEEP_TEXT,
   WEEKDAYS,
   WIDGET_OPTIONAL_TYPES,
@@ -343,6 +344,10 @@ WatchFace({
 
       case 'weather':
         this.buildWeather(slotNumber);
+        break;
+
+      case 'moon':
+        this.buildMoon(slotNumber);
         break;
 
       case 'empty':
@@ -812,6 +817,19 @@ WatchFace({
           update();
         }
       },
+    });
+  },
+
+  buildMoon(slotNumber) {
+    const { x, y } = WIDGETS[slotNumber];
+
+    hmUI.createWidget(hmUI.widget.IMG_LEVEL, {
+      ...WIDGET_ICON_IMAGE_PROPS,
+      x,
+      y,
+      image_array: MOON_IMAGES,
+      image_length: MOON_IMAGES.length,
+      type: hmUI.data_type.MOON,
     });
   },
 });

@@ -106,6 +106,10 @@ const WIND_POSTFIX_EN = 'MPS';
 const WIND_POSTFIX_RU = 'М/С';
 export const WIND_POSTFIX = isRusLang ? WIND_POSTFIX_RU : WIND_POSTFIX_EN;
 
+export const MOON_IMAGES = new Array(29)
+  .fill(null)
+  .map((_, i) => `moon/${i + 1}.png`);
+
 export const WIDGET_OPTIONAL_TYPES = [
   {
     type: 100001,
@@ -185,6 +189,14 @@ export const WIDGET_OPTIONAL_TYPES = [
     preview: 'edit/widget_preview_weather.png',
     data: {
       type: 'weather',
+    },
+  },
+  {
+    type: 100011,
+    title_en: isRusLang ? 'Луна' : 'Moon',
+    preview: 'edit/widget_preview_moon.png',
+    data: {
+      type: 'moon',
     },
   },
 
