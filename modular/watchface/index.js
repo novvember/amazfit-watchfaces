@@ -774,6 +774,28 @@ WatchFace({
 
     const ICON_SIZE = px(32);
 
+    const textPropsWhenIcon = {
+      ...WIDGET_TEXT_S_PROPS,
+      x,
+      y: y + 0.25 * h,
+      w,
+      h,
+      color: COLORS.primary,
+      type: hmUI.data_type.WEATHER_CURRENT,
+      unit_type: 1,
+    };
+
+    const textPropsWithoutIcon = {
+      ...WIDGET_TEXT_L_PROPS,
+      x,
+      y,
+      w,
+      h,
+      color: COLORS.primary,
+      type: hmUI.data_type.WEATHER_CURRENT,
+      unit_type: 1,
+    };
+
     hmUI.createWidget(hmUI.widget.CIRCLE, {
       ...WIDGET_BACKGROUND_CIRCLE_PROPS,
       center_x: centerX,
@@ -789,16 +811,10 @@ WatchFace({
       h: ICON_SIZE,
     });
 
-    hmUI.createWidget(hmUI.widget.TEXT_FONT, {
-      ...WIDGET_TEXT_S_PROPS,
-      x,
-      y: y + 0.25 * h,
-      w,
-      h,
-      color: COLORS.primary,
-      type: hmUI.data_type.WEATHER_CURRENT,
-      unit_type: 1,
-    });
+    const textWidget = hmUI.createWidget(
+      hmUI.widget.TEXT_FONT,
+      textPropsWhenIcon,
+    );
 
     const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
@@ -811,7 +827,12 @@ WatchFace({
 
       iconWidget.setProperty(
         hmUI.prop.SRC,
-        hasIcon ? WEATHER_ICONS[iconIndex] : WEATHER_ICONS[25],
+        hasIcon ? WEATHER_ICONS[iconIndex] : '',
+      );
+
+      textWidget.setProperty(
+        hmUI.prop.MORE,
+        hasIcon ? textPropsWhenIcon : textPropsWithoutIcon,
       );
     };
 
