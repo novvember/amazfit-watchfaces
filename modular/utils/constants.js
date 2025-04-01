@@ -199,6 +199,14 @@ export const WIDGET_OPTIONAL_TYPES = [
       type: 'moon',
     },
   },
+  {
+    type: 100012,
+    title_en: isRusLang ? 'Кольца активности' : 'Activity Rings',
+    preview: 'edit/widget_preview_rings.png',
+    data: {
+      type: 'rings',
+    },
+  },
 
   {
     type: 100000,

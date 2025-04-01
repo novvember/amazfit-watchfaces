@@ -350,6 +350,10 @@ WatchFace({
         this.buildMoon(slotNumber);
         break;
 
+      case 'rings':
+        this.buildActivityRings(slotNumber);
+        break;
+
       case 'empty':
         break;
 
@@ -830,6 +834,40 @@ WatchFace({
       image_array: MOON_IMAGES,
       image_length: MOON_IMAGES.length,
       type: hmUI.data_type.MOON,
+    });
+  },
+
+  buildActivityRings(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
+
+    const LINE_WIDTH = px(10);
+    const GAP = px(3);
+
+    const dataTypes = [
+      hmUI.data_type.CAL,
+      hmUI.data_type.FAT_BURNING,
+      hmUI.data_type.STAND,
+    ];
+
+    dataTypes.forEach((dataType, i) => {
+      const radius = WIDGET_ACTIVE_ARC_PROPS.radius - i * (LINE_WIDTH + GAP);
+
+      hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
+        ...WIDGET_BACKGROUND_ARC_PROPS,
+        center_x: centerX,
+        center_y: centerY,
+        radius,
+      });
+
+      hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
+        ...WIDGET_ACTIVE_ARC_PROPS,
+        center_x: centerX,
+        center_y: centerY,
+        radius,
+        type: dataType,
+      });
     });
   },
 });
