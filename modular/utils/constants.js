@@ -106,6 +106,12 @@ const WIND_POSTFIX_EN = 'MPS';
 const WIND_POSTFIX_RU = 'М/С';
 export const WIND_POSTFIX = isRusLang ? WIND_POSTFIX_RU : WIND_POSTFIX_EN;
 
+const BAROMETER_POSTFIX_EN = 'HPA';
+const BAROMETER_POSTFIX_RU = 'ММ РТ.';
+export const BAROMETER_POSTFIX = isRusLang
+  ? BAROMETER_POSTFIX_RU
+  : BAROMETER_POSTFIX_EN;
+
 export const MOON_IMAGES = new Array(29)
   .fill(null)
   .map((_, i) => `moon/${i + 1}.png`);
@@ -205,6 +211,14 @@ export const WIDGET_OPTIONAL_TYPES = [
     preview: 'edit/widget_preview_rings.png',
     data: {
       type: 'rings',
+    },
+  },
+  {
+    type: 100013,
+    title_en: isRusLang ? 'Атмосферное давление' : 'Air Pressure',
+    preview: 'edit/widget_preview_pressure.png',
+    data: {
+      type: 'pressure',
     },
   },
 

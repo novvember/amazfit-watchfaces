@@ -1,6 +1,9 @@
+import { Barometer } from '../utils/Barometer';
 import {
   ARCS,
+  BAROMETER_POSTFIX,
   COLORS,
+  isRusLang,
   MOON_IMAGES,
   SLEEP_TEXT,
   WEEKDAYS,
@@ -352,6 +355,10 @@ WatchFace({
 
       case 'rings':
         this.buildActivityRings(slotNumber);
+        break;
+
+      case 'pressure':
+        this.buildAirPressure(slotNumber);
         break;
 
       case 'empty':
@@ -772,12 +779,12 @@ WatchFace({
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
-    const ICON_SIZE = px(32);
+    const ICON_SIZE = px(40);
 
     const textPropsWhenIcon = {
       ...WIDGET_TEXT_S_PROPS,
       x,
-      y: y + 0.25 * h,
+      y: y + 0.27 * h,
       w,
       h,
       color: COLORS.primary,
@@ -806,7 +813,7 @@ WatchFace({
     const iconWidget = hmUI.createWidget(hmUI.widget.IMG, {
       ...WIDGET_ICON_IMAGE_PROPS,
       x: centerX - ICON_SIZE / 2,
-      y: centerY - ICON_SIZE / 2 - 0.15 * h,
+      y: centerY - ICON_SIZE / 2 - 0.13 * h,
       w: ICON_SIZE,
       h: ICON_SIZE,
     });
@@ -889,6 +896,114 @@ WatchFace({
         radius,
         type: dataType,
       });
+    });
+  },
+
+  buildAirPressure(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
+
+    const DOT_SIZE = px(14);
+    const DOT_OVERSIZE = px(2);
+    const dotAreaSize = w + 2 * DOT_OVERSIZE;
+
+    const dotImageProps = {
+      ...WIDGET_DOT_IMAGE_PROPS,
+      x: x - DOT_OVERSIZE,
+      y: y - DOT_OVERSIZE,
+      w: dotAreaSize,
+      h: dotAreaSize,
+      pos_x: dotAreaSize / 2 - DOT_SIZE / 2,
+      pox_y: dotAreaSize / 2 - DOT_SIZE / 2,
+      center_x: dotAreaSize / 2,
+      center_y: dotAreaSize / 2,
+      alpha: 0,
+    };
+
+    hmUI.createWidget(hmUI.widget.IMG, {
+      ...WIDGET_ICON_IMAGE_PROPS,
+      x,
+      y,
+      w,
+      h,
+      src: 'barometer/background.png',
+    });
+
+    const dotImageWidget = hmUI.createWidget(hmUI.widget.IMG, dotImageProps);
+
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
+      ...WIDGET_TEXT_S_PROPS,
+      x,
+      y,
+      w,
+      h,
+      color: COLORS.primary,
+    });
+
+    hmUI.createWidget(hmUI.widget.TEXT, {
+      ...WIDGET_TEXT_XS_PROPS,
+      x,
+      y: y + 0.2 * h,
+      w,
+      h,
+      text: BAROMETER_POSTFIX,
+    });
+
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+    const barometer = new Barometer();
+
+    const getDotSrc = (diff) => {
+      let fileName = 'dot';
+
+      if (diff > 0) {
+        fileName = 'dot_up';
+      } else if (diff < 0) {
+        fileName = 'dot_down';
+      }
+
+      return `widget/${fileName}.png`;
+    };
+
+    const getDotAngle = (hPaValue) =>
+      getAnglePosition({
+        value: hPaValue,
+        minValue: 960,
+        maxValue: 1060,
+        minAngle: -135,
+        maxAngle: 135,
+      });
+
+    const update = () => {
+      const [error, data] = barometer.getData();
+
+      if (error) {
+        textWidget.setProperty(hmUI.prop.TEXT, '---');
+        dotImageWidget.setProperty(hmUI.prop.ALPHA, 0);
+        return;
+      }
+
+      const { hPa, mmHg, diff } = data;
+      const text = isRusLang ? mmHg.toString() : hPa.toString();
+
+      textWidget.setProperty(hmUI.prop.TEXT, text);
+
+      dotImageWidget.setProperty(hmUI.prop.MORE, {
+        ...dotImageProps,
+        alpha: 255,
+        src: getDotSrc(diff),
+        angle: getDotAngle(hPa),
+      });
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
+      },
     });
   },
 });
