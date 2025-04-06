@@ -1,31 +1,40 @@
 # Modular Watchface
-Watchface for Amazfit GTR Mini and for other round ZeppOS watch.
+Watchface for round ZeppOS watch.
 
-![demo](./demo-gtr-mini.png)
+![demo](./demo_big_ru.png)
 
 ## Features
 
 **Main features**
-- Time
-- Date and weekday
-- Personal data
-  - steps
-  - heart rate (last measurement, minimum/maximum of today measurements)
-  - sleep time
-  - distance
-- Weather
-  - outdoor temperature (current, minimum/maximum for today)
-  - UV index
-  - sun position, day length and closest sunrise/sunset time
-  - wind direction and speed
-- Battery level
+- Large time digits in the center.
+- Steps and heart rate on the sides.
+- Walked distance and sleep duration on the bottom.
+- Six customizable widget slots:
+  - Temperature
+  - UV Index
+  - Sun position and sunrise/sunset time
+  - Wind speed and direction
+  - Date and weekday
+  - Battery level
+  - Second hand
+  - Humidity
+  - World time (time for the first city in the system app)
+  - Current weather status and temperature
+  - Moon phase
+  - Activity rings (calories, fat-burning time, and stands)
+  - Air pressure
+  - Air Quality Index
+  - Weekly PAI value with diagram for the last 7 days
+  - Alarm time
+  - Coin clicker (count things in real time or just click it to get a coin)
+  - Or simply disable any widget to have extra space
 
 **Reference:**
 [Modular Ultra watchface](https://support.apple.com/guide/watch/faces-and-features-apde9218b440/watchos) for Apple Watch Ultra in one of its possible configurations.
 
 **Model compatibility:** Amazfit GTR Mini, Amazfit GTR 4 and all other round ZeppOS watches
 
-**AOD:** No
+**AOD:** Yes
 
 **Tap-zones:** No
 

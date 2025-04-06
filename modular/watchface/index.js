@@ -313,6 +313,7 @@ WatchFace({
       this.buildWidget(type, index);
     });
 
+    /** Resets clicker widget counter if clicker is not selected */
     if (!types.includes('clicker')) {
       this.saveClickerCounter(0);
     }
