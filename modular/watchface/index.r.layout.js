@@ -190,6 +190,16 @@ export const WIDGET_ICON_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const WIDGET_BAR_PROPS = {
+  x: 0,
+  y: 0,
+  w: 0,
+  h: 0,
+  radius: 0,
+  color: COLORS.primary,
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
 export const SUN_ICON_IMAGE_PROPS = {
   x: 0,
   y: 0,

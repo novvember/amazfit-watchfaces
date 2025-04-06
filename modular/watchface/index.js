@@ -1,4 +1,5 @@
 import { Barometer } from '../utils/Barometer';
+import { clamp } from '../utils/clamp';
 import {
   AIR_QUALITY_TEXT,
   ARCS,
@@ -6,6 +7,7 @@ import {
   COLORS,
   isRusLang,
   MOON_IMAGES,
+  PAI_TEXT,
   SLEEP_TEXT,
   WEEKDAYS,
   WIDGET_OPTIONAL_TYPES,
@@ -41,6 +43,7 @@ import {
   WIDGET_ACTIVE_ARC_PROPS,
   WIDGET_BACKGROUND_ARC_PROPS,
   WIDGET_BACKGROUND_CIRCLE_PROPS,
+  WIDGET_BAR_PROPS,
   WIDGET_DOT_IMAGE_PROPS,
   WIDGET_EDIT_GROUP_PROPS,
   WIDGET_ICON_IMAGE_PROPS,
@@ -364,6 +367,10 @@ WatchFace({
 
       case 'aqi':
         this.buildAirQuality(slotNumber);
+        break;
+
+      case 'pai':
+        this.buildPai(slotNumber);
         break;
 
       case 'empty':
@@ -1052,6 +1059,100 @@ WatchFace({
       h,
       type: hmUI.data_type.AQI,
       unit_type: 0,
+    });
+  },
+
+  buildPai(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
+
+    const BAR_WIDTH = px(8);
+    const BAR_HEIGHT = px(30);
+    const BAR_GAP = px(2);
+
+    const barXCoords = new Array(7)
+      .fill(null)
+      .map(
+        (_, i) =>
+          centerX - 3.5 * BAR_WIDTH - 3 * BAR_GAP + i * (BAR_WIDTH + BAR_GAP),
+      );
+
+    const barWidgetProps = {
+      ...WIDGET_BAR_PROPS,
+      x: 0,
+      y: centerY - BAR_HEIGHT / 2,
+      w: BAR_WIDTH,
+      h: BAR_HEIGHT,
+      radius: BAR_WIDTH / 2,
+      color: COLORS.accent,
+    };
+
+    hmUI.createWidget(hmUI.widget.CIRCLE, {
+      ...WIDGET_BACKGROUND_CIRCLE_PROPS,
+      center_x: centerX,
+      center_y: centerY,
+      radius: w / 2,
+    });
+
+    hmUI.createWidget(hmUI.widget.TEXT, {
+      ...WIDGET_TEXT_S_PROPS,
+      x,
+      y: y + 0.32 * h,
+      w,
+      h,
+      text: PAI_TEXT,
+      color: COLORS.accent,
+    });
+
+    hmUI.createWidget(hmUI.widget.TEXT_FONT, {
+      ...WIDGET_TEXT_S_PROPS,
+      x,
+      y: y - 0.3 * h,
+      w,
+      h,
+      color: COLORS.primary,
+      type: hmUI.data_type.PAI_WEEKLY,
+    });
+
+    barXCoords.map((x) =>
+      hmUI.createWidget(hmUI.widget.FILL_RECT, {
+        ...barWidgetProps,
+        x,
+        color: COLORS.accentSecondary,
+      }),
+    );
+
+    const barWidgets = barXCoords.map((x) =>
+      hmUI.createWidget(hmUI.widget.FILL_RECT, {
+        ...barWidgetProps,
+        x,
+      }),
+    );
+
+    const paiSensor = hmSensor.createSensor(hmSensor.id.PAI);
+
+    const update = () => {
+      barWidgets.forEach((barWidget, i) => {
+        const value = paiSensor[`prepai${i}`];
+        const level = (value || 0) / 100;
+        const height = clamp(0, level * BAR_HEIGHT, BAR_HEIGHT);
+        const y = barWidgetProps.y + BAR_HEIGHT - height;
+
+        barWidget.setProperty(hmUI.prop.MORE, {
+          ...barWidgetProps,
+          x: barXCoords[i],
+          h: height,
+          y,
+        });
+      });
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        console.log('ui resume');
+        update();
+      },
     });
   },
 });
