@@ -248,6 +248,14 @@ export const WIDGET_OPTIONAL_TYPES = [
       type: 'alarm',
     },
   },
+  {
+    type: 100017,
+    title_en: isRusLang ? 'Кликер' : 'Clicker',
+    preview: 'edit/widget_preview_clicker.png',
+    data: {
+      type: 'clicker',
+    },
+  },
 
   {
     type: 100000,

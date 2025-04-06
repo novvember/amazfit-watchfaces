@@ -44,6 +44,7 @@ import {
   WIDGET_BACKGROUND_ARC_PROPS,
   WIDGET_BACKGROUND_CIRCLE_PROPS,
   WIDGET_BAR_PROPS,
+  WIDGET_BUTTON_PROPS,
   WIDGET_DOT_IMAGE_PROPS,
   WIDGET_EDIT_GROUP_PROPS,
   WIDGET_ICON_IMAGE_PROPS,
@@ -277,7 +278,7 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.IMG, EDIT_SCREEN_BACKGROUND_PROPS);
 
-    new Array(6)
+    const types = Array(6)
       .fill(null)
       .map((_, index) => {
         const { x, y, w, h } = WIDGETS[index];
@@ -298,17 +299,23 @@ WatchFace({
             : -1 * (px(30) + px(5)),
         });
       })
-      .forEach((editGroup, index) => {
-        const typeId = editGroup.getProperty(hmUI.prop.CURRENT_TYPE);
-
-        if (!typeId) {
-          return;
-        }
-
-        const type = WIDGET_OPTIONAL_TYPES.find((item) => item.type === typeId)
-          .data.type;
-        this.buildWidget(type, index);
+      .map((editGroup) => {
+        return editGroup.getProperty(hmUI.prop.CURRENT_TYPE);
       });
+
+    types.forEach((typeId, index) => {
+      if (!typeId) {
+        return;
+      }
+
+      const type = WIDGET_OPTIONAL_TYPES.find((item) => item.type === typeId)
+        .data.type;
+      this.buildWidget(type, index);
+    });
+
+    if (!types.includes('clicker')) {
+      this.saveClickerCounter(0);
+    }
   },
 
   buildWidget(type, slotNumber) {
@@ -375,6 +382,10 @@ WatchFace({
 
       case 'alarm':
         this.buildAlarm(slotNumber);
+        break;
+
+      case 'clicker':
+        this.buildClicker(slotNumber);
         break;
 
       case 'empty':
@@ -1196,5 +1207,92 @@ WatchFace({
       color: COLORS.primary,
       type: hmUI.data_type.ALARM_CLOCK,
     });
+  },
+
+  buildClicker(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
+
+    const iconY = y - 0.15 * h;
+
+    const animateCoin = () => {
+      const yStart = iconY;
+      const yEnd = iconY - px(30);
+
+      animId = iconWidget.setProperty(hmUI.prop.ANIM, {
+        anim_fps: 25,
+        anim_auto_destroy: 1,
+        anim_auto_start: 1,
+        anim_steps: [
+          {
+            anim_prop: hmUI.prop.Y,
+            anim_rate: 'easeout',
+            anim_duration: 300,
+            anim_from: yStart,
+            anim_to: yEnd,
+            anim_offset: 0,
+          },
+          {
+            anim_prop: hmUI.prop.Y,
+            anim_rate: 'easein',
+            anim_duration: 100,
+            anim_from: yEnd,
+            anim_to: yStart,
+            anim_offset: 300,
+          },
+        ],
+      });
+    };
+
+    let counter = this.getClickerCounter();
+
+    hmUI.createWidget(hmUI.widget.CIRCLE, {
+      ...WIDGET_BACKGROUND_CIRCLE_PROPS,
+      center_x: centerX,
+      center_y: centerY,
+      radius: w / 2,
+    });
+
+    const iconWidget = hmUI.createWidget(hmUI.widget.IMG, {
+      ...WIDGET_ICON_IMAGE_PROPS,
+      x,
+      y: iconY,
+      src: 'clicker/coin.png',
+    });
+
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
+      ...WIDGET_TEXT_S_PROPS,
+      x,
+      y: y + 0.15 * h,
+      w,
+      h,
+      color: COLORS.primary,
+      text: counter.toString(),
+    });
+
+    const onButtonClick = () => {
+      counter++;
+      animateCoin();
+      textWidget.setProperty(hmUI.prop.TEXT, counter.toString());
+      this.saveClickerCounter(counter);
+    };
+
+    hmUI.createWidget(hmUI.widget.BUTTON, {
+      ...WIDGET_BUTTON_PROPS,
+      x,
+      y,
+      w,
+      h,
+      click_func: onButtonClick,
+    });
+  },
+
+  getClickerCounter() {
+    return hmFS.SysProGetInt('modular-clicker-counter') || 0;
+  },
+
+  saveClickerCounter(counter = 0) {
+    return hmFS.SysProSetInt('modular-clicker-counter', counter);
   },
 });

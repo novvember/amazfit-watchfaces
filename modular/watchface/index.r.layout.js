@@ -200,6 +200,18 @@ export const WIDGET_BAR_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const WIDGET_BUTTON_PROPS = {
+  x: 0,
+  y: 0,
+  text: '',
+  w: 0,
+  h: 0,
+  normal_src: 'empty.png',
+  press_src: 'empty.png',
+  click_func: () => {},
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
 export const SUN_ICON_IMAGE_PROPS = {
   x: 0,
   y: 0,
