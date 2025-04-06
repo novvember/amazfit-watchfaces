@@ -240,6 +240,14 @@ export const WIDGET_OPTIONAL_TYPES = [
       type: 'pai',
     },
   },
+  {
+    type: 100016,
+    title_en: isRusLang ? 'Будильник' : 'Alarm',
+    preview: 'edit/widget_preview_alarm.png',
+    data: {
+      type: 'alarm',
+    },
+  },
 
   {
     type: 100000,

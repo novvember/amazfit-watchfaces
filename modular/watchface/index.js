@@ -373,6 +373,10 @@ WatchFace({
         this.buildPai(slotNumber);
         break;
 
+      case 'alarm':
+        this.buildAlarm(slotNumber);
+        break;
+
       case 'empty':
         break;
 
@@ -1153,6 +1157,44 @@ WatchFace({
         console.log('ui resume');
         update();
       },
+    });
+  },
+
+  buildAlarm(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
+
+    hmUI.createWidget(hmUI.widget.CIRCLE, {
+      ...WIDGET_BACKGROUND_CIRCLE_PROPS,
+      center_x: centerX,
+      center_y: centerY,
+      radius: w / 2,
+    });
+
+    hmUI.createWidget(hmUI.widget.IMG, {
+      ...WIDGET_ICON_IMAGE_PROPS,
+      x,
+      y: y - 0.15 * h,
+      src: 'alarm/alarm_off.png',
+    });
+
+    hmUI.createWidget(hmUI.widget.IMG_STATUS, {
+      ...WIDGET_ICON_IMAGE_PROPS,
+      x,
+      y: y - 0.15 * h,
+      src: 'alarm/alarm_on.png',
+      type: hmUI.system_status.CLOCK,
+    });
+
+    hmUI.createWidget(hmUI.widget.TEXT_FONT, {
+      ...WIDGET_TEXT_S_PROPS,
+      x,
+      y: y + 0.15 * h,
+      w,
+      h,
+      color: COLORS.primary,
+      type: hmUI.data_type.ALARM_CLOCK,
     });
   },
 });
