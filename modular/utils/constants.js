@@ -112,6 +112,8 @@ export const BAROMETER_POSTFIX = isRusLang
   ? BAROMETER_POSTFIX_RU
   : BAROMETER_POSTFIX_EN;
 
+export const AIR_QUALITY_TEXT = 'AQI';
+
 export const MOON_IMAGES = new Array(29)
   .fill(null)
   .map((_, i) => `moon/${i + 1}.png`);
@@ -219,6 +221,14 @@ export const WIDGET_OPTIONAL_TYPES = [
     preview: 'edit/widget_preview_pressure.png',
     data: {
       type: 'pressure',
+    },
+  },
+  {
+    type: 100014,
+    title_en: isRusLang ? 'Индекс качества воздуха' : 'Air Quality Index',
+    preview: 'edit/widget_preview_aqi.png',
+    data: {
+      type: 'aqi',
     },
   },
 

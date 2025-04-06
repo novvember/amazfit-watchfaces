@@ -1,5 +1,6 @@
 import { Barometer } from '../utils/Barometer';
 import {
+  AIR_QUALITY_TEXT,
   ARCS,
   BAROMETER_POSTFIX,
   COLORS,
@@ -359,6 +360,10 @@ WatchFace({
 
       case 'pressure':
         this.buildAirPressure(slotNumber);
+        break;
+
+      case 'aqi':
+        this.buildAirQuality(slotNumber);
         break;
 
       case 'empty':
@@ -1004,6 +1009,49 @@ WatchFace({
       pause_call: () => {
         timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
       },
+    });
+  },
+
+  buildAirQuality(slotNumber) {
+    const { x, y, w, h } = WIDGETS[slotNumber];
+    const centerX = x + w / 2;
+    const centerY = y + h / 2;
+
+    hmUI.createWidget(hmUI.widget.TEXT, {
+      ...WIDGET_TEXT_XS_PROPS,
+      x,
+      y: y + 0.35 * h,
+      w,
+      h,
+      text: AIR_QUALITY_TEXT,
+      color: COLORS.accent,
+    });
+
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
+      ...WIDGET_BACKGROUND_ARC_PROPS,
+      center_x: centerX,
+      center_y: centerY,
+      start_angle: -145,
+      end_angle: 145,
+    });
+
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
+      ...WIDGET_ACTIVE_ARC_PROPS,
+      center_x: centerX,
+      center_y: centerY,
+      start_angle: -145,
+      end_angle: 145,
+      type: hmUI.data_type.AQI,
+    });
+
+    hmUI.createWidget(hmUI.widget.TEXT_FONT, {
+      ...WIDGET_TEXT_L_PROPS,
+      x,
+      y,
+      w,
+      h,
+      type: hmUI.data_type.AQI,
+      unit_type: 0,
     });
   },
 });
