@@ -497,7 +497,7 @@ WatchFace({
 
     const getText = () => {
       const temp = weatherSensor.current;
-      return (temp || '--').toString().padStart(4, ' ');
+      return (temp ?? '--').toString().padStart(4, ' ');
     };
 
     const update = () => {
