@@ -139,9 +139,10 @@ WatchFace({
 
     const update = (timeAngle, _timeSensor) => {
       sleepSensor.updateInfo();
+      const totalTime = sleepSensor.getTotalTime();
       const { startTime, endTime } = sleepSensor.getBasicInfo() || {};
 
-      if (!startTime && !endTime) {
+      if ((!startTime && !endTime) || !totalTime) {
         sleepArcWidget.setProperty(hmUI.prop.MORE, SLEEP_ARC_PROPS);
         return;
       }
