@@ -197,15 +197,15 @@ WatchFace({
       dateTextWidget.setProperty(hmUI.prop.MORE, {
         ...INNER_TEXT_PROPS,
         text: dateText,
-        start_angle: timeAngle - 45 + 180,
-        end_angle: timeAngle + 45 + 180,
+        start_angle: timeAngle - 90 + 180,
+        end_angle: timeAngle + 90 + 180,
       });
 
       monthTextWidget.setProperty(hmUI.prop.MORE, {
         ...INNER_TEXT_PROPS,
         text: monthText,
-        start_angle: timeAngle - 45,
-        end_angle: timeAngle + 45,
+        start_angle: timeAngle - 90,
+        end_angle: timeAngle + 90,
       });
     };
 
@@ -304,7 +304,7 @@ WatchFace({
 
     const update = () => {
       const { current } = stepSensor;
-      const text = `${formatNumber(current, ',')} ${decline(
+      const text = `${formatNumber(current, ' ')} ${decline(
         current,
         STEPS_TEXT,
       )}`.toUpperCase();
