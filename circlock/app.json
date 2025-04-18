@@ -1,0 +1,51 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 1079909,
+    "appName": "Circlock",
+    "appType": "watchface",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "icon": "icon.png",
+    "vender": "novvember",
+    "description": "Circlock watchface. Source code here: https://github.com/novvember/amazfit-watchfaces"
+  },
+  "permissions": [],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "2.0.0",
+      "target": "2.0.0",
+      "minVersion": "2.0.0"
+    }
+  },
+  "targets": {
+    "default": {
+      "module": {
+        "watchface": {
+          "path": "watchface/index",
+          "main": 1,
+          "editable": 0,
+          "lockscreen": 1,
+          "photoscreen": 0
+        }
+      },
+      "platforms": [
+        {
+          "st": "r"
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "Circlock"
+    },
+    "ru-RU": {
+      "appName": "Circlock"
+    }
+  },
+  "defaultLanguage": "en-US"
+}
