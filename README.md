@@ -38,6 +38,7 @@ This repository contains multiple folders, each dedicated to a different watchfa
 | ![](./symmetry-broken/demo.png)       | Symmetry Broken       | All round watches | ✅ Done                |
 | ![](./regulus/demo.png)               | Regulus               | All round watches | ✅ Done                |
 | ![](./horizon/demo.png)               | Horizon               | All round watches | ✅ Done                |
+| ![](./circlock/demo.png)              | Circlock              | All round watches | ✅ Done                |
 
 
 ## Installation Instructions
