@@ -956,6 +956,15 @@ WatchFace({
       src: 'barometer/background.png',
     });
 
+    const arrowImageWidget = hmUI.createWidget(hmUI.widget.IMG, {
+      ...WIDGET_ICON_IMAGE_PROPS,
+      x,
+      y: y  - 0.22 * h,
+      w,
+      h,
+      src: 'barometer/arrow_none.png',
+    });
+
     const dotImageWidget = hmUI.createWidget(hmUI.widget.IMG, dotImageProps);
 
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
@@ -979,16 +988,16 @@ WatchFace({
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
     const barometer = new Barometer();
 
-    const getDotSrc = (diff) => {
-      let fileName = 'dot';
+    const getArrowSrc = (diff) => {
+      let fileName = 'none';
 
       if (diff > 0) {
-        fileName = 'dot_up';
+        fileName = 'up';
       } else if (diff < 0) {
-        fileName = 'dot_down';
+        fileName = 'down';
       }
 
-      return `widget/${fileName}.png`;
+      return `barometer/arrow_${fileName}.png`;
     };
 
     const getDotAngle = (hPaValue) =>
@@ -1017,9 +1026,10 @@ WatchFace({
       dotImageWidget.setProperty(hmUI.prop.MORE, {
         ...dotImageProps,
         alpha: 255,
-        src: getDotSrc(diff),
         angle: getDotAngle(hPa),
       });
+
+      arrowImageWidget.setProperty(hmUI.prop.SRC, getArrowSrc(diff));
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {

@@ -8,7 +8,7 @@ export class Barometer {
   /** Path to the system file with barometer data.
    * Add another level (/../) to work in the Zepp OS simulatorF
    * */
-  _DATA_FILE_PATH = '../../../baro_altim/pressure.dat';
+  _DATA_FILE_PATH = '../../../../baro_altim/pressure.dat';
 
   constructor() {}
 
