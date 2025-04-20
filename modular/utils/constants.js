@@ -241,6 +241,14 @@ export const WIDGET_OPTIONAL_TYPES = [
     },
   },
   {
+    type: 100116,
+    title_en: isRusLang ? 'Калории' : 'Calories',
+    preview: 'edit/widget_preview_calories.png',
+    data: {
+      type: 'calories',
+    },
+  },
+  {
     type: 100016,
     title_en: isRusLang ? 'Будильник' : 'Alarm',
     preview: 'edit/widget_preview_alarm.png',
