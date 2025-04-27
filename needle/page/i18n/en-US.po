@@ -1,0 +1,65 @@
+msgid "Mon"
+msgstr "Mon"
+
+msgid "Tue"
+msgstr "Tue"
+
+msgid "Wed"
+msgstr "Wed"
+
+msgid "Thu"
+msgstr "Thu"
+
+msgid "Fri"
+msgstr "Fri"
+
+msgid "Sat"
+msgstr "Sat"
+
+msgid "Sun"
+msgstr "Sun"
+
+msgid "m"
+msgstr "m"
+
+msgid "km"
+msgstr "km"
+
+msgid "steps"
+msgstr "Steps"
+
+msgid "calories"
+msgstr "Calories"
+
+msgid "stand"
+msgstr "Stand"
+
+msgid "fat_burning"
+msgstr "Fat burning"
+
+msgid "battery"
+msgstr "Battery"
+
+msgid "heart_rate"
+msgstr "Heart rate"
+
+msgid "total_pai"
+msgstr "Total PAI"
+
+msgid "distance"
+msgstr "Distance"
+
+msgid "weather"
+msgstr "Weather"
+
+msgid "steps_postfix"
+msgstr "step steps"
+
+msgid "calories_postfix"
+msgstr "kcal"
+
+msgid "min"
+msgstr "min"
+
+msgid "bpm"
+msgstr "bpm"

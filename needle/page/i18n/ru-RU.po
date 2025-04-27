@@ -1,0 +1,66 @@
+msgid "Mon"
+msgstr "Пн"
+
+msgid "Tue"
+msgstr "Вт"
+
+msgid "Wed"
+msgstr "Ср"
+
+msgid "Thu"
+msgstr "Чт"
+
+msgid "Fri"
+msgstr "Пт"
+
+msgid "Sat"
+msgstr "Сб"
+
+msgid "Sun"
+msgstr "Вс"
+
+
+msgid "m"
+msgstr "м"
+
+msgid "km"
+msgstr "км"
+
+msgid "steps"
+msgstr "Шаги"
+
+msgid "calories"
+msgstr "Калории"
+
+msgid "stand"
+msgstr "Стояние"
+
+msgid "fat_burning"
+msgstr "Сжигание жира"
+
+msgid "battery"
+msgstr "Батарея"
+
+msgid "heart_rate"
+msgstr "Пульс"
+
+msgid "total_pai"
+msgstr "PAI (общее значение)"
+
+msgid "distance"
+msgstr "Расстояние"
+
+msgid "weather"
+msgstr "Погода"
+
+msgid "steps_postfix"
+msgstr "шаг шага шагов шагов"
+
+msgid "calories_postfix"
+msgstr "ккал"
+
+msgid "min"
+msgstr "мин"
+
+msgid "bpm"
+msgstr "уд/м"

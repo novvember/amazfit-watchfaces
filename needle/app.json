@@ -1,0 +1,62 @@
+{
+  "configVersion": "v3",
+  "app": {
+    "appId": 1080375,
+    "appName": "Needle",
+    "appType": "watchface",
+    "version": {
+      "code": 1,
+      "name": "1.0.0"
+    },
+    "icon": "icon.png",
+    "cover": [
+      "cover.png"
+    ],
+    "vender": "novvember",
+    "description": "Needle watchface. Source code here: https://github.com/novvember/amazfit-watchfaces"
+  },
+  "permissions": [
+    "data:user.hd.step",
+    "data:user.hd.calorie",
+    "data:user.hd.stand",
+    "data:user.hd.fat_burning",
+    "data:user.hd.heart_rate",
+    "data:user.hd.pai",
+    "data:user.hd.distance"
+  ],
+  "runtime": {
+    "apiVersion": {
+      "compatible": "2.0.0",
+      "target": "2.0.0",
+      "minVersion": "2.0.0"
+    }
+  },
+  "targets": {
+    "default": {
+      "module": {
+        "watchface": {
+          "path": "watchface/index",
+          "main": 1,
+          "editable": 1,
+          "lockscreen": 1,
+          "photoscreen": 0
+        }
+      },
+      "platforms": [
+        {
+          "st": "r"
+        }
+      ],
+      "designWidth": 480
+    }
+  },
+  "i18n": {
+    "en-US": {
+      "appName": "Needle"
+    },
+    "ru-RU": {
+      "appName": "Needle"
+    }
+  },
+  "defaultLanguage": "en-US"
+}
