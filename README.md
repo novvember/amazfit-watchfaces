@@ -1,50 +1,82 @@
 # Watchfaces for Amazfit Smartwatches
 
-Here you will find various watchfaces I designed for the Amazfit GTR Mini with a resolution of 416x416 px. Several of these watchfaces are adaptive, making them compatible with any device that features a round display. Additional details are available below.
+Here you'll find a variety of watchfaces I've designed for my round Amazfit watch. Some are my original creations, while others are inspired by designs I've seen on other devices or images online, and I've developed them for Zepp OS.
+
+Most of these watchfaces are adaptive, ensuring compatibility with any device featuring a round display. Additionally, most require ZeppOS 2 or higher. Further details are available below.
+
+## Bug Reports, Support, and Feature Requests
+
+I strive to ensure that my watchfaces are as bug-free as possible, but issues can still arise. It's also challenging to test them across all possible watch models and operating system versions.
+
+If you discover a bug or want to share your experience with my watchfaces, feel free to reach out:
+
+- Create an issue in the adjacent section here: https://github.com/novvember/amazfit-watchfaces/issues
+
+- Email me directly: n.demitsuri@gmail.com
+
+## Donations
+
+All of my watchfaces are free to use. However, if you'd like to support further development or simply say thank you, you can make a donation: https://boosty.to/novvember/donate
+
+## Watchfaces Gallery
+
+| Image 	                               | Name       	          |
+|:-------------------------:            |------------           |
+| ![](./text-lines/demo.png)            | Text Lines 	          |
+| ![](./spin/demo.png)       	          | Spin       	          |
+| ![](./gauge/demo.png)      	          | Gauge      	          |
+| ![](./bourne/demo.png)                | Bourne     	          |
+| ![](./celeste/demo.png)               | Celeste    	          |
+| ![](./nothing-dial/demo.png)          | Nothing Dial          |
+| ![](./spin-2/demo.png)                | Spin 2                |
+| ![](./11-weeks/demo.png)              | 11 weeks              |
+| ![](./verbarius/demo.png)             | Verbarius             |
+| ![](./elaborate/demo.png)             | Elaborate             |
+| ![](./nothing-sector/demo.png)        | Sektor                |
+| ![](./solar-circle/demo.png)          | Solar circle          |
+| ![](./anicorn-k452-nemesis/demo.png)  | Anicorn K452 Nemesis  |
+| ![](./spin-3/demo.png)                | Spin 3                |
+| ![](./g-shock/demo.png)               | G-Shock               |
+| ![](./grotesque/demo.png)             | Grotesque             |
+| ![](./time-machine/demo.png)          | Time Machine          |
+| ![](./concentric-data/demo.png)       | Concentric Data       |
+| ![](./opposite-time/demo.png)         | Opposite Time         |
+| ![](./sometimes/demo.png)             | Sometimes             |
+| ![](./rider-1991/demo.png)            | Rider 1991            |
+| ![](./kinetik/demo.png)               | Kinetik               |
+| ![](./repelling-radial/demo.png)      | Repelling Radial      |
+| ![](./modular/demo.png)               | Modular               |
+| ![](./ara/demo.png)                   | Ara                   |
+| ![](./symmetry-broken/demo.png)       | Symmetry Broken       |
+| ![](./regulus/demo.png)               | Regulus               |
+| ![](./horizon/demo.png)               | Horizon               |
+| ![](./circlock/demo.png)              | Circlock              |
+| ![](./needle/demo.png)                | Needle                |
+
 
 ## Repository Structure
 
 This repository contains multiple folders, each dedicated to a different watchface design.
 
-## Watchfaces Gallery
-
-| Image 	                               | Name       	          | Devices supported | Development Status 	  |
-|:-------------------------:            |------------           |------------------ |---------------------    |
-| ![](./text-lines/demo.png)            | Text Lines 	          | GTR Mini only 	   | ✅ Done             	|
-| ![](./spin/demo.png)       	          | Spin       	          | GTR Mini only 	   | ✅ Done             	|
-| ![](./gauge/demo.png)      	          | Gauge      	          | All round watches | ✅ Done             	|
-| ![](./bourne/demo.png)                | Bourne     	          | All round watches | ✅ Done             	|
-| ![](./celeste/demo.png)               | Celeste    	          | All round watches | ✅ Done             	|
-| ![](./nothing-dial/demo.png)          | Nothing Dial          | All round watches | ✅ Done             	|
-| ![](./spin-2/demo.png)                | Spin 2                | All round watches | ✅ Done             	|
-| ![](./11-weeks/demo.png)              | 11 weeks              | All round watches | ✅ Done             	|
-| ![](./verbarius/demo.png)             | Verbarius             | All round watches | ✅ Done             	|
-| ![](./elaborate/demo.png)             | Elaborate             | All round watches | ✅ Done             	|
-| ![](./nothing-sector/demo.png)        | Sektor                | All round watches | ✅ Done             	|
-| ![](./solar-circle/demo.png)          | Solar circle          | All round watches | ✅ Done             	|
-| ![](./anicorn-k452-nemesis/demo.png)  | Anicorn K452 Nemesis  | All round watches | ✅ Done             	|
-| ![](./spin-3/demo.png)                | Spin 3                | All round watches | ✅ Done             	|
-| ![](./g-shock/demo.png)               | G-Shock               | All round watches | ✅ Done                |
-| ![](./grotesque/demo.png)             | Grotesque             | All round watches | ✅ Done                |
-| ![](./time-machine/demo.png)          | Time Machine          | All round watches | ✅ Done                |
-| ![](./concentric-data/demo.png)       | Concentric Data       | All round watches | ✅ Done                |
-| ![](./opposite-time/demo.png)         | Opposite Time         | All round watches | ✅ Done                |
-| ![](./sometimes/demo.png)             | Sometimes             | All round watches | ✅ Done                |
-| ![](./rider-1991/demo.png)            | Rider 1991            | All round watches | ✅ Done                |
-| ![](./kinetik/demo.png)               | Kinetik               | All round watches | ✅ Done                |
-| ![](./repelling-radial/demo.png)      | Repelling Radial      | All round watches | ✅ Done                |
-| ![](./modular/demo.png)               | Modular               | All round watches | ✅ Done                |
-| ![](./ara/demo.png)                   | Ara                   | All round watches | ✅ Done                |
-| ![](./symmetry-broken/demo.png)       | Symmetry Broken       | All round watches | ✅ Done                |
-| ![](./regulus/demo.png)               | Regulus               | All round watches | ✅ Done                |
-| ![](./horizon/demo.png)               | Horizon               | All round watches | ✅ Done                |
-| ![](./circlock/demo.png)              | Circlock              | All round watches | ✅ Done                |
-| ![](./needle/demo.png)                | Needle                | All round watches | ✅ Done                |
-
 
 ## Installation Instructions
 
-To add a new watchface to your device:
+### Variant 1: Official Store (Easy)
+
+1. Locate the watchface in the official Zepp store via the Zepp app. Most of these watchfaces are available there. But there is no search or direct links :(
+
+2. Install it directly from the store.
+
+### Variant 2: Unofficial Store (A Bit More Complex)
+
+1. Visit the unofficial Zepp repository where some of my watchfaces previously available in the official store are automatically added:  
+https://mmk.pw/en/zepp_explorer/explorer/watch/?filters=%7B%22publisher%22:%201640%7D
+
+2. Download the watchface or use the QR code provided.
+
+### Variant 3: Zip File Installation (Medium Complexity)
+
+This method is suitable for older versions of Zepp OS where you can install a side app using a zip file.
 
 1. Visit the [releases page](https://github.com/novvember/amazfit-watchfaces/releases) of this repository.
 
@@ -62,8 +94,16 @@ To add a new watchface to your device:
 
 4. Utilize any compatible app to install the watchface from your phone's internal storage.
 
+### Variant 4: QR Code Installation (More Complex)
+
+1. Find and download the zip file as described in the previous variant.
+
+2. Search online for a method to convert the zip file to a zpk file, then generate a QR code.
+
+3. Use the QR code to install the watchface in developer mode within the Zepp app.
+
 ### Important Notes!
-- Some texts are displayed with custom fonts. It requires devices with ZeppOS 2 and higher and is not compatible with older models like the GTR 3 and GTR 3.
+- Some texts are displayed with custom fonts. It requires devices with ZeppOS 2 and higher and is not compatible with older models like the GTR 3 and GTR 3 Pro.
 
 - Please restart the watch after installation to ensure proper font display.
 
