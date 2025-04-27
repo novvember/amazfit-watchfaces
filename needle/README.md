@@ -1,5 +1,5 @@
-# Circlock Watchface
-Watchface for round ZeppOS watch.
+# Needle Watchface
+Configurable sports watchface: Displays analog time and date at the center. Shows battery level progress on an inner scale. Features an editable outer scale for activity metrics such as steps, stand time, calories, and fat burning. Includes customizable bottom text information for details like steps, distance, heart rate, battery, and more.
 
 ![demo](./demo-gtr-mini.png)
 
@@ -7,14 +7,18 @@ Watchface for round ZeppOS watch.
 
 **Main features**
 - Analogue time (hour/minute/second).
+- Date (day, weekday).
+- Battery level (inner scale).
+- Activity progress (configurable outer scale).
+- Configurable digital data on the bottom (steps, distance, heart rate, etc),
 - AOD
 
 **Original idea by:**
-Designer Edoardo Gouffran and their [conceptual 'Circlock' watch](https://www.behance.net/gallery/132319107/Circlock-Watch).
+One of default watchfaces of Suunto watch.
 
-**Model compatibility:** Amazfit GTR Mini, Amazfit GTR 4 and all other round ZeppOS watches (Zepp OS 2+).
+**Model compatibility:** Zepp OS 2+, round screen.
 
-**Language:** Universal.
+**Language:** English, Rsssian.
 
 ## Download ⏬
 
