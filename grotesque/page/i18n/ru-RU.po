@@ -1,0 +1,27 @@
+
+msgid "bpm"
+msgstr "Чсс"
+
+msgid "steps"
+msgstr "Шаги"
+
+msgid "mon"
+msgstr "Пн"
+
+msgid "tue"
+msgstr "Вт"
+
+msgid "wed"
+msgstr "Ср"
+
+msgid "thu"
+msgstr "Чт"
+
+msgid "fri"
+msgstr "Пт"
+
+msgid "sat"
+msgstr "Сб"
+
+msgid "sun"
+msgstr "Вс"

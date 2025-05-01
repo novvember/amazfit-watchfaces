@@ -1,0 +1,27 @@
+
+msgid "bpm"
+msgstr "Bpm"
+
+msgid "steps"
+msgstr "Steps"
+
+msgid "mon"
+msgstr "Mon"
+
+msgid "tue"
+msgstr "Tue"
+
+msgid "wed"
+msgstr "Wed"
+
+msgid "thu"
+msgstr "Thu"
+
+msgid "fri"
+msgstr "Fri"
+
+msgid "sat"
+msgstr "Sat"
+
+msgid "sun"
+msgstr "Sun"
