@@ -112,6 +112,12 @@ export const BAROMETER_POSTFIX = isRusLang
   ? BAROMETER_POSTFIX_RU
   : BAROMETER_POSTFIX_EN;
 
+const RECOVERY_TIME_POSTFIX_EN = 'H';
+const RECOVERY_TIME_POSTFIX_RU = 'Ч';
+export const RECOVERY_TIME_POSTFIX = isRusLang
+  ? RECOVERY_TIME_POSTFIX_RU
+  : RECOVERY_TIME_POSTFIX_EN;
+
 export const AIR_QUALITY_TEXT = 'AQI';
 export const PAI_TEXT = 'PAI';
 
@@ -246,6 +252,14 @@ export const WIDGET_OPTIONAL_TYPES = [
     preview: 'edit/widget_preview_calories.png',
     data: {
       type: 'calories',
+    },
+  },
+  {
+    type: 100216,
+    title_en: isRusLang ? 'Время восстановления' : 'Recovery time',
+    preview: 'edit/widget_preview_recovery-time.png',
+    data: {
+      type: 'recovery-time',
     },
   },
   {
