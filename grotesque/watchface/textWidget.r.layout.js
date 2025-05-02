@@ -21,7 +21,7 @@ export const BOTTOM_LEFT_WIDGET_COORDS = {
 };
 
 export const BOTTOM_RIGHT_WIDGET_COORDS = {
-  x: px(320),
+  x: px(255),
   y: px(410),
 };
 

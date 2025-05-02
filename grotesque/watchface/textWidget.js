@@ -23,7 +23,7 @@ export class TextWidget {
   }
 
   _getAlignHorizontal(direction) {
-    if (['top-left', 'bottom-left'].includes(direction)) {
+    if (['top-left', 'bottom-left', 'bottom-right'].includes(direction)) {
       return hmUI.align.RIGHT;
     }
 
