@@ -1,12 +1,12 @@
 {
   "configVersion": "v3",
   "app": {
-    "appId": 1059656,
+    "appId": 1082479,
     "appName": "G-Shock",
     "appType": "watchface",
     "version": {
-      "code": 2,
-      "name": "1.1.0"
+      "code": 3,
+      "name": "2.0.0"
     },
     "icon": "icon.png",
     "vender": "novvember",
@@ -30,7 +30,7 @@
           "path": "watchface/index",
           "main": 1,
           "editable": 0,
-          "lockscreen": 1,
+          "lockscreen": 0,
           "photoscreen": 0
         }
       },
