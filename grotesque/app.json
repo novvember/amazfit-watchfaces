@@ -5,8 +5,8 @@
     "appName": "Grotesque",
     "appType": "watchface",
     "version": {
-      "code": 4,
-      "name": "1.1.1"
+      "code": 5,
+      "name": "1.2.0"
     },
     "icon": "icon.png",
     "vender": "novvember",

@@ -51,7 +51,7 @@ export const AOD_HOUR_TEXT_PROPS = {
 };
 
 export const TEMPERATURE_TEXT_PROPS = {
-  x: px(150),
+  x: px(152),
   y: px(410),
   w: px(120),
   h: px(30),
@@ -66,7 +66,7 @@ export const TEMPERATURE_TEXT_PROPS = {
 };
 
 export const UVI_IMAGE_LEVEL_PROPS = {
-  x: px(150),
+  x: px(152),
   y: px(440),
   image_array: UVI_IMAGES,
   image_length: UVI_IMAGES.length,

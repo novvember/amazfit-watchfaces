@@ -16,7 +16,7 @@ export const TOP_RIGHT_WIDGET_COORDS = {
 };
 
 export const BOTTOM_LEFT_WIDGET_COORDS = {
-  x: px(70),
+  x: px(72),
   y: px(410),
 };
 

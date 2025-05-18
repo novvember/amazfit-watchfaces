@@ -10,9 +10,9 @@ export const FONTS = {
 };
 
 export const UVI_IMAGES = [
-  'uvi/uvi_no.png',
-  'uvi/uvi_no.png',
-  isRusLang ? 'uvi/uvi_yes_ru.png' : 'uvi/uvi_yes.png',
-  isRusLang ? 'uvi/uvi_yes_ru.png' : 'uvi/uvi_yes.png',
-  isRusLang ? 'uvi/uvi_yes_ru.png' : 'uvi/uvi_yes.png',
+  'uvi/uvi_0.png',
+  'uvi/uvi_0.png',
+  isRusLang ? 'uvi/uvi_1_ru.png' : 'uvi/uvi_1.png',
+  isRusLang ? 'uvi/uvi_2_ru.png' : 'uvi/uvi_2.png',
+  isRusLang ? 'uvi/uvi_2_ru.png' : 'uvi/uvi_2.png',
 ];
