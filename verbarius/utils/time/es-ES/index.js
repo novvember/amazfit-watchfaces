@@ -1,0 +1,1 @@
+export { getTimeString } from './getTimeString';

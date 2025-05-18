@@ -1,7 +1,7 @@
-import { capitalizeFirst } from '../capitalizeFirst';
-import { NUMBERS } from './numbers_eng';
-import { getHour12Format, getNextHour12Format } from './formatTime';
-import { decline } from '../decline';
+import { capitalizeFirst } from '../../capitalizeFirst';
+import { NUMBERS } from './numbers';
+import { getHour12Format, getNextHour12Format } from '../formatTime';
+import { decline } from '../../decline';
 
 /**
  * One o'clock
@@ -111,7 +111,7 @@ function getTime07(hour, minute) {
   }
 }
 
-export function getTimeStringEng(hour, minute) {
+export function getTimeString(hour, minute) {
   const variants = [
     getTime01(hour, minute),
     getTime02(hour, minute),
