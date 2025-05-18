@@ -153,17 +153,13 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume (widget delegate)');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           update();
         }
       },
       pause_call: () => {
-        console.log('ui pause (widget delegate)');
-
-        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
       },
     });
   },
@@ -358,17 +354,13 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume (widget delegate)');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           update();
         }
       },
       pause_call: () => {
-        console.log('ui pause (widget delegate)');
-
-        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
       },
     });
   },
@@ -417,18 +409,14 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume (widget delegate)');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          timeSensor.addEventListener(timeSensor.event.MINUTEEND, update);
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           updateTimer = timer.createTimer(1000, 1000, update);
           update();
         }
       },
       pause_call: () => {
-        console.log('ui pause (widget delegate)');
-
-        timeSensor.removeEventListener(timeSensor.event.MINUTEEND, update);
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
         timer.stopTimer(updateTimer);
       },
     });
@@ -454,15 +442,13 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          stepSensor.addEventListener(hmSensor.event.CHANGE, update);
+          stepSensor.addEventListener?.(hmSensor.event.CHANGE, update);
           update();
         }
       },
       pause_call: () => {
-        stepSensor.removeEventListener(hmSensor.event.CHANGE, update);
+        stepSensor.removeEventListener?.(hmSensor.event.CHANGE, update);
       },
     });
   },
@@ -541,15 +527,13 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          heartSensor.addEventListener(hmSensor.event.LAST, update);
+          heartSensor.addEventListener?.(hmSensor.event.LAST, update);
           update();
         }
       },
       pause_call: () => {
-        heartSensor.removeEventListener(hmSensor.event.LAST, update);
+        heartSensor.removeEventListener?.(hmSensor.event.LAST, update);
       },
     });
   },
@@ -573,15 +557,13 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          batterySensor.addEventListener(hmSensor.event.CHANGE, update);
+          batterySensor.addEventListener?.(hmSensor.event.CHANGE, update);
           update();
         }
       },
       pause_call: () => {
-        batterySensor.removeEventListener(hmSensor.event.CHANGE, update);
+        batterySensor.removeEventListener?.(hmSensor.event.CHANGE, update);
       },
     });
   },
@@ -600,8 +582,6 @@ WatchFace({
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
 
     const update = () => {
-      console.log('sleep time updated');
-
       sleepSensor.updateInfo();
       const sleepTime = getSleepTimeString(sleepSensor);
 
@@ -620,8 +600,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume (widget delegate)');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           update();
         }
@@ -662,8 +640,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume (widget delegate)');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
           update();
         }
@@ -741,8 +717,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume (widget delegate)');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           update();
         }
