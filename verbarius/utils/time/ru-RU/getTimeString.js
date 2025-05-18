@@ -1,12 +1,12 @@
-import { capitalizeFirst } from '../capitalizeFirst';
-import { decline } from '../decline';
+import { capitalizeFirst } from '../../capitalizeFirst';
+import { decline } from '../../decline';
 import {
   CARDINAL_NUMBERS_FEMININE,
   CARDINAL_NUMBERS_FEMININE_GENITIVUS,
   CARDINAL_NUMBERS_MASCULINE,
   ORDINAL_NUMBERS_MASCULINE_GENITIVUS,
-} from './numbers_rus';
-import { getHour12Format, getNextHour12Format } from './formatTime';
+} from './numbers';
+import { getHour12Format, getNextHour12Format } from '../formatTime';
 
 /**
  * Час двадцать пять
@@ -319,7 +319,7 @@ function getTime13(hour, minute) {
   return hourString + ' ' + postfix;
 }
 
-export function getTimeStringRus(hour, minute) {
+export function getTimeString(hour, minute) {
   const variants = [
     getTime01(hour, minute),
     getTime01b(hour, minute),
