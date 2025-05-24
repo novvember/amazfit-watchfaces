@@ -328,7 +328,7 @@ WatchFace({
       });
     }
 
-    const dotWidget = hmUI.createWidget(hmUI.widget.IMG, null);
+    const dotWidget = hmUI.createWidget(hmUI.widget.IMG, {});
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
     let prevWeek = null;
 
@@ -380,7 +380,7 @@ WatchFace({
         SECONDS_PROGRESS_BAR.gapTop,
     });
 
-    const progressBar = hmUI.createWidget(hmUI.widget.IMG, null);
+    const progressBar = hmUI.createWidget(hmUI.widget.IMG, {});
 
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
@@ -396,7 +396,6 @@ WatchFace({
         return;
       }
 
-      console.log('seconds progress bar rerendered');
       prevSecondRound = secondRound;
 
       progressBar.setProperty(hmUI.prop.MORE, {

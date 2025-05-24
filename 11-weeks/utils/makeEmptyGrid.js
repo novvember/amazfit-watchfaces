@@ -18,7 +18,7 @@ export function makeEmptyGrid(
 ) {
   return new Array(rowsCount).fill(null).map((_, row) =>
     new Array(columnsCount).fill(null).map((_, column) => ({
-      imageWidget: hmUI.createWidget(hmUI.widget.IMG, null),
+      imageWidget: hmUI.createWidget(hmUI.widget.IMG, {}),
       status: '',
       dateText: '',
       x: centerX - (cellWidth * columnsCount) / 2 + cellWidth * column,
