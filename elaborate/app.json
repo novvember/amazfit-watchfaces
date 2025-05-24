@@ -1,12 +1,12 @@
 {
   "configVersion": "v3",
   "app": {
-    "appId": 1057366,
+    "appId": 1083021,
     "appName": "Elaborate",
     "appType": "watchface",
     "version": {
-      "code": 12,
-      "name": "1.5.1"
+      "code": 13,
+      "name": "2.0.0"
     },
     "icon": "icon.png",
     "vender": "novvember",
