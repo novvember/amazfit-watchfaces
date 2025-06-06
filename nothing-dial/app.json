@@ -5,8 +5,8 @@
     "appName": "Nothing Dial",
     "appType": "watchface",
     "version": {
-      "code": 9,
-      "name": "2.0.0"
+      "code": 10,
+      "name": "2.0.1"
     },
     "icon": "icon.png",
     "vender": "novvember",

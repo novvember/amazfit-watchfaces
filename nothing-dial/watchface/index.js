@@ -32,16 +32,15 @@ import {
   TIME_TEXT_AOD_PROPS,
   TIME_TEXT_PROPS,
   WEATHER_ICON_PROPS,
-  WEATHER_TEMP_PROPS,
 } from './index.r.layout';
 
 WatchFace({
   onInit() {
-    console.log('index page.js on init invoke');
+    console.log('watchface initing');
   },
 
   build() {
-    console.log('index page.js on build invoke');
+    console.log('watchface building');
 
     this.buildTimePointers();
     this.buildTimeText();
@@ -52,7 +51,7 @@ WatchFace({
   },
 
   onDestroy() {
-    console.log('index page.js on destroy invoke');
+    console.log('watchface desroying');
   },
 
   buildDisconnectStatus() {
@@ -166,7 +165,6 @@ WatchFace({
         return;
       }
 
-      console.log('time rerendered');
       prevTime = timeString;
 
       textWidget.setProperty(hmUI.prop.TEXT, timeString);
@@ -175,8 +173,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume (buildTime)');
-
         if (
           hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE ||
           hmSetting.getScreenType() == hmSetting.screen_type.AOD
@@ -191,8 +187,6 @@ WatchFace({
         }
       },
       pause_call: () => {
-        console.log('ui pause (buildTime)');
-
         timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
         timer.stopTimer(updateTimer);
       },
@@ -219,16 +213,12 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume (buildTime)');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           update();
         }
       },
       pause_call: () => {
-        console.log('ui pause (buildTime)');
-
         timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
       },
     });
@@ -253,8 +243,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           stepSensor.addEventListener?.(hmSensor.event.CHANGE, update);
           update();
@@ -282,8 +270,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           batterySensor.addEventListener?.(hmSensor.event.CHANGE, update);
           update();
@@ -328,8 +314,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           update();
         }
