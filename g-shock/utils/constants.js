@@ -1,6 +1,3 @@
-const lang = DeviceRuntimeCore.HmUtils.getLanguage();
-const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
-
 const { width, height } = hmSetting.getDeviceInfo();
 
 export const SCREEN = {
