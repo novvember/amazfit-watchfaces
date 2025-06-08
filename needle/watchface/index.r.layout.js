@@ -1,4 +1,4 @@
-import hmUI from '@zos/ui';
+import ui from '@zos/ui';
 import { px } from '@zos/utils';
 import {
   BOTTOM_INFO_OPTIONAL_TYPES,
@@ -14,7 +14,7 @@ export const EDIT_BACKGROUND_IMAGE_PROPS = {
   w: px(480),
   h: px(480),
   src: 'edit/background.png',
-  show_level: hmUI.show_level.ONLY_EDIT,
+  show_level: ui.show_level.ONLY_EDIT,
 };
 
 export const OUTER_SCALE_EDIT_GROUP_PROPS = {

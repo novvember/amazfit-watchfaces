@@ -1,4 +1,4 @@
-import hmUI from '@zos/ui';
+import ui from '@zos/ui';
 import { px } from '@zos/utils';
 import { COLORS, FONT } from '../utils/constants';
 
@@ -11,7 +11,7 @@ export const TIME_BACKGROUND_IMAGE_PROPS = {
   w: px(480),
   h: px(480),
   src: 'time/background.png',
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: ui.show_level.ONLY_NORMAL,
 };
 export const AOD_TIME_BACKGROUND_IMAGE_PROPS = {
   x: 0,
@@ -19,7 +19,7 @@ export const AOD_TIME_BACKGROUND_IMAGE_PROPS = {
   w: px(480),
   h: px(480),
   src: 'time/background_aod.png',
-  show_level: hmUI.show_level.ONAL_AOD,
+  show_level: ui.show_level.ONAL_AOD,
 };
 
 export const TIME_POINTERS_PROPS = {
@@ -45,7 +45,7 @@ export const TIME_POINTERS_PROPS = {
   minute_cover_y: centerX - px(32 / 2),
   minute_cover_x: centerY - px(32 / 2),
 
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: ui.show_level.ONLY_NORMAL,
 };
 
 export const AOD_TIME_POINTERS_PROPS = {
@@ -65,7 +65,7 @@ export const AOD_TIME_POINTERS_PROPS = {
   minute_cover_y: centerX - px(32 / 2),
   minute_cover_x: centerY - px(32 / 2),
 
-  show_level: hmUI.show_level.ONAL_AOD,
+  show_level: ui.show_level.ONAL_AOD,
 };
 
 export const DATE_TEXT_PROPS = {
@@ -75,10 +75,10 @@ export const DATE_TEXT_PROPS = {
   h: px(40),
   color: COLORS.primary,
   text_size: px(30),
-  align_h: hmUI.align.CENTER_H,
-  align_v: hmUI.align.CENTER_V,
+  align_h: ui.align.CENTER_H,
+  align_v: ui.align.CENTER_V,
   font: FONT,
   text: '00',
   char_space: 0,
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: ui.show_level.ONLY_NORMAL,
 };
