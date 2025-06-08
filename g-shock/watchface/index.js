@@ -35,6 +35,10 @@ import {
   DIAGRAM_BAR_PROPS,
   DIAGRAM_BAR_EMPTY_PROPS,
   DIAGRAM_MARK_PROPS,
+  AOD_HOUR_TEXT_PROPS,
+  AOD_TIME_COLON_TEXT_PROPS,
+  AOD_MINUTE_TEXT_PROPS,
+  AOD_TIME_POSTFIX_TEXT_PROPS,
 } from './index.r.layout';
 
 WatchFace({
@@ -82,6 +86,20 @@ WatchFace({
       TIME_POSTFIX_TEXT_PROPS,
     );
 
+    const aodHourWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      AOD_HOUR_TEXT_PROPS,
+    );
+    hmUI.createWidget(hmUI.widget.TEXT, AOD_TIME_COLON_TEXT_PROPS);
+    const aodMinuteWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      AOD_MINUTE_TEXT_PROPS,
+    );
+    const aodPostfixWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      AOD_TIME_POSTFIX_TEXT_PROPS,
+    );
+
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
     let updateTimer = undefined;
@@ -93,7 +111,7 @@ WatchFace({
       secondWidget.setProperty(hmUI.prop.TEXT, secondString);
     };
 
-    const update = () => {
+    const updateMinutes = () => {
       const { hour, minute } = timeSensor;
       const is12HourFormat = hmSetting.getTimeFormat() === 0;
       const hourValue = is12HourFormat ? hour % 12 || 12 : hour;
@@ -106,19 +124,36 @@ WatchFace({
       minuteWidget.setProperty(hmUI.prop.TEXT, minuteString);
       postfixWidget.setProperty(hmUI.prop.TEXT, postfixString);
 
+      aodHourWidget.setProperty(hmUI.prop.TEXT, hourString);
+      aodMinuteWidget.setProperty(hmUI.prop.TEXT, minuteString);
+      aodPostfixWidget.setProperty(hmUI.prop.TEXT, postfixString);
+    };
+
+    const updateAll = () => {
+      updateMinutes();
       updateSeconds();
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
-          update();
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, updateAll);
+          updateAll();
           updateTimer = timer.createTimer(1000, 1000, updateSeconds);
+        } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
+          timeSensor.addEventListener?.(
+            timeSensor.event.MINUTEEND,
+            updateMinutes,
+          );
+          updateMinutes();
         }
       },
       pause_call: () => {
-        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, updateAll);
+        timeSensor.removeEventListener?.(
+          timeSensor.event.MINUTEEND,
+          updateMinutes,
+        );
         timer.stopTimer(updateTimer);
       },
     });

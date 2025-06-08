@@ -21,6 +21,12 @@ export const HOUR_TEXT_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const AOD_HOUR_TEXT_PROPS = {
+  ...HOUR_TEXT_PROPS,
+  color: COLORS.aod,
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
 export const TIME_COLON_TEXT_PROPS = {
   x: px(182),
   y: px(294),
@@ -35,6 +41,12 @@ export const TIME_COLON_TEXT_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const AOD_TIME_COLON_TEXT_PROPS = {
+  ...TIME_COLON_TEXT_PROPS,
+  color: COLORS.aod,
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
 export const MINUTE_TEXT_PROPS = {
   x: px(203),
   y: px(294),
@@ -47,6 +59,12 @@ export const MINUTE_TEXT_PROPS = {
   font: FONTS.primary,
   text: '00',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const AOD_MINUTE_TEXT_PROPS = {
+  ...MINUTE_TEXT_PROPS,
+  color: COLORS.aod,
+  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const SECOND_TEXT_PROPS = {
@@ -75,6 +93,13 @@ export const TIME_POSTFIX_TEXT_PROPS = {
   font: FONTS.primary,
   text: 'P',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+
+export const AOD_TIME_POSTFIX_TEXT_PROPS = {
+  ...TIME_POSTFIX_TEXT_PROPS,
+  color: COLORS.aod,
+  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const DATE_TEXT_PROPS = {
