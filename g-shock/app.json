@@ -5,8 +5,8 @@
     "appName": "G-Shock",
     "appType": "watchface",
     "version": {
-      "code": 3,
-      "name": "2.0.0"
+      "code": 4,
+      "name": "2.1.0"
     },
     "icon": "icon.png",
     "vender": "novvember",
