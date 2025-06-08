@@ -1,3 +1,7 @@
+import { getHasCustomFontSupport } from './getHasCustomFontSupport';
+
+const hasCustomFontSupport = getHasCustomFontSupport();
+
 const { width, height } = hmSetting.getDeviceInfo();
 
 export const SCREEN = {
@@ -13,16 +17,16 @@ export const COLORS = {
 };
 
 export const FONTS = {
-  primary: 'fonts/Tomorrow-SemiBold.ttf',
-  secondary: 'fonts/Handjet-Light.ttf',
+  primary: hasCustomFontSupport ? 'fonts/Tomorrow-SemiBold.ttf' : undefined,
+  secondary: hasCustomFontSupport ? 'fonts/Handjet-Light.ttf' : undefined,
 };
 
 export const FONT_SIZE = {
-  time: px(88),
-  seconds: px(56),
-  secondary: px(34),
-  tertiary: px(28),
-  today: px(32),
+  time: hasCustomFontSupport ? px(88) : px(88),
+  seconds: hasCustomFontSupport ? px(56) : px(48),
+  secondary: hasCustomFontSupport ? px(34) : px(24),
+  battery: hasCustomFontSupport ? px(28) : px(19),
+  today: hasCustomFontSupport ? px(32) : px(34),
 };
 
 export const WEEKDAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
