@@ -329,18 +329,15 @@ WatchFace({
     const stepsWidget = hmUI.createWidget(hmUI.widget.TEXT, TODAY_STEPS_PROPS);
     const paiWidget = hmUI.createWidget(hmUI.widget.TEXT, TODAY_PAI_PROPS);
 
-    const update = () => {
-      const stepSensor = hmSensor.createSensor(hmSensor.id.STEP);
-      const paiSensor = hmSensor.createSensor(hmSensor.id.PAI);
+    const stepSensor = hmSensor.createSensor(hmSensor.id.STEP);
+    const paiSensor = hmSensor.createSensor(hmSensor.id.PAI);
 
-      stepsWidget.setProperty(
-        hmUI.prop.TEXT,
-        stepSensor.current.toString() + ' steps',
-      );
-      paiWidget.setProperty(
-        hmUI.prop.TEXT,
-        paiSensor.totalpai.toString() + ' pai',
-      );
+    const update = () => {
+      const stepsValue = stepSensor.current || 0;
+      const paiValue = paiSensor.totalpai || 0;
+
+      stepsWidget.setProperty(hmUI.prop.TEXT, `${stepsValue} steps`);
+      paiWidget.setProperty(hmUI.prop.TEXT, `${paiValue} pai`);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -393,18 +390,13 @@ WatchFace({
       }),
     );
 
-    let prevValue = 0;
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+    const paiSensor = hmSensor.createSensor(hmSensor.id.PAI);
 
-    const update = () => {
-      const { day, month, year } = hmSensor.createSensor(hmSensor.id.TIME);
-      const paiSensor = hmSensor.createSensor(hmSensor.id.PAI);
+    let prevDay = undefined;
 
-      if (prevValue === day) {
-        return;
-      }
-
-      console.log('diagram rerendered');
-      prevValue = day;
+    const updateDates = () => {
+      const { day, month, year } = timeSensor;
 
       const currentDate = new Date(year, month - 1, day);
       const date = new Date(currentDate);
@@ -414,10 +406,12 @@ WatchFace({
         date.setDate(date.getDate() + 1);
         textWidget.setProperty(hmUI.prop.TEXT, date.getDate().toString());
       });
+    };
 
+    const updateBars = () => {
       barWidgets.forEach((barWidget, i) => {
-        const pai = paiSensor[`prepai${i + 1}`];
-        const level = Math.min((pai || 0) / 100, 1);
+        const paiValue = paiSensor[`prepai${i + 1}`] || 0;
+        const level = Math.min(paiValue / 100, 1);
 
         let height = level * BAR_HEIGHT;
 
@@ -434,6 +428,17 @@ WatchFace({
           y,
         });
       });
+    };
+
+    const update = () => {
+      const { day } = timeSensor;
+
+      if (prevDay !== day) {
+        prevDay = day;
+        updateDates();
+      }
+
+      updateBars();
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
