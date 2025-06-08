@@ -14,6 +14,7 @@ export const SCREEN = {
 export const COLORS = {
   primary: 0xd8d8d8,
   background: 0x28282b,
+  aod: 0xb1b1b1,
 };
 
 export const FONTS = {
