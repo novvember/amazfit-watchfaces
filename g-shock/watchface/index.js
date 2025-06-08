@@ -1,4 +1,5 @@
 import { WEEKDAYS } from '../utils/constants';
+import { transliterateToLatin } from '../utils/transliterateToLatin';
 import {
   BACKGROUND_IMAGE_PROPS,
   TIME_COLON_TEXT_PROPS,
@@ -167,10 +168,12 @@ WatchFace({
 
     const update = () => {
       const weatherData = weatherSensor.getForecastWeather();
+      const cityName = weatherData.cityName || '';
+      const cityNameTransliterated = transliterateToLatin(cityName);
 
       textWidget.setProperty(
         hmUI.prop.TEXT,
-        weatherData.cityName.toUpperCase(),
+        cityNameTransliterated.toUpperCase(),
       );
     };
 
