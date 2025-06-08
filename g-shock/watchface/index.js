@@ -38,11 +38,11 @@ import {
 
 WatchFace({
   onInit() {
-    console.log('index page.js on init invoke');
+    console.log('watchface initing');
   },
 
   build() {
-    console.log('index page.js on build invoke');
+    console.log('watchface building');
 
     this.buildBackground();
 
@@ -64,7 +64,7 @@ WatchFace({
   },
 
   onDestroy() {
-    console.log('index page.js on destroy invoke');
+    console.log('watchface destroying');
   },
 
   buildBackground() {
@@ -81,37 +81,43 @@ WatchFace({
       TIME_POSTFIX_TEXT_PROPS,
     );
 
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+
     let updateTimer = undefined;
 
-    const update = () => {
-      const { hour, minute, second } = hmSensor.createSensor(hmSensor.id.TIME);
-      const is12HourFormat = hmSetting.getTimeFormat() === 0;
+    const updateSeconds = () => {
+      const { second } = timeSensor;
 
-      const hourString = (is12HourFormat ? hour % 12 || 12 : hour).toString();
-      const minuteString = minute.toString().padStart(2, '0');
       const secondString = second.toString().padStart(2, '0');
-      const postfixString = is12HourFormat && hour > 11 ? 'P' : '';
+      secondWidget.setProperty(hmUI.prop.TEXT, secondString);
+    };
 
-      console.log('time rerendered');
+    const update = () => {
+      const { hour, minute } = timeSensor;
+      const is12HourFormat = hmSetting.getTimeFormat() === 0;
+      const hourValue = is12HourFormat ? hour % 12 || 12 : hour;
+
+      const hourString = hourValue.toString();
+      const minuteString = minute.toString().padStart(2, '0');
+      const postfixString = is12HourFormat && hour > 11 ? 'P' : '';
 
       hourWidget.setProperty(hmUI.prop.TEXT, hourString);
       minuteWidget.setProperty(hmUI.prop.TEXT, minuteString);
-      secondWidget.setProperty(hmUI.prop.TEXT, secondString);
       postfixWidget.setProperty(hmUI.prop.TEXT, postfixString);
+
+      updateSeconds();
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(1000, 1000, update);
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           update();
+          updateTimer = timer.createTimer(1000, 1000, updateSeconds);
         }
       },
       pause_call: () => {
-        console.log('ui pause');
-
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
         timer.stopTimer(updateTimer);
       },
     });
@@ -120,20 +126,18 @@ WatchFace({
   buildDate() {
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, DATE_TEXT_PROPS);
 
-    let updateTimer = undefined;
-    let prevValue = '';
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+
+    let prevDay = undefined;
 
     const update = () => {
-      const { day, month, week, year } = hmSensor.createSensor(
-        hmSensor.id.TIME,
-      );
+      const { day, month, week, year } = timeSensor;
 
-      if (prevValue === day) {
+      if (prevDay === day) {
         return;
       }
 
-      console.log('date rerendered');
-      prevValue = day;
+      prevDay = day;
 
       const weekdayString = WEEKDAYS[week - 1];
       const dayString = day.toString();
@@ -146,27 +150,24 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(5000, 5000, update);
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           update();
         }
       },
       pause_call: () => {
-        console.log('ui pause');
-
-        timer.stopTimer(updateTimer);
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
       },
     });
   },
 
   buildCity() {
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, CITY_TEXT_PROPS);
+    const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
 
     const update = () => {
-      const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
       const weatherData = weatherSensor.getForecastWeather();
+
       textWidget.setProperty(
         hmUI.prop.TEXT,
         weatherData.cityName.toUpperCase(),
@@ -175,7 +176,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
         update();
       },
     });
@@ -183,30 +183,37 @@ WatchFace({
 
   buildStatusIcons() {
     const lightWidget = hmUI.createWidget(hmUI.widget.IMG, STATUS_LIGHT_PROPS);
+
     const vibWidget = hmUI.createWidget(hmUI.widget.IMG, STATUS_VIB_PROPS);
     const vibOffWidget = hmUI.createWidget(
       hmUI.widget.IMG_STATUS,
       STATUS_VIB_OFF_PROPS,
     );
+
     const alarmWidget = hmUI.createWidget(
       hmUI.widget.IMG_STATUS,
       STATUS_ALARM_PROPS,
     );
+
     const dndWidget = hmUI.createWidget(
       hmUI.widget.IMG_STATUS,
       STATUS_DND_PROPS,
     );
+
     const lockWidget = hmUI.createWidget(
       hmUI.widget.IMG_STATUS,
       STATUS_LOCK_PROPS,
     );
+
     const batteryWidget = hmUI.createWidget(
       hmUI.widget.IMG,
       STATUS_BATTERY_PROPS,
     );
 
+    const batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
+
     const update = () => {
-      const { current } = hmSensor.createSensor(hmSensor.id.BATTERY);
+      const { current } = batterySensor;
 
       if (current <= 20) {
         batteryWidget.setProperty(hmUI.prop.ALPHA, 255);
@@ -217,8 +224,11 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        batterySensor.addEventListener?.(hmSensor.event.CHANGE, update);
         update();
+      },
+      pause_call: () => {
+        batterySensor.removeEventListener?.(hmSensor.event.CHANGE, update);
       },
     });
   },
@@ -231,48 +241,47 @@ WatchFace({
     );
     const sunsetWidget = hmUI.createWidget(hmUI.widget.TEXT, SUNSET_TEXT_PROPS);
 
+    const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
+
     const update = () => {
-      const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
       const forecastWeather = weatherSensor.getForecastWeather();
       const tideData = forecastWeather.tideData;
       const is12HourFormat = hmSetting.getTimeFormat() === 0;
 
-      if (tideData.count > 0) {
-        const { sunrise, sunset } = tideData.data[0];
-
-        const sunriseHour = (
-          is12HourFormat ? sunrise.hour % 12 || 12 : sunrise.hour
-        )
-          .toString()
-          .padStart(2, '0');
-        const sunriseMinute = sunrise.minute.toString().padStart(2, '0');
-        const sunrisePostfix = is12HourFormat && sunrise.hour > 11 ? 'P' : '';
-        const sunriseText = is12HourFormat
-          ? `${sunriseHour}:${sunriseMinute} ${sunrisePostfix}`
-          : `${sunriseHour}:${sunriseMinute}`;
-
-        const sunsetHour = (
-          is12HourFormat ? sunset.hour % 12 || 12 : sunset.hour
-        )
-          .toString()
-          .padStart(2, '0');
-        const sunsetMinute = sunset.minute.toString().padStart(2, '0');
-        const sunsetPostfix = is12HourFormat && sunset.hour > 11 ? 'P' : '';
-        const sunsetText = is12HourFormat
-          ? `${sunsetHour}:${sunsetMinute} ${sunsetPostfix}`
-          : `${sunsetHour}:${sunsetMinute}`;
-
-        sunriseWidget.setProperty(hmUI.prop.TEXT, sunriseText);
-        sunsetWidget.setProperty(hmUI.prop.TEXT, sunsetText);
-      } else {
+      if (tideData.count <= 0) {
         sunriseWidget.setProperty(hmUI.prop.TEXT, '--:--');
         sunsetWidget.setProperty(hmUI.prop.TEXT, '--:--');
+        return;
       }
+
+      const { sunrise, sunset } = tideData.data[0];
+
+      const sunriseHour = (
+        is12HourFormat ? sunrise.hour % 12 || 12 : sunrise.hour
+      )
+        .toString()
+        .padStart(2, '0');
+      const sunriseMinute = sunrise.minute.toString().padStart(2, '0');
+      const sunrisePostfix = is12HourFormat && sunrise.hour > 11 ? 'P' : '';
+      const sunriseText = is12HourFormat
+        ? `${sunriseHour}:${sunriseMinute} ${sunrisePostfix}`
+        : `${sunriseHour}:${sunriseMinute}`;
+
+      const sunsetHour = (is12HourFormat ? sunset.hour % 12 || 12 : sunset.hour)
+        .toString()
+        .padStart(2, '0');
+      const sunsetMinute = sunset.minute.toString().padStart(2, '0');
+      const sunsetPostfix = is12HourFormat && sunset.hour > 11 ? 'P' : '';
+      const sunsetText = is12HourFormat
+        ? `${sunsetHour}:${sunsetMinute} ${sunsetPostfix}`
+        : `${sunsetHour}:${sunsetMinute}`;
+
+      sunriseWidget.setProperty(hmUI.prop.TEXT, sunriseText);
+      sunsetWidget.setProperty(hmUI.prop.TEXT, sunsetText);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
         update();
       },
     });
@@ -287,15 +296,20 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.IMG, BATTERY_IMAGE_PROPS);
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, BATTERY_TEXT_PROPS);
 
+    const batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
+
     const update = () => {
-      const { current } = hmSensor.createSensor(hmSensor.id.BATTERY);
+      const { current = '--' } = batterySensor;
       textWidget.setProperty(hmUI.prop.TEXT, `${current}%`);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        batterySensor.addEventListener?.(hmSensor.event.CHANGE, update);
         update();
+      },
+      pause_call: () => {
+        batterySensor.removeEventListener?.(hmSensor.event.CHANGE, update);
       },
     });
   },
@@ -304,20 +318,22 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.IMG, HEART_IMAGE_PROPS);
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, HEART_TEXT_PROPS);
 
-    const update = () => {
-      const { last } = hmSensor.createSensor(hmSensor.id.HEART);
+    const heartSensor = hmSensor.createSensor(hmSensor.id.HEART);
 
-      if (last) {
-        textWidget.setProperty(hmUI.prop.TEXT, last.toString());
-      } else {
-        textWidget.setProperty(hmUI.prop.TEXT, '--');
-      }
+    const update = () => {
+      const { last } = heartSensor;
+      const text = (last || '--').toString();
+
+      textWidget.setProperty(hmUI.prop.TEXT, text);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        heartSensor.addEventListener?.(hmSensor.event.LAST, update);
         update();
+      },
+      pause_call: () => {
+        heartSensor.removeEventListener?.(hmSensor.event.LAST, update);
       },
     });
   },
@@ -342,8 +358,11 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
+        stepSensor.addEventListener?.(hmSensor.event.CHANGE, update);
         update();
+      },
+      pause_call: () => {
+        stepSensor.removeEventListener?.(hmSensor.event.CHANGE, update);
       },
     });
   },
@@ -443,7 +462,6 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
         update();
       },
     });
