@@ -213,7 +213,7 @@ export const BATTERY_TEXT_PROPS = {
   w: px(60),
   h: px(24),
   color: COLORS.background,
-  text_size: FONT_SIZE.tertiary,
+  text_size: FONT_SIZE.battery,
   align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.CENTER_V,
   font: FONTS.secondary,
