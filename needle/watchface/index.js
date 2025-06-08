@@ -31,11 +31,11 @@ import { decline } from '../utils/decline';
 
 WatchFace({
   onInit() {
-    console.log('index page.js on init invoke');
+    console.log('watchface initing');
   },
 
   build() {
-    console.log('index page.js on build invoke');
+    console.log('watchface building');
 
     this.getSettings();
 
@@ -48,7 +48,7 @@ WatchFace({
   },
 
   onDestroy() {
-    console.log('index page.js on destroy invoke');
+    console.log('watchface destroying');
   },
 
   getSettings() {
@@ -446,7 +446,6 @@ WatchFace({
     const sensor = new Weather();
 
     const update = () => {
-
       const value = sensor.current || '--';
       updateWidget(`${value}°`);
     };

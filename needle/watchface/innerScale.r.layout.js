@@ -1,4 +1,4 @@
-import hmUI from '@zos/ui';
+import ui from '@zos/ui';
 import { px } from '@zos/utils';
 import { COLORS } from '../utils/constants';
 
@@ -15,5 +15,5 @@ export const INNER_PROGRESS_ARC_PROPS = {
   line_width: px(18),
   level: 100,
   corner_flag: 3,
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: ui.show_level.ONLY_NORMAL,
 };

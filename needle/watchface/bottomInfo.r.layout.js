@@ -1,4 +1,4 @@
-import hmUI from '@zos/ui';
+import ui from '@zos/ui';
 import { px } from '@zos/utils';
 import { COLORS, FONT } from '../utils/constants';
 
@@ -12,12 +12,12 @@ export const INFO_VALUE_TEXT_PROPS = {
   h: px(40),
   color: COLORS.primary,
   text_size: px(40),
-  align_h: hmUI.align.CENTER_H,
-  align_v: hmUI.align.CENTER_V,
+  align_h: ui.align.CENTER_H,
+  align_v: ui.align.CENTER_V,
   font: FONT,
   text: '---',
   char_space: 0,
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: ui.show_level.ONLY_NORMAL,
 };
 
 export const INFO_POSTFIX_TEXT_PROPS = {

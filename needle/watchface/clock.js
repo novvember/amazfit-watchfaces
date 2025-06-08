@@ -36,7 +36,7 @@ export class Clock {
     createWidget(widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (getScene() === SCENE_WATCHFACE) {
-          timeSensor.onPerMinute(update);
+          timeSensor.onPerMinute?.(update);
           update();
         }
       },

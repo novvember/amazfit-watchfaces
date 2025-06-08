@@ -1,4 +1,4 @@
-import hmUI from '@zos/ui';
+import ui from '@zos/ui';
 import { px } from '@zos/utils';
 import { COLORS, FONT } from '../utils/constants';
 
@@ -11,7 +11,7 @@ export const OUTER_BACKGROUND_IMAGE_PROPS = {
   w: px(480),
   h: px(480),
   src: 'outer/background.png',
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: ui.show_level.ONLY_NORMAL,
 };
 
 export const OUTER_TICKS_IMAGE_PROPS = {
@@ -20,7 +20,7 @@ export const OUTER_TICKS_IMAGE_PROPS = {
   w: px(480),
   h: px(480),
   src: 'outer/ticks.png',
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: ui.show_level.ONLY_NORMAL,
 };
 
 export const OUTER_PROGRESS_ARC_PROPS = {
@@ -33,7 +33,7 @@ export const OUTER_PROGRESS_ARC_PROPS = {
   line_width: px(30),
   level: 100,
   corner_flag: 3,
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: ui.show_level.ONLY_NORMAL,
 };
 
 export const OUTER_TICKS_PARAMS = [
@@ -64,7 +64,6 @@ export const OUTER_TICK_GROUP_PROPS = {
   y: 0,
   w: px(36),
   h: px(36),
-  show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const OUTER_TICK_TEXT_PROPS = {
@@ -74,12 +73,12 @@ export const OUTER_TICK_TEXT_PROPS = {
   h: px(36),
   color: COLORS.accent,
   text_size: px(28),
-  align_h: hmUI.align.CENTER_H,
-  align_v: hmUI.align.CENTER_V,
+  align_h: ui.align.CENTER_H,
+  align_v: ui.align.CENTER_V,
   font: FONT,
   text: '00',
   char_space: 0,
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: ui.show_level.ONLY_NORMAL,
 };
 
 export const OUTER_TICK_BACKGROUND_CIRCLE_PROPS = {
@@ -87,7 +86,7 @@ export const OUTER_TICK_BACKGROUND_CIRCLE_PROPS = {
   center_y: px(18),
   radius: px(18),
   color: 0x000000,
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: ui.show_level.ONLY_NORMAL,
 };
 
 export const ACTIVITY_ICON_IMAGE_PROPS = {
@@ -96,5 +95,5 @@ export const ACTIVITY_ICON_IMAGE_PROPS = {
   w: px(48),
   h: px(48),
   src: 'activity/icon.png',
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  show_level: ui.show_level.ONLY_NORMAL,
 };
