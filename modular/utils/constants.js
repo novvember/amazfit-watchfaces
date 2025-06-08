@@ -216,7 +216,7 @@ export const WIDGET_OPTIONAL_TYPES = [
   },
   {
     type: 100012,
-    title_en: isRusLang ? 'Кольца активности' : 'Activity Rings',
+    title_en: isRusLang ? 'Кольца активности (калории, время интенсивной нагрузки, разминка)' : 'Activity Rings (calories, fat burning time, stands)',
     preview: 'edit/widget_preview_rings.png',
     data: {
       type: 'rings',
