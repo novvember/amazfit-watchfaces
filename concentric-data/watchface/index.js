@@ -199,10 +199,13 @@ WatchFace({
     };
 
     const update = () => {
+      timer.stopTimer(updateTimer);
+
       updateSecond(timeSensor);
       updateMinute(timeSensor);
       updateCurrentTime(timeSensor);
-      updateTimer = timer.createTimer(500, 0, update);
+      
+      updateTimer = timer.createTimer(250, 0, update);
     };
 
     const updateAod = () => {
