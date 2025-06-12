@@ -253,18 +253,10 @@ export const PULSE_CURRENT_POINTER_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const PULSE_PREV_POINTER_GROUP_PROPS = {
-  x: PULSE.x,
-  y: PULSE.y,
-  w: PULSE.width,
-  h: PULSE.height,
-};
-
 export const PULSE_PREV_POINTER_PROPS = {
   ...PULSE_CURRENT_POINTER_PROPS,
-  x: 0,
-  y: 0,
   src: 'pulse/prevPointer.png',
+  alpha: 255,
 };
 
 export const PULSE_ARC_PROPS = {
