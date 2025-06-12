@@ -36,7 +36,7 @@ All of my watchfaces are free to use. However, if you'd like to support further 
 | ![](./solar-circle/demo.png)          | Solar circle          |
 | ![](./anicorn-k452-nemesis/demo.png)  | Anicorn K452 Nemesis  |
 | ![](./spin-3/demo.png)                | Spin 3                |
-| ![](./g-shock/demo.png)               | G-Shock               |
+| ![](./x-shock/demo.png)               | X-Shock               |
 | ![](./grotesque/demo.png)             | Grotesque             |
 | ![](./time-machine/demo.png)          | Time Machine          |
 | ![](./concentric-data/demo.png)       | Concentric Data       |

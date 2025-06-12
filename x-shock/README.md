@@ -1,4 +1,4 @@
-# G-Shock Watchface
+# X-Shock Watchface
 Watchface for Amazfit GTR Mini and for other round ZeppOS watch.
 
 ![demo](./demo-gtr-mini.png)
@@ -19,13 +19,13 @@ Watchface for Amazfit GTR Mini and for other round ZeppOS watch.
 
 **Model compatibility:** Amazfit GTR Mini, Amazfit GTR 4 and all other round ZeppOS watches
 
-**AOD:** No
+**AOD:** Yes
 
 **Tap-zones:** No
 
 **Language:** English
 
-**Inspired:** Casio G-Shockwatches design
+**Inspired:** Casio G-Shock watches design
 
 ## Download ⏬
 
