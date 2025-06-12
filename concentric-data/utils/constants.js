@@ -4,6 +4,10 @@ import {
   TEXT_CHARS,
 } from '../utils/textChars';
 
+import { getHasCustomFontSupport } from './getHasCustomFontSupport';
+
+const hasCustomFontSupport = getHasCustomFontSupport();
+
 const lang = DeviceRuntimeCore.HmUtils.getLanguage();
 const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
 
@@ -24,8 +28,12 @@ export const COLORS = {
 };
 
 export const FONTS = {
-  primary: 'fonts/FiraSansCondensed-Medium.ttf',
-  aod: 'fonts/FiraSansCondensed-ExtraLight.ttf',
+  primary: hasCustomFontSupport
+    ? 'fonts/FiraSansCondensed-Medium.ttf'
+    : undefined,
+  aod: hasCustomFontSupport
+    ? 'fonts/FiraSansCondensed-ExtraLight.ttf'
+    : undefined,
 };
 
 export const TIME_TEXTS = [
@@ -70,14 +78,14 @@ export const MINUTE = {
 export const CURRENT_HOUR = {
   width: px(110),
   height: px(110),
-  textSize: px(110),
+  textSize: hasCustomFontSupport ? px(110) : px(100),
   color: COLORS.primary,
 };
 
 export const CURRENT_MINUTE = {
   width: px(60),
   height: px(60),
-  textSize: px(54),
+  textSize: hasCustomFontSupport ? px(54) : px(48),
   color: COLORS.primary,
   radius: px(102),
 };
