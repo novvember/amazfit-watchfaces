@@ -1,7 +1,6 @@
 import {
   BATTERY,
   COLORS,
-  DISCONNECT,
   FONT_FAMILY,
   FONT_SIZE,
   PULSE,
