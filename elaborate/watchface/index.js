@@ -36,7 +36,6 @@ import {
   SLEEP_NO_DATA_IMAGE_PROPS,
   SLEEP_WAKE_STAGE_ARC_PROPS,
   WEATHER_NO_ICON_TEXT_PROPS,
-  PULSE_PREV_POINTER_GROUP_PROPS,
   BACKGROUND_AOD_IMAGE_PROPS,
   TIME_AOD_TEXT_PROPS,
 } from './index.r.layout';
@@ -345,27 +344,27 @@ WatchFace({
   },
 
   buildPulse() {
-    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, PULSE_ARC_PROPS);
-    hmUI.createWidget(hmUI.widget.IMG, PULSE_ICON_PROPS);
-    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, PULSE_TEXT_PROPS);
-    let prevPointerWidgets = [];
-    let prevDay = 0;
-    const prevPointerGroup = hmUI.createWidget(
-      hmUI.widget.GROUP,
-      PULSE_PREV_POINTER_GROUP_PROPS,
-    );
-    const currentPointerWidget = hmUI.createWidget(
-      hmUI.widget.IMG,
-      PULSE_CURRENT_POINTER_PROPS,
-    );
     const {
       angleStart,
       angleEnd,
       pointer: { minValue, maxValue },
     } = PULSE;
 
+    hmUI.createWidget(hmUI.widget.ARC_PROGRESS, PULSE_ARC_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, PULSE_ICON_PROPS);
+
+    const prevPointerWidgets = new Array(30)
+      .fill(null)
+      .map(() => hmUI.createWidget(hmUI.widget.IMG, PULSE_PREV_POINTER_PROPS));
+
+    const currentPointerWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      PULSE_CURRENT_POINTER_PROPS,
+    );
+
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, PULSE_TEXT_PROPS);
+
     const heartSensor = hmSensor.createSensor(hmSensor.id.HEART);
-    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
     const getAngle = (value) =>
       getAnglePosition({
@@ -378,30 +377,22 @@ WatchFace({
 
     const update = () => {
       const { last = 0, today = [] } = heartSensor;
-      const { day } = timeSensor;
 
-      textWidget.setProperty(hmUI.prop.TEXT, (last || '--').toString());
-      currentPointerWidget.setProperty(hmUI.prop.ANGLE, getAngle(last));
+      prevPointerWidgets.forEach((widget, i) => {
+        const value = today[today.length - 1 - i];
 
-      if (today.length < prevPointerWidgets.length || prevDay !== day) {
-        prevPointerWidgets.forEach((widget) => hmUI.deleteWidget(widget));
-        prevPointerWidgets = [];
-      }
-
-      prevDay = day;
-
-      today.forEach((value, index) => {
-        if (prevPointerWidgets[index]) {
-          return;
-        }
-
-        prevPointerWidgets.push(
-          prevPointerGroup.createWidget(hmUI.widget.IMG, {
+        if (value > 0) {
+          widget.setProperty(hmUI.prop.MORE, {
             ...PULSE_PREV_POINTER_PROPS,
             angle: getAngle(value),
-          }),
-        );
+          });
+        } else {
+          widget.setProperty(hmUI.prop.ALPHA, 0);
+        }
       });
+
+      currentPointerWidget.setProperty(hmUI.prop.ANGLE, getAngle(last));
+      textWidget.setProperty(hmUI.prop.TEXT, (last || '--').toString());
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
