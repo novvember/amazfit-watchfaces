@@ -2,18 +2,18 @@
   "configVersion": "v3",
   "app": {
     "appId": 1082479,
-    "appName": "G-Shock",
+    "appName": "X-Shock",
     "appType": "watchface",
     "version": {
-      "code": 4,
-      "name": "2.1.0"
+      "code": 5,
+      "name": "2.2.0"
     },
     "icon": "icon.png",
     "vender": "novvember",
     "cover": [
       "cover.png"
     ],
-    "description": "G-Shock watchface. Source code here: https://github.com/novvember/amazfit-watchfaces"
+    "description": "X-Shock watchface. Source code here: https://github.com/novvember/amazfit-watchfaces"
   },
   "runtime": {
     "apiVersion": {
@@ -44,13 +44,13 @@
   },
   "i18n": {
     "en-US": {
-      "appName": "G-Shock"
+      "appName": "X-Shock"
     },
     "ru-RU": {
-      "appName": "G-Shock"
+      "appName": "X-Shock"
     },
     "uk-UA": {
-      "appName": "G-Shock"
+      "appName": "X-Shock"
     }
   },
   "defaultLanguage": "en-US",
