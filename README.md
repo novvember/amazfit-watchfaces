@@ -52,6 +52,7 @@ All of my watchfaces are free to use. However, if you'd like to support further 
 | ![](./horizon/demo.png)               | Horizon               |
 | ![](./circlock/demo.png)              | Circlock              |
 | ![](./needle/demo.png)                | Needle                |
+| ![](./astro/demo.png)                 | Astro                 |
 
 
 ## Repository Structure
