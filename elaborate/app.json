@@ -5,8 +5,8 @@
     "appName": "Elaborate",
     "appType": "watchface",
     "version": {
-      "code": 14,
-      "name": "2.0.1-beta1"
+      "code": 15,
+      "name": "2.0.1"
     },
     "icon": "icon.png",
     "vender": "novvember",
