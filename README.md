@@ -20,41 +20,16 @@ All of my watchfaces are free to use. However, if you'd like to support further 
 
 ## Watchfaces Gallery
 
-| Image 	                               | Name       	          |
-|:-------------------------:            |------------           |
-| ![](./text-lines/demo.png)            | Text Lines 	          |
-| ![](./spin/demo.png)       	          | Spin       	          |
-| ![](./gauge/demo.png)      	          | Gauge      	          |
-| ![](./bourne/demo.png)                | Bourne     	          |
-| ![](./celeste/demo.png)               | Celeste    	          |
-| ![](./nothing-dial/demo.png)          | Nothing Dial          |
-| ![](./spin-2/demo.png)                | Spin 2                |
-| ![](./11-weeks/demo.png)              | 11 weeks              |
-| ![](./verbarius/demo.png)             | Verbarius             |
-| ![](./elaborate/demo.png)             | Elaborate             |
-| ![](./nothing-sector/demo.png)        | Sektor                |
-| ![](./solar-circle/demo.png)          | Solar circle          |
-| ![](./anicorn-k452-nemesis/demo.png)  | Anicorn K452 Nemesis  |
-| ![](./spin-3/demo.png)                | Spin 3                |
-| ![](./x-shock/demo.png)               | X-Shock               |
-| ![](./grotesque/demo.png)             | Grotesque             |
-| ![](./time-machine/demo.png)          | Time Machine          |
-| ![](./concentric-data/demo.png)       | Concentric Data       |
-| ![](./opposite-time/demo.png)         | Opposite Time         |
-| ![](./sometimes/demo.png)             | Sometimes             |
-| ![](./rider-1991/demo.png)            | Rider 1991            |
-| ![](./kinetik/demo.png)               | Kinetik               |
-| ![](./repelling-radial/demo.png)      | Repelling Radial      |
-| ![](./modular/demo.png)               | Modular               |
-| ![](./ara/demo.png)                   | Ara                   |
-| ![](./symmetry-broken/demo.png)       | Symmetry Broken       |
-| ![](./regulus/demo.png)               | Regulus               |
-| ![](./horizon/demo.png)               | Horizon               |
-| ![](./circlock/demo.png)              | Circlock              |
-| ![](./needle/demo.png)                | Needle                |
-| ![](./astro/demo.png)                 | Astro                 |
-| ![](./gyroscope/demo.png)             | Gyroscope             |
-
+| | | | |
+|:---:|:---:|:---:|:---:|
+| ![](./text-lines/demo.png) <br> [Text Lines](./text-lines/) | ![](./spin/demo.png) <br> [Spin](./spin/) | ![](./gauge/demo.png) <br> [Gauge](./gauge/) | ![](./bourne/demo.png) <br> [Bourne](./bourne/) |
+| ![](./celeste/demo.png) <br> [Celeste](./celeste/) | ![](./nothing-dial/demo.png) <br> [Nothing Dial](./nothing-dial/) | ![](./spin-2/demo.png) <br> [Spin 2](./spin-2/) | ![](./11-weeks/demo.png) <br> [11 weeks](./11-weeks/) |
+| ![](./verbarius/demo.png) <br> [Verbarius](./verbarius/) | ![](./elaborate/demo.png) <br> [Elaborate](./elaborate/) | ![](./nothing-sector/demo.png) <br> [Sektor](./nothing-sector/) | ![](./solar-circle/demo.png) <br> [Solar circle](./solar-circle/) |
+| ![](./anicorn-k452-nemesis/demo.png) <br> [Anicorn K452 Nemesis](./anicorn-k452-nemesis/) | ![](./spin-3/demo.png) <br> [Spin 3](./spin-3/) | ![](./x-shock/demo.png) <br> [X-Shock](./x-shock/) | ![](./grotesque/demo.png) <br> [Grotesque](./grotesque/) |
+| ![](./time-machine/demo.png) <br> [Time Machine](./time-machine/) | ![](./concentric-data/demo.png) <br> [Concentric Data](./concentric-data/) | ![](./opposite-time/demo.png) <br> [Opposite Time](./opposite-time/) | ![](./sometimes/demo.png) <br> [Sometimes](./sometimes/) |
+| ![](./rider-1991/demo.png) <br> [Rider 1991](./rider-1991/) | ![](./kinetik/demo.png) <br> [Kinetik](./kinetik/) | ![](./repelling-radial/demo.png) <br> [Repelling Radial](./repelling-radial/) | ![](./modular/demo.png) <br> [Modular](./modular/) |
+| ![](./ara/demo.png) <br> [Ara](./ara/) | ![](./symmetry-broken/demo.png) <br> [Symmetry Broken](./symmetry-broken/) | ![](./regulus/demo.png) <br> [Regulus](./regulus/) | ![](./horizon/demo.png) <br> [Horizon](./horizon/) |
+| ![](./circlock/demo.png) <br> [Circlock](./circlock/) | ![](./needle/demo.png) <br> [Needle](./needle/) | ![](./astro/demo.png) <br> [Astro](./astro/) | ![](./gyroscope/demo.png) <br> [Gyroscope](./gyroscope/) |
 
 ## Repository Structure
 
