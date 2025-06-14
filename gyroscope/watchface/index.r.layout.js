@@ -33,6 +33,22 @@ export const POINTER_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const AOD_POINTER_PROPS = {
+  hour_centerX: SCREEN.centerX,
+  hour_centerY: SCREEN.centerY,
+  hour_posX: SCREEN.centerX,
+  hour_posY: SCREEN.centerY,
+  hour_path: 'time/hour_aod.png',
+
+  minute_centerX: SCREEN.centerX,
+  minute_centerY: SCREEN.centerY,
+  minute_posX: px(24 / 2),
+  minute_posY: px(240),
+  minute_path: 'time/minute_aod.png',
+
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
 export const TOP_COVER_IMAGE_PROPS = {
   x: 0,
   y: 0,
@@ -40,6 +56,15 @@ export const TOP_COVER_IMAGE_PROPS = {
   h: px(480),
   src: 'time/top.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const AOD_TOP_COVER_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  w: px(480),
+  h: px(480),
+  src: 'time/top_aod.png',
+  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const TEXT_PROPS = {

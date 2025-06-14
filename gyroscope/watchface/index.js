@@ -1,4 +1,6 @@
 import {
+  AOD_POINTER_PROPS,
+  AOD_TOP_COVER_IMAGE_PROPS,
   POINTER_PROPS,
   TEXT_PROPS,
   TOP_COVER_IMAGE_PROPS,
@@ -25,10 +27,12 @@ WatchFace({
 
   buildTime() {
     hmUI.createWidget(hmUI.widget.TIME_POINTER, POINTER_PROPS);
+    hmUI.createWidget(hmUI.widget.TIME_POINTER, AOD_POINTER_PROPS);
   },
 
   buildTopCover() {
     hmUI.createWidget(hmUI.widget.IMG, TOP_COVER_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, AOD_TOP_COVER_IMAGE_PROPS);
   },
 
   buildDate() {
