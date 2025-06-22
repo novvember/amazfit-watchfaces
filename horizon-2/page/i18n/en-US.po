@@ -1,0 +1,62 @@
+msgid "mon"
+msgstr "Monday"
+
+msgid "tue"
+msgstr "Tuesday"
+
+msgid "wed"
+msgstr "Wednesday"
+
+msgid "thu"
+msgstr "Thursday"
+
+msgid "fri"
+msgstr "Friday"
+
+msgid "sat"
+msgstr "Saturday"
+
+msgid "sun"
+msgstr "Sunday"
+
+msgid "steps"
+msgstr "step/steps"
+
+msgid "heart_rate"
+msgstr "%s BPM"
+
+msgid "jan"
+msgstr "January"
+
+msgid "feb"
+msgstr "February"
+
+msgid "mar"
+msgstr "March"
+
+msgid "apr"
+msgstr "April"
+
+msgid "may"
+msgstr "May"
+
+msgid "jun"
+msgstr "June"
+
+msgid "jul"
+msgstr "July"
+
+msgid "aug"
+msgstr "August"
+
+msgid "sep"
+msgstr "September"
+
+msgid "oct"
+msgstr "October"
+
+msgid "nov"
+msgstr "November"
+
+msgid "dec"
+msgstr "December"

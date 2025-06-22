@@ -1,0 +1,62 @@
+msgid "mon"
+msgstr "Понедельник"
+
+msgid "tue"
+msgstr "Вторник"
+
+msgid "wed"
+msgstr "Среда"
+
+msgid "thu"
+msgstr "Четверг"
+
+msgid "fri"
+msgstr "Пятница"
+
+msgid "sat"
+msgstr "Суббота"
+
+msgid "sun"
+msgstr "Воскрсенье"
+
+msgid "steps"
+msgstr "шаг/шага/шагов/шагов"
+
+msgid "heart_rate"
+msgstr "ЧСС %s"
+
+msgid "jan"
+msgstr "Январь"
+
+msgid "feb"
+msgstr "Февраль"
+
+msgid "mar"
+msgstr "Март"
+
+msgid "apr"
+msgstr "Апрель"
+
+msgid "may"
+msgstr "Май"
+
+msgid "jun"
+msgstr "Июнь"
+
+msgid "jul"
+msgstr "Июль"
+
+msgid "aug"
+msgstr "Август"
+
+msgid "sep"
+msgstr "Сентябрь"
+
+msgid "oct"
+msgstr "Октябрь"
+
+msgid "nov"
+msgstr "Ноябрь"
+
+msgid "dec"
+msgstr "Декабрь"
