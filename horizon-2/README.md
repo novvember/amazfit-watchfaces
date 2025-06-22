@@ -1,14 +1,13 @@
-# Horizon Watchface
-Watchface for round ZeppOS watch.
+# Horizon 2 Watchface
+Simplier version of the existing Horizon watchface.
 
 ![demo](./demo-gtr-mini.png)
 
 ## Features
 
 **Main features**
-- Time is indicated by a rotating 24-hour time disk that represents the entire day, with the grey area indicating daylight hours and the yellow zone designating sleeping hours. A vertical line at the bottom shows the current time on the disk.
+- Time is indicated by a 24-hour time disk that represents the entire day, with the grey area indicating daylight hours and the yellow zone designating sleeping hours. A round yellow dot on the side shows the current time with minutes on it.
 - Additional information:
-  - Digital time display beneath the disk's current time line
   - Step counter
   - Battery level indicator
   - Outside temperature
