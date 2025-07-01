@@ -3,4 +3,9 @@ export const COLORS = {
   accentDimmed: 0xceb12a,
 };
 
-export const FONT = 'fonts/Inter_24pt-SemiBold.ttf';
+export const FONTS = {
+  minute: 'fonts/RedHatDisplay-Bold.ttf',
+  minuteReversed: 'fonts/RedHatDisplay-Bold-Reversed.ttf',
+  text: 'fonts/Inter_24pt-SemiBold.ttf',
+  textReversed: 'fonts/Inter24pt-SemiBold-Reversed.ttf',
+};

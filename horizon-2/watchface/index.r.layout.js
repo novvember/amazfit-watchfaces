@@ -1,4 +1,4 @@
-import { COLORS, FONT } from '../utils/constants';
+import { COLORS, FONTS } from '../utils/constants';
 
 const { width, height } = hmSetting.getDeviceInfo();
 
@@ -77,7 +77,7 @@ export const TIME_TEXT_PROPS = {
   line_space: 0,
   start_angle: -15,
   end_angle: 15,
-  font: FONT,
+  font: FONTS.minute,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -95,6 +95,24 @@ export const INNER_TEXT_PROPS = {
   line_space: 0,
   start_angle: 0,
   end_angle: 0,
-  font: FONT,
+  font: FONTS.text,
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const OUTER_TEXT_PROPS = {
+  x: -1 * px(6),
+  y: -1 * px(6),
+  w: SCREEN.width + px(12),
+  h: SCREEN.height + px(12),
+  text_size: px(26),
+  color: 0xffffff,
+  text: '',
+  align_h: hmUI.align.CENTER_H,
+  align_v: hmUI.align.TOP,
+  char_space: px(5),
+  line_space: 0,
+  start_angle: 0,
+  end_angle: 0,
+  font: FONTS.text,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };

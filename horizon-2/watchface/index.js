@@ -1,7 +1,9 @@
+import { FONTS } from '../utils/constants';
 import { decline } from '../utils/decline';
 import { formatNumber } from '../utils/formatNumber';
 import {
   INNER_TEXT_PROPS,
+  OUTER_TEXT_PROPS,
   SCALE_IMAGE_PROPS,
   SLEEP_ARC_PROPS,
   SUN_ARC_PROPS,
@@ -72,6 +74,21 @@ WatchFace({
     const angleEnd = this.calculateTimeAngle(hour1, minute1);
 
     return this.separateTimeAngles(angleStart, angleEnd);
+  },
+
+  prepareTextProps(props, angle, fontReversed) {
+    const { text } = props;
+    const angleNormalized = (angle + 360 * 5) % 360;
+
+    if (angleNormalized >= 90 && angleNormalized <= 270) {
+      return {
+        ...props,
+        text: text.split('').reverse().join(''),
+        font: fontReversed,
+      };
+    }
+
+    return props;
   },
 
   buildSunTime() {
@@ -171,12 +188,19 @@ WatchFace({
 
       pointerWidget.setProperty(hmUI.prop.ANGLE, angle);
 
-      textWidget.setProperty(hmUI.prop.MORE, {
-        ...TIME_TEXT_PROPS,
-        start_angle: angle - 15,
-        end_angle: angle + 15,
-        text: minuteText,
-      });
+      const textProps = this.prepareTextProps(
+        {
+          ...TIME_TEXT_PROPS,
+          start_angle: angle - 15,
+          end_angle: angle + 15,
+          text: minuteText,
+          font: FONTS.minute,
+        },
+        angle,
+        FONTS.minuteReversed,
+      );
+
+      textWidget.setProperty(hmUI.prop.MORE, textProps);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -195,7 +219,13 @@ WatchFace({
   buildDate() {
     const WEEKDAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
-    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, INNER_TEXT_PROPS);
+    const TEXT_PROPS = {
+      ...OUTER_TEXT_PROPS,
+      start_angle: 180,
+      end_angle: 225,
+    };
+
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, TEXT_PROPS);
 
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
@@ -203,12 +233,16 @@ WatchFace({
       const { day, week } = timeSensor;
       const dateText = `${gettext(WEEKDAYS[week - 1])} ${day}`.toUpperCase();
 
-      textWidget.setProperty(hmUI.prop.MORE, {
-        ...INNER_TEXT_PROPS,
-        text: dateText,
-        start_angle: -90,
-        end_angle: 0,
-      });
+      const textProps = this.prepareTextProps(
+        {
+          ...TEXT_PROPS,
+          text: dateText,
+        },
+        180,
+        FONTS.textReversed,
+      );
+
+      textWidget.setProperty(hmUI.prop.MORE, textProps);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
