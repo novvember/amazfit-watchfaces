@@ -5,8 +5,8 @@
     "appName": "X-Shock",
     "appType": "watchface",
     "version": {
-      "code": 5,
-      "name": "2.2.0"
+      "code": 6,
+      "name": "2.2.1"
     },
     "icon": "icon.png",
     "vender": "novvember",
