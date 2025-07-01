@@ -167,7 +167,7 @@ WatchFace({
     let prevDay = undefined;
 
     const update = () => {
-      const { day, month, week, year } = timeSensor;
+      const { day, month, week } = timeSensor;
 
       if (prevDay === day) {
         return;
@@ -176,12 +176,11 @@ WatchFace({
       prevDay = day;
 
       const weekdayString = WEEKDAYS[week - 1];
-      const dayString = day.toString();
-      const daysString = new Date(year, month, 0).getDate().toString();
-      textWidget.setProperty(
-        hmUI.prop.TEXT,
-        `${weekdayString} ${dayString}/${daysString}`,
-      );
+      const monthString = month.toString().padStart(2, ' ');
+      const dayString = day.toString().padStart(2, ' ');
+      const dateText = `${weekdayString} ${monthString}/${dayString}`;
+
+      textWidget.setProperty(hmUI.prop.TEXT, dateText);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
