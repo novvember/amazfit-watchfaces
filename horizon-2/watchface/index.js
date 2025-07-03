@@ -24,13 +24,16 @@ WatchFace({
     this.buildSunTime();
     this.buildSleepTime();
 
-    this.buildTime();
+    this.buildTimeBackground();
 
     this.buildDate();
+    this.buildMonth();
     this.buildSteps();
     this.buildBattery();
     this.buildWeather();
     this.buildHeartRate();
+
+    this.buildTimePointer();
   },
 
   onDestroy() {
@@ -169,9 +172,11 @@ WatchFace({
     });
   },
 
-  buildTime() {
+  buildTimeBackground() {
     hmUI.createWidget(hmUI.widget.IMG, SCALE_IMAGE_PROPS);
+  },
 
+  buildTimePointer() {
     const pointerWidget = hmUI.createWidget(
       hmUI.widget.IMG,
       TIME_POINTER_IMAGE_PROPS,
@@ -222,7 +227,7 @@ WatchFace({
     const TEXT_PROPS = {
       ...OUTER_TEXT_PROPS,
       start_angle: 180,
-      end_angle: 225,
+      end_angle: 270,
     };
 
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, TEXT_PROPS);
@@ -258,11 +263,56 @@ WatchFace({
     });
   },
 
+  buildMonth() {
+    const MONTHS = [
+      'jan',
+      'feb',
+      'mar',
+      'apr',
+      'may',
+      'jun',
+      'jul',
+      'aug',
+      'sep',
+      'oct',
+      'nov',
+      'dec',
+    ];
+
+    const TEXT_PROPS = {
+      ...OUTER_TEXT_PROPS,
+      start_angle: 0,
+      end_angle: 90,
+    };
+
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, TEXT_PROPS);
+
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+
+    const update = () => {
+      const { month } = timeSensor;
+      const text = gettext(MONTHS[month - 1]).toUpperCase();
+      textWidget.setProperty(hmUI.prop.TEXT, text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
+      },
+    });
+  },
+
   buildSteps() {
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
       ...INNER_TEXT_PROPS,
-      start_angle: 0,
-      end_angle: 90,
+      start_angle: -135,
+      end_angle: -45,
     });
 
     const stepSensor = hmSensor.createSensor(hmSensor.id.STEP);
@@ -293,18 +343,30 @@ WatchFace({
   },
 
   buildBattery() {
-    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
+    const TEXT_PROPS = {
       ...INNER_TEXT_PROPS,
-      start_angle: -135,
-      end_angle: -90,
-    });
+      start_angle: 135,
+      end_angle: 225,
+    };
+
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, TEXT_PROPS);
 
     const batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
 
     const update = () => {
       const { current } = batterySensor;
       const text = `${current}%`;
-      textWidget.setProperty(hmUI.prop.TEXT, text);
+
+      const textProps = this.prepareTextProps(
+        {
+          ...TEXT_PROPS,
+          text,
+        },
+        180,
+        FONTS.textReversed,
+      );
+
+      textWidget.setProperty(hmUI.prop.MORE, textProps);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -323,8 +385,8 @@ WatchFace({
   buildHeartRate() {
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
       ...INNER_TEXT_PROPS,
-      start_angle: 135,
-      end_angle: 225,
+      start_angle: 45,
+      end_angle: 135,
     });
 
     const heartSensor = hmSensor.createSensor(hmSensor.id.HEART);
@@ -349,11 +411,13 @@ WatchFace({
   },
 
   buildWeather() {
-    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
+    const TEXT_PROPS = {
       ...INNER_TEXT_PROPS,
-      start_angle: 90,
-      end_angle: 135,
-    });
+      start_angle: -45,
+      end_angle: 45,
+    };
+
+    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, TEXT_PROPS);
 
     const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
 

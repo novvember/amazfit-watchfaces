@@ -106,7 +106,7 @@ export const OUTER_TEXT_PROPS = {
   h: SCREEN.height + px(12),
   text_size: px(26),
   color: 0xffffff,
-  text: '',
+  text: '--',
   align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.TOP,
   char_space: px(5),
