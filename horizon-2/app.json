@@ -5,8 +5,8 @@
     "appName": "Horizon 2",
     "appType": "watchface",
     "version": {
-      "code": 1,
-      "name": "1.0.0"
+      "code": 3,
+      "name": "1.0.2"
     },
     "icon": "icon.png",
     "vender": "novvember",

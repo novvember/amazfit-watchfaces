@@ -2,6 +2,9 @@ import { COLORS, FONTS } from '../utils/constants';
 
 const { width, height } = hmSetting.getDeviceInfo();
 
+/** Gets magic number to increase text area size so that arc text would render well */
+const getArcTextDiff = () => (480 - px(480)) / 6.4;
+
 const SCREEN = {
   width,
   height,
@@ -64,10 +67,10 @@ export const TIME_POINTER_IMAGE_PROPS = {
 };
 
 export const TIME_TEXT_PROPS = {
-  x: -1 * px(6),
-  y: -1 * px(6),
-  w: SCREEN.width + px(12),
-  h: SCREEN.height + px(12),
+  x: (px(480) - (px(480) + getArcTextDiff())) / 2,
+  y: (px(480) - (px(480) + getArcTextDiff())) / 2,
+  w: (px(480) + getArcTextDiff()),
+  h: (px(480) + getArcTextDiff()),
   text_size: px(21),
   color: 0x000000,
   text: '00',
@@ -82,8 +85,8 @@ export const TIME_TEXT_PROPS = {
 };
 
 export const INNER_TEXT_PROPS = {
-  x: (px(480) - px(260)) / 2,
-  y: (px(480) - px(260)) / 2,
+  x: (px(480 - 260)) / 2,
+  y: (px(480 - 260)) / 2,
   w: px(260),
   h: px(260),
   text_size: px(18),
@@ -100,10 +103,10 @@ export const INNER_TEXT_PROPS = {
 };
 
 export const OUTER_TEXT_PROPS = {
-  x: -1 * px(6),
-  y: -1 * px(6),
-  w: SCREEN.width + px(12),
-  h: SCREEN.height + px(12),
+  x: (px(480) - (px(480) + getArcTextDiff())) / 2,
+  y: (px(480) - (px(480) + getArcTextDiff())) / 2,
+  w: (px(480) + getArcTextDiff()),
+  h: (px(480) + getArcTextDiff()),
   text_size: px(26),
   color: 0xffffff,
   text: '--',
