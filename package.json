@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "@zeppos/device-types": "^3.0.0",
-    "@zeppos/zeus-cli": "^1.7.0"
+    "@zeppos/zeus-cli": "^1.7.1"
   }
 }
