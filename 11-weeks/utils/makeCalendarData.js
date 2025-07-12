@@ -6,6 +6,7 @@
  * @param {Number} width
  * @param {Number} height
  * @param {Number} currentDayRowIndex
+ * @param {'monday' | 'sunday'} firstWeekDaySetting
  * @returns
  */
 export function makeCalendarData(
@@ -15,11 +16,14 @@ export function makeCalendarData(
   width,
   height,
   currentDayRowIndex,
+  firstWeekDay = 'monday',
 ) {
   console.log('calendar data updated');
 
   const currentDate = new Date(year, month - 1, day);
-  const currentDayColumnIndex = [6, 0, 1, 2, 3, 4, 5][currentDate.getDay()];
+  const currentDayColumnIndex = (
+    firstWeekDay === 'monday' ? [6, 0, 1, 2, 3, 4, 5] : [0, 1, 2, 3, 4, 5, 6]
+  )[currentDate.getDay()];
 
   const daysAfterFirstCell = width * currentDayRowIndex + currentDayColumnIndex;
   const date = new Date(currentDate);

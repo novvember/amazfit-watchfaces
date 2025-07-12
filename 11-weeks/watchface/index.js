@@ -54,6 +54,7 @@ import {
 import { clamp } from '../utils/clamp';
 import { getSunriseSunsetTimeStrings } from '../utils/getSunriseSunsetTimeStrings';
 import { getSunDayDuration, getSunPosition } from '../utils/getSunParams';
+import { getFirstWeekDaySetting } from '../utils/getFirstWeekDaySetting';
 
 const makeDigitMatrixCached = withWeakCache(makeDigitMatrix);
 const makeCalendarDataCached = withWeakCache(makeCalendarData);
@@ -65,6 +66,8 @@ WatchFace({
 
   build() {
     console.log('watchface building');
+
+    this.firstWeekDaySetting = getFirstWeekDaySetting();
 
     this.initGrid();
     this.buildWeekDays();
@@ -97,6 +100,7 @@ WatchFace({
       GRID.size.columns,
       GRID.size.rows,
       CALENDAR.currentWeekIndex,
+      this.firstWeekDaySetting,
     );
   },
 
@@ -317,6 +321,11 @@ WatchFace({
   },
 
   buildWeekDays() {
+    const daysOrder =
+      this.firstWeekDaySetting === 'monday'
+        ? [0, 1, 2, 3, 4, 5, 6]
+        : [6, 0, 1, 2, 3, 4, 5];
+
     for (let i = 0; i < 7; i++) {
       const { x, y } = this.grid[0][i];
 
@@ -324,7 +333,7 @@ WatchFace({
         ...WEEKDAY_IMAGE_PROPS,
         x,
         y: y - CALENDAR.weekDay.height,
-        src: CALENDAR.weekDay.images[i],
+        src: CALENDAR.weekDay.images[daysOrder[i]],
       });
     }
 
@@ -627,7 +636,9 @@ WatchFace({
 
     const update = () => {
       const { week, day } = timeSensor;
-      const { x, y } = this.grid[3][week - 1];
+      const row = 3;
+      const column = this.firstWeekDaySetting === 'sunday' ? week : week - 1;
+      const { x, y } = this.grid[row][column];
 
       dateImage.setProperty(hmUI.prop.MORE, {
         ...AOD_DATE_IMAGE_PROPS,
