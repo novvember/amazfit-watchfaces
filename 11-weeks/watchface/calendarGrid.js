@@ -287,6 +287,7 @@ export class CalendarGrid {
 
     const update = () => {
       const { week } = timeSensor;
+      const dotColumn = this.firstWeekDaySetting === 'sunday' ? week : week - 1;
 
       if (prevWeek === week) {
         return;
@@ -300,7 +301,7 @@ export class CalendarGrid {
         x:
           px(240) -
           (GRID.cell.width * GRID.size.columns) / 2 +
-          GRID.cell.width * (week - 1),
+          GRID.cell.width * dotColumn,
         y: CALENDAR.weekDay.dotY,
       });
     };
