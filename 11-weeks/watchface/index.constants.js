@@ -1,12 +1,12 @@
 const lang = DeviceRuntimeCore.HmUtils.getLanguage();
-const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
+export const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
 
 const { width, height } = hmSetting.getDeviceInfo();
 
 // Needed to scale images and fonts properly
 const scaleRatio = width / 480;
 // Cells must have no gap between
-const GRID_CELL_SIZE = scaleRatio < 1 ? px(27) : px(28);
+export const GRID_CELL_SIZE = scaleRatio < 1 ? px(27) : px(28);
 // Texts with custom fonts mast have the same visual size as text with images
 const TEXT_SIZE = scaleRatio < 1 ? px(20) : px(21);
 
@@ -26,46 +26,6 @@ export const COLORS = {
 
 export const FONTS = {
   digits: 'fonts/Alatsi-Regular.ttf',
-};
-
-export const GRID = {
-  size: {
-    columns: 7,
-    rows: 11,
-  },
-  cell: {
-    width: GRID_CELL_SIZE,
-    height: GRID_CELL_SIZE,
-  },
-};
-
-export const CALENDAR = {
-  currentWeekIndex: 3,
-  date: {
-    width: GRID.cell.width,
-    height: GRID.cell.height,
-  },
-  weekDay: {
-    width: GRID.cell.width,
-    height: GRID.cell.height,
-    images: new Array(7)
-      .fill(null)
-      .map((_, i) => `${isRusLang ? 'week_rus' : 'week'}/${i}.png`),
-    dotY: px(40),
-  },
-  year: {
-    width: GRID.cell.width,
-    height: GRID.cell.height,
-    gap: px(2),
-  },
-  month: {
-    width: px(42),
-    height: GRID.cell.height,
-    images: new Array(12)
-      .fill(null)
-      .map((_, i) => `${isRusLang ? 'month_rus' : 'month'}/${i}.png`),
-    gap: px(2),
-  },
 };
 
 export const DIGITS = {
@@ -110,7 +70,7 @@ export const SPECIAL_CHARS = {
 };
 
 export const SECONDS_PROGRESS_BAR = {
-  height: GRID.cell.height,
+  height: px(28),
   width: px(196),
   gapTop: px(0),
 };
@@ -203,12 +163,6 @@ export const ALARM_STATUS = {
   height: px(28),
   x: px(72),
   y: px(226),
-};
-
-export const TIME_DIGITS_AOD = {
-  images: new Array(10).fill(null).map((_, i) => `aod/${i}.png`),
-  width: px(112),
-  height: px(168),
 };
 
 export const WEATHER = {
