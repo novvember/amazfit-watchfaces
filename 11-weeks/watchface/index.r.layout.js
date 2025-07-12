@@ -75,7 +75,7 @@ export const PULSE_BACKGROUND_ARC_PROPS = {
   color: COLORS.secondary,
   line_width: PULSE.progressArc.lineWidth,
   level: 100,
-  corner_flag: 3,
+  corner_flag: 0,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -85,11 +85,18 @@ export const PULSE_TODAY_ARC_PROPS = {
   corner_flag: 0,
 };
 
-export const PULSE_LAST_ARC_PROPS = {
-  ...PULSE_BACKGROUND_ARC_PROPS,
-  color: COLORS.accentDark,
-  line_width: PULSE.progressArc.lineWidth - 2,
-  corner_flag: 0,
+export const PULSE_LAST_DOT_PROPS = {
+  x: 0,
+  y: 0,
+  w: px(480),
+  h: px(480),
+  pos_x: px(480 - 28) / 2,
+  pos_y: px(-3.5),
+  center_x: px(240),
+  center_y: px(240),
+  angle: 0,
+  src: `dot/dot.png`,
+  show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const PULSE_TEXT_IMAGE_PROPS = {

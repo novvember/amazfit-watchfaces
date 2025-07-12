@@ -29,7 +29,6 @@ import {
   PULSE_ICON_IMAGE_PROPS,
   PULSE_BACKGROUND_ARC_PROPS,
   PULSE_TODAY_ARC_PROPS,
-  PULSE_LAST_ARC_PROPS,
   STEPS_ICON_IMAGE_PROPS,
   BATTERY_ICON_IMAGE_PROPS,
   WEATHER_SUNRISE_TEXT_PROPS,
@@ -37,6 +36,7 @@ import {
   WEATHER_TEXT_IMAGE_PROPS,
   WEATHER_PHASE_IMAGE_PROPS,
   WEATHER_DOT_IMAGE_PROPS,
+  PULSE_LAST_DOT_PROPS,
 } from './index.r.layout';
 import { clamp } from '../utils/clamp';
 import { getSunriseSunsetTimeStrings } from '../utils/getSunriseSunsetTimeStrings';
@@ -178,18 +178,15 @@ WatchFace({
       hmUI.widget.ARC_PROGRESS,
       PULSE_TODAY_ARC_PROPS,
     );
-    const lastArc = hmUI.createWidget(
-      hmUI.widget.ARC_PROGRESS,
-      PULSE_LAST_ARC_PROPS,
+
+    const lastDotWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      PULSE_LAST_DOT_PROPS,
     );
 
     const heartSensor = hmSensor.createSensor(hmSensor.id.HEART);
 
-    const getAnglePosition = (heartRate) => {
-      if (!heartRate) {
-        return;
-      }
-
+    const getAnglePosition = (heartRate = 0) => {
       const MIN_VALUE = 40;
       const MAX_VALUE = 140;
 
@@ -222,11 +219,7 @@ WatchFace({
         end_angle: minAngle,
       });
 
-      lastArc.setProperty(hmUI.prop.MORE, {
-        ...PULSE_LAST_ARC_PROPS,
-        start_angle: lastAngle ? lastAngle + 1 : undefined,
-        end_angle: lastAngle ? lastAngle - 1 : undefined,
-      });
+      lastDotWidget.setProperty(hmUI.prop.ANGLE, lastAngle);
 
       minTextWidget.setProperty(hmUI.prop.TEXT, min > 0 ? min.toString() : '');
       maxTextWidget.setProperty(hmUI.prop.TEXT, max > 0 ? max.toString() : '');
