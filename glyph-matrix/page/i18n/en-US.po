@@ -1,0 +1,17 @@
+msgid "Steps"
+msgstr "Steps"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Weather"
+msgstr "Weather"
+
+msgid "Battery"
+msgstr "Battery"
+
+msgid "Heart Rate"
+msgstr "Heart Rate"
+
+msgid "Empty"
+msgstr "Empty"
