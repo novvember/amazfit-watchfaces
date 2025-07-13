@@ -1,0 +1,17 @@
+msgid "Steps"
+msgstr "Шаги"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Weather"
+msgstr "Погода"
+
+msgid "Battery"
+msgstr "Батарея"
+
+msgid "Heart Rate"
+msgstr "Пульс"
+
+msgid "Empty"
+msgstr "Отключить"
