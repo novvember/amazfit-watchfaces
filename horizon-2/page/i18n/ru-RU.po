@@ -17,7 +17,7 @@ msgid "sat"
 msgstr "Суббота"
 
 msgid "sun"
-msgstr "Воскрсенье"
+msgstr "Воскресенье"
 
 msgid "steps"
 msgstr "шаг/шага/шагов/шагов"
