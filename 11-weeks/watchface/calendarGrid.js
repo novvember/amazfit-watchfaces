@@ -287,7 +287,7 @@ export class CalendarGrid {
 
     const update = () => {
       const { week } = timeSensor;
-      const dotColumn = this.firstWeekDaySetting === 'sunday' ? week : week - 1;
+      const dotColumn = daysOrder.indexOf(week - 1);
 
       if (prevWeek === week) {
         return;
@@ -320,6 +320,11 @@ export class CalendarGrid {
   }
 
   buildAod() {
+    const daysOrder =
+      this.firstWeekDaySetting === 'monday'
+        ? [0, 1, 2, 3, 4, 5, 6]
+        : [6, 0, 1, 2, 3, 4, 5];
+
     hmUI.createWidget(hmUI.widget.IMG, AOD_BACKGROUND_PROPS);
     hmUI.createWidget(hmUI.widget.IMG_TIME, AOD_HOURS_PROPS);
     hmUI.createWidget(hmUI.widget.IMG_TIME, AOD_MINUTES_PROPS);
@@ -331,7 +336,7 @@ export class CalendarGrid {
     const update = () => {
       const { week, day } = timeSensor;
       const row = 3;
-      const column = this.firstWeekDaySetting === 'sunday' ? week : week - 1;
+      const column = daysOrder.indexOf(week - 1);
       const { x, y } = this.grid[row][column];
 
       dateImage.setProperty(hmUI.prop.MORE, {
