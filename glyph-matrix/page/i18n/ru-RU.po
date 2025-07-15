@@ -15,3 +15,6 @@ msgstr "Пульс"
 
 msgid "Empty"
 msgstr "Отключить"
+
+msgid "Sun Position"
+msgstr "Положение Солнца"

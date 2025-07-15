@@ -1,4 +1,5 @@
 import { clamp } from '../utils/clamp';
+import { getCurrentTimePosition } from '../utils/getCurrentTimePosition';
 import {
   AOD_TIME_COLON_PROPS,
   AOD_TIME_HOUR_IMAGE_PROPS,
@@ -11,6 +12,8 @@ import {
   HEART_TEXT_IMAGE_PROPS,
   PROGRESS_BAR_IMAGES,
   PROGRESS_IMAGE_LEVEL_PROPS,
+  SUN_POSITION_IMAGES,
+  SUN_POSITION_LEVEL_PROPS,
   TIME_COLON_PROPS,
   TIME_HOUR_IMAGE_PROPS,
   TIME_MINUTE_IMAGE_PROPS,
@@ -28,12 +31,12 @@ WatchFace({
 
     this.buildBackground();
 
-    this.buildBluetoothStatus();
+    this.buildWidgets();
 
     this.buildTime();
     this.buildTimeAod();
-
-    this.buildWidget();
+    
+    this.buildBluetoothStatus();
   },
 
   onDestroy() {
@@ -42,6 +45,26 @@ WatchFace({
 
   buildBackground() {
     hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_IMAGE_PROPS);
+  },
+
+  buildWidgets() {
+    const { typeTop, typeBottom } = new WidgetSettings();
+
+    if (typeBottom === 'steps') {
+      this.buildSteps();
+    } else if (typeBottom === 'date') {
+      this.buildDate();
+    } else if (typeBottom === 'weather') {
+      this.buildWeather();
+    } else if (typeBottom === 'battery') {
+      this.buildBattery();
+    } else if (typeBottom === 'heart') {
+      this.buildHeart();
+    }
+
+    if (typeTop === 'sun') {
+      this.buildSunPosition();
+    }
   },
 
   buildTime() {
@@ -60,20 +83,42 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.IMG_STATUS, BLUETOOTH_IMAGE_PROPS);
   },
 
-  buildWidget() {
-    const { type } = new WidgetSettings();
+  buildSunPosition() {
+    const levelWidget = hmUI.createWidget(
+      hmUI.widget.IMG_LEVEL,
+      SUN_POSITION_LEVEL_PROPS,
+    );
 
-    if (type === 'steps') {
-      this.buildSteps();
-    } else if (type === 'date') {
-      this.buildDate();
-    } else if (type === 'weather') {
-      this.buildWeather();
-    } else if (type === 'battery') {
-      this.buildBattery();
-    } else if (type === 'heart') {
-      this.buildHeart();
-    }
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+    const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
+
+    const update = () => {
+      const { isDay, ratio } = getCurrentTimePosition(
+        timeSensor,
+        weatherSensor,
+      );
+
+      if (!isDay) {
+        levelWidget.setProperty(hmUI.prop.LEVEL, 1);
+        return;
+      }
+
+      const level = clamp(
+        2,
+        Math.round(ratio * (SUN_POSITION_IMAGES.length - 2) + 2),
+        SUN_POSITION_IMAGES.length,
+      );
+
+      levelWidget.setProperty(hmUI.prop.LEVEL, level);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          update();
+        }
+      },
+    });
   },
 
   buildDate() {

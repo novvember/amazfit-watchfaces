@@ -26,6 +26,10 @@ const SMALL_DIGITS = new Array(10)
   .fill(null)
   .map((_, i) => `small_digits/${i}.png`);
 
+export const SUN_POSITION_IMAGES = new Array(21)
+  .fill(null)
+  .map((_, i) => `sun_position/${i}.png`);
+
 export const PROGRESS_BAR_IMAGES = new Array(12)
   .fill(null)
   .map((_, i) => `progress_bar/${i}.png`);
@@ -85,8 +89,8 @@ export const AOD_TIME_MINUTE_IMAGE_PROPS = {
 };
 
 export const BLUETOOTH_IMAGE_PROPS = {
-  x: px(177),
-  y: px(69),
+  x: px(195),
+  y: px(123),
   type: hmUI.system_status.DISCONNECT,
   src: 'bluetooth/bluetooth.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
@@ -155,4 +159,15 @@ export const PROGRESS_IMAGE_LEVEL_PROPS = {
   image_length: PROGRESS_BAR_IMAGES.length,
   show_level: hmUI.show_level.ONLY_NORMAL,
   level: 1,
+};
+
+export const SUN_POSITION_LEVEL_PROPS = {
+  x: 0,
+  y: 0,
+  w: px(480),
+  h: px(159),
+  image_array: SUN_POSITION_IMAGES,
+  image_length: SUN_POSITION_IMAGES.length,
+  show_level: hmUI.show_level.ONLY_NORMAL,
+  level: 0,
 };

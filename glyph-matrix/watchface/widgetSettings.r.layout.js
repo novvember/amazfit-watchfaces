@@ -1,5 +1,24 @@
 import { gettext } from 'i18n';
 
+export const WIDGET_TOP_OPTIONAL_TYPES = [
+  {
+    type: 100090,
+    title_en: gettext('Sun Position'),
+    preview: 'edit/widget_preview_sun.png',
+    data: {
+      type: 'sun',
+    },
+  },
+  {
+    type: 100100,
+    title_en: gettext('Empty'),
+    preview: 'edit/widget_preview_empty.png',
+    data: {
+      type: 'empty',
+    },
+  },
+];
+
 export const WIDGET_OPTIONAL_TYPES = [
   {
     type: 100001,
@@ -74,4 +93,15 @@ export const WIDGET_EDIT_GROUP_PROPS = {
   tips_y: px(-40),
   tips_width: px(120),
   tips_margin: px(6),
+};
+
+export const WIDGET_TOP_EDIT_GROUP_PROPS = {
+  ...WIDGET_EDIT_GROUP_PROPS,
+  edit_id: 1,
+  x: px(104),
+  y: px(50),
+  tips_y: px(120),
+  optional_types: WIDGET_TOP_OPTIONAL_TYPES,
+  default_type: WIDGET_TOP_OPTIONAL_TYPES[0].type,
+  count: WIDGET_TOP_OPTIONAL_TYPES.length,
 };
