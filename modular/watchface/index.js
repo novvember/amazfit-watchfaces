@@ -1315,6 +1315,7 @@ WatchFace({
       h,
       color: COLORS.primary,
       type: hmUI.data_type.ALARM_CLOCK,
+      padding: true, // time format 00:00
     });
   },
 
