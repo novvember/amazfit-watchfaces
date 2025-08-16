@@ -34,6 +34,46 @@ export const ROW_OPTIONAL_TYPES = [
       type: 'steps',
     },
   },
+  {
+    type: 100005,
+    title_en: gettext('Battery'),
+    preview: 'edit/widget_preview_battery.png',
+    data: {
+      type: 'battery',
+    },
+  },
+  {
+    type: 100006,
+    title_en: gettext('Seconds'),
+    preview: 'edit/widget_preview_seconds.png',
+    data: {
+      type: 'seconds',
+    },
+  },
+  {
+    type: 100007,
+    title_en: gettext('Alarm'),
+    preview: 'edit/widget_preview_alarm.png',
+    data: {
+      type: 'alarm',
+    },
+  },
+  {
+    type: 100008,
+    title_en: gettext('Sunset/sunrise'),
+    preview: 'edit/widget_preview_sun.png',
+    data: {
+      type: 'sun',
+    },
+  },
+  {
+    type: 100009,
+    title_en: gettext('Year'),
+    preview: 'edit/widget_preview_year.png',
+    data: {
+      type: 'year',
+    },
+  },
 ];
 
 export const ROW_EDIT_GROUP_PROPS = {

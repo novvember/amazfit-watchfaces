@@ -1,10 +1,15 @@
 import { CHAR_POSITIONS } from '../utils/constants';
 import { getCharSrc } from '../utils/getCharSrc';
+import { AlarmWidget } from './AlarmWidget';
+import { BatteryWidget } from './BatteryWidget';
 import { DateWidget } from './DateWidget';
 import { HeartRateWidget } from './HeartRateWidget';
+import { SecondsWidget } from './SecondsWidget';
 import { StepsWidget } from './StepsWidget';
+import { SunWidget } from './SunWidget';
 import { TemperatureWidget } from './TemeperatureWidget';
 import { TimeWidget } from './TimeWidget';
+import { YearWidget } from './YearWidget';
 import { DISCONNECT_STATUS_PROPS } from './index.r.layout';
 import { WidgetSettings } from './widgetSettings';
 
@@ -95,6 +100,26 @@ WatchFace({
 
       case 'steps':
         new StepsWidget(rowIndex, color);
+        return;
+
+      case 'battery':
+        new BatteryWidget(rowIndex, color);
+        return;
+
+      case 'seconds':
+        new SecondsWidget(rowIndex, color);
+        return;
+
+      case 'alarm':
+        new AlarmWidget(rowIndex, color);
+        return;
+
+      case 'sun':
+        new SunWidget(rowIndex, color);
+        return;
+
+      case 'year':
+        new YearWidget(rowIndex, color);
         return;
 
       default:

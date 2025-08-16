@@ -12,3 +12,18 @@ msgstr "Шаги"
 
 msgid "Colors"
 msgstr "Цвета"
+
+msgid "Battery"
+msgstr "Заряд батареи"
+
+msgid "Seconds"
+msgstr "Секунды"
+
+msgid "Alarm"
+msgstr "Будильник"
+
+msgid "Sunset/sunrise"
+msgstr "Восход/закат"
+
+msgid "Year"
+msgstr "Год"

@@ -7,7 +7,11 @@ export class TimeWidget {
     const screenType = hmSetting.getScreenType();
 
     switch (screenType) {
-      case hmSetting.screen_type.WATCHFACE || hmSetting.screen_type.AOD:
+      case hmSetting.screen_type.WATCHFACE:
+        this.buildNormal(rowIndex, color);
+        return;
+
+      case hmSetting.screen_type.AOD:
         this.buildNormal(rowIndex, color);
         return;
 

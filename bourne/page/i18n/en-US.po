@@ -12,3 +12,18 @@ msgstr "Steps"
 
 msgid "Colors"
 msgstr "Colors"
+
+msgid "Battery"
+msgstr "Battery"
+
+msgid "Seconds"
+msgstr "Seconds"
+
+msgid "Alarm"
+msgstr "Alarm"
+
+msgid "Sunset/sunrise"
+msgstr "Sunset/sunrise"
+
+msgid "Year"
+msgstr "Year"
