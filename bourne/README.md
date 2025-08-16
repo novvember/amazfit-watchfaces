@@ -7,12 +7,9 @@ Watchface for Amazfit GTR Mini
 
 **Main features**
 - inspired by [TTMMBRN watchface](https://ttmm.is/portfolio/ttmmbrn/)
-- use font from Jason Bourne movie
-- heart rate
-- time
-- date
-- temperature
-- steps
+- font from Jason Bourne movie
+- configurable widgets
+- configurable color schemes
 
 **Model compatibility:** All round watches
 
