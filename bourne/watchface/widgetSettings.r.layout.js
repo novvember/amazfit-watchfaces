@@ -131,10 +131,10 @@ export const COLORS_OPTIONAL_TYPES = [
 
 export const COLORS_EDIT_GROUP_PROPS = {
   edit_id: 100,
-  x: px(4),
-  y: px(202),
-  w: px(75),
-  h: px(75),
+  x: px(209),
+  y: px(416),
+  w: px(64),
+  h: px(64),
   select_image: 'edit/colors_select.png',
   un_select_image: 'edit/colors_unselect.png',
   optional_types: COLORS_OPTIONAL_TYPES,
@@ -143,6 +143,6 @@ export const COLORS_EDIT_GROUP_PROPS = {
   tips_BG: 'edit/tip.png',
   tips_width: px(150),
   tips_margin: px(6),
-  tips_x: px(75 + 10),
-  tips_y: px((75 - 30) / 2),
+  tips_x: px((64 - 150) / 2),
+  tips_y: px(-30 - 10),
 };

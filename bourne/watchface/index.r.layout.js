@@ -5,4 +5,5 @@ export const DISCONNECT_STATUS_PROPS = {
   y: CHAR_POSITIONS.rowsY[2],
   type: hmUI.system_status.DISCONNECT,
   src: 'disconnect.png',
+  show_level: hmUI.show_level.ONLY_NORMAL,
 };
