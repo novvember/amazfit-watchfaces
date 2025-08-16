@@ -17,6 +17,7 @@ const CHAR_NAMES = {
   '°C': 'degree',
   '/': 'slash',
   '%': 'percent',
+  'k': 'k',
 };
 
 

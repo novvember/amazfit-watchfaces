@@ -74,6 +74,22 @@ export const ROW_OPTIONAL_TYPES = [
       type: 'year',
     },
   },
+  {
+    type: 100010,
+    title_en: gettext('World Time'),
+    preview: 'edit/widget_preview_world-time.png',
+    data: {
+      type: 'world-time',
+    },
+  },
+  {
+    type: 100011,
+    title_en: gettext('Calories'),
+    preview: 'edit/widget_preview_calories.png',
+    data: {
+      type: 'calories',
+    },
+  },
 ];
 
 export const ROW_EDIT_GROUP_PROPS = {

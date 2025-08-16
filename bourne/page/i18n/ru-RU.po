@@ -27,3 +27,9 @@ msgstr "Восход/закат"
 
 msgid "Year"
 msgstr "Год"
+
+msgid "World Time"
+msgstr "Мировое время (время в другом часоом поясе)"
+
+msgid "Calories"
+msgstr "Калории"

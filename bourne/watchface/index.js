@@ -2,6 +2,7 @@ import { CHAR_POSITIONS } from '../utils/constants';
 import { getCharSrc } from '../utils/getCharSrc';
 import { AlarmWidget } from './AlarmWidget';
 import { BatteryWidget } from './BatteryWidget';
+import { CaloriesWidget } from './CaloriesWidget';
 import { DateWidget } from './DateWidget';
 import { HeartRateWidget } from './HeartRateWidget';
 import { SecondsWidget } from './SecondsWidget';
@@ -9,6 +10,7 @@ import { StepsWidget } from './StepsWidget';
 import { SunWidget } from './SunWidget';
 import { TemperatureWidget } from './TemeperatureWidget';
 import { TimeWidget } from './TimeWidget';
+import { WorldTimeWidget } from './WorldTimeWidget';
 import { YearWidget } from './YearWidget';
 import { DISCONNECT_STATUS_PROPS } from './index.r.layout';
 import { WidgetSettings } from './widgetSettings';
@@ -120,6 +122,14 @@ WatchFace({
 
       case 'year':
         new YearWidget(rowIndex, color);
+        return;
+
+      case 'world-time':
+        new WorldTimeWidget(rowIndex, color);
+        return;
+
+      case 'calories':
+        new CaloriesWidget(rowIndex, color);
         return;
 
       default:

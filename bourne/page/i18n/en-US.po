@@ -8,13 +8,13 @@ msgid "Temperature"
 msgstr "Temperature"
 
 msgid "Steps"
-msgstr "Steps"
+msgstr "Steps Counter"
 
 msgid "Colors"
 msgstr "Colors"
 
 msgid "Battery"
-msgstr "Battery"
+msgstr "Battery Level"
 
 msgid "Seconds"
 msgstr "Seconds"
@@ -27,3 +27,9 @@ msgstr "Sunset/sunrise"
 
 msgid "Year"
 msgstr "Year"
+
+msgid "World Time"
+msgstr "World Time (another time zone time)"
+
+msgid "Calories"
+msgstr "Calories"
