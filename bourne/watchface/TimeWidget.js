@@ -12,7 +12,7 @@ export class TimeWidget {
         return;
 
       case hmSetting.screen_type.AOD:
-        this.buildNormal(rowIndex, color);
+        this.buildAod(rowIndex, color);
         return;
 
       case hmSetting.screen_type.SETTINGS:
@@ -25,13 +25,6 @@ export class TimeWidget {
   }
 
   buildNormal(rowIndex, color) {
-    const colonStaticProps = {
-      x: CHAR_POSITIONS.columnsX[2],
-      y: CHAR_POSITIONS.rowsY[rowIndex],
-      src: getCharSrc(':', color),
-      show_level: hmUI.show_level.ONAL_AOD,
-    };
-
     const colonProps = {
       second_zero: 1,
       second_startX: CHAR_POSITIONS.columnsX[rowIndex],
@@ -49,7 +42,7 @@ export class TimeWidget {
       hour_startX: CHAR_POSITIONS.columnsX[0],
       hour_startY: CHAR_POSITIONS.rowsY[rowIndex],
       hour_array: getDigitsArray(color),
-      show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
+      show_level: hmUI.show_level.ONLY_NORMAL,
     };
 
     const minuteProps = {
@@ -57,11 +50,40 @@ export class TimeWidget {
       minute_startX: CHAR_POSITIONS.columnsX[3],
       minute_startY: CHAR_POSITIONS.rowsY[rowIndex],
       minute_array: getDigitsArray(color),
-      show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
+      show_level: hmUI.show_level.ONLY_NORMAL,
+    };
+
+    hmUI.createWidget(hmUI.widget.IMG_TIME, colonProps);
+
+    hmUI.createWidget(hmUI.widget.IMG_TIME, hourProps);
+    hmUI.createWidget(hmUI.widget.IMG_TIME, minuteProps);
+  }
+
+  buildAod(rowIndex, _color) {
+    const colonStaticProps = {
+      x: CHAR_POSITIONS.columnsX[2],
+      y: CHAR_POSITIONS.rowsY[rowIndex],
+      src: getCharSrc(':', 'grey'),
+      show_level: hmUI.show_level.ONAL_AOD,
+    };
+
+    const hourProps = {
+      hour_zero: 1,
+      hour_startX: CHAR_POSITIONS.columnsX[0],
+      hour_startY: CHAR_POSITIONS.rowsY[rowIndex],
+      hour_array: getDigitsArray('grey'),
+      show_level: hmUI.show_level.ONAL_AOD,
+    };
+
+    const minuteProps = {
+      minute_zero: 1,
+      minute_startX: CHAR_POSITIONS.columnsX[3],
+      minute_startY: CHAR_POSITIONS.rowsY[rowIndex],
+      minute_array: getDigitsArray('grey'),
+      show_level: hmUI.show_level.ONAL_AOD,
     };
 
     hmUI.createWidget(hmUI.widget.IMG, colonStaticProps);
-    hmUI.createWidget(hmUI.widget.IMG_TIME, colonProps);
 
     hmUI.createWidget(hmUI.widget.IMG_TIME, hourProps);
     hmUI.createWidget(hmUI.widget.IMG_TIME, minuteProps);
