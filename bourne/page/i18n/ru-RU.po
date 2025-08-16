@@ -1,0 +1,11 @@
+msgid "Heart Rate"
+msgstr "Пульс"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Temperature"
+msgstr "Температура"
+
+msgid "Steps"
+msgstr "Шаги"

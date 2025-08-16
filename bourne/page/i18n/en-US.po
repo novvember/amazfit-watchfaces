@@ -1,0 +1,11 @@
+msgid "Heart Rate"
+msgstr "Heart Rate"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Temperature"
+msgstr "Temperature"
+
+msgid "Steps"
+msgstr "Steps"
