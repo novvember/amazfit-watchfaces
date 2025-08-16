@@ -1,5 +1,7 @@
 import { CHAR_POSITIONS } from '../utils/constants';
 import {
+  COLORS_EDIT_GROUP_PROPS,
+  COLORS_OPTIONAL_TYPES,
   ROW_EDIT_GROUP_PROPS,
   ROW_OPTIONAL_TYPES,
 } from './widgetSettings.r.layout';
@@ -7,8 +9,9 @@ import {
 export class WidgetSettings {
   constructor() {
     const rows = this.buildRowsSettings();
+    const colors = this.buildColorsSettings();
 
-    return { rows };
+    return { rows, colors };
   }
 
   buildRowsSettings() {
@@ -33,5 +36,17 @@ export class WidgetSettings {
       res[row] = types[index];
       return res;
     }, {});
+  }
+
+  buildColorsSettings() {
+    const colorsEditGroup = hmUI.createWidget(
+      hmUI.widget.WATCHFACE_EDIT_GROUP,
+      COLORS_EDIT_GROUP_PROPS,
+    );
+
+    const typeId = colorsEditGroup.getProperty(hmUI.prop.CURRENT_TYPE);
+
+    return COLORS_OPTIONAL_TYPES.find((item) => item.type === typeId)?.data
+      ?.type;
   }
 }

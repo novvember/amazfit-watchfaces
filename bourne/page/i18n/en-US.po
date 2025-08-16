@@ -9,3 +9,6 @@ msgstr "Temperature"
 
 msgid "Steps"
 msgstr "Steps"
+
+msgid "Colors"
+msgstr "Colors"

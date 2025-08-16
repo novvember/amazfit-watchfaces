@@ -53,3 +53,56 @@ export const ROW_EDIT_GROUP_PROPS = {
   tips_x: px((310 - 150) / 2),
   tips_y: px((75 - 30) / 2),
 };
+
+export const COLORS_OPTIONAL_TYPES = [
+  {
+    type: 100101,
+    title_en: gettext('Colors'),
+    preview: 'edit/colors_preview_1.png',
+    data: {
+      type: '1',
+    },
+  },
+  {
+    type: 100102,
+    title_en: gettext('Colors'),
+    preview: 'edit/colors_preview_2.png',
+    data: {
+      type: '2',
+    },
+  },
+  {
+    type: 100103,
+    title_en: gettext('Colors'),
+    preview: 'edit/colors_preview_3.png',
+    data: {
+      type: '3',
+    },
+  },
+  {
+    type: 100104,
+    title_en: gettext('Colors'),
+    preview: 'edit/colors_preview_4.png',
+    data: {
+      type: '4',
+    },
+  },
+];
+
+export const COLORS_EDIT_GROUP_PROPS = {
+  edit_id: 100,
+  x: px(4),
+  y: px(202),
+  w: px(75),
+  h: px(75),
+  select_image: 'edit/colors_select.png',
+  un_select_image: 'edit/colors_unselect.png',
+  optional_types: COLORS_OPTIONAL_TYPES,
+  default_type: COLORS_OPTIONAL_TYPES[0].type,
+  count: COLORS_OPTIONAL_TYPES.length,
+  tips_BG: 'edit/tip.png',
+  tips_width: px(150),
+  tips_margin: px(6),
+  tips_x: px(75 + 10),
+  tips_y: px((75 - 30) / 2),
+};

@@ -34,7 +34,7 @@ WatchFace({
         hmUI.createWidget(hmUI.widget.IMG, {
           x: columnX,
           y: rowY,
-          src: getCharSrc(' ', 'accent'),
+          src: getCharSrc(' ', 'white'),
           show_level:
             hmUI.show_level.ONLY_NORMAL |
             hmUI.show_level.ONAL_AOD |
@@ -56,9 +56,15 @@ WatchFace({
   },
 
   getRowColor(rowIndex) {
-    const COLORS = ['accent', 'primary', 'secondary', 'secondary', 'secondary'];
+    const COLORS = {
+      1: ['red', 'white', 'grey', 'grey', 'grey'],
+      2: ['yellow', 'white', 'yellow', 'yellow', 'yellow'],
+      3: ['blue', 'white', 'blue', 'blue', 'blue'],
+      4: ['red', 'white', 'yellow', 'yellow', 'yellow'],
+    };
 
-    return COLORS[rowIndex];
+    const colors = COLORS[this.settings.colors] || COLORS[1];
+    return colors[rowIndex];
   },
 
   buildRows() {

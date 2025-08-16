@@ -9,3 +9,6 @@ msgstr "Температура"
 
 msgid "Steps"
 msgstr "Шаги"
+
+msgid "Colors"
+msgstr "Цвета"
