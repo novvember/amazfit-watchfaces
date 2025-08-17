@@ -1,36 +1,8 @@
-import { CHAR_POSITIONS } from '../utils/constants';
-import { getCharSrc } from '../utils/getCharSrc';
-import { getDigitsArray } from '../utils/getDigitsArray';
+import { CommonTextWidget } from './CommonTextWidget';
 
 export class WorldTimeWidget {
   constructor(rowIndex, color) {
-    const hourProps = {
-      x: CHAR_POSITIONS.columnsX[0],
-      y: CHAR_POSITIONS.rowsY[rowIndex],
-      text: 0,
-      font_array: getDigitsArray(color),
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    };
-
-    const colonProps = {
-      x: CHAR_POSITIONS.columnsX[2],
-      y: CHAR_POSITIONS.rowsY[rowIndex],
-      src: getCharSrc(':', color),
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    };
-
-    const minuteProps = {
-      x: CHAR_POSITIONS.columnsX[3],
-      y: CHAR_POSITIONS.rowsY[rowIndex],
-      text: 0,
-      font_array: getDigitsArray(color),
-      show_level: hmUI.show_level.ONLY_NORMAL,
-    };
-
-    hmUI.createWidget(hmUI.widget.IMG, colonProps);
-
-    const hourWidget = hmUI.createWidget(hmUI.widget.TEXT_IMG, hourProps);
-    const minuteWidget = hmUI.createWidget(hmUI.widget.TEXT_IMG, minuteProps);
+    const textWidget = new CommonTextWidget(rowIndex, color);
 
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
     const worldClockSensor = hmSensor.createSensor(hmSensor.id.WORLD_CLOCK);
@@ -41,8 +13,7 @@ export class WorldTimeWidget {
       const { hour, minute } = worldClockSensor?.getWorldClockInfo(0) || {};
 
       if (hour === undefined || minute === undefined) {
-        hourWidget.setProperty(hmUI.prop.TEXT, '00');
-        minuteWidget.setProperty(hmUI.prop.TEXT, '00');
+        textWidget.update('--:--');
         return;
       }
 
@@ -52,8 +23,7 @@ export class WorldTimeWidget {
         .padStart(2, '0');
       const minuteText = minute.toString().padStart(2, '0');
 
-      hourWidget.setProperty(hmUI.prop.TEXT, hourText);
-      minuteWidget.setProperty(hmUI.prop.TEXT, minuteText);
+      textWidget.update(`${hourText}:${minuteText}`);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {

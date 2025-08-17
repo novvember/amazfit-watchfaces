@@ -7,6 +7,7 @@ import { DateWidget } from './DateWidget';
 import { DistanceWidget } from './DistanceWidget';
 import { HeartRateWidget } from './HeartRateWidget';
 import { SecondsWidget } from './SecondsWidget';
+import { SleepWidget } from './SleepWidget';
 import { StepsWidget } from './StepsWidget';
 import { SunWidget } from './SunWidget';
 import { TemperatureWidget } from './TemeperatureWidget';
@@ -137,6 +138,10 @@ WatchFace({
 
       case 'distance':
         new DistanceWidget(rowIndex, color);
+        return;
+
+      case 'sleep':
+        new SleepWidget(rowIndex, color);
         return;
 
       default:

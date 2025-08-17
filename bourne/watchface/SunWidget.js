@@ -1,19 +1,12 @@
 import { CHAR_POSITIONS } from '../utils/constants';
 import { getCharSrc } from '../utils/getCharSrc';
 import { getDigitsArray } from '../utils/getDigitsArray';
+import { CommonTextWidget } from './CommonTextWidget';
 
 export class SunWidget {
   constructor(rowIndex, color) {
-    '--:--'.split('').forEach((char, i) => {
-      const props = {
-        x: CHAR_POSITIONS.columnsX[i],
-        y: CHAR_POSITIONS.rowsY[rowIndex],
-        src: getCharSrc(char, color),
-        show_level: hmUI.show_level.ONLY_NORMAL,
-      };
-
-      hmUI.createWidget(hmUI.widget.IMG, props);
-    });
+    const defaultTextWidget = new CommonTextWidget(rowIndex, color);
+    defaultTextWidget.update('--:--');
 
     const props = {
       x: CHAR_POSITIONS.columnsX[0],

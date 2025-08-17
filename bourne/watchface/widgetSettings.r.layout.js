@@ -98,6 +98,14 @@ export const ROW_OPTIONAL_TYPES = [
       type: 'distance',
     },
   },
+  {
+    type: 100013,
+    title_en: gettext('Sleep Time'),
+    preview: 'edit/widget_preview_sleep.png',
+    data: {
+      type: 'sleep',
+    },
+  },
 ];
 
 export const ROW_EDIT_GROUP_PROPS = {

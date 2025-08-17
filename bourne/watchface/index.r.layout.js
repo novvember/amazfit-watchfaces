@@ -1,5 +1,3 @@
-import { CHAR_POSITIONS, CHAR_PARAMS } from '../utils/constants';
-
 export const DISCONNECT_STATUS_PROPS = {
   x: px(12),
   y: px(202),

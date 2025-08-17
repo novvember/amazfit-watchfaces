@@ -36,3 +36,6 @@ msgstr "Калории"
 
 msgid "Distance"
 msgstr "Пройденное расстояние"
+
+msgid "Sleep Time"
+msgstr "Продолжительность сна"
