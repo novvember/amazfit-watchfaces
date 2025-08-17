@@ -33,3 +33,6 @@ msgstr "World Time (another time zone time)"
 
 msgid "Calories"
 msgstr "Calories"
+
+msgid "Distance"
+msgstr "Distance"

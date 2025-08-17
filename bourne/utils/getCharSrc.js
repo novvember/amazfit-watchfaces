@@ -18,6 +18,7 @@ const CHAR_NAMES = {
   '/': 'slash',
   '%': 'percent',
   'k': 'k',
+  'm': 'm',
 };
 
 

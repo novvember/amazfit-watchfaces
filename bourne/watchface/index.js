@@ -4,6 +4,7 @@ import { AlarmWidget } from './AlarmWidget';
 import { BatteryWidget } from './BatteryWidget';
 import { CaloriesWidget } from './CaloriesWidget';
 import { DateWidget } from './DateWidget';
+import { DistanceWidget } from './DistanceWidget';
 import { HeartRateWidget } from './HeartRateWidget';
 import { SecondsWidget } from './SecondsWidget';
 import { StepsWidget } from './StepsWidget';
@@ -68,6 +69,8 @@ WatchFace({
       2: ['yellow', 'white', 'yellow', 'yellow', 'yellow'],
       3: ['blue', 'white', 'blue', 'blue', 'blue'],
       4: ['red', 'white', 'yellow', 'yellow', 'yellow'],
+      5: ['red', 'white', 'green', 'green', 'green'],
+      6: ['blue', 'white', 'white', 'green', 'red'],
     };
 
     const colors = COLORS[this.settings.colors] || COLORS[1];
@@ -130,6 +133,10 @@ WatchFace({
 
       case 'calories':
         new CaloriesWidget(rowIndex, color);
+        return;
+
+      case 'distance':
+        new DistanceWidget(rowIndex, color);
         return;
 
       default:

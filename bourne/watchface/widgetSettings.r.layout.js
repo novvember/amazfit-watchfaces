@@ -90,6 +90,14 @@ export const ROW_OPTIONAL_TYPES = [
       type: 'calories',
     },
   },
+  {
+    type: 100012,
+    title_en: gettext('Distance'),
+    preview: 'edit/widget_preview_distance.png',
+    data: {
+      type: 'distance',
+    },
+  },
 ];
 
 export const ROW_EDIT_GROUP_PROPS = {
@@ -141,6 +149,22 @@ export const COLORS_OPTIONAL_TYPES = [
     preview: 'edit/colors_preview_4.png',
     data: {
       type: '4',
+    },
+  },
+  {
+    type: 100105,
+    title_en: gettext('Colors'),
+    preview: 'edit/colors_preview_5.png',
+    data: {
+      type: '5',
+    },
+  },
+  {
+    type: 100106,
+    title_en: gettext('Colors'),
+    preview: 'edit/colors_preview_6.png',
+    data: {
+      type: '6',
     },
   },
 ];
