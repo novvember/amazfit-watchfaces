@@ -5,8 +5,8 @@
     "appName": "Bourne",
     "appType": "watchface",
     "version": {
-      "code": 11,
-      "name": "1.5.0"
+      "code": 13,
+      "name": "1.6.0"
     },
     "icon": "icon.png",
     "vender": "novvember",

@@ -39,3 +39,27 @@ msgstr "Distance"
 
 msgid "Sleep Time"
 msgstr "Sleep Time"
+
+msgid "Weekday"
+msgstr "Weekday"
+
+msgid "mon"
+msgstr "mon"
+
+msgid "tue"
+msgstr "tue"
+
+msgid "wed"
+msgstr "wed"
+
+msgid "thu"
+msgstr "thu"
+
+msgid "fri"
+msgstr "fri"
+
+msgid "sat"
+msgstr "sat"
+
+msgid "sun"
+msgstr "sun"

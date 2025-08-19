@@ -106,6 +106,14 @@ export const ROW_OPTIONAL_TYPES = [
       type: 'sleep',
     },
   },
+  {
+    type: 100014,
+    title_en: gettext('Weekday'),
+    preview: 'edit/widget_preview_weekday.png',
+    data: {
+      type: 'weekday',
+    },
+  },
 ];
 
 export const ROW_EDIT_GROUP_PROPS = {

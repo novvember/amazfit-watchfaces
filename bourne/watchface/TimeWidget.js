@@ -32,7 +32,7 @@ export class TimeWidget {
       second_array: new Array(10)
         .fill(null)
         .map((_, i) =>
-          i % 2 === 0 ? getCharSrc(':', color) : getCharSrc(' ', color),
+          i % 2 === 0 ? getCharSrc(':', color) : getCharSrc(':', 'grey'),
         ),
       show_level: hmUI.show_level.ONLY_NORMAL,
     };

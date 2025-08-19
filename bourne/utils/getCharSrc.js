@@ -17,10 +17,30 @@ const CHAR_NAMES = {
   '°C': 'degree',
   '/': 'slash',
   '%': 'percent',
-  'k': 'k',
-  'm': 'm',
+  k: 'k',
+  m: 'm',
+  o: 'o',
+  n: 'n',
+  t: 't',
+  т: 't',
+  u: 'u',
+  e: 'e',
+  w: 'w',
+  d: 'd',
+  h: 'h',
+  н: 'h',
+  f: 'f',
+  r: 'r',
+  i: 'i',
+  s: 's',
+  a: 'a',
+  п: 'п',
+  в: 'b',
+  с: 'c',
+  р: 'p',
+  ч: 'ч',
+  б: 'б',
 };
-
 
 /**
  * @param {String | Number} char - required character

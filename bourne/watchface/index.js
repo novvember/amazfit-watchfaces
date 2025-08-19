@@ -12,6 +12,7 @@ import { StepsWidget } from './StepsWidget';
 import { SunWidget } from './SunWidget';
 import { TemperatureWidget } from './TemeperatureWidget';
 import { TimeWidget } from './TimeWidget';
+import { WeekdayWidget } from './WeekdayWidget';
 import { WorldTimeWidget } from './WorldTimeWidget';
 import { YearWidget } from './YearWidget';
 import { DISCONNECT_STATUS_PROPS } from './index.r.layout';
@@ -44,10 +45,7 @@ WatchFace({
           x: columnX,
           y: rowY,
           src: getCharSrc(' ', 'white'),
-          show_level:
-            hmUI.show_level.ONLY_NORMAL |
-            hmUI.show_level.ONAL_AOD |
-            hmUI.show_level.ONLY_EDIT,
+          show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONLY_EDIT,
         });
       }
     }
@@ -142,6 +140,10 @@ WatchFace({
 
       case 'sleep':
         new SleepWidget(rowIndex, color);
+        return;
+
+      case 'weekday':
+        new WeekdayWidget(rowIndex, color);
         return;
 
       default:

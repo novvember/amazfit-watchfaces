@@ -39,3 +39,27 @@ msgstr "Пройденное расстояние"
 
 msgid "Sleep Time"
 msgstr "Продолжительность сна"
+
+msgid "Weekday"
+msgstr "День недели"
+
+msgid "mon"
+msgstr "пн"
+
+msgid "tue"
+msgstr "вт"
+
+msgid "wed"
+msgstr "ср"
+
+msgid "thu"
+msgstr "чт"
+
+msgid "fri"
+msgstr "пт"
+
+msgid "sat"
+msgstr "сб"
+
+msgid "sun"
+msgstr "вс"
