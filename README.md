@@ -30,7 +30,7 @@ All of my watchfaces are free to use. However, if you'd like to support further 
 | ![](./rider-1991/demo.png) <br> [Rider 1991](./rider-1991/) | ![](./kinetik/demo.png) <br> [Kinetik](./kinetik/) | ![](./repelling-radial/demo.png) <br> [Repelling Radial](./repelling-radial/) | ![](./modular/demo.png) <br> [Modular](./modular/) |
 | ![](./ara/demo.png) <br> [Ara](./ara/) | ![](./symmetry-broken/demo.png) <br> [Symmetry Broken](./symmetry-broken/) | ![](./regulus/demo.png) <br> [Regulus](./regulus/) | ![](./horizon/demo.png) <br> [Horizon](./horizon/) |
 | ![](./circlock/demo.png) <br> [Circlock](./circlock/) | ![](./needle/demo.png) <br> [Needle](./needle/) | ![](./astro/demo.png) <br> [Astro](./astro/) | ![](./gyroscope/demo.png) <br> [Gyroscope](./gyroscope/) |
-| ![](./slices-of-time/demo.png) <br> [Slices of Time](./slices-of-time/) | ![](./horizon-2/demo.png) <br> [Horizon 2](./horizon-2/) | ![](./glyph-matrix/demo.png) <br> [Glyph Matrix](./glyph-matrix/) | |
+| ![](./slices-of-time/demo.png) <br> [Slices of Time](./slices-of-time/) | ![](./horizon-2/demo.png) <br> [Horizon 2](./horizon-2/) | ![](./glyph-matrix/demo.png) <br> [Glyph Matrix](./glyph-matrix/) | ![](./enigma/demo.png) <br> [Enigma](./enigma/) |
 
 ## Repository Structure
 
