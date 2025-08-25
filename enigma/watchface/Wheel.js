@@ -1,5 +1,5 @@
 export class Wheel {
-  constructor(x) {
+  constructor({ x, color }) {
     this._VISIBLE_CHARS_COUNT = 5;
 
     this._CHAR_WIDTH = px(92);
@@ -27,7 +27,7 @@ export class Wheel {
         y: i * this._CHAR_HEIGHT,
         w: this._CHAR_WIDTH,
         h: this._CHAR_HEIGHT,
-        color: 0xffffff,
+        color,
         text_size: px(80),
         font: 'fonts/MartianMono-Medium.ttf',
         align_h: hmUI.align.CENTER_H,
