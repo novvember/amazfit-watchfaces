@@ -1,3 +1,4 @@
+import { AodTime } from './AodTime';
 import { BACKGROUND_RECT_PROPS, FADE_IMAGE_PROPS } from './index.r.layout';
 import { Wheels } from './Wheels';
 
@@ -9,14 +10,15 @@ WatchFace({
   build() {
     console.log('watchface building');
 
-    this.buildLines();
+    this.buildWheels();
+    this.buildAod();
   },
 
   onDestroy() {
     console.log('watchface destroying');
   },
 
-  buildLines() {
+  buildWheels() {
     hmUI.createWidget(hmUI.widget.FILL_RECT, BACKGROUND_RECT_PROPS);
 
     const wheels = new Wheels();
@@ -25,11 +27,11 @@ WatchFace({
 
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
     const batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
+    const is12HourFormat = hmSetting.getTimeFormat() === 0;
 
     const update = () => {
       const { hour, minute, day, month } = timeSensor;
 
-      const is12HourFormat = hmSetting.getTimeFormat() === 0;
       const hourValue = is12HourFormat ? hour % 12 || 12 : hour;
       const hourText = hourValue.toString().padStart(2, '0');
       const minuteText = minute.toString().padStart(2, '0');
@@ -54,5 +56,9 @@ WatchFace({
         timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
       },
     });
+  },
+
+  buildAod() {
+    new AodTime();
   },
 });
