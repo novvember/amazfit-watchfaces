@@ -1,7 +1,5 @@
 export class AodTime {
-  constructor() {
-    console.log('aod time building...');
-
+  constructor(timeSensor, is12HourFormat, getTimeString) {
     this._CHAR_WIDTH = px(92);
     this._CHAR_HEIGHT = px(106);
     this._CHAR_COUNT = 4;
@@ -22,15 +20,8 @@ export class AodTime {
       }),
     );
 
-    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
-    const is12HourFormat = hmSetting.getTimeFormat() === 0;
-
     const update = () => {
-      const { hour, minute } = timeSensor;
-      const hourValue = is12HourFormat ? hour % 12 || 12 : hour;
-      const hourText = hourValue.toString().padStart(2, '0');
-      const minuteText = minute.toString().padStart(2, '0');
-      const text = hourText + minuteText;
+      const text = getTimeString(timeSensor, is12HourFormat);
 
       this._textWidgets.forEach((textWidget, i) => {
         textWidget.setProperty(hmUI.prop.TEXT, text[i] || ' ');

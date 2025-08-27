@@ -46,7 +46,7 @@ export class Wheel {
 
   _getCharCount() {
     const MIN = 2 * this._VISIBLE_CHARS_COUNT;
-    const MAX = 15;
+    const MAX = 12;
     return Math.floor(MIN + Math.random() * (MAX - MIN));
   }
 

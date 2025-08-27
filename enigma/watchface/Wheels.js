@@ -5,8 +5,6 @@ const WHEELS_COUNT = 6;
 
 export class Wheels {
   constructor() {
-    console.log('wheels building...');
-
     this._wheels = new Array(WHEELS_COUNT).fill(null).map((_, i) => {
       return new Wheel({
         x: px(480 / 2) - (3 - i) * CHAR_WIDTH,
@@ -15,38 +13,38 @@ export class Wheels {
     });
 
     this._prevWheelTexts = [];
-
-    console.log('previous wheel text', this._prevWheelTexts.length);
   }
 
-  set(lineTexts = []) {
+  set(lineTexts = [], needFullAnimation = false) {
     const wheelTexts = new Array(WHEELS_COUNT - 2)
       .fill(null)
       .map((_, i) => lineTexts.map((line) => line[i] || '').join(''));
 
-    let wasUpdated = false;
+    const hasSomeChanges = wheelTexts.some(
+      (wheelText, i) => wheelText !== this._prevWheelTexts[i],
+    );
 
-    new Array(WHEELS_COUNT)
-      .fill(null)
-      .map((_, i) => {
-        if (i === 0) return 1;
-        if (i === 1) return 0;
-        return i;
-      })
-      .forEach((i) => {
+    for (let i = 0; i < WHEELS_COUNT; i++) {
+      let needUpdate = false;
+
+      if (hasSomeChanges && needFullAnimation) {
+        needUpdate = true;
+      } else if (i === 0) {
+        needUpdate = wheelTexts[1] !== this._prevWheelTexts[1];
+      } else if (i === WHEELS_COUNT - 1) {
+        needUpdate =
+          wheelTexts[wheelTexts.length - 1] !==
+          this._prevWheelTexts[wheelTexts.length - 1];
+      } else {
+        needUpdate = wheelTexts[i - 1] !== this._prevWheelTexts[i - 1];
+      }
+
+      if (needUpdate) {
         const text = wheelTexts[i - 1];
-        const prevText = this._prevWheelTexts[i - 1];
-
-        if (text !== prevText || wasUpdated) {
-          const chars = text ? [null, ...text, null] : [];
-          this._wheels[i].set(chars);
-          wasUpdated = true;
-        }
-      });
+        this._wheels[i].set(text ? [null, ...text, null] : []);
+      }
+    }
 
     this._prevWheelTexts = wheelTexts;
-
-    console.log('wheels text updated');
-    console.log('previous wheel text', this._prevWheelTexts.length);
   }
 }
