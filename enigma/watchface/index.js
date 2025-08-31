@@ -1,6 +1,5 @@
 import { AodTime } from './AodTime';
 import { BACKGROUND_RECT_PROPS, FADE_IMAGE_PROPS } from './index.r.layout';
-import { Settings } from './Settings';
 import { Wheels } from './Wheels';
 
 WatchFace({
@@ -15,7 +14,6 @@ WatchFace({
 
     this.buildWheels();
     this.buildAod();
-    // this.buildSettings();
   },
 
   onDestroy() {
@@ -64,7 +62,10 @@ WatchFace({
       const dateString = this.getDateString(this.timeSensor);
       const batteryString = this.getBatteryString(this.batterySensor);
 
-      wheels.set([dateString, timeString, batteryString], isOnResume);
+      wheels.set([dateString, timeString, batteryString], {
+        needFullAnimation: isOnResume,
+        needPreMove: isOnResume,
+      });
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -88,9 +89,5 @@ WatchFace({
 
   buildAod() {
     new AodTime(this.timeSensor, this.is12HourFormat, this.getTimeString);
-  },
-
-  buildSettings() {
-    new Settings();
   },
 });

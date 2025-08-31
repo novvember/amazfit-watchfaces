@@ -8,14 +8,14 @@ export class Wheels {
     this._wheels = new Array(WHEELS_COUNT).fill(null).map((_, i) => {
       return new Wheel({
         x: px(480 / 2) - (3 - i) * CHAR_WIDTH,
-        color: i === 0 || i === WHEELS_COUNT - 1 ? 0x909090 : 0xffffff,
+        color: i === 0 || i === WHEELS_COUNT - 1 ? 0xcccccc : 0xffffff,
       });
     });
 
     this._prevWheelTexts = [];
   }
 
-  set(lineTexts = [], needFullAnimation = false) {
+  set(lineTexts = [], { needFullAnimation, needPreMove }) {
     const wheelTexts = new Array(WHEELS_COUNT - 2)
       .fill(null)
       .map((_, i) => lineTexts.map((line) => line[i] || '').join(''));
@@ -41,7 +41,10 @@ export class Wheels {
 
       if (needUpdate) {
         const text = wheelTexts[i - 1];
-        this._wheels[i].set(text ? [null, ...text, null] : []);
+        this._wheels[i].set(text ? [null, ...text, null] : [], {
+          hasAnimation: true,
+          needPreMove,
+        });
       }
     }
 

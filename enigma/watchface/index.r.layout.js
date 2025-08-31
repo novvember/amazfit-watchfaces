@@ -13,7 +13,7 @@ export const BACKGROUND_RECT_PROPS = {
   w: px(480),
   h: px(106),
   radius: 0,
-  color: 0x17739c,
+  color: 0xd12e2e,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 

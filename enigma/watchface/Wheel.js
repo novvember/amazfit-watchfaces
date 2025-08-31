@@ -73,6 +73,12 @@ export class Wheel {
     }
   }
 
+  _getPreMoveLength() {
+    const MIN = 0.2 * this._CHAR_HEIGHT;
+    const MAX = 0.8 * this._CHAR_HEIGHT;
+    return Math.floor(MIN + Math.random() * (MAX - MIN));
+  }
+
   _updateChars(visibleChars, position) {
     const newCharsIndexStart =
       position === 'up' ? 0 : this._CHAR_COUNT - this._VISIBLE_CHARS_COUNT;
@@ -101,8 +107,15 @@ export class Wheel {
     });
   }
 
-  _moveGroup(newPosition, hasAnimation) {
-    const yStart = newPosition === 'up' ? this._yDown : this._yUp;
+  _moveGroup(newPosition, { hasAnimation, needPreMove }) {
+    let yStart = newPosition === 'up' ? this._yDown : this._yUp;
+
+    if (needPreMove) {
+      const preMoveLength = this._getPreMoveLength();
+      yStart =
+        newPosition === 'up' ? yStart - preMoveLength : yStart + preMoveLength;
+    }
+
     const yEnd = newPosition === 'up' ? this._yUp : this._yDown;
 
     if (!hasAnimation) {
@@ -121,7 +134,7 @@ export class Wheel {
       anim_steps: [
         {
           anim_prop: hmUI.prop.Y,
-          anim_rate: 'linear',
+          anim_rate: 'ease',
           anim_duration: this._getAnimationDuration(),
           anim_from: yStart,
           anim_to: yEnd,
@@ -136,7 +149,7 @@ export class Wheel {
     });
   }
 
-  set(visibleChars = [], hasAnimation = true) {
+  set(visibleChars = [], { hasAnimation, needPreMove }) {
     if (this._getAnimationStatus()) {
       return;
     }
@@ -147,6 +160,7 @@ export class Wheel {
       visibleChars,
       hasAnimation ? newPosition : this._position,
     );
-    this._moveGroup(newPosition, hasAnimation);
+
+    this._moveGroup(newPosition, { hasAnimation, needPreMove });
   }
 }
