@@ -1,0 +1,20 @@
+msgid "Mon"
+msgstr "ПН"
+
+msgid "Tue"
+msgstr "ВТ"
+
+msgid "Wed"
+msgstr "СР"
+
+msgid "Thu"
+msgstr "ЧТ"
+
+msgid "Fri"
+msgstr "ПТ"
+
+msgid "Sat"
+msgstr "СБ"
+
+msgid "Sun"
+msgstr "ВС"
