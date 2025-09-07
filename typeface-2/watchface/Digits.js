@@ -71,19 +71,26 @@ export class Digits {
     this._digits = new Array(2).fill(null).map((_, i) => {
       return hmUI.createWidget(
         hmUI.widget.IMG,
-        this._getImageProps(0, position, i, 0),
+        this._getImageProps(0, position, i, 0, false),
+      );
+    });
+
+    this._digitsAod = new Array(2).fill(null).map((_, i) => {
+      return hmUI.createWidget(
+        hmUI.widget.IMG,
+        this._getImageProps(0, position, i, 0, true),
       );
     });
   }
 
-  _getImageProps(digit, position, index, xDiff) {
+  _getImageProps(digit, position, index, xDiff, isAod) {
     return {
       y: position === 'top' ? px(480 / 2) - CHAR_HEIGHT : px(480 / 2),
       x: px(480 / 2) - (1 - index) * CHAR_WIDTH + xDiff,
       w: CHAR_WIDTH,
       h: CHAR_HEIGHT,
-      src: `digits/${digit}.png`,
-      show_level: hmUI.show_level.ONLY_NORMAL,
+      src: isAod ? `digits_aod/${digit}.png` : `digits/${digit}.png`,
+      show_level: isAod ? hmUI.show_level.ONAL_AOD : hmUI.show_level.ONLY_NORMAL,
     };
   }
 
@@ -94,7 +101,14 @@ export class Digits {
     this._digits.forEach((digit, i) => {
       digit.setProperty(
         hmUI.prop.MORE,
-        this._getImageProps(text[i] || 0, this._position, i, px(xDiffs[i])),
+        this._getImageProps(text[i] || 0, this._position, i, px(xDiffs[i]), false),
+      );
+    });
+
+    this._digitsAod.forEach((digit, i) => {
+      digit.setProperty(
+        hmUI.prop.MORE,
+        this._getImageProps(text[i] || 0, this._position, i, px(xDiffs[i]), true),
       );
     });
   }
