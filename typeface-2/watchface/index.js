@@ -1,6 +1,7 @@
 import { gettext } from 'i18n';
 import { Digits } from './Digits';
 import { CircleText } from './CIrcleText';
+import { formatNumber } from '../utils/formatNumber';
 
 WatchFace({
   onInit() {
@@ -20,6 +21,40 @@ WatchFace({
     console.log('watchface destroying');
   },
 
+  getTimeStrings(timeSensor, is12HourFormat) {
+    const { hour, minute } = timeSensor;
+    const hourValue = is12HourFormat ? hour % 12 || 12 : hour;
+    const hourText = hourValue.toString().padStart(2, '0');
+    const minuteText = minute.toString().padStart(2, '0');
+
+    return [hourText, minuteText];
+  },
+
+  getDateString(timeSensor) {
+    const { day, week } = timeSensor;
+
+    const weekdayTextKey = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][
+      week - 1
+    ];
+    return `${gettext(weekdayTextKey)} ${day}`;
+  },
+
+  getBatteryString(batterySensor) {
+    const { current = '--' } = batterySensor;
+    return `${current}%`;
+  },
+
+  getTemperatureString(weatherSensor) {
+    const temp = weatherSensor.current || '--';
+    return `${temp}°`;
+  },
+
+  getStepsString(stepSensor) {
+    const { current = 0 } = stepSensor;
+    const formattedValue = formatNumber(current, '.');
+    return `${formattedValue}.`;
+  },
+
   buildTime() {
     const digitsTop = new Digits('top');
     const digitsBottom = new Digits('bottom');
@@ -33,16 +68,11 @@ WatchFace({
     const is12HourFormat = hmSetting.getTimeFormat() === 0;
 
     const update = () => {
-      const { hour, minute, day, week } = timeSensor;
-
-      const hourValue = is12HourFormat ? hour % 12 || 12 : hour;
-      const hourText = hourValue.toString().padStart(2, '0');
-      const minuteText = minute.toString().padStart(2, '0');
-
-      const weekdayTextKey = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][
-        week - 1
-      ];
-      const dateText = `${gettext(weekdayTextKey)} ${day}`;
+      const [hourText, minuteText] = this.getTimeStrings(
+        timeSensor,
+        is12HourFormat,
+      );
+      const dateText = this.getDateString(timeSensor);
 
       digitsTop.set(hourText);
       digitsBottom.set(minuteText);
@@ -75,8 +105,7 @@ WatchFace({
     const batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
 
     const update = () => {
-      const { current = 0 } = batterySensor;
-      const text = `${current}%`;
+      const text = this.getBatteryString(batterySensor);
       circleText.set(text);
     };
 
@@ -103,8 +132,8 @@ WatchFace({
     const stepSensor = hmSensor.createSensor(hmSensor.id.STEP);
 
     const update = () => {
-      const { current = 0 } = stepSensor;
-      circleText.set(current.toString());
+      const text = this.getStepsString(stepSensor);
+      circleText.set(text);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -130,8 +159,7 @@ WatchFace({
     const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
 
     const update = () => {
-      const temp = weatherSensor.current || '--';
-      const text = `${temp}°`;
+      const text = this.getTemperatureString(weatherSensor);
       circleText.set(text);
     };
 
