@@ -5,8 +5,8 @@
     "appName": "Typeface 2",
     "appType": "watchface",
     "version": {
-      "code": 2,
-      "name": "1.1.0"
+      "code": 3,
+      "name": "1.2.0"
     },
     "icon": "icon.png",
     "vender": "novvember",
@@ -29,7 +29,7 @@
         "watchface": {
           "path": "watchface/index",
           "main": 1,
-          "editable": 0,
+          "editable": 1,
           "lockscreen": 1,
           "photoscreen": 0
         }

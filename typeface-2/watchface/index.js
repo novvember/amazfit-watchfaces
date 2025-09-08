@@ -2,6 +2,7 @@ import { gettext } from 'i18n';
 import { Digits } from './Digits';
 import { CircleText } from './CIrcleText';
 import { formatNumber } from '../utils/formatNumber';
+import { Settings } from './Settings';
 
 WatchFace({
   onInit() {
@@ -11,10 +12,9 @@ WatchFace({
   build() {
     console.log('watchface building');
 
+    this.buildSettings();
     this.buildTime();
-    this.buildBattery();
-    this.buildSteps();
-    this.buildWeather();
+    this.buildSlots();
   },
 
   onDestroy() {
@@ -51,18 +51,73 @@ WatchFace({
 
   getStepsString(stepSensor) {
     const { current = 0 } = stepSensor;
-    const formattedValue = formatNumber(current, '.');
-    return `${formattedValue}.`;
+    const formattedValue = formatNumber(current, ' ');
+    return formattedValue;
+  },
+
+  buildSettings() {
+    this.settings = new Settings();
+  },
+
+  buildSlots() {
+    const CIRLCE_TEXT_PARAMS = [
+      {
+        angleStart: -90,
+        angleEnd: -45,
+        isReversed: false,
+      },
+      {
+        angleStart: 45,
+        angleEnd: 90,
+        isReversed: false,
+      },
+      {
+        angleStart: -135,
+        angleEnd: -90,
+        isReversed: true,
+      },
+      {
+        angleStart: 90,
+        angleEnd: 135,
+        isReversed: true,
+      },
+    ];
+
+    for (let i = 0; i < 4; i++) {
+      const type = this.settings.dataSlots[i];
+      const circleTextParams = CIRLCE_TEXT_PARAMS[i];
+      this.buildSlot(type, circleTextParams);
+    }
+  },
+
+  buildSlot(type, circleTextParams) {
+    const circleText = new CircleText(circleTextParams);
+
+    switch (type) {
+      case 'steps':
+        this.buildSteps(circleText);
+        return;
+
+      case 'date':
+        this.buildDate(circleText);
+        return;
+
+      case 'battery':
+        this.buildBattery(circleText);
+        return;
+
+      case 'temperature':
+        this.buildWeather(circleText);
+        return;
+
+      default:
+        console.log('Unknown widget type', type);
+    }
   },
 
   buildTime() {
     const digitsTop = new Digits('top');
     const digitsBottom = new Digits('bottom');
-    const circleText = new CircleText({
-      angleStart: 45,
-      angleEnd: 90,
-      isReversed: false,
-    });
 
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
     const is12HourFormat = hmSetting.getTimeFormat() === 0;
@@ -72,11 +127,9 @@ WatchFace({
         timeSensor,
         is12HourFormat,
       );
-      const dateText = this.getDateString(timeSensor);
 
       digitsTop.set(hourText);
       digitsBottom.set(minuteText);
-      circleText.set(dateText);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -95,13 +148,28 @@ WatchFace({
     });
   },
 
-  buildBattery() {
-    const circleText = new CircleText({
-      angleStart: -135,
-      angleEnd: -90,
-      isReversed: true,
-    });
+  buildDate(circleText) {
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
+    const update = () => {
+      const dateText = this.getDateString(timeSensor);
+      circleText.set(dateText);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
+      },
+    });
+  },
+
+  buildBattery(circleText) {
     const batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
 
     const update = () => {
@@ -122,13 +190,7 @@ WatchFace({
     });
   },
 
-  buildSteps() {
-    const circleText = new CircleText({
-      angleStart: -90,
-      angleEnd: -45,
-      isReversed: false,
-    });
-
+  buildSteps(circleText) {
     const stepSensor = hmSensor.createSensor(hmSensor.id.STEP);
 
     const update = () => {
@@ -149,13 +211,7 @@ WatchFace({
     });
   },
 
-  buildWeather() {
-    const circleText = new CircleText({
-      angleStart: 90,
-      angleEnd: 135,
-      isReversed: true,
-    });
-
+  buildWeather(circleText) {
     const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
 
     const update = () => {
