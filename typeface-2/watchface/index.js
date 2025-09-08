@@ -3,6 +3,9 @@ import { Digits } from './Digits';
 import { CircleText } from './CIrcleText';
 import { formatNumber } from '../utils/formatNumber';
 import { Settings } from './Settings';
+import { getClosestSunriseSunsetTime } from '../utils/getClosestSunriseSunsetTime';
+import { formatTime } from '../utils/formatTime';
+import { getSleepTimeString } from '../utils/getSleepTime';
 
 WatchFace({
   onInit() {
@@ -53,6 +56,36 @@ WatchFace({
     const { current = 0 } = stepSensor;
     const formattedValue = formatNumber(current, ' ');
     return formattedValue;
+  },
+
+  getSunriseSunsetString(timeSensor, weatherSensor, is12HourFormat) {
+    const event = getClosestSunriseSunsetTime(timeSensor, weatherSensor);
+
+    if (!event) {
+      return '--:--';
+    }
+
+    return formatTime(event.hour, event.minute, is12HourFormat, true, false);
+  },
+
+  getHeartString(heartSensor) {
+    const { last = '--' } = heartSensor;
+    return gettext('BPM').replace('%s', last.toString());
+  },
+
+  getCaloriesString(calorieSensor) {
+    const { current = 0 } = calorieSensor;
+    return `${current} K`;
+  },
+
+  getDistanceString(distanceSensor) {
+    const { current = 0 } = distanceSensor;
+
+    if (current < 1000) {
+      return `${current} M`;
+    }
+
+    return `${Math.round(current / 1000)} KM`;
   },
 
   buildSettings() {
@@ -108,6 +141,26 @@ WatchFace({
 
       case 'temperature':
         this.buildWeather(circleText);
+        return;
+
+      case 'sunrise-sunset':
+        this.buildSunsetSunrise(circleText);
+        return;
+
+      case 'sleep':
+        this.buildSleepTime(circleText);
+        return;
+
+      case 'heart':
+        this.buildHeart(circleText);
+        return;
+
+      case 'calories':
+        this.buildCalories(circleText);
+        return;
+
+      case 'distance':
+        this.buildDistance(circleText);
         return;
 
       default:
@@ -216,6 +269,105 @@ WatchFace({
 
     const update = () => {
       const text = this.getTemperatureString(weatherSensor);
+      circleText.set(text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          update();
+        }
+      },
+    });
+  },
+
+  buildSunsetSunrise(circleText) {
+    const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+    const is12HourFormat = hmSetting.getTimeFormat() === 0;
+
+    const update = () => {
+      const text = this.getSunriseSunsetString(
+        timeSensor,
+        weatherSensor,
+        is12HourFormat,
+      );
+      circleText.set(text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          update();
+        }
+      },
+    });
+  },
+
+  buildSleepTime(circleText) {
+    const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
+
+    const update = () => {
+      const text = getSleepTimeString(sleepSensor) || '--:--';
+      circleText.set(text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          update();
+        }
+      },
+    });
+  },
+
+  buildHeart(circleText) {
+    const heartSensor = hmSensor.createSensor(hmSensor.id.HEART);
+
+    const update = () => {
+      const text = this.getHeartString(heartSensor);
+      circleText.set(text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          heartSensor.addEventListener?.(hmSensor.event.LAST, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        heartSensor.removeEventListener?.(hmSensor.event.LAST, update);
+      },
+    });
+  },
+
+  buildCalories(circleText) {
+    const calorieSensor = hmSensor.createSensor(hmSensor.id.CALORIE);
+
+    const update = () => {
+      const text = this.getCaloriesString(calorieSensor);
+      circleText.set(text);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          calorieSensor.addEventListener(hmSensor.event.CHANGE, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        calorieSensor.removeEventListener(hmSensor.event.CHANGE, update);
+      },
+    });
+  },
+
+  buildDistance(circleText) {
+    const distanceSensor = hmSensor.createSensor(hmSensor.id.DISTANCE);
+
+    const update = () => {
+      const text = this.getDistanceString(distanceSensor);
       circleText.set(text);
     };
 

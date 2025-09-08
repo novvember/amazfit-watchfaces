@@ -18,3 +18,33 @@ msgstr "СБ"
 
 msgid "Sun"
 msgstr "ВС"
+
+msgid "BPM"
+msgstr "ЧСС %s"
+
+msgid "Steps"
+msgstr "Шаги"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Battery Level"
+msgstr "Заряд батареи"
+
+msgid "Temperature"
+msgstr "Температура"
+
+msgid "Sunrise/Sunset"
+msgstr "Закат/восход"
+
+msgid "Sleep Time"
+msgstr "Время сна"
+
+msgid "Heart Rate"
+msgstr "Пульс"
+
+msgid "Calories"
+msgstr "Калории"
+
+msgid "Distance"
+msgstr "Расстояние"

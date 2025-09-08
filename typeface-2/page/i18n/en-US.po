@@ -18,3 +18,33 @@ msgstr "SAT"
 
 msgid "Sun"
 msgstr "SUN"
+
+msgid "BPM"
+msgstr "%s BPM"
+
+msgid "Steps"
+msgstr "Steps"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Battery Level"
+msgstr "Battery Level"
+
+msgid "Temperature"
+msgstr "Temperature"
+
+msgid "Sunrise/Sunset"
+msgstr "Sunrise/Sunset"
+
+msgid "Sleep Time"
+msgstr "Sleep Time"
+
+msgid "Heart Rate"
+msgstr "Heart Rate"
+
+msgid "Calories"
+msgstr "Calories"
+
+msgid "Distance"
+msgstr "Distance"

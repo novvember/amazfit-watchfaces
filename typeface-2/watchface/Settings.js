@@ -64,6 +64,46 @@ export const SLOT_OPTIONAL_TYPES = [
       type: 'temperature',
     },
   },
+  {
+    type: 100005,
+    title_en: gettext('Sunrise/Sunset'),
+    preview: 'edit/slot_preview_sunrise-sunset.png',
+    data: {
+      type: 'sunrise-sunset',
+    },
+  },
+  {
+    type: 100006,
+    title_en: gettext('Sleep Time'),
+    preview: 'edit/slot_preview_sleep.png',
+    data: {
+      type: 'sleep',
+    },
+  },
+  {
+    type: 100007,
+    title_en: gettext('Heart Rate'),
+    preview: 'edit/slot_preview_heart.png',
+    data: {
+      type: 'heart',
+    },
+  },
+  {
+    type: 100008,
+    title_en: gettext('Calories'),
+    preview: 'edit/slot_preview_calories.png',
+    data: {
+      type: 'calories',
+    },
+  },
+  {
+    type: 100009,
+    title_en: gettext('Distance'),
+    preview: 'edit/slot_preview_distance.png',
+    data: {
+      type: 'distance',
+    },
+  },
 ];
 
 export class Settings {

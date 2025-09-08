@@ -13,12 +13,12 @@ export class CircleText {
       text: '--',
       align_h: hmUI.align.CENTER_H,
       align_v: hmUI.align.TOP,
-      char_space: 0,
+      char_space: 1,
       line_space: 0,
       mode: isReversed ? 1 : 0,
       start_angle: angleStart,
       end_angle: angleEnd,
-      font: 'fonts/Geologica-Thin.ttf',
+      font: 'fonts/Geologica-Thin-mod3.ttf',
       show_level: hmUI.show_level.ONLY_NORMAL,
     });
   }
