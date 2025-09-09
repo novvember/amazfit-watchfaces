@@ -85,7 +85,7 @@ WatchFace({
       return `${current} M`;
     }
 
-    return `${Math.round(current / 1000)} KM`;
+    return `${Math.floor(current / 1000)} KM`;
   },
 
   buildSettings() {
