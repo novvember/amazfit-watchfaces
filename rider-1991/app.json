@@ -5,8 +5,8 @@
     "appName": "Rider 1991",
     "appType": "watchface",
     "version": {
-      "code": 3,
-      "name": "1.0.2"
+      "code": 4,
+      "name": "1.0.3"
     },
     "icon": "icon.png",
     "vender": "novvember",
@@ -30,7 +30,7 @@
           "path": "watchface/index",
           "main": 1,
           "editable": 0,
-          "lockscreen": 1,
+          "lockscreen": 0,
           "photoscreen": 0
         }
       },
