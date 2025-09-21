@@ -7,6 +7,9 @@ msgstr "Дата (ДД/ММ)"
 msgid "Date (MM/DD)"
 msgstr "Дата (ММ/ДД)"
 
+msgid "Day and Weekday"
+msgstr "Дата и день недели"
+
 msgid "Temperature (°C)"
 msgstr "Температура (°C)"
 

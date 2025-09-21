@@ -27,6 +27,14 @@ export const ROW_OPTIONAL_TYPES = [
     },
   },
   {
+    type: 100202,
+    title_en: gettext('Day and Weekday'),
+    preview: 'edit/widget_preview_day-weekday.png',
+    data: {
+      type: 'day-weekday',
+    },
+  },
+  {
     type: 100003,
     title_en: gettext('Temperature (°C)'),
     preview: 'edit/widget_preview_temperature-c.png',

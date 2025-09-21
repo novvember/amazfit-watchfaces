@@ -4,6 +4,7 @@ import { AlarmWidget } from './AlarmWidget';
 import { BatteryWidget } from './BatteryWidget';
 import { CaloriesWidget } from './CaloriesWidget';
 import { DateWidget } from './DateWidget';
+import { DayWeekdayWidget } from './DayWeekdayWidget';
 import { DistanceWidget } from './DistanceWidget';
 import { HeartRateWidget } from './HeartRateWidget';
 import { SecondsWidget } from './SecondsWidget';
@@ -100,6 +101,10 @@ WatchFace({
 
       case 'date-mm-dd':
         new DateWidget(rowIndex, color, 'mm/dd');
+        return;
+
+      case 'day-weekday':
+        new DayWeekdayWidget(rowIndex, color);
         return;
 
       case 'temperature-c':
