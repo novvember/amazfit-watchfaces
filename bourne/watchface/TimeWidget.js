@@ -38,7 +38,7 @@ export class TimeWidget {
     };
 
     const hourProps = {
-      hour_zero: 1,
+      hour_zero: 0,
       hour_startX: CHAR_POSITIONS.columnsX[0],
       hour_startY: CHAR_POSITIONS.rowsY[rowIndex],
       hour_array: getDigitsArray(color),
@@ -68,7 +68,7 @@ export class TimeWidget {
     };
 
     const hourProps = {
-      hour_zero: 1,
+      hour_zero: 0,
       hour_startX: CHAR_POSITIONS.columnsX[0],
       hour_startY: CHAR_POSITIONS.rowsY[rowIndex],
       hour_array: getDigitsArray('grey'),
