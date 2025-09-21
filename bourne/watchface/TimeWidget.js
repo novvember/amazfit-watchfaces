@@ -42,6 +42,7 @@ export class TimeWidget {
       hour_startX: CHAR_POSITIONS.columnsX[0],
       hour_startY: CHAR_POSITIONS.rowsY[rowIndex],
       hour_array: getDigitsArray(color),
+      hour_align: hmUI.align.RIGHT,
       show_level: hmUI.show_level.ONLY_NORMAL,
     };
 
@@ -72,6 +73,7 @@ export class TimeWidget {
       hour_startX: CHAR_POSITIONS.columnsX[0],
       hour_startY: CHAR_POSITIONS.rowsY[rowIndex],
       hour_array: getDigitsArray('grey'),
+      hour_align: hmUI.align.RIGHT,
       show_level: hmUI.show_level.ONAL_AOD,
     };
 
