@@ -20,10 +20,18 @@ export const ROW_OPTIONAL_TYPES = [
   },
   {
     type: 100003,
-    title_en: gettext('Temperature'),
-    preview: 'edit/widget_preview_temperature.png',
+    title_en: gettext('Temperature (°C)'),
+    preview: 'edit/widget_preview_temperature-c.png',
     data: {
-      type: 'temperature',
+      type: 'temperature-c',
+    },
+  },
+  {
+    type: 100103,
+    title_en: gettext('Temperature (°F)'),
+    preview: 'edit/widget_preview_temperature-f.png',
+    data: {
+      type: 'temperature-f',
     },
   },
   {

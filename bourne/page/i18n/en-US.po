@@ -4,8 +4,11 @@ msgstr "Heart Rate"
 msgid "Date"
 msgstr "Date"
 
-msgid "Temperature"
-msgstr "Temperature"
+msgid "Temperature (°C)"
+msgstr "Temperature (°C)"
+
+msgid "Temperature (°F)"
+msgstr "Temperature (°F)"
 
 msgid "Steps"
 msgstr "Steps Counter"

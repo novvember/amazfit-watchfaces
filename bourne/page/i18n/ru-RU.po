@@ -4,8 +4,11 @@ msgstr "Пульс"
 msgid "Date"
 msgstr "Дата"
 
-msgid "Temperature"
-msgstr "Температура"
+msgid "Temperature (°C)"
+msgstr "Температура (°C)"
+
+msgid "Temperature (°F)"
+msgstr "Температура (°F)"
 
 msgid "Steps"
 msgstr "Шаги"

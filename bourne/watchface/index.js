@@ -98,8 +98,12 @@ WatchFace({
         new DateWidget(rowIndex, color);
         return;
 
-      case 'temperature':
-        new TemperatureWidget(rowIndex, color);
+      case 'temperature-c':
+        new TemperatureWidget(rowIndex, color, '°C');
+        return;
+
+      case 'temperature-f':
+        new TemperatureWidget(rowIndex, color, '°F');
         return;
 
       case 'steps':
