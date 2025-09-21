@@ -1,8 +1,11 @@
 msgid "Heart Rate"
 msgstr "Пульс"
 
-msgid "Date"
-msgstr "Дата"
+msgid "Date (DD/MM)"
+msgstr "Дата (ДД/ММ)"
+
+msgid "Date (MM/DD)"
+msgstr "Дата (ММ/ДД)"
 
 msgid "Temperature (°C)"
 msgstr "Температура (°C)"

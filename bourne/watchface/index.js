@@ -94,8 +94,12 @@ WatchFace({
         new TimeWidget(rowIndex, color);
         return;
 
-      case 'date':
-        new DateWidget(rowIndex, color);
+      case 'date-dd-mm':
+        new DateWidget(rowIndex, color, 'dd/mm');
+        return;
+
+      case 'date-mm-dd':
+        new DateWidget(rowIndex, color, 'mm/dd');
         return;
 
       case 'temperature-c':

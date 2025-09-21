@@ -3,14 +3,16 @@ import { getCharSrc } from '../utils/getCharSrc';
 import { getDigitsArray } from '../utils/getDigitsArray';
 
 export class DateWidget {
-  constructor(rowIndex, color) {
+  constructor(rowIndex, color, dateFormat = 'dd/mm') {
+    const isDayFirst = dateFormat === 'dd/mm';
+
     const digitsArray = getDigitsArray(color);
 
     const dayProps = {
-      day_startX: CHAR_POSITIONS.columnsX[0],
+      day_startX: CHAR_POSITIONS.columnsX[isDayFirst ? 0 : 3],
       day_startY: CHAR_POSITIONS.rowsY[rowIndex],
       day_align: hmUI.align.RIGHT,
-      day_zero: 0,
+      day_zero: isDayFirst ? 0 : 1,
       day_en_array: digitsArray,
       show_level: hmUI.show_level.ONLY_NORMAL,
     };
@@ -23,10 +25,10 @@ export class DateWidget {
     };
 
     const monthProps = {
-      month_startX: CHAR_POSITIONS.columnsX[3],
+      month_startX: CHAR_POSITIONS.columnsX[isDayFirst ? 3 : 0],
       month_startY: CHAR_POSITIONS.rowsY[rowIndex],
-      month_align: hmUI.align.LEFT,
-      month_zero: 1,
+      month_align: hmUI.align.RIGHT,
+      month_zero: isDayFirst ? 1 : 0,
       month_en_array: digitsArray,
       show_level: hmUI.show_level.ONLY_NORMAL,
     };

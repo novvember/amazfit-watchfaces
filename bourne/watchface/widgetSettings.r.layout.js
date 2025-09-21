@@ -12,10 +12,18 @@ export const ROW_OPTIONAL_TYPES = [
   },
   {
     type: 100002,
-    title_en: gettext('Date'),
-    preview: 'edit/widget_preview_date.png',
+    title_en: gettext('Date (DD/MM)'),
+    preview: 'edit/widget_preview_date-dd-mm.png',
     data: {
-      type: 'date',
+      type: 'date-dd-mm',
+    },
+  },
+  {
+    type: 100102,
+    title_en: gettext('Date (MM/DD)'),
+    preview: 'edit/widget_preview_date-mm-dd.png',
+    data: {
+      type: 'date-mm-dd',
     },
   },
   {
