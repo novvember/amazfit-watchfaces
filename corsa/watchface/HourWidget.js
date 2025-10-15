@@ -44,7 +44,7 @@ export class HourWidget {
       h: px(50),
       align_h: hmUI.align.CENTER_H,
       align_v: hmUI.align.CENTER_V,
-      text_size: px(28),
+      text_size: px(36),
       color: COLORS.primary,
       font: FONTS.primary,
       text: '-',
@@ -59,7 +59,7 @@ export class HourWidget {
 
   updateValue(hour, minute) {
     const angle = getAngleFromHours(hour, minute);
-    
+
     this._pointer.setProperty(hmUI.prop.ANGLE, angle);
 
     const [textX, textY] = getWidgetCoordsFromAngle({

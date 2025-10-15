@@ -11,7 +11,7 @@ const TEXT_PROPS = {
   h: 0,
   align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.CENTER_V,
-  text_size: px(32),
+  text_size: px(36),
   color: COLORS.primary,
   font: FONTS.primary,
   text: '--',
@@ -40,7 +40,7 @@ export class DateWidget {
     this._dayText = this._group.createWidget(hmUI.widget.TEXT, {
       ...TEXT_PROPS,
       x: px(41),
-      y: px(71),
+      y: px(72),
       w: px(58),
       h: px(32),
     });
@@ -48,7 +48,7 @@ export class DateWidget {
     this._weekText = this._group.createWidget(hmUI.widget.TEXT, {
       ...TEXT_PROPS,
       x: px(25),
-      y: px(25),
+      y: px(26),
       w: px(90),
       h: px(42),
       font: isRusLang ? undefined : FONTS.condensed,

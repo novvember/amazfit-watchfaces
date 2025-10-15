@@ -2,8 +2,13 @@ import { COLORS, FONTS } from './constants';
 
 const SIZE = px(140);
 
-export class HeartWidget {
-  constructor() {
+const ICON_SRC = {
+  heart: 'arc_widget/icon_heart.png',
+  steps: 'arc_widget/icon_steps.png',
+};
+
+export class ArcWidget {
+  constructor({ dataType, iconType, hasDangerZoneEnd }) {
     this.width = SIZE;
     this.height = SIZE;
 
@@ -17,7 +22,16 @@ export class HeartWidget {
     this._group.createWidget(hmUI.widget.IMG, {
       x: 0,
       y: 0,
-      src: 'heart/background.png',
+      src: hasDangerZoneEnd
+        ? 'arc_widget/background_danger_end.png'
+        : 'arc_widget/background.png',
+      show_level: hmUI.show_level.ONLY_NORMAL,
+    });
+
+    this._group.createWidget(hmUI.widget.IMG, {
+      x: px(56),
+      y: px(101),
+      src: ICON_SRC[iconType],
       show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
@@ -28,10 +42,10 @@ export class HeartWidget {
       h: px(42),
       align_h: hmUI.align.CENTER_H,
       align_v: hmUI.align.CENTER_V,
-      text_size: px(32),
+      text_size: px(36),
       color: COLORS.primary,
       font: FONTS.primary,
-      type: hmUI.data_type.HEART,
+      type: dataType,
       show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
@@ -39,11 +53,11 @@ export class HeartWidget {
       center_x: SIZE / 2,
       center_y: SIZE / 2,
       radius: px(50),
-      start_angle: -145,
-      end_angle: 145,
+      start_angle: -147,
+      end_angle: 147,
       color: COLORS.primary,
       line_width: px(6),
-      type: hmUI.data_type.HEART,
+      type: dataType,
       show_level: hmUI.show_level.ONLY_NORMAL,
     });
   }

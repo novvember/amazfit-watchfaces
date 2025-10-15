@@ -2,11 +2,11 @@ import { getAngleFromMinutes } from '../utils/getAngleFromTime';
 import { getWidgetCoordsFromAngle } from '../utils/getWidgetCoordsFromAngle';
 import { BatteryWidget } from './BatteryWidget';
 import { DateWidget } from './DateWidget';
-import { HeartWidget } from './HeartWidget';
+import { ArcWidget } from './ArcWidget';
 import { HourWidget } from './HourWidget';
 import { Minutes } from './Minutes';
 import { Seconds } from './Seconds';
-import { StepsWidget } from './StepsWidget';
+import { ConnectionStatusWidget } from './ConnectionStatusWidget';
 
 WatchFace({
   onInit() {
@@ -18,13 +18,15 @@ WatchFace({
 
     this.minuteChangeCallbacks = [];
 
-    this.buildMinutes();
-    this.buildSeconds();
     this.buildHours();
     this.buildDate();
     this.buildSteps();
     this.buildBattery();
     this.buildHeart();
+    this.buildConnectionStatus();
+
+    this.buildMinutes();
+    this.buildSeconds();
 
     this.handleMinuteChange();
   },
@@ -110,7 +112,11 @@ WatchFace({
   },
 
   buildSteps() {
-    const widget = new StepsWidget();
+    const widget = new ArcWidget({
+      dataType: hmUI.data_type.STEP,
+      iconType: 'steps',
+      hasDangerZoneEnd: false,
+    });
 
     const onMinuteChange = (timeSensor) => {
       const { minute } = timeSensor;
@@ -154,7 +160,11 @@ WatchFace({
   },
 
   buildHeart() {
-    const widget = new HeartWidget();
+    const widget = new ArcWidget({
+      dataType: hmUI.data_type.HEART,
+      iconType: 'heart',
+      hasDangerZoneEnd: true,
+    });
 
     const onMinuteChange = (timeSensor) => {
       const { minute } = timeSensor;
@@ -163,6 +173,28 @@ WatchFace({
       const [x, y] = getWidgetCoordsFromAngle({
         angle: (angle + 50) % 360,
         radius: px(120),
+        rotationCenterX: px(240),
+        rotationCenterY: px(240),
+        widgetWidth: widget.width,
+        widgetHeight: widget.height,
+      });
+
+      widget.move(x, y);
+    };
+
+    this.minuteChangeCallbacks.push(onMinuteChange);
+  },
+
+  buildConnectionStatus() {
+    const widget = new ConnectionStatusWidget();
+
+    const onMinuteChange = (timeSensor) => {
+      const { minute } = timeSensor;
+      const angle = getAngleFromMinutes(minute);
+
+      const [x, y] = getWidgetCoordsFromAngle({
+        angle: (angle + 142) % 360,
+        radius: px(162),
         rotationCenterX: px(240),
         rotationCenterY: px(240),
         widgetWidth: widget.width,
