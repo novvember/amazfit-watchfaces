@@ -1,4 +1,4 @@
-import { COLORS, FONTS } from './constants';
+import { COLORS, FONTS, isRusLang } from './constants';
 import { gettext } from 'i18n';
 
 const SIZE = px(140);
@@ -51,7 +51,7 @@ export class DateWidget {
       y: px(26),
       w: px(90),
       h: px(42),
-      font: FONTS.condensed,
+      font: isRusLang ? undefined : FONTS.condensed,
     });
   }
 

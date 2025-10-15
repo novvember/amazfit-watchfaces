@@ -10,3 +10,6 @@ export const FONTS = {
   primary: 'fonts/EncodeSans-SemiBold.ttf',
   condensed: 'fonts/EncodeSans_Condensed-SemiBold.ttf',
 };
+
+const lang = DeviceRuntimeCore.HmUtils.getLanguage();
+export const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
