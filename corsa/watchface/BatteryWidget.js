@@ -23,7 +23,7 @@ export class BatteryWidget {
 
     this._group.createWidget(hmUI.widget.TEXT_FONT, {
       x: px(15),
-      y: px(48),
+      y: px(47),
       w: px(110),
       h: px(42),
       align_h: hmUI.align.CENTER_H,

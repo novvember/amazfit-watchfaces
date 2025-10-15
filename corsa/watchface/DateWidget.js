@@ -40,7 +40,7 @@ export class DateWidget {
     this._dayText = this._group.createWidget(hmUI.widget.TEXT, {
       ...TEXT_PROPS,
       x: px(41),
-      y: px(72),
+      y: px(71),
       w: px(58),
       h: px(32),
     });
@@ -48,7 +48,7 @@ export class DateWidget {
     this._weekText = this._group.createWidget(hmUI.widget.TEXT, {
       ...TEXT_PROPS,
       x: px(25),
-      y: px(26),
+      y: px(25),
       w: px(90),
       h: px(42),
       font: isRusLang ? undefined : FONTS.condensed,

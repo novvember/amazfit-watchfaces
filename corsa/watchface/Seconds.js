@@ -23,7 +23,7 @@ export class Seconds {
 
     hmUI.createWidget(hmUI.widget.TEXT_FONT, {
       x: px(423),
-      y: px(220),
+      y: px(219),
       w: px(52),
       h: px(38),
       align_h: hmUI.align.CENTER_H,
