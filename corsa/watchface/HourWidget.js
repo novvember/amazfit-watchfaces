@@ -23,7 +23,14 @@ export class HourWidget {
       show_level: hmUI.show_level.ONLY_NORMAL,
     });
 
-    this._pointer = this._group.createWidget(hmUI.widget.IMG, {
+    this._group.createWidget(hmUI.widget.IMG, {
+      x: 0,
+      y: 0,
+      src: 'hours/background_aod.png',
+      show_level: hmUI.show_level.ONAL_AOD,
+    });
+
+    const pointerProps = {
       x: 0,
       y: 0,
       w: SIZE,
@@ -35,6 +42,14 @@ export class HourWidget {
       angle: 0,
       src: 'hours/pointer.png',
       show_level: hmUI.show_level.ONLY_NORMAL,
+    };
+
+    this._pointer = this._group.createWidget(hmUI.widget.IMG, pointerProps);
+
+    this._pointerAod = this._group.createWidget(hmUI.widget.IMG, {
+      ...pointerProps,
+      src: 'hours/pointer_aod.png',
+      show_level: hmUI.show_level.ONAL_AOD,
     });
 
     this._textPropsBase = {
@@ -51,9 +66,20 @@ export class HourWidget {
       show_level: hmUI.show_level.ONLY_NORMAL,
     };
 
+    this._textAodPropsBase = {
+      ...this._textPropsBase,
+      color: COLORS.aod,
+      show_level: hmUI.show_level.ONAL_AOD,
+    };
+
     this._text = this._group.createWidget(
       hmUI.widget.TEXT,
       this._textPropsBase,
+    );
+
+    this._textAod = this._group.createWidget(
+      hmUI.widget.TEXT,
+      this._textAodPropsBase,
     );
   }
 
@@ -61,6 +87,7 @@ export class HourWidget {
     const angle = getAngleFromHours(hour, minute);
 
     this._pointer.setProperty(hmUI.prop.ANGLE, angle);
+    this._pointerAod.setProperty(hmUI.prop.ANGLE, angle);
 
     const [textX, textY] = getWidgetCoordsFromAngle({
       angle: (angle + 180) % 360,
@@ -71,11 +98,20 @@ export class HourWidget {
       widgetHeight: px(50),
     });
 
-    this._text.setProperty(hmUI.prop.MORE, {
-      ...this._textPropsBase,
+    const newTextProps = {
       x: textX,
       y: textY,
       text: (hour % 12 || 12).toString(),
+    };
+
+    this._text.setProperty(hmUI.prop.MORE, {
+      ...this._textPropsBase,
+      ...newTextProps,
+    });
+
+    this._textAod.setProperty(hmUI.prop.MORE, {
+      ...this._textAodPropsBase,
+      ...newTextProps,
     });
   }
 

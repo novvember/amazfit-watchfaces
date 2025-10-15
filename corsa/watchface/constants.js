@@ -3,6 +3,7 @@ export const COLORS = {
   primary: 0xffffff,
   secondary: 0x848484,
   tertiary: 0x4b4b4b,
+  aod: 0xb1b1b1,
 };
 
 export const FONTS = {

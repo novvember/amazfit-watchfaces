@@ -17,6 +17,7 @@ WatchFace({
     console.log('watchface building');
 
     this.minuteChangeCallbacks = [];
+    this.minuteChangeCallbacksAod = [];
 
     this.buildHours();
     this.buildDate();
@@ -44,11 +45,20 @@ WatchFace({
       }
     };
 
+    const updateAod = () => {
+      for (const callback of this.minuteChangeCallbacksAod) {
+        callback(timeSensor);
+      }
+    };
+
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           update();
+        } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, updateAod);
+          updateAod();
         }
       },
       pause_call: () => {
@@ -86,6 +96,7 @@ WatchFace({
     };
 
     this.minuteChangeCallbacks.push(onMinuteChange);
+    this.minuteChangeCallbacksAod.push(onMinuteChange);
   },
 
   buildDate() {
