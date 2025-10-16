@@ -8,7 +8,7 @@ const ICON_SRC = {
 };
 
 export class ArcWidget {
-  constructor({ dataType, iconType, hasDangerZoneEnd }) {
+  constructor({ dataType, iconType, hasDangerZoneEnd, textSize = px(36) }) {
     this.width = SIZE;
     this.height = SIZE;
 
@@ -42,7 +42,7 @@ export class ArcWidget {
       h: px(42),
       align_h: hmUI.align.CENTER_H,
       align_v: hmUI.align.CENTER_V,
-      text_size: px(36),
+      text_size: textSize,
       color: COLORS.primary,
       font: FONTS.primary,
       type: dataType,

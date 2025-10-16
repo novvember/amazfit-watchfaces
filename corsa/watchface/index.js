@@ -127,6 +127,7 @@ WatchFace({
       dataType: hmUI.data_type.STEP,
       iconType: 'steps',
       hasDangerZoneEnd: false,
+      textSize: px(32),
     });
 
     const onMinuteChange = (timeSensor) => {
