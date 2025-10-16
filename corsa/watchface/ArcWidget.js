@@ -8,7 +8,7 @@ const ICON_SRC = {
 };
 
 export class ArcWidget {
-  constructor({ dataType, iconType, hasDangerZoneEnd }) {
+  constructor({ dataType, iconType, hasDangerZoneEnd, textSize = px(36) }) {
     this.width = SIZE;
     this.height = SIZE;
 
