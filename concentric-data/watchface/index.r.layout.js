@@ -31,15 +31,6 @@ export const SECOND_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const SECOND_TEXT_PROPS = {
-  x: 0,
-  y: 0,
-  w: SECOND.text.width,
-  h: SECOND.text.height,
-  src: 'second/%s.png',
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
 export const MINUTE_IMAGE_PROPS = {
   x: 0,
   y: 0,
