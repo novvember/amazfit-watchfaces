@@ -1,12 +1,12 @@
 {
   "configVersion": "v3",
   "app": {
-    "appId": 1067740,
+    "appId": 1097457,
     "appName": "Concentric Data",
     "appType": "watchface",
     "version": {
-      "code": 8,
-      "name": "1.4.0"
+      "code": 9,
+      "name": "2.0.0"
     },
     "icon": "icon.png",
     "vender": "novvember",
