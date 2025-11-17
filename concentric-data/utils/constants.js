@@ -95,7 +95,7 @@ export const MIN_ANGLE_TO_UPDATE_WHEEL = 0.7;
 export const DATE = {
   width: px(60),
   height: px(30),
-  textSize: px(28),
+  textSize: px(32),
 };
 
 export const DATA = {
