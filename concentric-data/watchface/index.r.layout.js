@@ -105,7 +105,7 @@ export const CURRENT_MINUTE_AOD_TEXT_PROPS = {
 
 export const DATE_DAY_TEXT_PROPS = {
   x: SCREEN.centerX - DATA.radius - DATE.width / 2,
-  y: SCREEN.centerY - DATE.height,
+  y: SCREEN.centerY,
   w: DATE.width,
   h: DATE.height,
   color: COLORS.primary,
@@ -119,7 +119,7 @@ export const DATE_DAY_TEXT_PROPS = {
 
 export const DATE_WEEK_TEXT_PROPS = {
   x: SCREEN.centerX - DATA.radius - DATE.width / 2,
-  y: SCREEN.centerY,
+  y: SCREEN.centerY - DATE.height,
   w: DATE.width,
   h: DATE.height,
   color: COLORS.primary,
