@@ -31,7 +31,7 @@ All of my watchfaces are free to use. However, if you'd like to support further 
 | ![](./ara/demo.png) <br> [Ara](./ara/) | ![](./symmetry-broken/demo.png) <br> [Symmetry Broken](./symmetry-broken/) | ![](./regulus/demo.png) <br> [Regulus](./regulus/) | ![](./horizon/demo.png) <br> [Horizon](./horizon/) |
 | ![](./circlock/demo.png) <br> [Circlock](./circlock/) | ![](./needle/demo.png) <br> [Needle](./needle/) | ![](./astro/demo.png) <br> [Astro](./astro/) | ![](./gyroscope/demo.png) <br> [Gyroscope](./gyroscope/) |
 | ![](./slices-of-time/demo.png) <br> [Slices of Time](./slices-of-time/) | ![](./horizon-2/demo.png) <br> [Horizon 2](./horizon-2/) | ![](./glyph-matrix/demo.png) <br> [Glyph Matrix](./glyph-matrix/) | ![](./enigma/demo.png) <br> [Enigma](./enigma/) |
-| ![](./typeface/demo.png) <br> [Typeface](./typeface/) | ![](./typeface-2/demo.png) <br> [Typeface 2](./typeface-2/) | ![](./corsa/demo.png) <br> [Corsa](./corsa/) | |
+| ![](./typeface/demo.png) <br> [Typeface](./typeface/) | ![](./typeface-2/demo.png) <br> [Typeface 2](./typeface-2/) | ![](./corsa/demo.png) <br> [Corsa](./corsa/) | ![](./gradient-watch/demo.png) <br> [Gradient Watch](./gradient-watch/) |
 
 ## Repository Structure
 
