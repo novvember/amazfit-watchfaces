@@ -1,0 +1,119 @@
+msgid "mon"
+msgstr "понедельник"
+
+msgid "tue"
+msgstr "вторник"
+
+msgid "wed"
+msgstr "среда"
+
+msgid "thu"
+msgstr "четверг"
+
+msgid "fri"
+msgstr "пятница"
+
+msgid "sat"
+msgstr "суббота"
+
+msgid "sun"
+msgstr "воскресенье"
+
+msgid "steps"
+msgstr "ШАГОВ"
+
+msgid "sunrise"
+msgstr "ВОСХОД"
+
+msgid "sunset"
+msgstr "ЗАКАТ"
+
+msgid "sleep"
+msgstr "СОН"
+
+msgid "cloudy"
+msgstr "ОБЛАЧНО"
+
+msgid "shower"
+msgstr "ЛИВЕНЬ"
+
+msgid "snow_shower"
+msgstr "СНЕГ"
+
+msgid "sunny"
+msgstr "СОЛНЕЧНО"
+
+msgid "overcast"
+msgstr "ПАСМУРНО"
+
+msgid "light_rain"
+msgstr "ДОЖДЬ"
+
+msgid "light_snow"
+msgstr "СНЕГ"
+
+msgid "moderate_rain"
+msgstr "ДОЖДЬ"
+
+msgid "moderate_snow"
+msgstr "СНЕГ"
+
+msgid "heavy_snow"
+msgstr "СНЕГ"
+
+msgid "heavy_rain"
+msgstr "ДОЖДЬ"
+
+msgid "sandstorm"
+msgstr "БУРЯ"
+
+msgid "sleet"
+msgstr "СНЕГ ДОЖДЬ"
+
+msgid "fog"
+msgstr "ТУМАН"
+
+msgid "haze"
+msgstr "ТУМАН"
+
+msgid "thundershower"
+msgstr "ГРОЗА"
+
+msgid "snowstorm"
+msgstr "МЕТЕЛЬ"
+
+msgid "dust"
+msgstr "ПЫЛЬ"
+
+msgid "extraordinary_rainstorm"
+msgstr "ЛИВЕНЬ"
+
+msgid "rain_with_hail"
+msgstr "ГРАД"
+
+msgid "thundershowers_with_hail"
+msgstr "ГРОЗА"
+
+msgid "heavy_rainstorm"
+msgstr "ЛИВЕНЬ"
+
+msgid "sand_blowing"
+msgstr "ПЕСОК"
+
+msgid "strong_sandstorm"
+msgstr "БУРЯ"
+
+msgid "rainstorm"
+msgstr "ЛИВЕНЬ"
+
+msgid "empty"
+msgstr "НЕТ ДАННЫХ"
+
+msgid "cloudy_at_night"
+msgstr "ОБЛАЧНО"
+
+msgid "shower_at_night"
+msgstr "ЛИВЕНЬ"
+
+msgid "clear_night"
+msgstr "ЯСНО"

@@ -1,0 +1,119 @@
+msgid "mon"
+msgstr "monday"
+
+msgid "tue"
+msgstr "tuesday"
+
+msgid "wed"
+msgstr "wednesday"
+
+msgid "thu"
+msgstr "thursday"
+
+msgid "fri"
+msgstr "friday"
+
+msgid "sat"
+msgstr "saturday"
+
+msgid "sun"
+msgstr "sunday"
+
+msgid "steps"
+msgstr "STEPS"
+
+msgid "sunrise"
+msgstr "SUNRISE"
+
+msgid "sunset"
+msgstr "SUNSET"
+
+msgid "sleep"
+msgstr "SLEEP"
+
+msgid "cloudy"
+msgstr "CLOUDY"
+
+msgid "shower"
+msgstr "SHOWER"
+
+msgid "snow_shower"
+msgstr "SNOW"
+
+msgid "sunny"
+msgstr "SUNNY"
+
+msgid "overcast"
+msgstr "OVERCAST"
+
+msgid "light_rain"
+msgstr "LIGHT RAIN"
+
+msgid "light_snow"
+msgstr "LIGHT SNOW"
+
+msgid "moderate_rain"
+msgstr "RAIN"
+
+msgid "moderate_snow"
+msgstr "SNOW"
+
+msgid "heavy_snow"
+msgstr "HEAVY SNOW"
+
+msgid "heavy_rain"
+msgstr "HEAVY RAIN"
+
+msgid "sandstorm"
+msgstr "SANDSTORM"
+
+msgid "sleet"
+msgstr "SLEET"
+
+msgid "fog"
+msgstr "FOG"
+
+msgid "haze"
+msgstr "HAZE"
+
+msgid "thundershower"
+msgstr "STORM"
+
+msgid "snowstorm"
+msgstr "SNOWSTORM"
+
+msgid "dust"
+msgstr "DUST"
+
+msgid "extraordinary_rainstorm"
+msgstr "RAINSTORM"
+
+msgid "rain_with_hail"
+msgstr "RAIN HAIL"
+
+msgid "thundershowers_with_hail"
+msgstr "STORM HAIL"
+
+msgid "heavy_rainstorm"
+msgstr "RAINSTORM"
+
+msgid "sand_blowing"
+msgstr "SAND"
+
+msgid "strong_sandstorm"
+msgstr "SANDSTORM"
+
+msgid "rainstorm"
+msgstr "RAINSTORM"
+
+msgid "empty"
+msgstr "UNKNOWN"
+
+msgid "cloudy_at_night"
+msgstr "CLOUDY"
+
+msgid "shower_at_night"
+msgstr "SHOWER"
+
+msgid "clear_night"
+msgstr "CLEAR"
