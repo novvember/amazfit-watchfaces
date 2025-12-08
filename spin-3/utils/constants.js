@@ -1,5 +1,4 @@
-const lang = DeviceRuntimeCore.HmUtils.getLanguage();
-const isRusLang = ['ru-RU', 'uk-UA'].includes(lang);
+import { gettext } from 'i18n';
 
 const { width, height } = hmSetting.getDeviceInfo();
 
@@ -39,9 +38,15 @@ export const MINUTE = {
   angleSize: 40,
 };
 
-export const WEEKDAYS = isRusLang
-  ? ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС']
-  : ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+export const WEEKDAYS = [
+  gettext('mon'),
+  gettext('tue'),
+  gettext('wed'),
+  gettext('thu'),
+  gettext('fri'),
+  gettext('sat'),
+  gettext('sun'),
+];
 
 export const BATTERY_PHASE_IMAGES = new Array(14)
   .fill(null)
