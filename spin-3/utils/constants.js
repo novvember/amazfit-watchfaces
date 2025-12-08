@@ -1,14 +1,5 @@
 import { gettext } from 'i18n';
 
-const { width, height } = hmSetting.getDeviceInfo();
-
-export const SCREEN = {
-  width,
-  height,
-  centerX: width / 2,
-  centerY: height / 2,
-};
-
 export const COLORS = {
   minute: 0xffffff,
   data: 0xb1b1b1,

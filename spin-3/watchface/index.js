@@ -3,7 +3,7 @@ import {
   getAngleFromHours,
   getAngleFromMinutes,
 } from '../utils/getAngleFromTime';
-import { MARK_SRC, MINUTE, SCREEN, WEEKDAYS } from '../utils/constants';
+import { MARK_SRC, MINUTE, WEEKDAYS } from '../utils/constants';
 import { isInsideCircleAngle } from '../utils/isInsideCircleAngle';
 import { formatNumber } from '../utils/formatNumber';
 import { getSleepTimeString } from '../utils/getSleepTime';
@@ -22,7 +22,8 @@ import {
   SLEEP_TEXT_PROPS,
   STEPS_TEXT_PROPS,
   WEATHER_TEXT_PROPS,
-} from './index.r.layout';
+  SCREEN,
+} from './index.layout';
 
 WatchFace({
   onInit() {

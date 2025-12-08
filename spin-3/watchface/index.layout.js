@@ -1,6 +1,5 @@
 import {
   COLORS,
-  SCREEN,
   FONTS,
   TEXT_SIZE,
   MINUTE,
@@ -8,27 +7,37 @@ import {
   BATTERY_PHASE_IMAGES,
 } from '../utils/constants';
 
+const { width, height } = hmSetting.getDeviceInfo();
+
+export const SCREEN = {
+  width,
+  height,
+  centerX: width / 2,
+  centerY: height / 2,
+};
+
+const BACKGROUND_SIZE = px(480);
+
 export const BACKGROUND_IMAGE_PROPS = {
-  x: 0,
-  y: 0,
+  x: SCREEN.centerX - BACKGROUND_SIZE / 2,
+  y: SCREEN.centerY - BACKGROUND_SIZE / 2,
   src: 'common/background.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const BACKGROUND_AOD_IMAGE_PROPS = {
-  x: 0,
-  y: 0,
+  ...BACKGROUND_IMAGE_PROPS,
   src: 'common/background_aod.png',
   show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const MARK_IMAGE_PROPS = {
   x: 0,
-  y: 0,
+  y: SCREEN.centerY - px(240),
   pos_x: SCREEN.centerX - px(10) / 2,
   pos_y: px(114),
-  w: SCREEN.width,
-  h: SCREEN.height,
+  w: px(480),
+  h: px(480),
   src: MARK_SRC.general,
   center_x: SCREEN.centerX,
   center_y: SCREEN.centerX,
@@ -87,7 +96,7 @@ export const MINUTE_AOD_TEXT_PROPS = {
 
 export const DATE_TEXT_PROPS = {
   x: px(253),
-  y: px(60),
+  y: px(60) + SCREEN.centerY - px(240),
   w: px(160),
   h: px(60),
   color: COLORS.data,
@@ -101,7 +110,7 @@ export const DATE_TEXT_PROPS = {
 
 export const WEATHER_TEXT_PROPS = {
   x: px(66),
-  y: px(60),
+  y: px(60) + SCREEN.centerY - px(240),
   w: px(160),
   h: px(60),
   align_h: hmUI.align.LEFT,
@@ -116,7 +125,7 @@ export const WEATHER_TEXT_PROPS = {
 
 export const STEPS_TEXT_PROPS = {
   x: px(66),
-  y: px(363),
+  y: px(363) + SCREEN.centerY - px(240),
   w: px(160),
   h: px(60),
   color: COLORS.data,
@@ -130,7 +139,7 @@ export const STEPS_TEXT_PROPS = {
 
 export const SLEEP_TEXT_PROPS = {
   x: px(253),
-  y: px(363),
+  y: px(363) + SCREEN.centerY - px(240),
   w: px(160),
   h: px(60),
   color: COLORS.data,
@@ -142,18 +151,22 @@ export const SLEEP_TEXT_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+const BATTERY_SIZE = px(28);
+
 export const BATTERY_LEVEL_PROPS = {
   x: px(436),
-  y: px(226),
+  y: SCREEN.centerY - BATTERY_SIZE / 2,
   image_array: BATTERY_PHASE_IMAGES,
   image_length: BATTERY_PHASE_IMAGES.length,
   type: hmUI.data_type.BATTERY,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+const DISCONNECT_SIZE = px(40);
+
 export const DISCONNECT_STATUS_PROPS = {
   x: px(11),
-  y: px(220),
+  y: SCREEN.centerY - DISCONNECT_SIZE / 2,
   type: hmUI.system_status.DISCONNECT,
   src: 'common/disconnect.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
