@@ -12,15 +12,16 @@ export const SCREEN = {
 
 export const COLORS = {
   minute: 0xffffff,
-  data: 0x838383,
+  data: 0xb1b1b1,
   accent: 0xf54a1b,
-  aod: 0xd3d3d3,
+  aod: 0xb1b1b1,
 };
 
 export const FONTS = {
   minute: 'fonts/FiraSans-Medium.ttf',
   hour: 'fonts/FiraSans-Medium.ttf',
   data: 'fonts/FiraSansExtraCondensed-Light.ttf',
+  aod: 'fonts/FiraSans-Light.ttf',
 };
 
 export const TEXT_SIZE = {
@@ -38,46 +39,17 @@ export const MINUTE = {
   angleSize: 40,
 };
 
-export const MONTHS = isRusLang
-  ? [
-      'ЯНВ',
-      'ФЕВ',
-      'МАР',
-      'АПР',
-      'МАЙ',
-      'ИЮН',
-      'ИЮЛ',
-      'АВГ',
-      'СЕН',
-      'ОКТ',
-      'НОЯ',
-      'ДЕК',
-    ]
-  : [
-      'JAN',
-      'FEB',
-      'MAR',
-      'APR',
-      'MAY',
-      'JUN',
-      'JUL',
-      'AUG',
-      'SEP',
-      'OCT',
-      'NOV',
-      'DEC',
-    ];
-
 export const WEEKDAYS = isRusLang
   ? ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС']
   : ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
-export const MOON_PHASE_IMAGES = new Array(27)
+export const BATTERY_PHASE_IMAGES = new Array(14)
   .fill(null)
-  .map((_, i) => `moon_phase/${i + 1}.png`);
+  .map((_, i) => `battery/${i + 1}.png`);
 
 export const MARK_SRC = {
   general: 'marks/general.png',
   accent: 'marks/accent.png',
   aod: 'marks/aod.png',
+  aodAccent: 'marks/aod_accent.png',
 };

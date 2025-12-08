@@ -3,12 +3,14 @@ import {
   getAngleFromHours,
   getAngleFromMinutes,
 } from '../utils/getAngleFromTime';
-import { MARK_SRC, MINUTE, MONTHS, SCREEN, WEEKDAYS } from '../utils/constants';
+import { MARK_SRC, MINUTE, SCREEN, WEEKDAYS } from '../utils/constants';
 import { isInsideCircleAngle } from '../utils/isInsideCircleAngle';
 import { formatNumber } from '../utils/formatNumber';
 import { getSleepTimeString } from '../utils/getSleepTime';
 import {
+  BACKGROUND_AOD_IMAGE_PROPS,
   BACKGROUND_IMAGE_PROPS,
+  BATTERY_LEVEL_PROPS,
   DATE_TEXT_PROPS,
   DISCONNECT_STATUS_PROPS,
   HOUR_AOD_TEXT_PROPS,
@@ -17,44 +19,44 @@ import {
   MARK_IMAGE_PROPS,
   MINUTE_AOD_TEXT_PROPS,
   MINUTE_TEXT_PROPS,
-  MOON_LEVEL_PROPS,
   SLEEP_TEXT_PROPS,
   STEPS_TEXT_PROPS,
-  WEEKDAY_TEXT_PROPS,
+  WEATHER_TEXT_PROPS,
 } from './index.r.layout';
 
 WatchFace({
   onInit() {
-    console.log('index page.js on init invoke');
+    console.log('watchface initing');
   },
 
   build() {
-    console.log('index page.js on build invoke');
+    console.log('watchface building');
 
     this.buildBackground();
-    this.buildMoonPhase();
+    this.buildBattery();
     this.buildDisconnectStatus();
 
     this.buildTime();
 
     this.buildDate();
-    this.buildWeekDay();
+    this.buildWeather();
     this.buildSteps();
     this.buildSleepTime();
   },
 
   onDestroy() {
-    console.log('index page.js on destroy invoke');
+    console.log('watchface destroying');
   },
 
   buildBackground() {
     hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_AOD_IMAGE_PROPS);
   },
 
   buildTime() {
-    const markWidgets = [
-      0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330,
-    ].map((angle) => ({
+    const ANGLES = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+
+    const markWidgets = ANGLES.map((angle) => ({
       angle,
       widget: hmUI.createWidget(hmUI.widget.IMG, {
         ...MARK_IMAGE_PROPS,
@@ -78,22 +80,22 @@ WatchFace({
       MINUTE_AOD_TEXT_PROPS,
     );
 
-    let updateTimer = undefined;
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+    const is12HourFormat = hmSetting.getTimeFormat() === 0;
+
     let lastValue = '';
 
     const update = () => {
-      const { hour, minute } = hmSensor.createSensor(hmSensor.id.TIME);
-      const is12HourFormat = hmSetting.getTimeFormat() === 0;
-
+      const { hour, minute } = timeSensor;
       const hourString = (is12HourFormat ? hour % 12 || 12 : hour).toString();
       const minuteString = minute.toString().padStart(2, '0');
+      const value = hourString + minuteString;
 
-      if (lastValue === minuteString) {
+      if (value === lastValue) {
         return;
       }
 
-      console.log('time rerendered');
-      lastValue = minuteString;
+      lastValue = value;
 
       const { x, y } = getCoordsFromAngle(minute);
       const centerX = MINUTE.radius * x + SCREEN.centerX;
@@ -139,6 +141,7 @@ WatchFace({
         widgetAod.setProperty(hmUI.prop.MORE, {
           ...MARK_AOD_IMAGE_PROPS,
           angle,
+          src: isAccent ? MARK_SRC.aodAccent : MARK_SRC.aod,
           alpha: isHidden ? 0 : 255,
         });
       });
@@ -146,109 +149,70 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(1000, 1000, update);
-          update();
-        } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
-          updateTimer = timer.createTimer(5000, 5000, update);
+        if (
+          hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE ||
+          hmSetting.getScreenType() == hmSetting.screen_type.AOD
+        ) {
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           update();
         }
       },
       pause_call: () => {
-        console.log('ui pause');
-
-        timer.stopTimer(updateTimer);
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
       },
     });
   },
 
   buildDate() {
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, DATE_TEXT_PROPS);
-    let updateTimer = undefined;
-    let lastValue = 0;
+
+    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
     const update = () => {
-      const { day, month } = hmSensor.createSensor(hmSensor.id.TIME);
-
-      if (lastValue === day) {
-        return;
-      }
-
-      console.log('date rerendered');
-      lastValue = day;
+      const { day, week } = timeSensor;
 
       const dayString = day.toString().padStart(2, '0');
-      const monthString = MONTHS[month - 1];
+      const weekString = WEEKDAYS[week - 1];
+      const text = `${weekString} ${dayString}`;
 
-      textWidget.setProperty(hmUI.prop.TEXT, `${dayString} ${monthString}`);
+      textWidget.setProperty(hmUI.prop.TEXT, text);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(2000, 2000, update);
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           update();
         }
       },
       pause_call: () => {
-        console.log('ui pause');
-
-        timer.stopTimer(updateTimer);
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
       },
     });
   },
 
-  buildWeekDay() {
-    const textWidget = hmUI.createWidget(hmUI.widget.TEXT, WEEKDAY_TEXT_PROPS);
-    let updateTimer = undefined;
-    let lastValue = 0;
-
-    const update = () => {
-      const { week } = hmSensor.createSensor(hmSensor.id.TIME);
-
-      if (lastValue === week) {
-        return;
-      }
-
-      console.log('weekday rerendered');
-      lastValue = week;
-
-      textWidget.setProperty(hmUI.prop.TEXT, WEEKDAYS[week - 1]);
-    };
-
-    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
-      resume_call: () => {
-        console.log('ui resume');
-
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(2000, 2000, update);
-          update();
-        }
-      },
-      pause_call: () => {
-        console.log('ui pause');
-
-        timer.stopTimer(updateTimer);
-      },
-    });
+  buildWeather() {
+    hmUI.createWidget(hmUI.widget.TEXT_FONT, WEATHER_TEXT_PROPS);
   },
 
   buildSteps() {
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, STEPS_TEXT_PROPS);
+    const stepSensor = hmSensor.createSensor(hmSensor.id.STEP);
 
     const update = () => {
-      const { current } = hmSensor.createSensor(hmSensor.id.STEP);
+      const { current } = stepSensor;
       textWidget.setProperty(hmUI.prop.TEXT, formatNumber(current, '.') + '.');
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
-        update();
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          stepSensor.addEventListener(hmSensor.event.CHANGE, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        stepSensor.removeEventListener(hmSensor.event.CHANGE, update);
       },
     });
   },
@@ -256,8 +220,10 @@ WatchFace({
   buildSleepTime() {
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, SLEEP_TEXT_PROPS);
 
+    const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
+
     const update = () => {
-      const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
+      sleepSensor.updateInfo();
       const sleepTimeString = getSleepTimeString(sleepSensor);
 
       if (sleepTimeString) {
@@ -269,14 +235,13 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        console.log('ui resume');
         update();
       },
     });
   },
 
-  buildMoonPhase() {
-    hmUI.createWidget(hmUI.widget.IMG_LEVEL, MOON_LEVEL_PROPS);
+  buildBattery() {
+    hmUI.createWidget(hmUI.widget.IMG_LEVEL, BATTERY_LEVEL_PROPS);
   },
 
   buildDisconnectStatus() {

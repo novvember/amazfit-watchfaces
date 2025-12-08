@@ -4,8 +4,8 @@ import {
   FONTS,
   TEXT_SIZE,
   MINUTE,
-  MOON_PHASE_IMAGES,
   MARK_SRC,
+  BATTERY_PHASE_IMAGES,
 } from '../utils/constants';
 
 export const BACKGROUND_IMAGE_PROPS = {
@@ -13,6 +13,13 @@ export const BACKGROUND_IMAGE_PROPS = {
   y: 0,
   src: 'common/background.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const BACKGROUND_AOD_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  src: 'common/background_aod.png',
+  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const MARK_IMAGE_PROPS = {
@@ -53,6 +60,7 @@ export const HOUR_TEXT_PROPS = {
 export const HOUR_AOD_TEXT_PROPS = {
   ...HOUR_TEXT_PROPS,
   color: COLORS.aod,
+  font: FONTS.aod,
   show_level: hmUI.show_level.ONAL_AOD,
 };
 
@@ -73,24 +81,11 @@ export const MINUTE_TEXT_PROPS = {
 export const MINUTE_AOD_TEXT_PROPS = {
   ...MINUTE_TEXT_PROPS,
   color: COLORS.aod,
+  font: FONTS.aod,
   show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const DATE_TEXT_PROPS = {
-  x: px(66),
-  y: px(60),
-  w: px(160),
-  h: px(60),
-  color: COLORS.data,
-  text_size: TEXT_SIZE.data,
-  align_h: hmUI.align.LEFT,
-  align_v: hmUI.align.CENTER_V,
-  font: FONTS.data,
-  text: '00 XXX',
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
-export const WEEKDAY_TEXT_PROPS = {
   x: px(253),
   y: px(60),
   w: px(160),
@@ -100,7 +95,22 @@ export const WEEKDAY_TEXT_PROPS = {
   align_h: hmUI.align.RIGHT,
   align_v: hmUI.align.CENTER_V,
   font: FONTS.data,
-  text: 'XXX',
+  text: 'XXX 00',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const WEATHER_TEXT_PROPS = {
+  x: px(66),
+  y: px(60),
+  w: px(160),
+  h: px(60),
+  align_h: hmUI.align.LEFT,
+  align_v: hmUI.align.CENTER_V,
+  text_size: TEXT_SIZE.data,
+  color: COLORS.data,
+  font: FONTS.data,
+  type: hmUI.data_type.WEATHER_CURRENT,
+  unit_type: 1,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -132,18 +142,18 @@ export const SLEEP_TEXT_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const MOON_LEVEL_PROPS = {
+export const BATTERY_LEVEL_PROPS = {
   x: px(436),
   y: px(226),
-  image_array: MOON_PHASE_IMAGES,
-  image_length: MOON_PHASE_IMAGES.length,
-  type: hmUI.data_type.MOON,
+  image_array: BATTERY_PHASE_IMAGES,
+  image_length: BATTERY_PHASE_IMAGES.length,
+  type: hmUI.data_type.BATTERY,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const DISCONNECT_STATUS_PROPS = {
-  x: px(16),
-  y: px(225),
+  x: px(11),
+  y: px(220),
   type: hmUI.system_status.DISCONNECT,
   src: 'common/disconnect.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
