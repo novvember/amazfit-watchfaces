@@ -21,13 +21,13 @@ const BACKGROUND_SIZE = px(480);
 export const BACKGROUND_IMAGE_PROPS = {
   x: SCREEN.centerX - BACKGROUND_SIZE / 2,
   y: SCREEN.centerY - BACKGROUND_SIZE / 2,
-  src: 'common/background.png',
+  src: 'raw/common/background.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const BACKGROUND_AOD_IMAGE_PROPS = {
   ...BACKGROUND_IMAGE_PROPS,
-  src: 'common/background_aod.png',
+  src: 'raw/common/background_aod.png',
   show_level: hmUI.show_level.ONAL_AOD,
 };
 
@@ -168,6 +168,6 @@ export const DISCONNECT_STATUS_PROPS = {
   x: px(11),
   y: SCREEN.centerY - DISCONNECT_SIZE / 2,
   type: hmUI.system_status.DISCONNECT,
-  src: 'common/disconnect.png',
+  src: 'raw/common/disconnect.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };

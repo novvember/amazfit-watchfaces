@@ -8,10 +8,10 @@ export const COLORS = {
 };
 
 export const FONTS = {
-  minute: 'fonts/FiraSans-Medium.ttf',
-  hour: 'fonts/FiraSans-Medium.ttf',
-  data: 'fonts/FiraSansExtraCondensed-Light.ttf',
-  aod: 'fonts/FiraSans-Light.ttf',
+  minute: 'raw/fonts/FiraSans-Medium.ttf',
+  hour: 'raw/fonts/FiraSans-Medium.ttf',
+  data: 'raw/fonts/FiraSansExtraCondensed-Light.ttf',
+  aod: 'raw/fonts/FiraSans-Light.ttf',
 };
 
 export const TEXT_SIZE = {
@@ -41,11 +41,11 @@ export const WEEKDAYS = [
 
 export const BATTERY_PHASE_IMAGES = new Array(14)
   .fill(null)
-  .map((_, i) => `battery/${i + 1}.png`);
+  .map((_, i) => `raw/battery/${i + 1}.png`);
 
 export const MARK_SRC = {
-  general: 'marks/general.png',
-  accent: 'marks/accent.png',
-  aod: 'marks/aod.png',
-  aodAccent: 'marks/aod_accent.png',
+  general: 'raw/marks/general.png',
+  accent: 'raw/marks/accent.png',
+  aod: 'raw/marks/aod.png',
+  aodAccent: 'raw/marks/aod_accent.png',
 };
