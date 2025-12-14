@@ -6,6 +6,10 @@ import {
   DISK_IMAGE_PROPS,
   DISK_IMAGE_SIZE,
   LINE_IMAGE_PROPS,
+  OVERLAY_CIRCLE_AOD_PROPS,
+  SCREEN_SIZE,
+  WIDGET_AOD_BACKGROUND_PROPS,
+  WIDGET_AOD_TEXT_PROPS,
   WIDGET_BACKGROUND_PROPS,
   WIDGET_TEXT_PROPS,
 } from './index.layout';
@@ -22,6 +26,8 @@ WatchFace({
 
     this.buildTimeWidget();
     this.buildStepsWidget();
+
+    hmUI.createWidget(hmUI.widget.CIRCLE, OVERLAY_CIRCLE_AOD_PROPS);
   },
 
   onDestroy() {
@@ -44,8 +50,8 @@ WatchFace({
       const { x, y } = getCoordsFromAngle(timeAngle);
       const centerX = DISK_IMAGE_CENTER_RADIUS * x + DISK_IMAGE_SIZE;
       const centerY = DISK_IMAGE_CENTER_RADIUS * y + DISK_IMAGE_SIZE;
-      const deltaX = -1 * (centerX - px(480 / 2));
-      const deltaY = -1 * (centerY - px(480 / 2));
+      const deltaX = -1 * (centerX - SCREEN_SIZE / 2);
+      const deltaY = -1 * (centerY - SCREEN_SIZE / 2);
 
       lineWidget.setProperty(hmUI.prop.ANGLE, timeAngle);
 
@@ -80,17 +86,17 @@ WatchFace({
     const WIDTH = px(120);
     const Y = px(60);
 
-    const x = px(480 / 2) - WIDTH / 2;
+    const x = SCREEN_SIZE / 2 - WIDTH / 2;
 
     hmUI.createWidget(hmUI.widget.FILL_RECT, {
-      ...WIDGET_BACKGROUND_PROPS,
+      ...WIDGET_AOD_BACKGROUND_PROPS,
       x,
       y: Y,
       w: WIDTH,
     });
 
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
-      ...WIDGET_TEXT_PROPS,
+      ...WIDGET_AOD_TEXT_PROPS,
       x,
       y: Y,
       w: WIDTH,
@@ -112,7 +118,10 @@ WatchFace({
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+        if (
+          hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE ||
+          hmSetting.getScreenType() == hmSetting.screen_type.AOD
+        ) {
           timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           update();
         }
@@ -127,7 +136,7 @@ WatchFace({
     const WIDTH = px(150);
     const Y = px(368);
 
-    const x = px(480 / 2) - WIDTH / 2;
+    const x = SCREEN_SIZE / 2 - WIDTH / 2;
 
     hmUI.createWidget(hmUI.widget.FILL_RECT, {
       ...WIDGET_BACKGROUND_PROPS,
