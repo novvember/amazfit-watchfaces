@@ -7,9 +7,7 @@ import {
   TIME_TEXTS,
 } from '../utils/constants';
 import { createCircleTextWidget } from '../utils/createCircleTextWidget';
-import {
-  getAngleFromMinutes,
-} from '../utils/getAngleFromTime';
+import { getAngleFromMinutes } from '../utils/getAngleFromTime';
 import { getClosestSunriseSunsetTime } from '../utils/getClosestSunriseSunsetTime';
 import { getCoordsFromAngle } from '../utils/getCoordsFromAngle';
 import { getSleepTimeString } from '../utils/getSleepTime';
@@ -48,18 +46,14 @@ WatchFace({
   build() {
     console.log('watchface building');
 
-    try {
-      this.buildBackgroundAod();
-      this.buildTime();
-      this.buildDate();
-      this.buildBattery();
-      this.buildHeartRate();
-      this.buildSteps();
-      this.buildSleepTime();
-      this.buildDisconnectStatus();
-    } catch (error) {
-      console.log('Caught error', error);
-    }
+    this.buildBackgroundAod();
+    this.buildTime();
+    this.buildDate();
+    this.buildBattery();
+    this.buildHeartRate();
+    this.buildSteps();
+    this.buildSleepTime();
+    this.buildDisconnectStatus();
   },
 
   onDestroy() {
@@ -373,7 +367,7 @@ WatchFace({
       const sunObj = getClosestSunriseSunsetTime(timeSensor, weatherSensor);
 
       if (!sunObj) {
-        update('');
+        updateText('');
       }
 
       const { type, hour, minute } = sunObj;
