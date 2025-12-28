@@ -1,12 +1,12 @@
 {
   "configVersion": "v3",
   "app": {
-    "appId": 1083021,
+    "appId": 1101208,
     "appName": "Elaborate",
     "appType": "watchface",
     "version": {
-      "code": 16,
-      "name": "2.0.2"
+      "code": 17,
+      "name": "2.0.3"
     },
     "icon": "icon.png",
     "vender": "novvember",
@@ -47,9 +47,6 @@
       "appName": "Elaborate"
     },
     "ru-RU": {
-      "appName": "Elaborate"
-    },
-    "uk-UA": {
       "appName": "Elaborate"
     }
   },

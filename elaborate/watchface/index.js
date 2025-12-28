@@ -353,7 +353,7 @@ WatchFace({
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, PULSE_ARC_PROPS);
     hmUI.createWidget(hmUI.widget.IMG, PULSE_ICON_PROPS);
 
-    const prevPointerWidgets = new Array(30)
+    const prevPointerWidgets = new Array(10)
       .fill(null)
       .map(() => hmUI.createWidget(hmUI.widget.IMG, PULSE_PREV_POINTER_PROPS));
 
