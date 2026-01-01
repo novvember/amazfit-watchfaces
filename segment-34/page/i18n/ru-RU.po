@@ -1,0 +1,161 @@
+msgid "mon"
+msgstr "ПН"
+
+msgid "tue"
+msgstr "ВТ"
+
+msgid "wed"
+msgstr "СР"
+
+msgid "thu"
+msgstr "ЧТ"
+
+msgid "fri"
+msgstr "ПТ"
+
+msgid "sat"
+msgstr "СБ"
+
+msgid "sun"
+msgstr "ВС"
+
+msgid "jan"
+msgstr "Янв"
+
+msgid "feb"
+msgstr "Фев"
+
+msgid "mar"
+msgstr "Мар"
+
+msgid "apr"
+msgstr "Апр"
+
+msgid "may"
+msgstr "Май"
+
+msgid "jun"
+msgstr "Июн"
+
+msgid "jul"
+msgstr "Июл"
+
+msgid "aug"
+msgstr "Авг"
+
+msgid "sep"
+msgstr "Сен"
+
+msgid "oct"
+msgstr "Окт"
+
+msgid "nov"
+msgstr "Ноя"
+
+msgid "dec"
+msgstr "Дек"
+
+msgid "cloudy"
+msgstr "ОБЛАЧНО"
+
+msgid "shower"
+msgstr "КРАТКОВРЕМЕННЫЙ ДОЖДЬ"
+
+msgid "snow_shower"
+msgstr "КРАТКОВРЕМЕННЫЙ СНЕГ"
+
+msgid "sunny"
+msgstr "СОЛНЕЧНО"
+
+msgid "overcast"
+msgstr "ПАСМУРНО"
+
+msgid "light_rain"
+msgstr "НЕБОЛЬШОЙ ДОЖДЬ"
+
+msgid "light_snow"
+msgstr "НЕБОЛЬШОЙ СНЕГ"
+
+msgid "moderate_rain"
+msgstr "УМЕРЕННЫЙ ДОЖДЬ"
+
+msgid "moderate_snow"
+msgstr "УМЕРЕННЫЙ СНЕГ"
+
+msgid "heavy_snow"
+msgstr "СИЛЬНЫЙ СНЕГ"
+
+msgid "heavy_rain"
+msgstr "СИЛЬНЫЙ ДОЖДЬ"
+
+msgid "sandstorm"
+msgstr "ПЕСЧАНАЯ БУРЯ"
+
+msgid "sleet"
+msgstr "ДОЖДЬ СО СНЕГОМ"
+
+msgid "fog"
+msgstr "ТУМАН"
+
+msgid "haze"
+msgstr "ДЫМКА"
+
+msgid "thundershower"
+msgstr "ГРОЗА"
+
+msgid "snowstorm"
+msgstr "МЕТЕЛЬ"
+
+msgid "dust"
+msgstr "ПЫЛЬ В ВОЗДУХЕ"
+
+msgid "extraordinary_rainstorm"
+msgstr "ОЧЕНЬ СИЛЬНЫЙ ЛИВЕНЬ"
+
+msgid "rain_with_hail"
+msgstr "ДОЖДЬ С ГРАДОМ"
+
+msgid "thundershowers_with_hail"
+msgstr "ГРОЗА С ГРАДОМ"
+
+msgid "heavy_rainstorm"
+msgstr "СИЛЬНЫЙ ЛИВЕНЬ"
+
+msgid "sand_blowing"
+msgstr "ПЕСОК В ВОЗДУХЕ"
+
+msgid "strong_sandstorm"
+msgstr "СИЛЬНАЯ ПЕСЧАНАЯ БУРЯ"
+
+msgid "rainstorm"
+msgstr "ЛИВЕНЬ"
+
+msgid "empty"
+msgstr "НЕИЗВЕСТНО"
+
+msgid "cloudy_at_night"
+msgstr "ОБЛАЧНО"
+
+msgid "shower_at_night"
+msgstr "КРАТКОВРЕМЕННЫЙ ДОЖДЬ"
+
+msgid "clear_night"
+msgstr "ЯСНО"
+
+msgid "heart_rate"
+msgstr "ПУЛЬС"
+
+msgid "calories"
+msgstr "КАЛОРИИ"
+
+msgid "sleep_time"
+msgstr "ВРЕМЯ СНА"
+
+msgid "steps"
+msgstr "ШАГИ"
+
+msgid "sunrise"
+msgstr "ВОСХОД"
+
+msgid "sunset"
+msgstr "ЗАКАТ"

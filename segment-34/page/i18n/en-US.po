@@ -1,0 +1,161 @@
+msgid "mon"
+msgstr "Mon"
+
+msgid "tue"
+msgstr "Tue"
+
+msgid "wed"
+msgstr "Wed"
+
+msgid "thu"
+msgstr "Thu"
+
+msgid "fri"
+msgstr "Fri"
+
+msgid "sat"
+msgstr "Sat"
+
+msgid "sun"
+msgstr "Sun"
+
+msgid "jan"
+msgstr "Jan"
+
+msgid "feb"
+msgstr "Feb"
+
+msgid "mar"
+msgstr "Mar"
+
+msgid "apr"
+msgstr "Apr"
+
+msgid "may"
+msgstr "May"
+
+msgid "jun"
+msgstr "Jun"
+
+msgid "jul"
+msgstr "Jul"
+
+msgid "aug"
+msgstr "Aug"
+
+msgid "sep"
+msgstr "Sep"
+
+msgid "oct"
+msgstr "Oct"
+
+msgid "nov"
+msgstr "Nov"
+
+msgid "dec"
+msgstr "Dec"
+
+msgid "cloudy"
+msgstr "CLOUDY"
+
+msgid "shower"
+msgstr "SHOWERS"
+
+msgid "snow_shower"
+msgstr "SNOW SHOWERS"
+
+msgid "sunny"
+msgstr "SUNNY"
+
+msgid "overcast"
+msgstr "OVERCAST"
+
+msgid "light_rain"
+msgstr "LIGHT RAIN"
+
+msgid "light_snow"
+msgstr "LIGHT SNOW"
+
+msgid "moderate_rain"
+msgstr "MODERATE RAIN"
+
+msgid "moderate_snow"
+msgstr "MODERATE SNOW"
+
+msgid "heavy_snow"
+msgstr "HEAVY SNOW"
+
+msgid "heavy_rain"
+msgstr "HEAVY RAIN"
+
+msgid "sandstorm"
+msgstr "SANDSTORM"
+
+msgid "sleet"
+msgstr "SLEET"
+
+msgid "fog"
+msgstr "FOG"
+
+msgid "haze"
+msgstr "HAZE"
+
+msgid "thundershower"
+msgstr "THUNDERSTORM"
+
+msgid "snowstorm"
+msgstr "SNOWSTORM"
+
+msgid "dust"
+msgstr "FLOATING DUST"
+
+msgid "extraordinary_rainstorm"
+msgstr "TORRENTIAL RAIN"
+
+msgid "rain_with_hail"
+msgstr "RAIN WITH HAIL"
+
+msgid "thundershowers_with_hail"
+msgstr "THUNDERSTORM WITH HAIL"
+
+msgid "heavy_rainstorm"
+msgstr "HEAVY RAINSTORM"
+
+msgid "sand_blowing"
+msgstr "BLOWING SAND"
+
+msgid "strong_sandstorm"
+msgstr "SEVERE SANDSTORM"
+
+msgid "rainstorm"
+msgstr "RAINSTORM"
+
+msgid "empty"
+msgstr "UNKNOWN"
+
+msgid "cloudy_at_night"
+msgstr "CLOUDY"
+
+msgid "shower_at_night"
+msgstr "SHOWERS"
+
+msgid "clear_night"
+msgstr "CLEAR"
+
+msgid "heart_rate"
+msgstr "HEART RATE"
+
+msgid "calories"
+msgstr "CALORIES"
+
+msgid "sleep_time"
+msgstr "SLEEP TIME"
+
+msgid "steps"
+msgstr "STEPS"
+
+msgid "sunrise"
+msgstr "SUNRISE"
+
+msgid "sunset"
+msgstr "SUNSET"
