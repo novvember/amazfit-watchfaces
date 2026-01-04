@@ -8,6 +8,7 @@ import {
   BATTERY_PROGRESS_PROPS,
   CONNECT_IMAGE_PROPS,
   CONNECT_STATUS_PROPS,
+  DATE_AOD_TEXT_PROPS,
   DATE_TEXT_PROPS,
   MOON_IMAGE_PROPS,
   SECOND_DECORATIVE_TEXT_PROPS,
@@ -18,6 +19,8 @@ import {
   SECONDARY_TITLE_PROPS,
   SUNRISE_TEXT_PROPS,
   SUNSET_TEXT_PROPS,
+  TIME_AOD_GRADIENT_PROPS,
+  TIME_AOD_PROPS,
   TIME_GRADIENT_PROPS,
   TIME_PROPS,
   WEATHER_HUMIDUTY_TEXT_PROPS,
@@ -176,7 +179,10 @@ WatchFace({
 
   buildTime() {
     hmUI.createWidget(hmUI.widget.IMG_TIME, TIME_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG_TIME, TIME_AOD_PROPS);
+
     hmUI.createWidget(hmUI.widget.IMG, TIME_GRADIENT_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, TIME_AOD_GRADIENT_PROPS);
 
     hmUI.createWidget(hmUI.widget.TEXT, SECOND_DECORATIVE_TEXT_PROPS);
     hmUI.createWidget(hmUI.widget.TEXT_FONT, SECOND_TEXT_PROPS);
@@ -184,6 +190,10 @@ WatchFace({
 
   buildDate() {
     const textWidget = hmUI.createWidget(hmUI.widget.TEXT, DATE_TEXT_PROPS);
+    const textAodWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      DATE_AOD_TEXT_PROPS,
+    );
 
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
@@ -195,6 +205,7 @@ WatchFace({
 
       const text = `${weekText}, ${day} ${monthText} ${year}`;
       textWidget.setProperty(hmUI.prop.TEXT, text);
+      textAodWidget.setProperty(hmUI.prop.TEXT, text);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
