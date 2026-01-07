@@ -33,6 +33,7 @@ All of my watchfaces are free to use. However, if you'd like to support further 
 | ![](./slices-of-time/demo.png) <br> [Slices of Time](./slices-of-time/) | ![](./horizon-2/demo.png) <br> [Horizon 2](./horizon-2/) | ![](./glyph-matrix/demo.png) <br> [Glyph Matrix](./glyph-matrix/) | ![](./enigma/demo.png) <br> [Enigma](./enigma/) |
 | ![](./typeface/demo.png) <br> [Typeface](./typeface/) | ![](./typeface-2/demo.png) <br> [Typeface 2](./typeface-2/) | ![](./corsa/demo.png) <br> [Corsa](./corsa/) | ![](./gradient-watch/demo.png) <br> [Gradient Watch](./gradient-watch/) | 
 | ![](./asterisk-artclock/demo.png) <br> [Asterisk Artclock](./asterisk-artclock/) | ![](./nonius/demo.png) <br> [Nonius](./nonius/) | ![](./segment-34/demo.png) <br> [Segment 34](./segment-34/) | ![](./outbound/demo.png) <br> [Outbound](./outbound/) | 
+| ![](./gear-time/demo.png) <br> [Gear Time](./gear-time/) || | | 
 
 ## Repository Structure
 
