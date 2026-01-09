@@ -1,6 +1,6 @@
 import { gettext } from 'i18n';
 
-import { DATE_TEXT_PROPS } from './index.layout';
+import { DATE_TEXT_PROPS, OVERLAY_CIRCLE_AOD_PROPS } from './index.layout';
 import { WheelWidget } from './WheelWidget';
 import { WHEEL_SIZE } from './WheelWidget.layout';
 
@@ -15,6 +15,8 @@ WatchFace({
     console.log('watchface building');
 
     this.buildTime();
+
+    hmUI.createWidget(hmUI.widget.CIRCLE, OVERLAY_CIRCLE_AOD_PROPS);
   },
 
   onDestroy() {

@@ -4,9 +4,7 @@ const hasCustomFontSupport = getHasCustomFontSupport();
 
 const COLOR_PRIMARY = 0xffffff;
 
-const FONT_PRIMARY = hasCustomFontSupport
-  ? 'fonts/Rubik-Light.ttf'
-  : undefined;
+const FONT_PRIMARY = hasCustomFontSupport ? 'fonts/Rubik-Light.ttf' : undefined;
 
 export const DATE_TEXT_PROPS = {
   x: px(140),
@@ -20,4 +18,13 @@ export const DATE_TEXT_PROPS = {
   font: FONT_PRIMARY,
   text: '',
   show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
+};
+
+export const OVERLAY_CIRCLE_AOD_PROPS = {
+  center_x: px(240),
+  center_y: px(240),
+  radius: px(310),
+  color: 0x000000,
+  alpha: 80,
+  show_level: hmUI.show_level.ONAL_AOD,
 };
