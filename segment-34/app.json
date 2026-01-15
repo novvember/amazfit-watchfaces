@@ -5,8 +5,8 @@
     "appName": "Segment 34",
     "appType": "watchface",
     "version": {
-      "code": 2,
-      "name": "1.1.0"
+      "code": 3,
+      "name": "1.1.1"
     },
     "icon": "icon.png",
     "vender": "novvember",

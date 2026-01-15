@@ -1,3 +1,7 @@
+import { getHasCustomFontSupport } from '../utils/getHasCustomFontSupport';
+
+const hasCustomFontSupport = getHasCustomFontSupport();
+
 const TIME_X0 = px(20);
 const TIME_Y0 = px(145);
 const TIME_DIGIT_WIDTH = px(88);
@@ -12,8 +16,8 @@ const COLOR_ACCENT = 0xffa300;
 const COLOR_ACCENT_SECONDARY = 0xe64b00;
 const COLOR_AOD = 0xb1b1b1;
 
-const FONT_PRIMARY = 'fonts/JetBrainsMono-Light.ttf';
-const FONT_SECONDARY = 'fonts/JetBrainsMono-Medium.ttf';
+const FONT_PRIMARY = hasCustomFontSupport ? 'fonts/JetBrainsMono-Light.ttf' : undefined;
+const FONT_SECONDARY = hasCustomFontSupport ? 'fonts/JetBrainsMono-Medium.ttf' : undefined;
 
 export const SECONDARY_DIGIT_WIDTH = px(25);
 
