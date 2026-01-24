@@ -46,7 +46,10 @@ WatchFace({
           x: columnX,
           y: rowY,
           src: getCharSrc(' ', 'white'),
-          show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONLY_EDIT | hmUI.show_level.ONAL_AOD,
+          show_level:
+            hmUI.show_level.ONLY_NORMAL |
+            hmUI.show_level.ONLY_EDIT |
+            hmUI.show_level.ONAL_AOD,
         });
       }
     }
@@ -72,6 +75,10 @@ WatchFace({
       5: ['red', 'white', 'green', 'green', 'green'],
       6: ['blue', 'white', 'white', 'green', 'red'],
     };
+
+    if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
+      return 'grey';
+    }
 
     const colors = COLORS[this.settings.colors] || COLORS[1];
     return colors[rowIndex];
