@@ -4,24 +4,9 @@ import { getDigitsArray } from '../utils/getDigitsArray';
 
 export class TimeWidget {
   constructor(rowIndex, color) {
-    const screenType = hmSetting.getScreenType();
-
-    switch (screenType) {
-      case hmSetting.screen_type.WATCHFACE:
-        this.buildNormal(rowIndex, color);
-        return;
-
-      case hmSetting.screen_type.AOD:
-        this.buildAod(rowIndex, color);
-        return;
-
-      case hmSetting.screen_type.SETTINGS:
-        this.buildEdit(rowIndex, color);
-        return;
-
-      default:
-        console.log('Unknown screen type', screenType);
-    }
+    this.buildNormal(rowIndex, color);
+    this.buildAod(rowIndex, color);
+    this.buildEdit(rowIndex, color);
   }
 
   buildNormal(rowIndex, color) {
@@ -61,60 +46,35 @@ export class TimeWidget {
   }
 
   buildAod(rowIndex, _color) {
-    const colonStaticProps = {
-      x: CHAR_POSITIONS.columnsX[2],
-      y: CHAR_POSITIONS.rowsY[rowIndex],
-      src: getCharSrc(':', 'grey'),
-      show_level: hmUI.show_level.ONAL_AOD,
-    };
-
-    const hourProps = {
+    hmUI.createWidget(hmUI.widget.IMG_TIME, {
       hour_zero: 0,
       hour_startX: CHAR_POSITIONS.columnsX[0],
       hour_startY: CHAR_POSITIONS.rowsY[rowIndex],
       hour_array: getDigitsArray('grey'),
       hour_align: hmUI.align.RIGHT,
-      show_level: hmUI.show_level.ONAL_AOD,
-    };
 
-    const minuteProps = {
+      hour_unit_sc: getCharSrc(':', 'grey'),
+      hour_unit_tc: getCharSrc(':', 'grey'),
+      hour_unit_en: getCharSrc(':', 'grey'),
+
       minute_zero: 1,
       minute_startX: CHAR_POSITIONS.columnsX[3],
       minute_startY: CHAR_POSITIONS.rowsY[rowIndex],
       minute_array: getDigitsArray('grey'),
+
       show_level: hmUI.show_level.ONAL_AOD,
-    };
-
-    hmUI.createWidget(hmUI.widget.IMG, colonStaticProps);
-
-    hmUI.createWidget(hmUI.widget.IMG_TIME, hourProps);
-    hmUI.createWidget(hmUI.widget.IMG_TIME, minuteProps);
+    });
   }
 
   buildEdit(rowIndex, color) {
-    const colonStaticProps = {
-      x: CHAR_POSITIONS.columnsX[2],
-      y: CHAR_POSITIONS.rowsY[rowIndex],
-      src: getCharSrc(':', color),
-      show_level: hmUI.show_level.ONLY_EDIT,
-    };
-
-    const hourFakeProps = {
+    hmUI.createWidget(hmUI.widget.TEXT_IMG, {
       x: CHAR_POSITIONS.columnsX[0],
       y: CHAR_POSITIONS.rowsY[rowIndex],
-      text: 10,
+      text: '10-30',
       font_array: getDigitsArray(color),
+      negative_image: getCharSrc(':', color),
+
       show_level: hmUI.show_level.ONLY_EDIT,
-    };
-
-    const minuteFakeProps = {
-      ...hourFakeProps,
-      x: CHAR_POSITIONS.columnsX[3],
-      text: 30,
-    };
-
-    hmUI.createWidget(hmUI.widget.IMG, colonStaticProps);
-    hmUI.createWidget(hmUI.widget.TEXT_IMG, hourFakeProps);
-    hmUI.createWidget(hmUI.widget.TEXT_IMG, minuteFakeProps);
+    });
   }
 }
