@@ -46,7 +46,7 @@ WatchFace({
           x: columnX,
           y: rowY,
           src: getCharSrc(' ', 'white'),
-          show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONLY_EDIT,
+          show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONLY_EDIT | hmUI.show_level.ONAL_AOD,
         });
       }
     }

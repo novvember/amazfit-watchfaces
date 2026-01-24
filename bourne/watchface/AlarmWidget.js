@@ -17,7 +17,7 @@ export class AlarmWidget {
       invalid_image: getCharSrc('-', color),
       align_h: hmUI.align.LEFT,
       type: hmUI.data_type.ALARM_CLOCK,
-      show_level: hmUI.show_level.ONLY_NORMAL,
+      show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
     };
 
     hmUI.createWidget(hmUI.widget.TEXT_IMG, props);

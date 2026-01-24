@@ -11,7 +11,7 @@ export class CommonTextWidget {
         x: CHAR_POSITIONS.columnsX[i],
         y: CHAR_POSITIONS.rowsY[rowIndex],
         src: getCharSrc(this._chars[i], this._color),
-        show_level: hmUI.show_level.ONLY_NORMAL,
+        show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
       };
 
       return hmUI.createWidget(hmUI.widget.IMG, props);

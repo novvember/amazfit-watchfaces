@@ -8,7 +8,7 @@ export class YearWidget {
       y: CHAR_POSITIONS.rowsY[rowIndex],
       text: 0,
       font_array: getDigitsArray(color),
-      show_level: hmUI.show_level.ONLY_NORMAL,
+      show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
     };
 
     const widget = hmUI.createWidget(hmUI.widget.TEXT_IMG, props);
@@ -22,7 +22,7 @@ export class YearWidget {
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        if (hmSetting.getScreenType() === hmSetting.screen_type.WATCHFACE) {
+        if (hmSetting.getScreenType() === hmSetting.screen_type.WATCHFACE || hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
           update();
         }
       },

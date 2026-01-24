@@ -14,14 +14,14 @@ export class DateWidget {
       day_align: hmUI.align.RIGHT,
       day_zero: isDayFirst ? 0 : 1,
       day_en_array: digitsArray,
-      show_level: hmUI.show_level.ONLY_NORMAL,
+      show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
     };
 
     const deviderProps = {
       x: CHAR_POSITIONS.columnsX[2],
       y: CHAR_POSITIONS.rowsY[rowIndex],
       src: getCharSrc('/', color),
-      show_level: hmUI.show_level.ONLY_NORMAL,
+      show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
     };
 
     const monthProps = {
@@ -30,7 +30,7 @@ export class DateWidget {
       month_align: hmUI.align.RIGHT,
       month_zero: isDayFirst ? 1 : 0,
       month_en_array: digitsArray,
-      show_level: hmUI.show_level.ONLY_NORMAL,
+      show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
     };
 
     hmUI.createWidget(hmUI.widget.IMG_DATE, dayProps);

@@ -28,7 +28,7 @@ export class WorldTimeWidget {
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE || hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
           timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           update();
         }

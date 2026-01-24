@@ -12,7 +12,7 @@ export class HeartRateWidget {
       align_h: hmUI.align.RIGHT,
       invalid_image: getCharSrc('-', color),
       unit_en: getCharSrc('♥', color),
-      show_level: hmUI.show_level.ONLY_NORMAL,
+      show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
     };
 
     hmUI.createWidget(hmUI.widget.TEXT_IMG, props);

@@ -14,7 +14,7 @@ export class DistanceWidget {
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE || hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
           distanceSensor.addEventListener?.(hmSensor.event.CHANGE, update);
           update();
         }
