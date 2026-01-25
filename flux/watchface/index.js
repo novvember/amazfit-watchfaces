@@ -41,6 +41,16 @@ WatchFace({
     return `${color}/${value}.png`;
   },
 
+  getColors(colorTheme, minute) {
+    const topIndex = Number(minute) % 2;
+    const bottomIndex = (Number(minute) + 1) % 2;
+
+    return {
+      top: colorTheme[topIndex],
+      bottom: colorTheme[bottomIndex],
+    };
+  },
+
   buildTime(colorTheme) {
     const is12HourFormat = hmSetting.getTimeFormat() === 0;
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
@@ -48,10 +58,10 @@ WatchFace({
     let updateTimer = undefined;
     let prevTopValue = '';
 
-    const _backgroundTopWidget = hmUI.createWidget(hmUI.widget.FILL_RECT, {
-      ...BACKGROUND_RECT_PROPS,
-      color: colorTheme.BACKGROUND_TOP,
-    });
+    const backgroundTopWidget = hmUI.createWidget(
+      hmUI.widget.FILL_RECT,
+      BACKGROUND_RECT_PROPS,
+    );
 
     const digitTopWidgets = new Array(2)
       .fill(null)
@@ -98,10 +108,20 @@ WatchFace({
 
       prevTopValue = topValue;
 
+      const [backgroundColor, digitColor] = this.getColors(
+        colorTheme,
+        digitValues[1][1],
+      ).top;
+
+      backgroundTopWidget.setProperty(hmUI.prop.MORE, {
+        ...BACKGROUND_RECT_PROPS,
+        color: backgroundColor,
+      });
+
       digitTopWidgets.forEach((array, yIndex) =>
         array.forEach((widget, xIndex) => {
           const value = digitValues[yIndex][xIndex];
-          const src = this.getDigitSrc(colorTheme.DIGITS_TOP, value);
+          const src = this.getDigitSrc(digitColor, value);
 
           widget.setProperty(hmUI.prop.MORE, {
             ...TIME_DIGIT_IMAGE_PROPS,
@@ -131,16 +151,21 @@ WatchFace({
       const digitValues = this.getTimeDigitValues(timeSensor, is12HourFormat);
       const levelY = this.getLevelY(timeSensor);
 
+      const [backgroundColor, digitColor] = this.getColors(
+        colorTheme,
+        digitValues[1][1],
+      ).bottom;
+
       backgroundBottomWidget.setProperty(hmUI.prop.MORE, {
         ...BACKGROUND_RECT_PROPS,
-        color: colorTheme.BACKGROUND_BOTTOM,
+        color: backgroundColor,
         y: levelY,
       });
 
       digitBottomWidgets.forEach((array, yIndex) =>
         array.forEach((widget, xIndex) => {
           const value = digitValues[yIndex][xIndex];
-          const src = this.getDigitSrc(colorTheme.DIGITS_BOTTOM, value);
+          const src = this.getDigitSrc(digitColor, value);
 
           widget.setProperty(hmUI.prop.MORE, {
             ...TIME_DIGIT_IMAGE_PROPS,
