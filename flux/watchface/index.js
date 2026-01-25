@@ -1,6 +1,7 @@
 import { COLOR_THEMES, DIGIT_X, DIGIT_Y } from '../utils/constants';
 import {
   BACKGROUND_RECT_PROPS,
+  TIME_DIGIT_AOD_IMAGE_PROPS,
   TIME_DIGIT_IMAGE_PROPS,
 } from './index.r.layout';
 
@@ -33,7 +34,7 @@ WatchFace({
 
   getLevelY(timeSensor) {
     const { second = 0 } = timeSensor;
-    return px(480) - (second / 60) * px(480);
+    return Math.round(px(480) - (second / 60) * px(480));
   },
 
   getDigitSrc(color, value) {
@@ -45,6 +46,7 @@ WatchFace({
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
     let updateTimer = undefined;
+    let prevTopValue = '';
 
     const _backgroundTopWidget = hmUI.createWidget(hmUI.widget.FILL_RECT, {
       ...BACKGROUND_RECT_PROPS,
@@ -58,6 +60,16 @@ WatchFace({
           .fill(null)
           .map(() =>
             hmUI.createWidget(hmUI.widget.IMG, TIME_DIGIT_IMAGE_PROPS),
+          ),
+      );
+
+    const digitTopAodWidgets = new Array(2)
+      .fill(null)
+      .map(() =>
+        new Array(2)
+          .fill(null)
+          .map(() =>
+            hmUI.createWidget(hmUI.widget.IMG, TIME_DIGIT_AOD_IMAGE_PROPS),
           ),
       );
 
@@ -76,9 +88,15 @@ WatchFace({
           ),
       );
 
-    const update = () => {
+    const updateTop = () => {
       const digitValues = this.getTimeDigitValues(timeSensor, is12HourFormat);
-      const levelY = this.getLevelY(timeSensor);
+      const topValue = digitValues.toString();
+
+      if (topValue === prevTopValue) {
+        return;
+      }
+
+      prevTopValue = topValue;
 
       digitTopWidgets.forEach((array, yIndex) =>
         array.forEach((widget, xIndex) => {
@@ -93,6 +111,25 @@ WatchFace({
           });
         }),
       );
+
+      digitTopAodWidgets.forEach((array, yIndex) =>
+        array.forEach((widget, xIndex) => {
+          const value = digitValues[yIndex][xIndex];
+          const src = this.getDigitSrc('aod', value);
+
+          widget.setProperty(hmUI.prop.MORE, {
+            ...TIME_DIGIT_AOD_IMAGE_PROPS,
+            x: DIGIT_X[xIndex],
+            y: DIGIT_Y[yIndex],
+            src,
+          });
+        }),
+      );
+    };
+
+    const updateBottom = () => {
+      const digitValues = this.getTimeDigitValues(timeSensor, is12HourFormat);
+      const levelY = this.getLevelY(timeSensor);
 
       backgroundBottomWidget.setProperty(hmUI.prop.MORE, {
         ...BACKGROUND_RECT_PROPS,
@@ -117,14 +154,24 @@ WatchFace({
       );
     };
 
+    const update = () => {
+      updateTop();
+      updateBottom();
+    };
+
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           updateTimer = timer.createTimer(1000, 1000, update);
+
           update();
+        } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, updateTop);
+          updateTop();
         }
       },
       pause_call: () => {
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, updateTop);
         timer.stopTimer(updateTimer);
       },
     });

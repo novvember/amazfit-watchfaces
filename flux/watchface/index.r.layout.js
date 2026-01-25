@@ -11,6 +11,11 @@ export const TIME_DIGIT_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
+export const TIME_DIGIT_AOD_IMAGE_PROPS = {
+  ...TIME_DIGIT_IMAGE_PROPS,
+  show_level: hmUI.show_level.ONAL_AOD,
+};
+
 export const BACKGROUND_RECT_PROPS = {
   x: 0,
   y: 0,
