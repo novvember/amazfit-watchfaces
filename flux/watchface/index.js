@@ -56,7 +56,7 @@ WatchFace({
     const max = DIGIT_LAYOUTS.length - 1;
     const i = ((value * 2654435761) >>> 0) % max;
 
-    return DIGIT_LAYOUTS[i];
+    return DIGIT_LAYOUTS[1];
   },
 
   buildTime(colorTheme) {
