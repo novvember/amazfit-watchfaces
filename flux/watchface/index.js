@@ -1,4 +1,4 @@
-import { COLOR_THEMES, DIGIT_X, DIGIT_Y } from '../utils/constants';
+import { COLOR_THEMES, DIGIT_LAYOUTS } from '../utils/constants';
 import {
   BACKGROUND_RECT_PROPS,
   TIME_DIGIT_AOD_IMAGE_PROPS,
@@ -37,8 +37,8 @@ WatchFace({
     return Math.round(px(480) - (second / 60) * px(480));
   },
 
-  getDigitSrc(color, value) {
-    return `${color}/${value}.png`;
+  getDigitSrc(color, type, value) {
+    return `${color}/${type}/${value}.png`;
   },
 
   getColors(colorTheme, minute) {
@@ -49,6 +49,14 @@ WatchFace({
       top: colorTheme[topIndex],
       bottom: colorTheme[bottomIndex],
     };
+  },
+
+  getDigitLayout(digitValues) {
+    const value = Number(digitValues.flat().join(''));
+    const max = DIGIT_LAYOUTS.length - 1;
+    const i = ((value * 2654435761) >>> 0) % max;
+
+    return DIGIT_LAYOUTS[i];
   },
 
   buildTime(colorTheme) {
@@ -108,6 +116,8 @@ WatchFace({
 
       prevTopValue = topValue;
 
+      const digitLayout = this.getDigitLayout(digitValues);
+
       const [backgroundColor, digitColor] = this.getColors(
         colorTheme,
         digitValues[1][1],
@@ -121,12 +131,13 @@ WatchFace({
       digitTopWidgets.forEach((array, yIndex) =>
         array.forEach((widget, xIndex) => {
           const value = digitValues[yIndex][xIndex];
-          const src = this.getDigitSrc(digitColor, value);
+          const { x, y, digitType } = digitLayout[yIndex][xIndex];
+          const src = this.getDigitSrc(digitColor, digitType, value);
 
           widget.setProperty(hmUI.prop.MORE, {
             ...TIME_DIGIT_IMAGE_PROPS,
-            x: DIGIT_X[xIndex],
-            y: DIGIT_Y[yIndex],
+            x,
+            y,
             src,
           });
         }),
@@ -135,12 +146,13 @@ WatchFace({
       digitTopAodWidgets.forEach((array, yIndex) =>
         array.forEach((widget, xIndex) => {
           const value = digitValues[yIndex][xIndex];
-          const src = this.getDigitSrc('aod', value);
+          const { x, y, digitType } = digitLayout[yIndex][xIndex];
+          const src = this.getDigitSrc('aod', digitType, value);
 
           widget.setProperty(hmUI.prop.MORE, {
             ...TIME_DIGIT_AOD_IMAGE_PROPS,
-            x: DIGIT_X[xIndex],
-            y: DIGIT_Y[yIndex],
+            x,
+            y,
             src,
           });
         }),
@@ -150,6 +162,7 @@ WatchFace({
     const updateBottom = () => {
       const digitValues = this.getTimeDigitValues(timeSensor, is12HourFormat);
       const levelY = this.getLevelY(timeSensor);
+      const digitLayout = this.getDigitLayout(digitValues);
 
       const [backgroundColor, digitColor] = this.getColors(
         colorTheme,
@@ -165,14 +178,15 @@ WatchFace({
       digitBottomWidgets.forEach((array, yIndex) =>
         array.forEach((widget, xIndex) => {
           const value = digitValues[yIndex][xIndex];
-          const src = this.getDigitSrc(digitColor, value);
+          const { x, y, digitType } = digitLayout[yIndex][xIndex];
+          const src = this.getDigitSrc(digitColor, digitType, value);
 
           widget.setProperty(hmUI.prop.MORE, {
             ...TIME_DIGIT_IMAGE_PROPS,
-            x: DIGIT_X[xIndex],
+            x,
             y: levelY,
             src,
-            pos_y: DIGIT_Y[yIndex] - levelY,
+            pos_y: y - levelY,
             h: px(480),
           });
         }),
