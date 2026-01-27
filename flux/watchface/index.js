@@ -4,6 +4,7 @@ import {
   TIME_DIGIT_AOD_IMAGE_PROPS,
   TIME_DIGIT_IMAGE_PROPS,
 } from './index.r.layout';
+import { Settings } from './Settings';
 
 WatchFace({
   onInit() {
@@ -13,13 +14,23 @@ WatchFace({
   build() {
     console.log('watchface building');
 
-    const colorTheme = COLOR_THEMES[0];
+    this.buildSettings();
 
+    const colorTheme = this.getColorTheme();
     this.buildTime(colorTheme);
   },
 
   onDestroy() {
     console.log('watchface destroying');
+  },
+
+  buildSettings() {
+    this.settings = new Settings();
+  },
+
+  getColorTheme() {
+    const colorThemeType = this.settings.colors;
+    return COLOR_THEMES[colorThemeType] || COLOR_THEMES[1];
   },
 
   getTimeDigitValues(timeSensor, is12HourFormat) {
