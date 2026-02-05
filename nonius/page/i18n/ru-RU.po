@@ -1,0 +1,41 @@
+msgid "time"
+msgstr "Время"
+
+msgid "steps"
+msgstr "Шаги"
+
+msgid "heart"
+msgstr "Пульс"
+
+msgid "temperature"
+msgstr "Температура"
+
+msgid "battery"
+msgstr "Батарея"
+
+msgid "date"
+msgstr "Дата"
+
+msgid "empty"
+msgstr "Пусто"
+
+msgid "mon"
+msgstr "ПН"
+
+msgid "tue"
+msgstr "ВТ"
+
+msgid "wed"
+msgstr "СР"
+
+msgid "thu"
+msgstr "ЧТ"
+
+msgid "fri"
+msgstr "ПТ"
+
+msgid "sat"
+msgstr "СБ"
+
+msgid "sun"
+msgstr "ВС"
