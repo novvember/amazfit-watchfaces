@@ -21,3 +21,10 @@ export const BACKGROUND_RECT_PROPS = {
   color: 0x000000,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
+
+export const MASK_IMAGE_PROPS = {
+  x: px(-2),
+  y: px(-2),
+  src: 'common/mask.png',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};

@@ -1,6 +1,7 @@
 import { COLOR_THEMES, DIGIT_LAYOUTS } from '../utils/constants';
 import {
   BACKGROUND_RECT_PROPS,
+  MASK_IMAGE_PROPS,
   TIME_DIGIT_AOD_IMAGE_PROPS,
   TIME_DIGIT_IMAGE_PROPS,
 } from './index.r.layout';
@@ -116,6 +117,8 @@ WatchFace({
             hmUI.createWidget(hmUI.widget.IMG, TIME_DIGIT_IMAGE_PROPS),
           ),
       );
+
+    const _maskImage = hmUI.createWidget(hmUI.widget.IMG, MASK_IMAGE_PROPS);
 
     const updateTop = () => {
       const digitValues = this.getTimeDigitValues(timeSensor, is12HourFormat);
