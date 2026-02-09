@@ -4,8 +4,6 @@ const EDIT_GROUPS_PARAMS = [
     props: {
       x: px(180),
       y: px(180),
-      select_image: 'edit/slot_select_0.png',
-      un_select_image: 'edit/slot_unselect_0.png',
     },
   },
 ];
@@ -49,13 +47,21 @@ export class Settings {
 
     const editGroups = editGroupParams.map((editGroupParam, index) =>
       hmUI.createWidget(hmUI.widget.WATCHFACE_EDIT_GROUP, {
+        x: 0,
+        y: 0,
+
         w: px(120),
         h: px(120),
+
         tips_BG: 'edit/tip.png',
         tips_width: px(120),
         tips_margin: px(6),
         tips_x: px(0),
-        tips_y: px(-140),
+        tips_y: px(-40),
+
+        select_image: 'edit/slot_select_0.png',
+        un_select_image: 'edit/slot_unselect_0.png',
+
         edit_id: index,
         optional_types: optionalTypes,
         count: optionalTypes.length,
