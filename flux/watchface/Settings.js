@@ -10,7 +10,7 @@ const EDIT_GROUPS_PARAMS = [
 
 const EDIT_OPTIONAL_TYPES = new Array(11).fill(null).map((_, i) => ({
   type: 100000 + (i + 1),
-  title_en: (i + 1).toString(),
+  title_en: `Colors: ${(i + 1)}`,
   preview: `edit/slot_preview_${i + 1}.png`,
   data: {
     type: (i + 1).toString(),
@@ -19,7 +19,7 @@ const EDIT_OPTIONAL_TYPES = new Array(11).fill(null).map((_, i) => ({
 
 export class Settings {
   constructor() {
-    this._buildBackground();
+    // this._buildBackground();
 
     return this._buildEditWidgets();
   }
