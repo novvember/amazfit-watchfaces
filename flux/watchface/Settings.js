@@ -1,3 +1,5 @@
+import { gettext } from 'i18n';
+
 const EDIT_GROUPS_PARAMS = [
   {
     name: 'colors',
@@ -10,7 +12,7 @@ const EDIT_GROUPS_PARAMS = [
 
 const EDIT_OPTIONAL_TYPES = new Array(11).fill(null).map((_, i) => ({
   type: 100000 + (i + 1),
-  title_en: `Colors: ${(i + 1)}`,
+  title_en: `${gettext('colors')}: ${(i + 1)}`,
   preview: `edit/slot_preview_${i + 1}.png`,
   data: {
     type: (i + 1).toString(),

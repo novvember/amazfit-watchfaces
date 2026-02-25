@@ -1,0 +1,2 @@
+msgid "colors"
+msgstr "颜色"
