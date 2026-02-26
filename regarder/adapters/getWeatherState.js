@@ -1,0 +1,42 @@
+const WEATHER_DESCRIPTIONS = [
+  'cloudy',
+  'shower',
+  'snow_shower',
+  'sunny',
+  'overcast',
+  'light_rain',
+  'light_snow',
+  'moderate_rain',
+  'moderate_snow',
+  'heavy_snow',
+  'heavy_rain',
+  'sandstorm',
+  'sleet',
+  'fog',
+  'haze',
+  'thundershower',
+  'snowstorm',
+  'dust',
+  'extraordinary_rainstorm',
+  'rain_with_hail',
+  'thundershowers_with_hail',
+  'heavy_rainstorm',
+  'sand_blowing',
+  'strong_sandstorm',
+  'rainstorm',
+  'empty',
+  'cloudy_at_night',
+  'shower_at_night',
+  'clear_night',
+];
+
+export function getWeatherState(weatherSensor) {
+  const iconIndex = weatherSensor.curAirIconIndex;
+  const hasIcon = !isNaN(iconIndex) && iconIndex !== 25;
+
+  if (!hasIcon) {
+    return;
+  }
+
+  return WEATHER_DESCRIPTIONS[iconIndex];
+}

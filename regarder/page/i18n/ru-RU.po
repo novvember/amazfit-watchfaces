@@ -1,0 +1,146 @@
+msgid "mon"
+msgstr "ПН"
+
+msgid "tue"
+msgstr "ВТ"
+
+msgid "wed"
+msgstr "СР"
+
+msgid "thu"
+msgstr "ЧТ"
+
+msgid "fri"
+msgstr "ПТ"
+
+msgid "sat"
+msgstr "СБ"
+
+msgid "sun"
+msgstr "ВС"
+
+msgid "steps"
+msgstr "Шаги"
+
+msgid "battery"
+msgstr "Батарея"
+
+msgid "sleep"
+msgstr "Сон"
+
+msgid "time"
+msgstr "Время"
+
+msgid "empty"
+msgstr "Пусто"
+
+msgid "date"
+msgstr "Дата"
+
+msgid "calories"
+msgstr "Калории"
+
+msgid "heart"
+msgstr "Пульс"
+
+msgid "pai"
+msgstr "PAI"
+
+msgid "pai total"
+msgstr "PAI (итого)"
+
+msgid "weather"
+msgstr "Погода"
+
+msgid "cloudy"
+msgstr "облачно"
+
+msgid "shower"
+msgstr "дождь"
+
+msgid "snow_shower"
+msgstr "снег"
+
+msgid "sunny"
+msgstr "солнечно"
+
+msgid "overcast"
+msgstr "пасмурно"
+
+msgid "light_rain"
+msgstr "дождь"
+
+msgid "light_snow"
+msgstr "снег"
+
+msgid "moderate_rain"
+msgstr "дождь"
+
+msgid "moderate_snow"
+msgstr "снег"
+
+msgid "heavy_snow"
+msgstr "снегопад"
+
+msgid "heavy_rain"
+msgstr "ливень"
+
+msgid "sandstorm"
+msgstr "буря"
+
+msgid "sleet"
+msgstr "дождь"
+
+msgid "fog"
+msgstr "туман"
+
+msgid "haze"
+msgstr "дымка"
+
+msgid "thundershower"
+msgstr "гроза"
+
+msgid "snowstorm"
+msgstr "метель"
+
+msgid "dust"
+msgstr "пыль"
+
+msgid "extraordinary_rainstorm"
+msgstr "ливень"
+
+msgid "rain_with_hail"
+msgstr "град"
+
+msgid "thundershowers_with_hail"
+msgstr "гроза"
+
+msgid "heavy_rainstorm"
+msgstr "ливень"
+
+msgid "sand_blowing"
+msgstr "песок"
+
+msgid "strong_sandstorm"
+msgstr "буря"
+
+msgid "rainstorm"
+msgstr "ливень"
+
+msgid "cloudy_at_night"
+msgstr "облачно"
+
+msgid "shower_at_night"
+msgstr "дождь"
+
+msgid "clear_night"
+msgstr "ясно"
+
+msgid "sun"
+msgstr "Солнце"
+
+msgid "sunset"
+msgstr "Закат"
+
+msgid "sunrise"
+msgstr "Рассвет"

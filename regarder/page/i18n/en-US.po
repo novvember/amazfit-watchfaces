@@ -1,0 +1,146 @@
+msgid "mon"
+msgstr "Mon"
+
+msgid "tue"
+msgstr "Tue"
+
+msgid "wed"
+msgstr "Wed"
+
+msgid "thu"
+msgstr "Thu"
+
+msgid "fri"
+msgstr "Fri"
+
+msgid "sat"
+msgstr "Sat"
+
+msgid "sun"
+msgstr "Sun"
+
+msgid "steps"
+msgstr "Steps"
+
+msgid "battery"
+msgstr "Battery"
+
+msgid "sleep"
+msgstr "Sleep"
+
+msgid "time"
+msgstr "Time"
+
+msgid "empty"
+msgstr "Empty"
+
+msgid "date"
+msgstr "Date"
+
+msgid "calories"
+msgstr "Calories"
+
+msgid "heart"
+msgstr "Heart"
+
+msgid "pai"
+msgstr "PAI"
+
+msgid "pai total"
+msgstr "PAI Total"
+
+msgid "weather"
+msgstr "Weather"
+
+msgid "cloudy"
+msgstr "cloudy"
+
+msgid "shower"
+msgstr "shower"
+
+msgid "snow_shower"
+msgstr "snow"
+
+msgid "sunny"
+msgstr "sunny"
+
+msgid "overcast"
+msgstr "overcast"
+
+msgid "light_rain"
+msgstr "rain"
+
+msgid "light_snow"
+msgstr "snow"
+
+msgid "moderate_rain"
+msgstr "rain"
+
+msgid "moderate_snow"
+msgstr "snow"
+
+msgid "heavy_snow"
+msgstr "snowfall"
+
+msgid "heavy_rain"
+msgstr "downpour"
+
+msgid "sandstorm"
+msgstr "sand"
+
+msgid "sleet"
+msgstr "sleet"
+
+msgid "fog"
+msgstr "fog"
+
+msgid "haze"
+msgstr "haze"
+
+msgid "thundershower"
+msgstr "thunder"
+
+msgid "snowstorm"
+msgstr "blizzard"
+
+msgid "dust"
+msgstr "dust"
+
+msgid "extraordinary_rainstorm"
+msgstr "downpour"
+
+msgid "rain_with_hail"
+msgstr "hail"
+
+msgid "thundershowers_with_hail"
+msgstr "thunder"
+
+msgid "heavy_rainstorm"
+msgstr "downpour"
+
+msgid "sand_blowing"
+msgstr "sand"
+
+msgid "strong_sandstorm"
+msgstr "sand"
+
+msgid "rainstorm"
+msgstr "downpour"
+
+msgid "cloudy_at_night"
+msgstr "cloudy"
+
+msgid "shower_at_night"
+msgstr "shower"
+
+msgid "clear_night"
+msgstr "clear"
+
+msgid "sun"
+msgstr "Sun"
+
+msgid "sunset"
+msgstr "Sunset"
+
+msgid "sunrise"
+msgstr "Sunrise"
