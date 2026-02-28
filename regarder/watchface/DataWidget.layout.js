@@ -1,4 +1,4 @@
-export const WIDGET_WIDTH = px(120);
+export const WIDGET_WIDTH = px(130);
 export const WIDGET_HEIGHT = px(60);
 
 const FONT = 'fonts/Inter_18pt-Regular.ttf';

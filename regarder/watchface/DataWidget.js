@@ -6,7 +6,13 @@ import {
 } from './DataWidget.layout';
 
 export class DataWidget {
-  constructor({ x, y, primaryDataType, primaryDataUnits = false }) {
+  constructor({
+    x,
+    y,
+    primaryDataType,
+    primaryDataUnits = false,
+    primaryPadding,
+  }) {
     this._group = hmUI.createWidget(hmUI.widget.GROUP, {
       x,
       y,
@@ -24,6 +30,7 @@ export class DataWidget {
         ...PRIMARY_TEXT_PROPS,
         type: primaryDataType,
         unit_type: primaryDataUnits ? 1 : 0,
+        padding: primaryPadding,
       });
     } else {
       this._primaryText = this._group.createWidget(hmUI.widget.TEXT, {
@@ -34,7 +41,10 @@ export class DataWidget {
   }
 
   setSecondaryText(text) {
-    this._secondaryText.setProperty(hmUI.prop.TEXT, text.toString().toUpperCase());
+    this._secondaryText.setProperty(
+      hmUI.prop.TEXT,
+      text.toString().toUpperCase(),
+    );
   }
 
   setPrimaryText(text) {

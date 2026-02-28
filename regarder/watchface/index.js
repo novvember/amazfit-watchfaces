@@ -1,4 +1,6 @@
+import { AlarmDataWidget } from './AlarmDataWidget';
 import { BatteryDataWidget } from './BatteryDataWidget';
+import { BiochargeDataWidget } from './BiochargeDataWidget';
 import { CaloriesDataWidget } from './CaloriesDataWidget';
 import { DateDataWidget } from './DateDataWidget';
 import { HeartDataWidget } from './HeartDataWidget';
@@ -11,12 +13,15 @@ import {
   TIME_POINTER_PROPS,
 } from './index.r.layout';
 import { PaiDataWidget } from './PaiDataWidget';
+import { ReadinessDataWidget } from './ReadinessDataWidget';
+import { RecoveryDataWidget } from './RecoveryDataWidget';
 import { Settings } from './Settings';
 import { SleepDataWidget } from './SleepDataWidget';
 import { StepsDataWidget } from './StepsDataWidget';
 import { SunDataWidget } from './SunDataWidget';
 import { TimeDataWidget } from './TimeDataWidget';
 import { WeatherDataWidget } from './WeatherDataWidget';
+import { WorldClockDataWidget } from './WorldClockDataWidget';
 
 WatchFace({
   onInit() {
@@ -167,6 +172,54 @@ WatchFace({
           y,
           weatherSensor: this._weatherSensor,
           timeSensor: this._timeSensor,
+        });
+
+        break;
+
+      case 'biocharge':
+        new BiochargeDataWidget({
+          x,
+          y,
+        });
+
+        break;
+
+      case 'recovery':
+        new RecoveryDataWidget({
+          x,
+          y,
+        });
+
+        break;
+
+      case 'readiness':
+        new ReadinessDataWidget({
+          x,
+          y,
+        });
+
+        break;
+
+      case 'alarm':
+        new AlarmDataWidget({
+          x,
+          y,
+        });
+
+        break;
+
+      case 'world-clock':
+        this._worldClockSensor =
+          this._worldClockSensor ||
+          hmSensor.createSensor(hmSensor.id.WORLD_CLOCK);
+        this._timeSensor =
+          this._timeSensor || hmSensor.createSensor(hmSensor.id.TIME);
+
+        new WorldClockDataWidget({
+          x,
+          y,
+          timeSensor: this._timeSensor,
+          worldClockSensor: this._worldClockSensor,
         });
 
         break;

@@ -144,3 +144,26 @@ msgstr "Закат"
 
 msgid "sunrise"
 msgstr "Рассвет"
+
+msgid "biocharge"
+msgstr "BioCharge"
+
+msgid "recovery time"
+msgstr "Время восстановления"
+
+msgid "hours"
+msgstr "часов"
+
+msgid "readiness"
+msgstr "Готовность"
+
+msgid "alarm time"
+msgstr "Время будильника"
+
+msgid "alarm"
+msgstr "Сигнал"
+
+msgid "world clock"
+msgstr "Мировое время"
+
+

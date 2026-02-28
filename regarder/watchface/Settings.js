@@ -112,6 +112,46 @@ const EDIT_OPTIONAL_TYPES = [
       type: 'sun',
     },
   },
+  {
+    type: 100011,
+    title_en: gettext('biocharge'),
+    preview: 'edit/slot_preview.png',
+    data: {
+      type: 'biocharge',
+    },
+  },
+  {
+    type: 100012,
+    title_en: gettext('recovery time'),
+    preview: 'edit/slot_preview.png',
+    data: {
+      type: 'recovery',
+    },
+  },
+  {
+    type: 100013,
+    title_en: gettext('readiness'),
+    preview: 'edit/slot_preview.png',
+    data: {
+      type: 'readiness',
+    },
+  },
+  {
+    type: 100014,
+    title_en: gettext('alarm time'),
+    preview: 'edit/slot_preview.png',
+    data: {
+      type: 'alarm',
+    },
+  },
+  {
+    type: 100015,
+    title_en: gettext('world clock'),
+    preview: 'edit/slot_preview.png',
+    data: {
+      type: 'world-clock',
+    },
+  },
 
   {
     type: 100100,

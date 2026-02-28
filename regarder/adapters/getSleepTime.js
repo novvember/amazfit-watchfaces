@@ -34,7 +34,7 @@ export function getSleepTime(sleepSensor) {
   }
 
   return {
-    time: '-:--',
+    time: '—',
     hours: 0,
   };
 }

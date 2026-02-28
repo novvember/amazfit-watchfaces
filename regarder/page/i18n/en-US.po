@@ -144,3 +144,24 @@ msgstr "Sunset"
 
 msgid "sunrise"
 msgstr "Sunrise"
+
+msgid "biocharge"
+msgstr "BioCharge"
+
+msgid "recovery time"
+msgstr "Recovery Time"
+
+msgid "hours"
+msgstr "hours"
+
+msgid "readiness"
+msgstr "Readiness"
+
+msgid "alarm time"
+msgstr "Alarm Time"
+
+msgid "alarm"
+msgstr "Alarm"
+
+msgid "world clock"
+msgstr "World Clock"
