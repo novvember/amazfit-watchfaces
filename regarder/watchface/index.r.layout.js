@@ -88,3 +88,11 @@ export const OVERLAY_CIRCLE_AOD_PROPS = {
   alpha: 90,
   show_level: hmUI.show_level.ONAL_AOD,
 };
+
+export const DISCONNECT_STATUS_PROPS = {
+  x: px(219),
+  y: px(430),
+  type: hmUI.system_status.DISCONNECT,
+  src: 'disconnect/disconnect.png',
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};

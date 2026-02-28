@@ -7,6 +7,7 @@ import { HeartDataWidget } from './HeartDataWidget';
 import { DATA_WIDGET_COORDS } from './index.const';
 import {
   BACKGROUND_AOD_IMAGE_PROPS,
+  DISCONNECT_STATUS_PROPS,
   EDIT_BACKGROUND_PROPS,
   OVERLAY_CIRCLE_AOD_PROPS,
   TIME_POINTER_AOD_PROPS,
@@ -36,6 +37,7 @@ WatchFace({
     this.buildBackground();
     this.buildDataWidgets();
     this.buildTime();
+    this.buildDisconnectStatus();
 
     hmUI.createWidget(hmUI.widget.CIRCLE, OVERLAY_CIRCLE_AOD_PROPS);
   },
@@ -227,5 +229,9 @@ WatchFace({
       default:
         break;
     }
+  },
+
+  buildDisconnectStatus() {
+    hmUI.createWidget(hmUI.widget.IMG_STATUS, DISCONNECT_STATUS_PROPS);
   },
 });
