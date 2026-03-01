@@ -136,9 +136,6 @@ msgstr "дождь"
 msgid "clear_night"
 msgstr "ясно"
 
-msgid "sun"
-msgstr "Солнце"
-
 msgid "sunset"
 msgstr "Закат"
 

@@ -136,9 +136,6 @@ msgstr "shower"
 msgid "clear_night"
 msgstr "clear"
 
-msgid "sun"
-msgstr "Sun"
-
 msgid "sunset"
 msgstr "Sunset"
 

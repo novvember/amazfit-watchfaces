@@ -20,8 +20,8 @@ export class SunDataWidget {
     const sunEvent = getClosestSunEvent(this._weatherSensor, this._timeSensor);
 
     if (!sunEvent) {
-      this._widget.setSecondaryText(gettext('sun'));
-      this._widget.setPrimaryText('-:--');
+      this._widget.setSecondaryText(gettext('sunset'));
+      this._widget.setPrimaryText('—');
       return;
     }
 
