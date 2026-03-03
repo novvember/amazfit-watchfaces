@@ -11,7 +11,7 @@ import {
 } from './DateWidget.layout';
 import { gettext } from 'i18n';
 
-const DATE_RADIUS = px(300 / 2);
+const DATE_RADIUS = px(282 / 2);
 
 const ROTATION_CENTER_X = px(240);
 const ROTATION_CENTER_Y = px(240);
