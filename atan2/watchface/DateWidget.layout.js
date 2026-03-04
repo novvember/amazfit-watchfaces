@@ -1,14 +1,14 @@
 export const GROUP_PROPS = {
   x: 0,
   y: 0,
-  w: px(150),
+  w: px(136),
   h: px(40),
 };
 
 export const WEEKDAY_TEXT_PROPS = {
   x: px(0),
   y: px(0),
-  w: px(80),
+  w: px(75),
   h: px(40),
   color: 0xffffff,
   text_size: px(40),
@@ -20,7 +20,7 @@ export const WEEKDAY_TEXT_PROPS = {
 };
 
 export const DOT_IMAGE_PROPS = {
-  x: px(74),
+  x: px(69),
   y: px(4),
   w: px(32),
   h: px(32),
@@ -31,6 +31,6 @@ export const DOT_IMAGE_PROPS = {
 export const DATE_TEXT_PROPS = {
   ...WEEKDAY_TEXT_PROPS,
   align_h: hmUI.align.LEFT,
-  x: px(100),
-  w: px(50),
+  x: px(95),
+  w: px(45),
 };
