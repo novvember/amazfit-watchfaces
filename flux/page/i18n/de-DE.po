@@ -1,2 +1,5 @@
 msgid "colors"
 msgstr "Farben"
+
+msgid "Choose color scheme:"
+msgstr "Farbschema wählen:"

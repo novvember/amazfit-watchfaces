@@ -4,7 +4,7 @@ const EDIT_GROUPS_PARAMS = [
   {
     name: 'colors',
     props: {
-      x: px(180),
+      x: px(300),
       y: px(180),
     },
   },
@@ -12,7 +12,7 @@ const EDIT_GROUPS_PARAMS = [
 
 const EDIT_OPTIONAL_TYPES = new Array(11).fill(null).map((_, i) => ({
   type: 100000 + (i + 1),
-  title_en: `${gettext('colors')}: ${(i + 1)}`,
+  title_en: `${gettext('colors')}: ${i + 1}`,
   preview: `edit/slot_preview_${i + 1}.png`,
   data: {
     type: (i + 1).toString(),
@@ -21,7 +21,7 @@ const EDIT_OPTIONAL_TYPES = new Array(11).fill(null).map((_, i) => ({
 
 export class Settings {
   constructor() {
-    // this._buildBackground();
+    this._buildBackground();
 
     return this._buildEditWidgets();
   }
@@ -36,6 +36,22 @@ export class Settings {
       color: 0xffffff,
       text: 'Flux',
       align_h: hmUI.align.CENTER_H,
+      align_v: hmUI.align.CENTER_V,
+      char_space: 0,
+      line_space: 0,
+      show_level: hmUI.show_level.ONLY_EDIT,
+    });
+
+    hmUI.createWidget(hmUI.widget.TEXT, {
+      x: px(40),
+      y: 0,
+      w: px(200),
+      h: px(480),
+      text_size: px(28),
+      color: 0xffffff,
+      text: gettext('Choose color scheme:'),
+      text_style: hmUI.text_style.WRAP,
+      align_h: hmUI.align.LEFT,
       align_v: hmUI.align.CENTER_V,
       char_space: 0,
       line_space: 0,
