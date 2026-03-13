@@ -4,10 +4,10 @@ const path = require('path');
 const cwd = process.env.INIT_CWD;
 const projectRoot = path.join(__dirname, '..');
 
-// Verify the script is run from watchfaces/*
+// Verify the script is run from src/watchfaces/*
 const relativePath = path.relative(projectRoot, cwd).replace(/\\/g, '/');
-if (!relativePath.startsWith('watchfaces/')) {
-  console.error('❌ Run this script from a watchfaces/<project-name> folder');
+if (!relativePath.startsWith('src/watchfaces/')) {
+  console.error('❌ Run this script from a src/watchfaces/<project-name> folder');
   console.error(`   Current directory: ${relativePath}`);
   process.exit(1);
 }

@@ -22,28 +22,31 @@ All of my watchfaces are free to use. However, if you'd like to support further 
 
 | | | | |
 |:---:|:---:|:---:|:---:|
-| ![](./watchfaces/text-lines/demo.png) <br> [Text Lines](./watchfaces/text-lines/) | ![](./watchfaces/spin/demo.png) <br> [Spin](./watchfaces/spin/) | ![](./watchfaces/gauge/demo.png) <br> [Gauge](./watchfaces/gauge/) | ![](./watchfaces/bourne/demo.png) <br> [Bourne](./watchfaces/bourne/) |
-| ![](./watchfaces/celeste/demo.png) <br> [Celeste](./watchfaces/celeste/) | ![](./watchfaces/nothing-dial/demo.png) <br> [Nothing Dial](./watchfaces/nothing-dial/) | ![](./watchfaces/spin-2/demo.png) <br> [Spin 2](./watchfaces/spin-2/) | ![](./watchfaces/11-weeks/demo.png) <br> [11 weeks](./watchfaces/11-weeks/) |
-| ![](./watchfaces/verbarius/demo.png) <br> [Verbarius](./watchfaces/verbarius/) | ![](./watchfaces/elaborate/demo.png) <br> [Elaborate](./watchfaces/elaborate/) | ![](./watchfaces/nothing-sector/demo.png) <br> [Sektor](./watchfaces/nothing-sector/) | ![](./watchfaces/solar-circle/demo.png) <br> [Solar circle](./watchfaces/solar-circle/) |
-| ![](./watchfaces/anicorn-k452-nemesis/demo.png) <br> [Anicorn K452 Nemesis](./watchfaces/anicorn-k452-nemesis/) | ![](./watchfaces/spin-3/demo.png) <br> [Spin 3](./watchfaces/spin-3/) | ![](./watchfaces/x-shock/demo.png) <br> [X-Shock](./watchfaces/x-shock/) | ![](./watchfaces/grotesque/demo.png) <br> [Grotesque](./watchfaces/grotesque/) |
-| ![](./watchfaces/time-machine/demo.png) <br> [Time Machine](./watchfaces/time-machine/) | ![](./watchfaces/concentric-data/demo.png) <br> [Concentric Data](./watchfaces/concentric-data/) | ![](./watchfaces/opposite-time/demo.png) <br> [Opposite Time](./watchfaces/opposite-time/) | ![](./watchfaces/sometimes/demo.png) <br> [Sometimes](./watchfaces/sometimes/) |
-| ![](./watchfaces/rider-1991/demo.png) <br> [Rider 1991](./watchfaces/rider-1991/) | ![](./watchfaces/kinetik/demo.png) <br> [Kinetik](./watchfaces/kinetik/) | ![](./watchfaces/repelling-radial/demo.png) <br> [Repelling Radial](./watchfaces/repelling-radial/) | ![](./watchfaces/modular/demo.png) <br> [Modular](./watchfaces/modular/) |
-| ![](./watchfaces/ara/demo.png) <br> [Ara](./watchfaces/ara/) | ![](./watchfaces/symmetry-broken/demo.png) <br> [Symmetry Broken](./watchfaces/symmetry-broken/) | ![](./watchfaces/regulus/demo.png) <br> [Regulus](./watchfaces/regulus/) | ![](./watchfaces/horizon/demo.png) <br> [Horizon](./watchfaces/horizon/) |
-| ![](./watchfaces/circlock/demo.png) <br> [Circlock](./watchfaces/circlock/) | ![](./watchfaces/needle/demo.png) <br> [Needle](./watchfaces/needle/) | ![](./watchfaces/astro/demo.png) <br> [Astro](./watchfaces/astro/) | ![](./watchfaces/gyroscope/demo.png) <br> [Gyroscope](./watchfaces/gyroscope/) |
-| ![](./watchfaces/slices-of-time/demo.png) <br> [Slices of Time](./watchfaces/slices-of-time/) | ![](./watchfaces/horizon-2/demo.png) <br> [Horizon 2](./watchfaces/horizon-2/) | ![](./watchfaces/glyph-matrix/demo.png) <br> [Glyph Matrix](./watchfaces/glyph-matrix/) | ![](./watchfaces/enigma/demo.png) <br> [Enigma](./watchfaces/enigma/) |
-| ![](./watchfaces/typeface/demo.png) <br> [Typeface](./watchfaces/typeface/) | ![](./watchfaces/typeface-2/demo.png) <br> [Typeface 2](./watchfaces/typeface-2/) | ![](./watchfaces/corsa/demo.png) <br> [Corsa](./watchfaces/corsa/) | ![](./watchfaces/gradient-watch/demo.png) <br> [Gradient Watch](./watchfaces/gradient-watch/) | 
-| ![](./watchfaces/asterisk-artclock/demo.png) <br> [Asterisk Artclock](./watchfaces/asterisk-artclock/) | ![](./watchfaces/nonius/demo.png) <br> [Nonius](./watchfaces/nonius/) | ![](./watchfaces/segment-34/demo.png) <br> [Segment 34](./watchfaces/segment-34/) | ![](./watchfaces/outbound/demo.png) <br> [Outbound](./watchfaces/outbound/) | 
-| ![](./watchfaces/gear-time/demo.png) <br> [Gear Time](./watchfaces/gear-time/) | ![](./watchfaces/flux/demo.png) <br> [Flux](./watchfaces/flux/) | ![](./watchfaces/fluid-pixels/demo.png) <br> [Fluid Pixels](./watchfaces/fluid-pixels/) | ![](./watchfaces/regarder/demo.png) <br> [Regarder](./watchfaces/regarder/) | 
-| ![](./watchfaces/atan2/demo.png) <br> [atan2](./watchfaces/atan2/) |  |  |  | 
+| ![](./src/watchfaces/text-lines/demo.png) <br> [Text Lines](./src/watchfaces/text-lines/) | ![](./src/watchfaces/spin/demo.png) <br> [Spin](./src/watchfaces/spin/) | ![](./src/watchfaces/gauge/demo.png) <br> [Gauge](./src/watchfaces/gauge/) | ![](./src/watchfaces/bourne/demo.png) <br> [Bourne](./src/watchfaces/bourne/) |
+| ![](./src/watchfaces/celeste/demo.png) <br> [Celeste](./src/watchfaces/celeste/) | ![](./src/watchfaces/nothing-dial/demo.png) <br> [Nothing Dial](./src/watchfaces/nothing-dial/) | ![](./src/watchfaces/spin-2/demo.png) <br> [Spin 2](./src/watchfaces/spin-2/) | ![](./src/watchfaces/11-weeks/demo.png) <br> [11 weeks](./src/watchfaces/11-weeks/) |
+| ![](./src/watchfaces/verbarius/demo.png) <br> [Verbarius](./src/watchfaces/verbarius/) | ![](./src/watchfaces/elaborate/demo.png) <br> [Elaborate](./src/watchfaces/elaborate/) | ![](./src/watchfaces/nothing-sector/demo.png) <br> [Sektor](./src/watchfaces/nothing-sector/) | ![](./src/watchfaces/solar-circle/demo.png) <br> [Solar circle](./src/watchfaces/solar-circle/) |
+| ![](./src/watchfaces/anicorn-k452-nemesis/demo.png) <br> [Anicorn K452 Nemesis](./src/watchfaces/anicorn-k452-nemesis/) | ![](./src/watchfaces/spin-3/demo.png) <br> [Spin 3](./src/watchfaces/spin-3/) | ![](./src/watchfaces/x-shock/demo.png) <br> [X-Shock](./src/watchfaces/x-shock/) | ![](./src/watchfaces/grotesque/demo.png) <br> [Grotesque](./src/watchfaces/grotesque/) |
+| ![](./src/watchfaces/time-machine/demo.png) <br> [Time Machine](./src/watchfaces/time-machine/) | ![](./src/watchfaces/concentric-data/demo.png) <br> [Concentric Data](./src/watchfaces/concentric-data/) | ![](./src/watchfaces/opposite-time/demo.png) <br> [Opposite Time](./src/watchfaces/opposite-time/) | ![](./src/watchfaces/sometimes/demo.png) <br> [Sometimes](./src/watchfaces/sometimes/) |
+| ![](./src/watchfaces/rider-1991/demo.png) <br> [Rider 1991](./src/watchfaces/rider-1991/) | ![](./src/watchfaces/kinetik/demo.png) <br> [Kinetik](./src/watchfaces/kinetik/) | ![](./src/watchfaces/repelling-radial/demo.png) <br> [Repelling Radial](./src/watchfaces/repelling-radial/) | ![](./src/watchfaces/modular/demo.png) <br> [Modular](./src/watchfaces/modular/) |
+| ![](./src/watchfaces/ara/demo.png) <br> [Ara](./src/watchfaces/ara/) | ![](./src/watchfaces/symmetry-broken/demo.png) <br> [Symmetry Broken](./src/watchfaces/symmetry-broken/) | ![](./src/watchfaces/regulus/demo.png) <br> [Regulus](./src/watchfaces/regulus/) | ![](./src/watchfaces/horizon/demo.png) <br> [Horizon](./src/watchfaces/horizon/) |
+| ![](./src/watchfaces/circlock/demo.png) <br> [Circlock](./src/watchfaces/circlock/) | ![](./src/watchfaces/needle/demo.png) <br> [Needle](./src/watchfaces/needle/) | ![](./src/watchfaces/astro/demo.png) <br> [Astro](./src/watchfaces/astro/) | ![](./src/watchfaces/gyroscope/demo.png) <br> [Gyroscope](./src/watchfaces/gyroscope/) |
+| ![](./src/watchfaces/slices-of-time/demo.png) <br> [Slices of Time](./src/watchfaces/slices-of-time/) | ![](./src/watchfaces/horizon-2/demo.png) <br> [Horizon 2](./src/watchfaces/horizon-2/) | ![](./src/watchfaces/glyph-matrix/demo.png) <br> [Glyph Matrix](./src/watchfaces/glyph-matrix/) | ![](./src/watchfaces/enigma/demo.png) <br> [Enigma](./src/watchfaces/enigma/) |
+| ![](./src/watchfaces/typeface/demo.png) <br> [Typeface](./src/watchfaces/typeface/) | ![](./src/watchfaces/typeface-2/demo.png) <br> [Typeface 2](./src/watchfaces/typeface-2/) | ![](./src/watchfaces/corsa/demo.png) <br> [Corsa](./src/watchfaces/corsa/) | ![](./src/watchfaces/gradient-watch/demo.png) <br> [Gradient Watch](./src/watchfaces/gradient-watch/) | 
+| ![](./src/watchfaces/asterisk-artclock/demo.png) <br> [Asterisk Artclock](./src/watchfaces/asterisk-artclock/) | ![](./src/watchfaces/nonius/demo.png) <br> [Nonius](./src/watchfaces/nonius/) | ![](./src/watchfaces/segment-34/demo.png) <br> [Segment 34](./src/watchfaces/segment-34/) | ![](./src/watchfaces/outbound/demo.png) <br> [Outbound](./src/watchfaces/outbound/) | 
+| ![](./src/watchfaces/gear-time/demo.png) <br> [Gear Time](./src/watchfaces/gear-time/) | ![](./src/watchfaces/flux/demo.png) <br> [Flux](./src/watchfaces/flux/) | ![](./src/watchfaces/fluid-pixels/demo.png) <br> [Fluid Pixels](./src/watchfaces/fluid-pixels/) | ![](./src/watchfaces/regarder/demo.png) <br> [Regarder](./src/watchfaces/regarder/) | 
+| ![](./src/watchfaces/atan2/demo.png) <br> [atan2](./src/watchfaces/atan2/) |  |  |  | 
 
 ## Repository Structure
 
 ```
-├── scripts/ # Utility scripts 
-├── watchfaces/ # Watchface mini-projects
-│ ├── 11-weeks/
-│ ├── ara/
-│ └── ...
+├── scripts/          # Utility scripts
+├── src/
+│   ├── watchfaces/   # Watchface mini-projects
+│   │   ├── face-1/
+│   │   ├── face-2/
+│   │   ├── face-3/
+│   │   └── ...
+│   └── types/        # Type declarations
 └── README.md
 ```
 
