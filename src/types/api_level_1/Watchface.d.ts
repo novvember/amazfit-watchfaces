@@ -5,5 +5,5 @@ declare function WatchFace(descriptor: {
   onInit?: () => void;
   build?: () => void;
   onDestroy?: () => void;
-  [key: string]: unknown;
+  [key: string]: () => unknown;
 }): void;
