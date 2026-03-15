@@ -2,8 +2,8 @@
  * Zepp Watchface
  */
 declare function WatchFace(descriptor: {
-  onInit?: (params?: string) => void;
-  build?: (params?: string) => void;
+  onInit?: () => void;
+  build?: () => void;
   onDestroy?: () => void;
-  [key: string]: any;
+  [key: string]: unknown;
 }): void;

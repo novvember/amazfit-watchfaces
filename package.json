@@ -1,8 +1,5 @@
 {
   "scripts": {
     "build": "node scripts/build.js"
-  },
-  "devDependencies": {
-    "@zeppos/device-types": "^3.0.1"
   }
 }
