@@ -34,7 +34,7 @@ All of my watchfaces are free to use. However, if you'd like to support further 
 | ![](./src/watchfaces/typeface/demo.png) <br> [Typeface](./src/watchfaces/typeface/) | ![](./src/watchfaces/typeface-2/demo.png) <br> [Typeface 2](./src/watchfaces/typeface-2/) | ![](./src/watchfaces/corsa/demo.png) <br> [Corsa](./src/watchfaces/corsa/) | ![](./src/watchfaces/gradient-watch/demo.png) <br> [Gradient Watch](./src/watchfaces/gradient-watch/) | 
 | ![](./src/watchfaces/asterisk-artclock/demo.png) <br> [Asterisk Artclock](./src/watchfaces/asterisk-artclock/) | ![](./src/watchfaces/nonius/demo.png) <br> [Nonius](./src/watchfaces/nonius/) | ![](./src/watchfaces/segment-34/demo.png) <br> [Segment 34](./src/watchfaces/segment-34/) | ![](./src/watchfaces/outbound/demo.png) <br> [Outbound](./src/watchfaces/outbound/) | 
 | ![](./src/watchfaces/gear-time/demo.png) <br> [Gear Time](./src/watchfaces/gear-time/) | ![](./src/watchfaces/flux/demo.png) <br> [Flux](./src/watchfaces/flux/) | ![](./src/watchfaces/fluid-pixels/demo.png) <br> [Fluid Pixels](./src/watchfaces/fluid-pixels/) | ![](./src/watchfaces/regarder/demo.png) <br> [Regarder](./src/watchfaces/regarder/) | 
-| ![](./src/watchfaces/atan2/demo.png) <br> [atan2](./src/watchfaces/atan2/) |  |  |  | 
+| ![](./src/watchfaces/atan2/demo.png) <br> [atan2](./src/watchfaces/atan2/) | ![](./src/watchfaces/echo/demo.png) <br> [Echo](./src/watchfaces/echo/)  |  |  | 
 
 ## Repository Structure
 
