@@ -1,15 +1,14 @@
 import { getCoordsFromAngle } from '../../../utils/getCoordsFromAngle';
-import { WEEKDAYS, DATA } from '../utils/constants';
+import { DATA } from '../utils/constants';
 import { createCircleTextWidget } from '../utils/createCircleTextWidget';
 import { getClosestSunriseSunsetTime } from '../utils/getClosestSunriseSunsetTime';
 import { getSleepTimeString } from '../utils/getSleepTime';
 import { getTimeString } from '../utils/getTimeString';
+import { DateWidget } from './DateWidget';
 import {
   BATTERY_BACKGROUND_ARC_PROPS,
   BATTERY_CIRCLE_TEXT_PROPS,
   BATTERY_CURRENT_ARC_PROPS,
-  DATE_DAY_TEXT_PROPS,
-  DATE_WEEK_TEXT_PROPS,
   DISCONNECT_ICON_PROPS,
   HEART_BACKGROUND_ARC_PROPS,
   HEART_CIRCLE_TEXT_PROPS,
@@ -52,27 +51,8 @@ WatchFace({
   },
 
   buildDate() {
-    const dateText = hmUI.createWidget(hmUI.widget.TEXT, DATE_DAY_TEXT_PROPS);
-    const weekText = hmUI.createWidget(hmUI.widget.TEXT, DATE_WEEK_TEXT_PROPS);
-
-    const timeSensor = this._timeSensor;
-
-    const update = () => {
-      const { day = 0, week = 1 } = timeSensor;
-      dateText.setProperty(hmUI.prop.TEXT, day.toString());
-      weekText.setProperty(hmUI.prop.TEXT, WEEKDAYS[week - 1]);
-    };
-
-    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
-      resume_call: () => {
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
-          update();
-        }
-      },
-      pause_call: () => {
-        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
-      },
+    new DateWidget({
+      timeSensor: this._timeSensor,
     });
   },
 

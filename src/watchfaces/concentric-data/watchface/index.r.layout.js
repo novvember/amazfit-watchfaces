@@ -1,32 +1,5 @@
-import { COLORS, DATA, DATE, FONTS, SCREEN } from '../utils/constants';
-
-export const DATE_DAY_TEXT_PROPS = {
-  x: SCREEN.centerX - DATA.radius - DATE.width / 2,
-  y: SCREEN.centerY,
-  w: DATE.width,
-  h: DATE.height,
-  color: COLORS.primary,
-  text_size: DATE.textSize,
-  align_h: hmUI.align.CENTER_H,
-  align_v: hmUI.align.CENTER_V,
-  font: FONTS.primary,
-  text: '00',
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
-
-export const DATE_WEEK_TEXT_PROPS = {
-  x: SCREEN.centerX - DATA.radius - DATE.width / 2,
-  y: SCREEN.centerY - DATE.height,
-  w: DATE.width,
-  h: DATE.height,
-  color: COLORS.primary,
-  text_size: DATE.textSize,
-  align_h: hmUI.align.CENTER_H,
-  align_v: hmUI.align.CENTER_V,
-  font: FONTS.primary,
-  text: 'XX',
-  show_level: hmUI.show_level.ONLY_NORMAL,
-};
+import { DATA } from '../utils/constants';
+import { COLORS } from './index.const';
 
 export const BATTERY_CIRCLE_TEXT_PROPS = {
   radius: DATA.radius - DATA.circleText.imageHeight / 2,
@@ -41,8 +14,8 @@ export const BATTERY_CIRCLE_TEXT_PROPS = {
 };
 
 export const BATTERY_BACKGROUND_ARC_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
+  center_x: px(240),
+  center_y: px(240),
   radius: DATA.radius,
   start_angle: 135,
   end_angle: 170,
@@ -65,8 +38,8 @@ export const HEART_CIRCLE_TEXT_PROPS = {
 };
 
 export const HEART_BACKGROUND_ARC_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
+  center_x: px(240),
+  center_y: px(240),
   radius: DATA.radius,
   start_angle: 215,
   end_angle: 250,
@@ -99,8 +72,8 @@ export const STEPS_CIRCLE_TEXT_PROPS = {
 };
 
 export const STEPS_BACKGROUND_ARC_PROPS = {
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerY,
+  center_x: px(240),
+  center_y: px(240),
   radius: DATA.radius,
   start_angle: 290,
   end_angle: 325,

@@ -15,21 +15,6 @@ import {
  * @property {HmSensorInstance} timeSensor
  */
 
-const TIME_TEXTS = [
-  '00',
-  '05',
-  '10',
-  '15',
-  '20',
-  '25',
-  '30',
-  '35',
-  '40',
-  '45',
-  '50',
-  '55',
-];
-
 export class TimeWidget {
   /**
    * @param {TimeWidgetParams} Params
@@ -46,8 +31,8 @@ export class TimeWidget {
       imageProps: MINUTE_IMAGE_PROPS,
       textProps: MINUTE_TEXT_PROPS,
       textsRadius: MINUTE_TEXTS_RADIUS,
-      getTextImageSrc: (index) =>
-        MINUTE_TEXT_PROPS.src.replace('%s', TIME_TEXTS[index]),
+      getTextImageSrc: (text) =>
+        MINUTE_TEXT_PROPS.src.replace('%s', text),
     });
 
     hmUI.createWidget(hmUI.widget.IMG, MINUTE_AOD_IMAGE_PROPS);

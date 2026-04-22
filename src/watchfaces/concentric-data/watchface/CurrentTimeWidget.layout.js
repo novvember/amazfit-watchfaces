@@ -1,11 +1,5 @@
 import { getIs12HourFormat } from '../../../adapters/getIs12HourFormat';
-import {
-  COLORS,
-  CURRENT_HOUR,
-  CURRENT_MINUTE,
-  FONTS,
-  SCREEN,
-} from '../utils/constants';
+import { COLORS, FONTS } from './index.const';
 
 export const FRAME_IMAGE_PROPS = {
   x: px(296),
@@ -22,12 +16,12 @@ export const FRAME_AOD_IMAGE_PROPS = {
 };
 
 export const CURRENT_HOUR_TEXT_PROPS = {
-  x: SCREEN.centerX - CURRENT_HOUR.width / 2,
-  y: SCREEN.centerY - CURRENT_HOUR.height / 2,
-  w: CURRENT_HOUR.width,
-  h: CURRENT_HOUR.height,
-  color: CURRENT_HOUR.color,
-  text_size: CURRENT_HOUR.textSize,
+  x: px(180),
+  y: px(185),
+  w: px(120),
+  h: px(110),
+  color: COLORS.primary,
+  text_size: px(110),
   align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.CENTER_V,
   font: FONTS.primary,
@@ -44,12 +38,12 @@ export const CURRENT_HOUR_AOD_TEXT_PROPS = {
 };
 
 export const CURRENT_MINUTE_TEXT_PROPS = {
-  x: SCREEN.centerX + CURRENT_MINUTE.radius - CURRENT_MINUTE.width / 2,
-  y: SCREEN.centerY - CURRENT_MINUTE.height / 2,
-  w: CURRENT_MINUTE.width,
-  h: CURRENT_MINUTE.height,
-  color: CURRENT_MINUTE.color,
-  text_size: CURRENT_MINUTE.textSize,
+  x: px(312),
+  y: px(210),
+  w: px(60),
+  h: px(60),
+  color: COLORS.primary,
+  text_size: px(54),
   align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.CENTER_V,
   font: FONTS.primary,

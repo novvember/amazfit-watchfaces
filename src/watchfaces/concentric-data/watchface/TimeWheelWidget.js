@@ -5,8 +5,23 @@ import { getCoordsFromAngle } from '../../../utils/getCoordsFromAngle';
  * @property {HmWidgetProps} imageProps
  * @property {HmWidgetProps} textProps
  * @property {number} textsRadius
- * @property {(index: number) => string} getTextImageSrc
+ * @property {(text: string) => string} getTextImageSrc
  */
+
+const TIME_TEXTS = [
+  '00',
+  '05',
+  '10',
+  '15',
+  '20',
+  '25',
+  '30',
+  '35',
+  '40',
+  '45',
+  '50',
+  '55',
+];
 
 export class TimeWheelWidget {
   /**
@@ -21,7 +36,7 @@ export class TimeWheelWidget {
     this._textWidgets = new Array(12).fill(null).map((_, i) =>
       hmUI.createWidget(hmUI.widget.IMG, {
         ...textProps,
-        src: getTextImageSrc(i),
+        src: getTextImageSrc(TIME_TEXTS[i]),
       }),
     );
   }
