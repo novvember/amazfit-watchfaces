@@ -165,6 +165,10 @@ declare namespace hmUI {
     readonly PAI_WEEKLY: number;
     /** Readiness */
     readonly READINESS: number;
+    /** Current hour value (for TEXT_FONT) */
+    readonly HOUR: number;
+    /** Current minute value (for TEXT_FONT) */
+    readonly MINUTE: number;
     /** Current second value (for TEXT_FONT) */
     readonly SECOND: number;
     /** Stand count */

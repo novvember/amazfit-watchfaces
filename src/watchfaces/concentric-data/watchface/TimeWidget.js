@@ -1,10 +1,12 @@
 import { getMinuteAngle } from '../../../utils/getTimeAngles';
 import { CurrentTimeWidget } from './CurrentTimeWidget';
-import { MIN_ANGLE_TO_UPDATE_WHEEL, MINUTE_TEXTS_RADIUS } from './index.const';
+import { MINUTE_TEXTS_RADIUS } from './index.const';
 import { TimeWheelWidget } from './TimeWheelWidget';
 import {
+  MINUTE_AOD_IMAGE_PROPS,
   MINUTE_IMAGE_PROPS,
   MINUTE_TEXT_PROPS,
+  SECOND_AOD_IMAGE_PROPS,
   SECOND_IMAGE_PROPS,
 } from './TimeWidget.layout';
 
@@ -35,11 +37,10 @@ export class TimeWidget {
   constructor({ timeSensor }) {
     this._timeSensor = timeSensor;
 
-    this._prevMinuteAngle = Infinity;
-    this._prevCurrentHour = Infinity;
-    this._prevCurrentMinute = Infinity;
+    this._prevMinute = Infinity;
 
-    hmUI.createWidget(hmUI.widget.IMG, SECOND_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.TIME_POINTER, SECOND_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, SECOND_AOD_IMAGE_PROPS);
 
     this._timeWheelWidget = new TimeWheelWidget({
       imageProps: MINUTE_IMAGE_PROPS,
@@ -48,6 +49,8 @@ export class TimeWidget {
       getTextImageSrc: (index) =>
         MINUTE_TEXT_PROPS.src.replace('%s', TIME_TEXTS[index]),
     });
+
+    hmUI.createWidget(hmUI.widget.IMG, MINUTE_AOD_IMAGE_PROPS);
 
     this._currentTimeWidget = new CurrentTimeWidget();
 
@@ -58,39 +61,16 @@ export class TimeWidget {
    * @param {HmSensorInstance} timeSensor
    */
   _updateMinuteWheel(timeSensor) {
-    const { minute = 0, second = 0 } = timeSensor;
-    const angle = (90 + getMinuteAngle(minute, second)) % 360;
-    const shouldUpdate =
-      Math.abs(angle - this._prevMinuteAngle) >= MIN_ANGLE_TO_UPDATE_WHEEL &&
-      Math.abs(360 - angle + this._prevMinuteAngle) >=
-        MIN_ANGLE_TO_UPDATE_WHEEL;
+    const { minute = 0 } = timeSensor;
 
-    if (!shouldUpdate) {
+    if (this._prevMinute === minute) {
       return;
     }
 
-    this._prevMinuteAngle = angle;
+    this._prevMinute = minute;
 
+    const angle = (90 + getMinuteAngle(minute)) % 360;
     this._timeWheelWidget.update(angle);
-  }
-
-  /**
-   * @param {HmSensorInstance} timeSensor
-   */
-  _updateCurrentTime(timeSensor) {
-    const { hour = 0, minute = 0 } = timeSensor;
-
-    const shouldUpdate =
-      hour !== this._prevCurrentHour || minute !== this._prevCurrentMinute;
-
-    if (!shouldUpdate) {
-      return;
-    }
-
-    this._prevCurrentHour = hour;
-    this._prevCurrentMinute = minute;
-
-    this._currentTimeWidget.update(timeSensor);
   }
 
   _bindHandlers() {
@@ -98,11 +78,6 @@ export class TimeWidget {
 
     const update = () => {
       this._updateMinuteWheel(timeSensor);
-      this._updateCurrentTime(timeSensor);
-    };
-
-    const updateAod = () => {
-      this._updateCurrentTime(timeSensor);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
@@ -110,14 +85,10 @@ export class TimeWidget {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
           timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           update();
-        } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
-          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, updateAod);
-          updateAod();
         }
       },
       pause_call: () => {
         timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
-        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, updateAod);
       },
     });
   }

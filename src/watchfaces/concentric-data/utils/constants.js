@@ -60,7 +60,7 @@ export const MINUTE = {
 };
 
 export const CURRENT_HOUR = {
-  width: px(110),
+  width: px(120),
   height: px(110),
   textSize: hasCustomFontSupport ? px(110) : px(100),
   color: COLORS.primary,

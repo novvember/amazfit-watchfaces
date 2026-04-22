@@ -5,7 +5,6 @@ import { getClosestSunriseSunsetTime } from '../utils/getClosestSunriseSunsetTim
 import { getSleepTimeString } from '../utils/getSleepTime';
 import { getTimeString } from '../utils/getTimeString';
 import {
-  BACKGROUND_IMAGE_AOD_PROPS,
   BATTERY_BACKGROUND_ARC_PROPS,
   BATTERY_CIRCLE_TEXT_PROPS,
   BATTERY_CURRENT_ARC_PROPS,
@@ -33,7 +32,6 @@ WatchFace({
 
     this._timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
-    this.buildBackgroundAod();
     this.buildTime();
     this.buildDate();
     this.buildBattery();
@@ -45,10 +43,6 @@ WatchFace({
 
   onDestroy() {
     console.log('watchface destroying');
-  },
-
-  buildBackgroundAod() {
-    hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_IMAGE_AOD_PROPS);
   },
 
   buildTime() {

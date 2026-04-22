@@ -15,13 +15,15 @@ export class TimeWheelWidget {
   constructor({ imageProps, textProps, textsRadius, getTextImageSrc }) {
     this._baseTextWidgetProps = textProps;
     this._textsRadius = textsRadius;
-    this._getTextImageSrc = getTextImageSrc;
 
     this._imageWidget = hmUI.createWidget(hmUI.widget.IMG, imageProps);
 
-    this._textWidgets = new Array(12)
-      .fill(null)
-      .map(() => hmUI.createWidget(hmUI.widget.IMG, textProps));
+    this._textWidgets = new Array(12).fill(null).map((_, i) =>
+      hmUI.createWidget(hmUI.widget.IMG, {
+        ...textProps,
+        src: getTextImageSrc(i),
+      }),
+    );
   }
 
   /**
@@ -42,12 +44,8 @@ export class TimeWheelWidget {
         rotationCenterY: px(240),
       });
 
-      textWidget.setProperty(hmUI.prop.MORE, {
-        ...this._baseTextWidgetProps,
-        x,
-        y,
-        src: this._getTextImageSrc(i),
-      });
+      textWidget.setProperty(hmUI.prop.X, x);
+      textWidget.setProperty(hmUI.prop.Y, y);
     });
   }
 }

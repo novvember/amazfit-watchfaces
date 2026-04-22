@@ -1,12 +1,5 @@
 import { COLORS, DATA, DATE, FONTS, SCREEN } from '../utils/constants';
 
-export const BACKGROUND_IMAGE_AOD_PROPS = {
-  x: 0,
-  y: 0,
-  src: 'aod/background.png',
-  show_level: hmUI.show_level.ONAL_AOD,
-};
-
 export const DATE_DAY_TEXT_PROPS = {
   x: SCREEN.centerX - DATA.radius - DATE.width / 2,
   y: SCREEN.centerY,

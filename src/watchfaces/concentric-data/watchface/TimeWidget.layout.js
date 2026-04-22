@@ -1,17 +1,22 @@
-import { MINUTE, SCREEN, SECOND } from '../utils/constants';
+import { MINUTE, SCREEN } from '../utils/constants';
 
 export const SECOND_IMAGE_PROPS = {
+  second_centerX: px(240),
+  second_centerY: px(240),
+  second_posX: px(240),
+  second_posY: px(240),
+  second_path: 'time/second.png',
+
+  fresh_frequency: 10,
+
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const SECOND_AOD_IMAGE_PROPS = {
   x: 0,
   y: 0,
-  pos_x: SCREEN.centerX - SECOND.image.size / 2,
-  pos_y: SCREEN.centerY - SECOND.image.size / 2,
-  w: SCREEN.width,
-  h: SCREEN.height,
-  src: SECOND.image.src,
-  center_x: SCREEN.centerX,
-  center_y: SCREEN.centerX,
-  angle: 0,
-  show_level: hmUI.show_level.ONLY_NORMAL,
+  src: 'time/second_aod.png',
+  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const MINUTE_IMAGE_PROPS = {
@@ -26,6 +31,13 @@ export const MINUTE_IMAGE_PROPS = {
   center_y: SCREEN.centerX,
   angle: 0,
   show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const MINUTE_AOD_IMAGE_PROPS = {
+  x: px(84),
+  y: px(84),
+  src: 'time/minute_aod.png',
+  show_level: hmUI.show_level.ONAL_AOD,
 };
 
 export const MINUTE_TEXT_PROPS = {
