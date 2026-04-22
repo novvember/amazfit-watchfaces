@@ -4,7 +4,7 @@ import {
   TEXT_CHARS,
 } from '../utils/textChars';
 
-import { getHasCustomFontSupport } from './getHasCustomFontSupport';
+import { getHasCustomFontSupport } from '../../../adapters/getHasCustomFontSupport';
 
 const hasCustomFontSupport = getHasCustomFontSupport();
 
@@ -36,21 +36,6 @@ export const FONTS = {
     : undefined,
 };
 
-export const TIME_TEXTS = [
-  '00',
-  '05',
-  '10',
-  '15',
-  '20',
-  '25',
-  '30',
-  '35',
-  '40',
-  '45',
-  '50',
-  '55',
-];
-
 export const SECOND = {
   image: {
     src: 'time/second.png',
@@ -71,7 +56,6 @@ export const MINUTE = {
   text: {
     width: px(34),
     height: px(24),
-    radius: px(110),
   },
 };
 
@@ -89,8 +73,6 @@ export const CURRENT_MINUTE = {
   color: COLORS.primary,
   radius: px(102),
 };
-
-export const MIN_ANGLE_TO_UPDATE_WHEEL = 0.7;
 
 export const DATE = {
   width: px(60),

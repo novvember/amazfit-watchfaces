@@ -1,15 +1,7 @@
-import {
-  MINUTE,
-  SCREEN,
-  MIN_ANGLE_TO_UPDATE_WHEEL,
-  WEEKDAYS,
-  DATA,
-  TIME_TEXTS,
-} from '../utils/constants';
+import { getCoordsFromAngle } from '../../../utils/getCoordsFromAngle';
+import { WEEKDAYS, DATA } from '../utils/constants';
 import { createCircleTextWidget } from '../utils/createCircleTextWidget';
-import { getAngleFromMinutes } from '../utils/getAngleFromTime';
 import { getClosestSunriseSunsetTime } from '../utils/getClosestSunriseSunsetTime';
-import { getCoordsFromAngle } from '../utils/getCoordsFromAngle';
 import { getSleepTimeString } from '../utils/getSleepTime';
 import { getTimeString } from '../utils/getTimeString';
 import {
@@ -17,26 +9,19 @@ import {
   BATTERY_BACKGROUND_ARC_PROPS,
   BATTERY_CIRCLE_TEXT_PROPS,
   BATTERY_CURRENT_ARC_PROPS,
-  CURRENT_HOUR_AOD_TEXT_PROPS,
-  CURRENT_HOUR_TEXT_PROPS,
-  CURRENT_MINUTE_AOD_TEXT_PROPS,
-  CURRENT_MINUTE_TEXT_PROPS,
   DATE_DAY_TEXT_PROPS,
   DATE_WEEK_TEXT_PROPS,
   DISCONNECT_ICON_PROPS,
-  FRAME_IMAGE_PROPS,
   HEART_BACKGROUND_ARC_PROPS,
   HEART_CIRCLE_TEXT_PROPS,
   HEART_CURRENT_ARC_PROPS,
   HEART_DOT_PROPS,
-  MINUTE_IMAGE_PROPS,
-  MINUTE_TEXT_PROPS,
-  SECOND_IMAGE_PROPS,
   SLEEP_CIRCLE_TEXT_PROPS,
   STEPS_BACKGROUND_ARC_PROPS,
   STEPS_CIRCLE_TEXT_PROPS,
   STEPS_CURRENT_ARC_PROPS,
 } from './index.r.layout';
+import { TimeWidget } from './TimeWidget';
 
 WatchFace({
   onInit() {
@@ -45,6 +30,8 @@ WatchFace({
 
   build() {
     console.log('watchface building');
+
+    this._timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
     this.buildBackgroundAod();
     this.buildTime();
@@ -65,137 +52,8 @@ WatchFace({
   },
 
   buildTime() {
-    hmUI.createWidget(hmUI.widget.IMG, SECOND_IMAGE_PROPS);
-
-    const minuteImage = hmUI.createWidget(hmUI.widget.IMG, MINUTE_IMAGE_PROPS);
-    const minuteTexts = new Array(12)
-      .fill(null)
-      .map(() => hmUI.createWidget(hmUI.widget.IMG, MINUTE_TEXT_PROPS));
-
-    hmUI.createWidget(hmUI.widget.IMG, FRAME_IMAGE_PROPS);
-
-    const currentHourText = hmUI.createWidget(
-      hmUI.widget.TEXT,
-      CURRENT_HOUR_TEXT_PROPS,
-    );
-    const currentMinuteText = hmUI.createWidget(
-      hmUI.widget.TEXT,
-      CURRENT_MINUTE_TEXT_PROPS,
-    );
-
-    const currentHourAodText = hmUI.createWidget(
-      hmUI.widget.TEXT,
-      CURRENT_HOUR_AOD_TEXT_PROPS,
-    );
-    const currentMinuteAodText = hmUI.createWidget(
-      hmUI.widget.TEXT,
-      CURRENT_MINUTE_AOD_TEXT_PROPS,
-    );
-
-    let prevMinuteAngle = Infinity;
-    let prevCurrentHour = Infinity;
-    let prevCurrentMinute = Infinity;
-
-    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
-
-    const updateWheel = (
-      angle,
-      imageWidget,
-      textWidgets,
-      textWidgetProps,
-      textWidgetRadius,
-    ) => {
-      imageWidget.setProperty(hmUI.prop.ANGLE, angle);
-
-      textWidgets.forEach((textWidget, i) => {
-        const textAngle = (angle - (i * 360) / 12) % 360;
-        const { x, y } = getCoordsFromAngle(
-          textAngle,
-          textWidgetRadius,
-          textWidgetProps.h,
-          textWidgetProps.w,
-          SCREEN,
-        );
-
-        textWidget.setProperty(hmUI.prop.MORE, {
-          ...textWidgetProps,
-          x,
-          y,
-          src: textWidgetProps.src.replace('%s', TIME_TEXTS[i]),
-        });
-      });
-    };
-
-    const updateMinute = (timeSensor) => {
-      const { minute = 0, second = 0 } = timeSensor;
-      const angle = (90 + getAngleFromMinutes(minute, second)) % 360;
-      const shouldUpdate =
-        Math.abs(angle - prevMinuteAngle) >= MIN_ANGLE_TO_UPDATE_WHEEL &&
-        Math.abs(360 - angle + prevMinuteAngle) >= MIN_ANGLE_TO_UPDATE_WHEEL;
-
-      if (!shouldUpdate) {
-        return;
-      }
-
-      prevMinuteAngle = angle;
-
-      updateWheel(
-        angle,
-        minuteImage,
-        minuteTexts,
-        MINUTE_TEXT_PROPS,
-        MINUTE.text.radius,
-      );
-    };
-
-    const updateCurrentTime = (timeSensor) => {
-      const { hour = 0, minute = 0 } = timeSensor;
-      const shouldUpdate =
-        hour !== prevCurrentHour || minute !== prevCurrentMinute;
-
-      if (!shouldUpdate) {
-        return;
-      }
-
-      prevCurrentHour = hour;
-      prevCurrentMinute = minute;
-
-      const is12HourFormat = hmSetting.getTimeFormat() === 0;
-      const hourValue = is12HourFormat ? hour % 12 || 12 : hour;
-      const hourText = hourValue.toString();
-
-      const minuteText = minute.toString().padStart(2, '0');
-
-      currentHourText.setProperty(hmUI.prop.TEXT, hourText);
-      currentMinuteText.setProperty(hmUI.prop.TEXT, minuteText);
-
-      currentHourAodText.setProperty(hmUI.prop.TEXT, hourText);
-      currentMinuteAodText.setProperty(hmUI.prop.TEXT, minuteText);
-    };
-
-    const update = () => {
-      updateMinute(timeSensor);
-      updateCurrentTime(timeSensor);
-    };
-
-    const updateAod = () => {
-      updateCurrentTime(timeSensor);
-    };
-
-    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
-      resume_call: () => {
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
-          update();
-        } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
-          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, updateAod);
-          updateAod();
-        }
-      },
-      pause_call: () => {
-        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
-        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, updateAod);
-      },
+    new TimeWidget({
+      timeSensor: this._timeSensor,
     });
   },
 
@@ -203,7 +61,7 @@ WatchFace({
     const dateText = hmUI.createWidget(hmUI.widget.TEXT, DATE_DAY_TEXT_PROPS);
     const weekText = hmUI.createWidget(hmUI.widget.TEXT, DATE_WEEK_TEXT_PROPS);
 
-    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+    const timeSensor = this._timeSensor;
 
     const update = () => {
       const { day = 0, week = 1 } = timeSensor;
@@ -282,13 +140,14 @@ WatchFace({
       const { last = 0, today = [] } = heartSensor;
 
       const dotAngle = getAnglePosition(last);
-      const { x, y } = getCoordsFromAngle(
-        dotAngle,
-        DATA.radius,
-        HEART_DOT_PROPS.h,
-        HEART_DOT_PROPS.w,
-        SCREEN,
-      );
+      const { x, y } = getCoordsFromAngle({
+        degrees: dotAngle,
+        radius: DATA.radius,
+        widgetHeight: HEART_DOT_PROPS.h,
+        widgetWidth: HEART_DOT_PROPS.w,
+        rotationCenterX: px(240),
+        rotationCenterY: px(240),
+      });
 
       const minValue = Math.min(...today);
       const maxValue = Math.max(...today);
@@ -356,7 +215,7 @@ WatchFace({
     const { updateText } = createCircleTextWidget(SLEEP_CIRCLE_TEXT_PROPS);
 
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
-    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+    const timeSensor = this._timeSensor;
     const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
 
     const showSleepTime = (sleepTimeString) => {

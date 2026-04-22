@@ -3,8 +3,8 @@
  * @param {Number} seconds
  * @returns {Number}
  */
-export function getAngleFromSeconds(seconds) {
-  return seconds * 6;
+export function getSecondAngle(seconds) {
+  return (seconds * 6) % 360;
 }
 
 /**
@@ -13,7 +13,7 @@ export function getAngleFromSeconds(seconds) {
  * @param {Number} seconds
  * @returns {Number}
  */
-export function getAngleFromMinutes(minutes, seconds = 0) {
+export function getMinuteAngle(minutes, seconds = 0) {
   return ((minutes + seconds / 60) * 360) / 60;
 }
 
@@ -22,7 +22,7 @@ export function getAngleFromMinutes(minutes, seconds = 0) {
  * @param {Number} hours
  * @returns {Number}
  */
-export function getAngleFromHours(hours) {
-  hours = hours % 12;
-  return (hours * 360) / 12;
+export function getHourAngle(hours, minutes = 0) {
+  const hourValue = (hours + minutes / 60) % 12;
+  return (hourValue * 360) / 12;
 }
