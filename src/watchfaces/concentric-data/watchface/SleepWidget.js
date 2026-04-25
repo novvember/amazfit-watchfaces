@@ -45,7 +45,7 @@ export class SleepWidget {
 
     const { type, time } = closestSunEvent;
     const icon = type === 'sunrise' ? '☀' : '☼';
-    this._circleTextWidget.updateText(`${time}${icon}`);
+    this._circleTextWidget.updateText(`${time.time}${icon}`);
   }
 
   _update() {
