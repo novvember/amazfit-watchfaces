@@ -4,6 +4,7 @@ import { MINUTE_TEXTS_RADIUS } from './index.const';
 import { TimeWheelWidget } from './TimeWheelWidget';
 import {
   MINUTE_AOD_IMAGE_PROPS,
+  MINUTE_AOD_TEXT_PROPS,
   MINUTE_IMAGE_PROPS,
   MINUTE_TEXT_PROPS,
   SECOND_AOD_IMAGE_PROPS,
@@ -31,11 +32,15 @@ export class TimeWidget {
       imageProps: MINUTE_IMAGE_PROPS,
       textProps: MINUTE_TEXT_PROPS,
       textsRadius: MINUTE_TEXTS_RADIUS,
-      getTextImageSrc: (text) =>
-        MINUTE_TEXT_PROPS.src.replace('%s', text),
+      getTextImageSrc: (text) => MINUTE_TEXT_PROPS.src.replace('%s', text),
     });
 
-    hmUI.createWidget(hmUI.widget.IMG, MINUTE_AOD_IMAGE_PROPS);
+    this._timeAodWheelWidget = new TimeWheelWidget({
+      imageProps: MINUTE_AOD_IMAGE_PROPS,
+      textProps: MINUTE_AOD_TEXT_PROPS,
+      textsRadius: MINUTE_TEXTS_RADIUS,
+      getTextImageSrc: (text) => MINUTE_AOD_TEXT_PROPS.src.replace('%s', text),
+    });
 
     this._currentTimeWidget = new CurrentTimeWidget();
 
@@ -56,6 +61,7 @@ export class TimeWidget {
 
     const angle = (90 + getMinuteAngle(minute)) % 360;
     this._timeWheelWidget.update(angle);
+    this._timeAodWheelWidget.update(angle);
   }
 
   _bindHandlers() {
@@ -67,7 +73,10 @@ export class TimeWidget {
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+        if (
+          hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE ||
+          hmSetting.getScreenType() == hmSetting.screen_type.AOD
+        ) {
           timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
           update();
         }

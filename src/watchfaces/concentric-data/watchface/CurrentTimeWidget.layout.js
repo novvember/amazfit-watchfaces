@@ -1,17 +1,17 @@
-import { getIs12HourFormat } from '../../../adapters/getIs12HourFormat';
 import { COLORS, FONTS } from './index.const';
 
 export const FRAME_IMAGE_PROPS = {
-  x: px(296),
-  y: px(196),
+  x: px(290),
+  y: px(190),
+  w: px(190),
+  h: px(100),
   src: 'time/frame.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const FRAME_AOD_IMAGE_PROPS = {
-  x: px(297),
-  y: px(198),
-  src: 'time/frame_aod.png',
+  ...FRAME_IMAGE_PROPS,
+  src: 'time_aod/frame.png',
   show_level: hmUI.show_level.ONAL_AOD,
 };
 
@@ -26,7 +26,7 @@ export const CURRENT_HOUR_TEXT_PROPS = {
   align_v: hmUI.align.CENTER_V,
   font: FONTS.primary,
   type: hmUI.data_type.HOUR,
-  padding: getIs12HourFormat() ? false : true,
+  padding: false,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
@@ -54,6 +54,7 @@ export const CURRENT_MINUTE_TEXT_PROPS = {
 
 export const CURRENT_MINUTE_AOD_TEXT_PROPS = {
   ...CURRENT_MINUTE_TEXT_PROPS,
+  text_size: px(58),
   font: FONTS.aod,
   color: COLORS.aod,
   show_level: hmUI.show_level.ONAL_AOD,
