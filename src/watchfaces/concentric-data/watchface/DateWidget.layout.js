@@ -1,8 +1,7 @@
-import { DATA } from '../utils/constants';
-import { COLORS, FONTS } from './index.const';
+import { COLORS, DATA_RADIUS, FONTS } from './index.const';
 
 export const DATE_DAY_TEXT_PROPS = {
-  x: px(240) - DATA.radius - px(60 / 2),
+  x: px(240) - DATA_RADIUS - px(60 / 2),
   y: px(240),
   w: px(60),
   h: px(30),
@@ -16,7 +15,7 @@ export const DATE_DAY_TEXT_PROPS = {
 };
 
 export const DATE_WEEK_TEXT_PROPS = {
-  x: px(240) - DATA.radius - px(60 / 2),
+  x: px(240) - DATA_RADIUS - px(60 / 2),
   y: px(240) - px(30),
   w: px(60),
   h: px(30),

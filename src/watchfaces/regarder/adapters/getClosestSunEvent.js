@@ -1,8 +1,13 @@
 import { formatTime } from '../utils/formatTime';
 import { getIs12HourFormat } from './getIs12HourFormat';
 
+/**
+ * Gets closest sunrise or sunset time
+ * @param {HmSensorInstance} weatherSensor
+ * @param {HmSensorInstance} timeSensor
+ */
 export function getClosestSunEvent(weatherSensor, timeSensor) {
-  const { hour, minute } = timeSensor;
+  const { hour = 0, minute = 0 } = timeSensor;
   const forecastWeather = weatherSensor.getForecastWeather();
   const tideData = forecastWeather.tideData;
 
