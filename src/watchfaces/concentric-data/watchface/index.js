@@ -1,9 +1,9 @@
 import { getCoordsFromAngle } from '../../../utils/getCoordsFromAngle';
 import { DATA } from '../utils/constants';
-import { createCircleTextWidget } from '../utils/createCircleTextWidget';
 import { getClosestSunriseSunsetTime } from '../utils/getClosestSunriseSunsetTime';
 import { getSleepTimeString } from '../utils/getSleepTime';
 import { getTimeString } from '../utils/getTimeString';
+import { CircleTextWidget } from './CircleTextWidget';
 import { DateWidget } from './DateWidget';
 import {
   BATTERY_BACKGROUND_ARC_PROPS,
@@ -57,7 +57,7 @@ WatchFace({
   },
 
   buildBattery() {
-    const { updateText } = createCircleTextWidget(BATTERY_CIRCLE_TEXT_PROPS);
+    const circleTextWidget = new CircleTextWidget(BATTERY_CIRCLE_TEXT_PROPS);
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, BATTERY_BACKGROUND_ARC_PROPS);
     const arc = hmUI.createWidget(
       hmUI.widget.ARC_PROGRESS,
@@ -68,7 +68,7 @@ WatchFace({
 
     const update = () => {
       const { current = 0 } = batterySensor;
-      updateText(`${current}%`);
+      circleTextWidget.updateText(`${current}%`);
       arc.setProperty(hmUI.prop.LEVEL, current);
     };
 
@@ -86,7 +86,7 @@ WatchFace({
   },
 
   buildHeartRate() {
-    const { updateText } = createCircleTextWidget(HEART_CIRCLE_TEXT_PROPS);
+    const circleTextWidget = new CircleTextWidget(HEART_CIRCLE_TEXT_PROPS);
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, HEART_BACKGROUND_ARC_PROPS);
     const currentArc = hmUI.createWidget(
       hmUI.widget.ARC_PROGRESS,
@@ -128,7 +128,7 @@ WatchFace({
       const minAngle = getAnglePosition(minValue);
       const maxAngle = getAnglePosition(maxValue);
 
-      updateText(`${last}❤`);
+      circleTextWidget.updateText(`${last}❤`);
       currentArc.setProperty(hmUI.prop.MORE, {
         ...HEART_CURRENT_ARC_PROPS,
         start_angle: minAngle,
@@ -155,7 +155,7 @@ WatchFace({
   },
 
   buildSteps() {
-    const { updateText } = createCircleTextWidget(STEPS_CIRCLE_TEXT_PROPS);
+    const circleTextWidget = new CircleTextWidget(STEPS_CIRCLE_TEXT_PROPS);
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, STEPS_BACKGROUND_ARC_PROPS);
     const arc = hmUI.createWidget(
       hmUI.widget.ARC_PROGRESS,
@@ -168,7 +168,7 @@ WatchFace({
       const { current = 0, target = 10000 } = stepSensor;
       const level = Math.min(Math.round((100 * current) / target), 100);
 
-      updateText(`${current}▲`);
+      circleTextWidget.updateText(`${current}▲`);
       arc.setProperty(hmUI.prop.LEVEL, level);
     };
 
@@ -186,28 +186,28 @@ WatchFace({
   },
 
   buildSleepTime() {
-    const { updateText } = createCircleTextWidget(SLEEP_CIRCLE_TEXT_PROPS);
+    const circleTextWidget = new CircleTextWidget(SLEEP_CIRCLE_TEXT_PROPS);
 
     const sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
     const timeSensor = this._timeSensor;
     const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
 
     const showSleepTime = (sleepTimeString) => {
-      updateText(`${sleepTimeString}✱`);
+      circleTextWidget.updateText(`${sleepTimeString}✱`);
     };
 
     const showSunriseSunset = () => {
       const sunObj = getClosestSunriseSunsetTime(timeSensor, weatherSensor);
 
       if (!sunObj) {
-        updateText('');
+        circleTextWidget.updateText('');
       }
 
       const { type, hour, minute } = sunObj;
       const is12HourFormat = hmSetting.getTimeFormat() === 0;
       const sunTime = getTimeString(hour, minute, is12HourFormat);
       const icon = type === 'sunrise' ? '☀' : '☼';
-      updateText(`${sunTime}${icon}`);
+      circleTextWidget.updateText(`${sunTime}${icon}`);
     };
 
     const update = () => {
