@@ -1,10 +1,9 @@
 import { getBatteryLevel } from '../../../adapters/getBatteryLevel';
 import {
   BATTERY_BACKGROUND_ARC_PROPS,
-  BATTERY_CIRCLE_TEXT_PROPS,
   BATTERY_CURRENT_ARC_PROPS,
+  BATTERY_TEXT_PROPS,
 } from './BatteryWidget.layout';
-import { CircleTextWidget } from './CircleTextWidget';
 
 /**
  * @typedef {Object} BatteryWidgetParams
@@ -18,8 +17,6 @@ export class BatteryWidget {
   constructor({ batterySensor }) {
     this._batterySensor = batterySensor;
 
-    this._circleTextWidget = new CircleTextWidget(BATTERY_CIRCLE_TEXT_PROPS);
-
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, BATTERY_BACKGROUND_ARC_PROPS);
 
     this._arc = hmUI.createWidget(
@@ -27,14 +24,16 @@ export class BatteryWidget {
       BATTERY_CURRENT_ARC_PROPS,
     );
 
+    this._textWidget = hmUI.createWidget(hmUI.widget.TEXT, BATTERY_TEXT_PROPS);
+
     this._update = this._update.bind(this);
     this._bindHandlers();
   }
 
   _update() {
     const level = getBatteryLevel(this._batterySensor);
-    this._circleTextWidget.updateText(`${level}%`);
     this._arc.setProperty(hmUI.prop.LEVEL, level);
+    this._textWidget.setProperty(hmUI.prop.TEXT, `${level}%`);
   }
 
   _bindHandlers() {

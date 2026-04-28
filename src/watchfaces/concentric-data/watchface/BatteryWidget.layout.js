@@ -1,21 +1,7 @@
-import {
-  CIRCLE_TEXT_PARAMS,
-  COLORS,
-  DATA_ARC_WIDTH,
-  DATA_RADIUS,
-} from './index.const';
+import { createDataTextProps } from '../utils/createDataTextProps';
+import { COLORS, DATA_ARC_WIDTH, DATA_RADIUS } from './index.const';
 
-export const BATTERY_CIRCLE_TEXT_PROPS = {
-  radius: DATA_RADIUS - CIRCLE_TEXT_PARAMS.imageHeight / 2,
-  gap: px(0.1),
-  charImages: CIRCLE_TEXT_PARAMS.charImages,
-  imageWidth: CIRCLE_TEXT_PARAMS.imageWidth,
-  imageHeight: CIRCLE_TEXT_PARAMS.imageHeight,
-  isTextReversed: true,
-  maxLength: 4,
-  text: '100%',
-  angleStart: 51,
-};
+export const BATTERY_TEXT_PROPS = createDataTextProps(90, 133, true);
 
 export const BATTERY_BACKGROUND_ARC_PROPS = {
   center_x: px(240),

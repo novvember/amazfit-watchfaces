@@ -1,13 +1,13 @@
 import { getCoordsFromAngle } from '../../../utils/getCoordsFromAngle';
 import { clamp } from '../../../utils/clamp';
-import { CircleTextWidget } from './CircleTextWidget';
 import {
   HEART_BACKGROUND_ARC_PROPS,
-  HEART_CIRCLE_TEXT_PROPS,
   HEART_CURRENT_ARC_PROPS,
   HEART_DOT_PROPS,
+  HEART_TEXT_PROPS,
 } from './HeartRateWidget.layout';
 import { DATA_RADIUS } from './index.const';
+import { ArcIconWidget } from './ArcIconWidget';
 
 /**
  * @typedef {Object} HeartRateWidgetParams
@@ -24,13 +24,20 @@ export class HeartRateWidget {
   constructor({ heartSensor }) {
     this._heartSensor = heartSensor;
 
-    this._circleTextWidget = new CircleTextWidget(HEART_CIRCLE_TEXT_PROPS);
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, HEART_BACKGROUND_ARC_PROPS);
     this._currentArc = hmUI.createWidget(
       hmUI.widget.ARC_PROGRESS,
       HEART_CURRENT_ARC_PROPS,
     );
     this._dotImage = hmUI.createWidget(hmUI.widget.IMG, HEART_DOT_PROPS);
+
+    new ArcIconWidget({
+      name: 'heart',
+      angle: 212,
+      isExternal: true,
+    });
+
+    this._textWidget = hmUI.createWidget(hmUI.widget.TEXT, HEART_TEXT_PROPS);
 
     this._update = this._update.bind(this);
     this._bindHandlers();
@@ -67,7 +74,6 @@ export class HeartRateWidget {
     const minAngle = this._getAnglePosition(minValue);
     const maxAngle = this._getAnglePosition(maxValue);
 
-    this._circleTextWidget.updateText(`${last}❤`);
     this._currentArc.setProperty(hmUI.prop.MORE, {
       ...HEART_CURRENT_ARC_PROPS,
       start_angle: minAngle,
@@ -78,6 +84,7 @@ export class HeartRateWidget {
       x,
       y,
     });
+    this._textWidget.setProperty(hmUI.prop.TEXT, last.toString());
   }
 
   _bindHandlers() {

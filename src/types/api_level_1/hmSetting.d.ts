@@ -31,6 +31,14 @@ declare namespace hmSetting {
     deviceSource: number;
   };
 
+  function getSystemInfo(): {
+    osVersion: string;
+    sdkVersion: string;
+    minAPI: string;
+    hwVersion: string;
+    algoVersion: string;
+  };
+
   /**
    * Get user profile data
    */

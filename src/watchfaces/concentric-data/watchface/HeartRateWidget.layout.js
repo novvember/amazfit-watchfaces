@@ -1,12 +1,7 @@
-import { BATTERY_CIRCLE_TEXT_PROPS } from './BatteryWidget.layout';
+import { createDataTextProps } from '../utils/createDataTextProps';
 import { COLORS, DATA_ARC_WIDTH, DATA_RADIUS } from './index.const';
 
-export const HEART_CIRCLE_TEXT_PROPS = {
-  ...BATTERY_CIRCLE_TEXT_PROPS,
-  maxLength: 4,
-  text: '000→',
-  angleStart: -30,
-};
+export const HEART_TEXT_PROPS = createDataTextProps(180, 204, true);
 
 export const HEART_BACKGROUND_ARC_PROPS = {
   center_x: px(240),

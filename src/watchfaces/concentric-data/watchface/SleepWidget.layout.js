@@ -1,9 +1,3 @@
-import { BATTERY_CIRCLE_TEXT_PROPS } from './BatteryWidget.layout';
+import { createDataTextProps } from '../utils/createDataTextProps';
 
-export const SLEEP_CIRCLE_TEXT_PROPS = {
-  ...BATTERY_CIRCLE_TEXT_PROPS,
-  maxLength: 6,
-  text: '00:00 ',
-  angleStart: 30,
-  isTextReversed: false,
-};
+export const SLEEP_TEXT_PROPS = createDataTextProps(37, 90);

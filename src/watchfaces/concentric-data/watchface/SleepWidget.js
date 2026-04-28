@@ -1,7 +1,7 @@
 import { getClosestSunEvent } from '../../../watchfaces/regarder/adapters/getClosestSunEvent';
 import { getSleepTime } from '../../../adapters/getSleepTime';
-import { CircleTextWidget } from './CircleTextWidget';
-import { SLEEP_CIRCLE_TEXT_PROPS } from './SleepWidget.layout';
+import { SLEEP_TEXT_PROPS } from './SleepWidget.layout';
+import { ArcIconWidget } from './ArcIconWidget';
 
 /**
  * @typedef {Object} SleepWidgetParams
@@ -19,7 +19,13 @@ export class SleepWidget {
     this._weatherSensor = weatherSensor;
     this._timeSensor = timeSensor;
 
-    this._circleTextWidget = new CircleTextWidget(SLEEP_CIRCLE_TEXT_PROPS);
+    this._iconWidget = new ArcIconWidget({
+      name: 'heart',
+      angle: 28,
+      isExternal: false,
+    });
+
+    this._textWidget = hmUI.createWidget(hmUI.widget.TEXT, SLEEP_TEXT_PROPS);
 
     this._update = this._update.bind(this);
     this._bindHandlers();
@@ -29,7 +35,8 @@ export class SleepWidget {
    * @param {string} sleepTimeString
    */
   _showSleepTime(sleepTimeString) {
-    this._circleTextWidget.updateText(`${sleepTimeString}✱`);
+    this._iconWidget.setName('moon');
+    this._textWidget.setProperty(hmUI.prop.TEXT, sleepTimeString);
   }
 
   _showSunriseSunset() {
@@ -39,13 +46,13 @@ export class SleepWidget {
     );
 
     if (!closestSunEvent) {
-      this._circleTextWidget.updateText('');
+      this._textWidget.setProperty(hmUI.prop.TEXT, '');
       return;
     }
 
     const { type, time } = closestSunEvent;
-    const icon = type === 'sunrise' ? '☀' : '☼';
-    this._circleTextWidget.updateText(`${time.time}${icon}`);
+    this._iconWidget.setName(type);
+    this._textWidget.setProperty(hmUI.prop.TEXT, time.time);
   }
 
   _update() {

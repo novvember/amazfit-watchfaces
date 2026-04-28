@@ -1,9 +1,3 @@
-import {
-  TEXT_CHAR_HEIGHT,
-  TEXT_CHAR_WIDTH,
-  TEXT_CHARS,
-} from '../utils/textChars';
-
 export const MINUTE_TEXTS_RADIUS = px(110);
 
 export const COLORS = {
@@ -16,12 +10,7 @@ export const COLORS = {
 export const FONTS = {
   primary: 'fonts/FiraSansCondensed-Medium.ttf',
   aod: 'fonts/FiraSansCondensed-ExtraLight.ttf',
-};
-
-export const CIRCLE_TEXT_PARAMS = {
-  charImages: TEXT_CHARS,
-  imageWidth: TEXT_CHAR_WIDTH,
-  imageHeight: TEXT_CHAR_HEIGHT,
+  data: 'fonts/FiraSans-Regular.ttf',
 };
 
 export const DATA_RADIUS = px(185);

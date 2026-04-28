@@ -1,13 +1,7 @@
-import { BATTERY_CIRCLE_TEXT_PROPS } from './BatteryWidget.layout';
+import { createDataTextProps } from '../utils/createDataTextProps';
 import { COLORS, DATA_ARC_WIDTH, DATA_RADIUS } from './index.const';
 
-export const STEPS_CIRCLE_TEXT_PROPS = {
-  ...BATTERY_CIRCLE_TEXT_PROPS,
-  maxLength: 6,
-  text: '00000→',
-  angleStart: -30,
-  isTextReversed: false,
-};
+export const STEPS_TEXT_PROPS = createDataTextProps(-26, 20);
 
 export const STEPS_BACKGROUND_ARC_PROPS = {
   center_x: px(240),
