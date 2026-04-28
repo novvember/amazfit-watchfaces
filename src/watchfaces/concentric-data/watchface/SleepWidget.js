@@ -20,8 +20,8 @@ export class SleepWidget {
     this._timeSensor = timeSensor;
 
     this._iconWidget = new ArcIconWidget({
-      name: 'heart',
-      angle: 28,
+      name: '',
+      angle: 30,
       isExternal: false,
     });
 
@@ -35,7 +35,7 @@ export class SleepWidget {
    * @param {string} sleepTimeString
    */
   _showSleepTime(sleepTimeString) {
-    this._iconWidget.setName('moon');
+    this._iconWidget.setName('sleep');
     this._textWidget.setProperty(hmUI.prop.TEXT, sleepTimeString);
   }
 

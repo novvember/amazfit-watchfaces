@@ -7,7 +7,7 @@
 
 import { DATA_RADIUS } from './index.const';
 
-const IMAGE_WIDTH = px(14);
+const IMAGE_WIDTH = px(30);
 const IMAGE_HEIGHT = px(24);
 
 export class ArcIconWidget {

@@ -26,7 +26,7 @@ export class StepWidget {
 
     new ArcIconWidget({
       name: 'steps',
-      angle: -32,
+      angle: -31,
       isExternal: false,
     });
 

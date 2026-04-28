@@ -33,7 +33,7 @@ export class HeartRateWidget {
 
     new ArcIconWidget({
       name: 'heart',
-      angle: 212,
+      angle: 210,
       isExternal: true,
     });
 
