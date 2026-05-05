@@ -171,6 +171,8 @@ declare namespace hmUI {
     readonly MINUTE: number;
     /** Current second value (for TEXT_FONT) */
     readonly SECOND: number;
+    /** Current day value (for TEXT_FONT) [1-31] */
+    readonly DAY: number;
     /** Stand count */
     readonly STAND: number;
     /** Wind speed */
