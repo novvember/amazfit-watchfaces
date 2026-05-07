@@ -1,3 +1,4 @@
+import { getTimeTexts } from '../../../adapters/getTimeTexts';
 import { getCoordsFromAngle } from '../../../utils/getCoordsFromAngle';
 import { getMinuteAngle } from '../../../utils/getTimeAngles';
 import {
@@ -29,7 +30,7 @@ export class TimeWidget {
   _buildLayout() {
     hmUI.createWidget(hmUI.widget.IMG, TIME_BACKGROUND_PROPS);
 
-    hmUI.createWidget(hmUI.widget.TEXT_FONT, HOUR_TEXT_PROPS);
+    this._hourText = hmUI.createWidget(hmUI.widget.TEXT, HOUR_TEXT_PROPS);
 
     this._minuteGroup = hmUI.createWidget(
       hmUI.widget.GROUP,
@@ -40,11 +41,15 @@ export class TimeWidget {
       hmUI.widget.CIRCLE,
       MINUTE_BACKGROUND_CIRCLE_PROPS,
     );
-    this._minuteGroup.createWidget(hmUI.widget.TEXT_FONT, MINUTE_TEXT_PROPS);
+    this._minuteText = this._minuteGroup.createWidget(
+      hmUI.widget.TEXT,
+      MINUTE_TEXT_PROPS,
+    );
   }
 
   _update() {
     const { minute = 0 } = this._timeSensor;
+    const { hourText, minuteText } = getTimeTexts(this._timeSensor);
     const minuteAngle = getMinuteAngle(minute);
 
     const { x, y } = getCoordsFromAngle({
@@ -58,6 +63,8 @@ export class TimeWidget {
 
     this._minuteGroup?.setProperty(hmUI.prop.X, x);
     this._minuteGroup?.setProperty(hmUI.prop.Y, y);
+    this._hourText?.setProperty(hmUI.prop.TEXT, hourText);
+    this._minuteText?.setProperty(hmUI.prop.TEXT, minuteText);
   }
 
   _bindHandlers() {

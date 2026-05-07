@@ -17,7 +17,7 @@ export const HOUR_TEXT_PROPS = {
   align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.CENTER_V,
   font: FONT,
-  type: hmUI.data_type.HOUR,
+  text: '',
   padding: false,
   show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
 };
@@ -32,8 +32,7 @@ export const MINUTE_TEXT_PROPS = {
   align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.CENTER_V,
   font: FONT,
-  type: hmUI.data_type.MINUTE,
-  padding: true,
+  text: '',
   show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
 };
 
