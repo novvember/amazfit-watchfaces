@@ -22,13 +22,11 @@ export const DATA_TEXT_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const DATE_BACKGROUND_RECT_PROPS = {
+export const DATE_BACKGROUND_IMAGE_PROPS = {
   x: px(319),
   y: px(210),
   w: px(60),
   h: px(60),
-  radius: px(60 / 2),
-  line_width: px(1) * 0.8,
-  color: COLOR_SECONDARY,
+  src: 'date/background.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };

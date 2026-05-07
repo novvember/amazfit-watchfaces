@@ -1,7 +1,7 @@
 import { formatNumber } from '../../../utils/formatNumber.js';
 import {
   DATA_TEXT_PROPS,
-  DATE_BACKGROUND_RECT_PROPS,
+  DATE_BACKGROUND_IMAGE_PROPS,
   OVERLAY_CIRCLE_AOD_PROPS,
 } from './index.r.layout.js';
 import { TimeWidget } from './TimeWidget.js';
@@ -36,7 +36,7 @@ WatchFace({
   },
 
   buildDate() {
-    hmUI.createWidget(hmUI.widget.STROKE_RECT, DATE_BACKGROUND_RECT_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, DATE_BACKGROUND_IMAGE_PROPS);
 
     hmUI.createWidget(hmUI.widget.TEXT_FONT, {
       ...DATA_TEXT_PROPS,
