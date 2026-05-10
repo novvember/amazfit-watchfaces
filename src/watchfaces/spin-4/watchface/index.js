@@ -4,6 +4,7 @@ import { HeartWidget } from './HeartWidget.js';
 import {
   BACKGROUND_AOD_IMAGE_PROPS,
   BACKGROUND_EDIT_IMAGE_PROPS,
+  DISCONNECT_IMAGE_PROPS,
   OVERLAY_CIRCLE_AOD_PROPS,
 } from './index.r.layout.js';
 import { Settings } from './Settings.js';
@@ -26,6 +27,7 @@ WatchFace({
     this.buildTime();
     this.buildDate();
     this.buildDataWidgets();
+    this.buildStatus();
 
     hmUI.createWidget(hmUI.widget.CIRCLE, OVERLAY_CIRCLE_AOD_PROPS);
   },
@@ -113,5 +115,9 @@ WatchFace({
         console.log('Unknown data type:', type);
         break;
     }
+  },
+
+  buildStatus() {
+    hmUI.createWidget(hmUI.widget.IMG_STATUS, DISCONNECT_IMAGE_PROPS);
   },
 });

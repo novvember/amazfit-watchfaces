@@ -47,3 +47,11 @@ export const BACKGROUND_AOD_IMAGE_PROPS = {
   src: 'background/aod.png',
   show_level: hmUI.show_level.ONAL_AOD,
 };
+
+export const DISCONNECT_IMAGE_PROPS = {
+    x: px(54),
+    y: px(217),
+    type: hmUI.system_status.DISCONNECT,
+    src: 'status/disconnected.png',
+    show_level: hmUI.show_level.ONLY_NORMAL,
+}
