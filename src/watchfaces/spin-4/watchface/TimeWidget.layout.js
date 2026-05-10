@@ -50,10 +50,3 @@ export const MINUTE_GROUP_PROPS = {
   w: MINUTE_SIZE,
   h: MINUTE_SIZE,
 };
-
-export const TIME_BACKGROUND_PROPS = {
-  x: 0,
-  y: 0,
-  src: 'time/background.png',
-  show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONAL_AOD,
-};

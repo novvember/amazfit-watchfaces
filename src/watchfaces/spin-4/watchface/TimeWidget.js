@@ -4,7 +4,6 @@ import { getMinuteAngle } from '../../../utils/getTimeAngles';
 import {
   HOUR_TEXT_PROPS,
   MINUTE_BACKGROUND_CIRCLE_PROPS,
-  TIME_BACKGROUND_PROPS,
   MINUTE_GROUP_PROPS,
   MINUTE_TEXT_PROPS,
 } from './TimeWidget.layout';
@@ -28,8 +27,6 @@ export class TimeWidget {
   }
 
   _buildLayout() {
-    hmUI.createWidget(hmUI.widget.IMG, TIME_BACKGROUND_PROPS);
-
     this._hourText = hmUI.createWidget(hmUI.widget.TEXT, HOUR_TEXT_PROPS);
 
     this._minuteGroup = hmUI.createWidget(

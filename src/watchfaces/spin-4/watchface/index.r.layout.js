@@ -1,4 +1,4 @@
-import { COLOR_PRIMARY, COLOR_SECONDARY, FONT_SECONDARY } from './index.const';
+import { COLOR_PRIMARY, FONT_SECONDARY } from './index.const';
 
 export const OVERLAY_CIRCLE_AOD_PROPS = {
   center_x: px(240),
@@ -22,11 +22,43 @@ export const DATA_TEXT_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const DATE_BACKGROUND_IMAGE_PROPS = {
-  x: px(319),
-  y: px(210),
-  w: px(60),
-  h: px(60),
-  src: 'date/background.png',
-  show_level: hmUI.show_level.ONLY_NORMAL,
+export const BACKGROUND_EDIT_IMAGE_PROPS = {
+  edit_id: 101,
+  x: 0,
+  y: 0,
+  bg_config: [
+    {
+      id: 1,
+      preview: 'background/white.png',
+      path: 'background/white.png',
+    },
+    {
+      id: 2,
+      preview: 'background/red.png',
+      path: 'background/red.png',
+    },
+    {
+      id: 3,
+      preview: 'background/yellow.png',
+      path: 'background/yellow.png',
+    },
+    {
+      id: 4,
+      preview: 'background/blue.png',
+      path: 'background/blue.png',
+    },
+  ],
+  count: 4,
+  default_id: 1,
+  fg: 'null.png',
+  tips_x: px(180),
+  tips_y: px(120),
+  tips_bg: 'edit/tip.png',
+};
+
+export const BACKGROUND_AOD_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  src: 'background/aod.png',
+  show_level: hmUI.show_level.ONAL_AOD,
 };

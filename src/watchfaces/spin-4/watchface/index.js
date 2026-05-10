@@ -1,7 +1,8 @@
 import { formatNumber } from '../../../utils/formatNumber.js';
 import {
+  BACKGROUND_AOD_IMAGE_PROPS,
+  BACKGROUND_EDIT_IMAGE_PROPS,
   DATA_TEXT_PROPS,
-  DATE_BACKGROUND_IMAGE_PROPS,
   OVERLAY_CIRCLE_AOD_PROPS,
 } from './index.r.layout.js';
 import { TimeWidget } from './TimeWidget.js';
@@ -17,6 +18,8 @@ WatchFace({
     this._timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
     this._stepSensor = hmSensor.createSensor(hmSensor.id.STEP);
 
+    this.buildBackground();
+
     this.buildTime();
     this.buildDate();
     this.buildSteps();
@@ -29,6 +32,11 @@ WatchFace({
     console.log('watchface destroying');
   },
 
+  buildBackground() {
+    hmUI.createWidget(hmUI.widget.WATCHFACE_EDIT_BG, BACKGROUND_EDIT_IMAGE_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_AOD_IMAGE_PROPS);
+  },
+
   buildTime() {
     new TimeWidget({
       timeSensor: this._timeSensor,
@@ -36,8 +44,6 @@ WatchFace({
   },
 
   buildDate() {
-    hmUI.createWidget(hmUI.widget.IMG, DATE_BACKGROUND_IMAGE_PROPS);
-
     hmUI.createWidget(hmUI.widget.TEXT_FONT, {
       ...DATA_TEXT_PROPS,
       type: hmUI.data_type.DAY,
