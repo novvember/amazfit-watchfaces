@@ -5,8 +5,8 @@
     "appName": "Spin 4",
     "appType": "watchface",
     "version": {
-      "code": 3,
-      "name": "1.2.0"
+      "code": 4,
+      "name": "1.3.0"
     },
     "icon": "icon.png",
     "vender": "novvember",

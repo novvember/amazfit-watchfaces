@@ -1,0 +1,11 @@
+msgid "steps"
+msgstr "Шаги"
+
+msgid "battery"
+msgstr "Батарея"
+
+msgid "heart rate"
+msgstr "Пульс"
+
+msgid "empty"
+msgstr "Пусто"

@@ -1,0 +1,11 @@
+msgid "steps"
+msgstr "Steps"
+
+msgid "battery"
+msgstr "Battery"
+
+msgid "heart rate"
+msgstr "Heart Rate"
+
+msgid "empty"
+msgstr "Empty"
