@@ -10,5 +10,8 @@ msgstr "Пульс"
 msgid "sun"
 msgstr "Солнце"
 
+msgid "sleep time"
+msgstr "Время сна"
+
 msgid "empty"
 msgstr "Пусто"

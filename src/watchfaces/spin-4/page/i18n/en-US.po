@@ -10,5 +10,8 @@ msgstr "Heart Rate"
 msgid "sun"
 msgstr "Sun"
 
+msgid "sleep time"
+msgstr "Sleep Time"
+
 msgid "empty"
 msgstr "Empty"

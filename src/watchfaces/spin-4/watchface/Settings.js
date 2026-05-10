@@ -50,6 +50,14 @@ const EDIT_OPTIONAL_TYPES = [
       type: 'sun',
     },
   },
+  {
+    type: 100005,
+    title_en: gettext('sleep time'),
+    preview: 'edit/slot_preview.png',
+    data: {
+      type: 'sleep',
+    },
+  },
 
   {
     type: 100100,

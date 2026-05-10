@@ -8,6 +8,7 @@ import {
   OVERLAY_CIRCLE_AOD_PROPS,
 } from './index.r.layout.js';
 import { Settings } from './Settings.js';
+import { SleepWidget } from './SleepWidget.js';
 import { StepWidget } from './StepWidget.js';
 import { SunWidget } from './SunWidget.js';
 import { TimeWidget } from './TimeWidget.js';
@@ -105,6 +106,16 @@ WatchFace({
           position,
           timeSensor: this._timeSensor,
           weatherSensor: this._weatherSensor,
+        });
+        break;
+
+      case 'sleep':
+        this._sleepSensor =
+          this._sleepSensor || hmSensor.createSensor(hmSensor.id.SLEEP);
+
+        new SleepWidget({
+          position,
+          sleepSensor: this._sleepSensor,
         });
         break;
 
