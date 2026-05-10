@@ -42,6 +42,14 @@ const EDIT_OPTIONAL_TYPES = [
       type: 'heart',
     },
   },
+  {
+    type: 100004,
+    title_en: gettext('sun'),
+    preview: 'edit/slot_preview.png',
+    data: {
+      type: 'sun',
+    },
+  },
 
   {
     type: 100100,

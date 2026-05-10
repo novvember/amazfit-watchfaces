@@ -8,6 +8,7 @@ import {
 } from './index.r.layout.js';
 import { Settings } from './Settings.js';
 import { StepWidget } from './StepWidget.js';
+import { SunWidget } from './SunWidget.js';
 import { TimeWidget } from './TimeWidget.js';
 
 WatchFace({
@@ -91,6 +92,17 @@ WatchFace({
         new HeartWidget({
           position,
           heartSensor: this._heartSensor,
+        });
+        break;
+
+      case 'sun':
+        this._weatherSensor =
+          this._weatherSensor || hmSensor.createSensor(hmSensor.id.WEATHER);
+
+        new SunWidget({
+          position,
+          timeSensor: this._timeSensor,
+          weatherSensor: this._weatherSensor,
         });
         break;
 

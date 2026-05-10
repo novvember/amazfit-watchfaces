@@ -7,5 +7,8 @@ msgstr "Батарея"
 msgid "heart rate"
 msgstr "Пульс"
 
+msgid "sun"
+msgstr "Солнце"
+
 msgid "empty"
 msgstr "Пусто"

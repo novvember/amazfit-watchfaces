@@ -7,5 +7,8 @@ msgstr "Battery"
 msgid "heart rate"
 msgstr "Heart Rate"
 
+msgid "sun"
+msgstr "Sun"
+
 msgid "empty"
 msgstr "Empty"
