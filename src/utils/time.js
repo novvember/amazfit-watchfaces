@@ -1,4 +1,14 @@
 /**
+ * Gets readable hour number value
+ * @param {number} hour value [0-23]
+ * @param {boolean} is12HourFormat
+ * @returns {number}
+ */
+export function getHourValue(hour, is12HourFormat) {
+  return is12HourFormat ? hour % 12 || 12 : hour;
+}
+
+/**
  * Gets readable hour value
  * @param {number} hour value [0-23]
  * @param {boolean} is12HourFormat
@@ -6,8 +16,19 @@
  */
 export function getHourText(hour, is12HourFormat) {
   const length = is12HourFormat ? 1 : 2;
-  const value = is12HourFormat ? hour % 12 || 12 : hour;
-  return value.toString().padStart(length, '0');
+  return getHourValue(hour, is12HourFormat)
+    .toString()
+    .padStart(length, '0');
+}
+
+/**
+ * Gets readable hour value (without any leading zero)
+ * @param {number} hour value [0-23]
+ * @param {boolean} is12HourFormat
+ * @returns {string}
+ */
+export function getHourNoLeadingZeroText(hour, is12HourFormat) {
+  return getHourValue(hour, is12HourFormat).toString();
 }
 
 /**

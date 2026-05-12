@@ -46,7 +46,7 @@ export class TimeWidget {
 
   _update() {
     const { minute = 0 } = this._timeSensor;
-    const { hourText, minuteText } = getTimeTexts(this._timeSensor);
+    const { hourNoLeadingZeroText, minuteText } = getTimeTexts(this._timeSensor);
     const minuteAngle = getMinuteAngle(minute);
 
     const { x, y } = getCoordsFromAngle({
@@ -60,7 +60,7 @@ export class TimeWidget {
 
     this._minuteGroup?.setProperty(hmUI.prop.X, x);
     this._minuteGroup?.setProperty(hmUI.prop.Y, y);
-    this._hourText?.setProperty(hmUI.prop.TEXT, hourText);
+    this._hourText?.setProperty(hmUI.prop.TEXT, hourNoLeadingZeroText);
     this._minuteText?.setProperty(hmUI.prop.TEXT, minuteText);
   }
 

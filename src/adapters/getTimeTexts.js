@@ -1,4 +1,4 @@
-import { getHourText, getMinuteText, getPostfixText } from '../utils/time';
+import { getHourNoLeadingZeroText, getHourText, getMinuteText, getPostfixText } from '../utils/time';
 import { getIs12HourFormat } from './getIs12HourFormat';
 
 /**
@@ -11,6 +11,7 @@ export function getTimeTexts(timeSensor) {
 
   return {
     hourText: getHourText(hour, is12HourFormat),
+    hourNoLeadingZeroText: getHourNoLeadingZeroText(hour, is12HourFormat),
     minuteText: getMinuteText(minute),
     postfixText: getPostfixText(hour, is12HourFormat),
   };
