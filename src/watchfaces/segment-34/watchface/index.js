@@ -80,6 +80,10 @@ WatchFace({
         this._buildRecoveryTime(coords);
         break;
 
+      case 'readiness':
+        this._buildReadiness(coords);
+        break;
+
       default:
         console.log('Unknown data type', dataType);
     }
@@ -353,6 +357,17 @@ WatchFace({
       titleText: gettext('recovery_time'),
       titlePosition: 'top',
       dataType: hmUI.data_type.RECOVERY_TIME,
+    });
+  },
+
+  _buildReadiness([x, y]) {
+    new CommonDataWidget({
+      digitsCount: 4,
+      x,
+      y,
+      titleText: gettext('readiness'),
+      titlePosition: 'top',
+      dataType: hmUI.data_type.READINESS,
     });
   },
 });

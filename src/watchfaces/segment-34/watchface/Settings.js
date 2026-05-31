@@ -97,6 +97,14 @@ const DATA_EDIT_OPTIONAL_TYPES = [
       type: 'recovery_time',
     },
   },
+  {
+    type: 100010,
+    title_en: gettext('readiness'),
+    preview: 'edit/data_slot_preview.png',
+    data: {
+      type: 'readiness',
+    },
+  },
 ];
 
 export class Settings {

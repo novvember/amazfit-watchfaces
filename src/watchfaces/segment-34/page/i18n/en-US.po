@@ -177,3 +177,6 @@ msgstr "FLOORS"
 
 msgid "recovery_time"
 msgstr "RECOVERY"
+
+msgid "readiness"
+msgstr "READINESS"

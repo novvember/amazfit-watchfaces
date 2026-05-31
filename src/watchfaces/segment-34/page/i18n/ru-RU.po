@@ -177,3 +177,6 @@ msgstr "ЭТАЖИ"
 
 msgid "recovery_time"
 msgstr "ВОССТАНОВЛ."
+
+msgid "readiness"
+msgstr "ГОТОВНОСТЬ"
