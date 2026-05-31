@@ -64,6 +64,10 @@ WatchFace({
         this._buildPaiDaily(coords);
         break;
 
+      case 'fat_burning':
+        this._buildFatBurning(coords);
+        break;
+
       default:
         console.log('Unknown data type', dataType);
     }
@@ -293,6 +297,17 @@ WatchFace({
       titleText: gettext('pai'),
       titlePosition: 'top',
       dataType: hmUI.data_type.PAI_DAILY,
+    });
+  },
+
+  _buildFatBurning([x, y]) {
+    new CommonDataWidget({
+      digitsCount: 4,
+      x,
+      y,
+      titleText: gettext('fat_burning'),
+      titlePosition: 'top',
+      dataType: hmUI.data_type.FAT_BURNING,
     });
   },
 });

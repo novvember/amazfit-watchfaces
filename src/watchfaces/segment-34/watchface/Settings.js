@@ -65,6 +65,14 @@ const DATA_EDIT_OPTIONAL_TYPES = [
       type: 'pai',
     },
   },
+  {
+    type: 100006,
+    title_en: gettext('fat_burning'),
+    preview: 'edit/data_slot_preview.png',
+    data: {
+      type: 'fat_burning',
+    },
+  },
 ];
 
 export class Settings {

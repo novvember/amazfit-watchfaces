@@ -165,3 +165,6 @@ msgstr "РАССТОЯНИЕ"
 
 msgid "pai"
 msgstr "PAI"
+
+msgid "fat_burning"
+msgstr "МИН ЖИРОСЖ"
