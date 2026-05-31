@@ -81,6 +81,14 @@ const DATA_EDIT_OPTIONAL_TYPES = [
       type: 'stress',
     },
   },
+  {
+    type: 100008,
+    title_en: gettext('floors'),
+    preview: 'edit/data_slot_preview.png',
+    data: {
+      type: 'floors',
+    },
+  },
 ];
 
 export class Settings {

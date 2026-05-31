@@ -171,3 +171,6 @@ msgstr "МИН ЖИРОСЖ"
 
 msgid "stress"
 msgstr "СТРЕСС"
+
+msgid "floors"
+msgstr "ЭТАЖИ"

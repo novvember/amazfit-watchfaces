@@ -72,6 +72,10 @@ WatchFace({
         this._buildStress(coords);
         break;
 
+      case 'floors':
+        this._buildFloors(coords);
+        break;
+
       default:
         console.log('Unknown data type', dataType);
     }
@@ -323,6 +327,17 @@ WatchFace({
       titleText: gettext('stress'),
       titlePosition: 'top',
       dataType: hmUI.data_type.STRESS,
+    });
+  },
+
+  _buildFloors([x, y]) {
+    new CommonDataWidget({
+      digitsCount: 4,
+      x,
+      y,
+      titleText: gettext('floors'),
+      titlePosition: 'top',
+      dataType: hmUI.data_type.FLOOR,
     });
   },
 });

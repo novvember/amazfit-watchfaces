@@ -171,3 +171,6 @@ msgstr "FAT BURNING"
 
 msgid "stress"
 msgstr "STRESS"
+
+msgid "floors"
+msgstr "FLOORS"
