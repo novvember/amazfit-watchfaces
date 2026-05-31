@@ -162,3 +162,6 @@ msgstr "SUNSET"
 
 msgid "distance"
 msgstr "DISTANCE"
+
+msgid "pai"
+msgstr "PAI"

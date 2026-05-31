@@ -162,3 +162,6 @@ msgstr "ЗАКАТ"
 
 msgid "distance"
 msgstr "РАССТОЯНИЕ"
+
+msgid "pai"
+msgstr "PAI"

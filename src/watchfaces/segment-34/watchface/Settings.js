@@ -57,6 +57,14 @@ const DATA_EDIT_OPTIONAL_TYPES = [
       type: 'distance',
     },
   },
+  {
+    type: 100005,
+    title_en: gettext('pai'),
+    preview: 'edit/data_slot_preview.png',
+    data: {
+      type: 'pai',
+    },
+  },
 ];
 
 export class Settings {

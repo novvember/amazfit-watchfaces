@@ -60,6 +60,10 @@ WatchFace({
         this._buildDistance(coords);
         break;
 
+      case 'pai':
+        this._buildPaiDaily(coords);
+        break;
+
       default:
         console.log('Unknown data type', dataType);
     }
@@ -279,5 +283,16 @@ WatchFace({
     };
 
     this._onResumeNormalHandlers.push(update);
+  },
+
+  _buildPaiDaily([x, y]) {
+    new CommonDataWidget({
+      digitsCount: 4,
+      x,
+      y,
+      titleText: gettext('pai'),
+      titlePosition: 'top',
+      dataType: hmUI.data_type.PAI_DAILY,
+    });
   },
 });
