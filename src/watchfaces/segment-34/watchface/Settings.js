@@ -73,6 +73,14 @@ const DATA_EDIT_OPTIONAL_TYPES = [
       type: 'fat_burning',
     },
   },
+  {
+    type: 100007,
+    title_en: gettext('stress'),
+    preview: 'edit/data_slot_preview.png',
+    data: {
+      type: 'stress',
+    },
+  },
 ];
 
 export class Settings {
@@ -98,8 +106,8 @@ export class Settings {
       hmUI.createWidget(hmUI.widget.WATCHFACE_EDIT_GROUP, {
         x: 0,
         y: 0,
-        w: px(180),
-        h: px(70),
+        w: px(100),
+        h: px(35),
 
         select_image: 'edit/data_slot_select.png',
         un_select_image: 'edit/data_slot_unselect.png',

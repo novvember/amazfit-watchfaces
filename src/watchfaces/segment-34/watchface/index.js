@@ -68,6 +68,10 @@ WatchFace({
         this._buildFatBurning(coords);
         break;
 
+      case 'stress':
+        this._buildStress(coords);
+        break;
+
       default:
         console.log('Unknown data type', dataType);
     }
@@ -308,6 +312,17 @@ WatchFace({
       titleText: gettext('fat_burning'),
       titlePosition: 'top',
       dataType: hmUI.data_type.FAT_BURNING,
+    });
+  },
+
+  _buildStress([x, y]) {
+    new CommonDataWidget({
+      digitsCount: 4,
+      x,
+      y,
+      titleText: gettext('stress'),
+      titlePosition: 'top',
+      dataType: hmUI.data_type.STRESS,
     });
   },
 });

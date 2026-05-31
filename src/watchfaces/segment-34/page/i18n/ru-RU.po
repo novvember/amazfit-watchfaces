@@ -168,3 +168,6 @@ msgstr "PAI"
 
 msgid "fat_burning"
 msgstr "МИН ЖИРОСЖ"
+
+msgid "stress"
+msgstr "СТРЕСС"
