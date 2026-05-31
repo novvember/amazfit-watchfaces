@@ -1,4 +1,4 @@
-import { COLOR_ACCENT_SECONDARY } from './index.layout';
+import { COLOR_PRIMARY } from './index.layout';
 
 export const CONNECT_IMAGE_PROPS = {
   x: px(261),
@@ -42,6 +42,6 @@ export const BATTERY_PROGRESS_PROPS = {
   y: px(452),
   w: px(32),
   h: px(22),
-  color: COLOR_ACCENT_SECONDARY,
+  color: COLOR_PRIMARY,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };

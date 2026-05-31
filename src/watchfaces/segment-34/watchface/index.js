@@ -5,7 +5,7 @@ import { Weather } from './Weather';
 import { Time } from './Time';
 import { StatusIcons } from './StatusIcons';
 import { CommonDataWidget } from './CommonDataWidget';
-import { getSleepTimeString } from '../utils/getSleepTime';
+import { getSleepTime } from '../../../adapters/getSleepTime';
 
 WatchFace({
   onInit() {
@@ -156,7 +156,7 @@ WatchFace({
   _buildCalories() {
     new CommonDataWidget({
       digitsCount: 4,
-      x: px(178),
+      x: px(190),
       y: px(372),
       titleText: gettext('calories'),
       titlePosition: 'top',
@@ -168,8 +168,8 @@ WatchFace({
     const sleepSensor = this._sleepSensor;
 
     const dataWidget = new CommonDataWidget({
-      digitsCount: 5,
-      x: px(293),
+      digitsCount: 4,
+      x: px(318),
       y: px(372),
       titleText: gettext('sleep_time'),
       titlePosition: 'top',
@@ -179,14 +179,13 @@ WatchFace({
 
     const update = () => {
       sleepSensor.updateInfo();
-      const sleepTime = getSleepTimeString(sleepSensor);
+      const { hours = 0, minutes = 0 } = getSleepTime(sleepSensor);
+      let text = `${hours}-${minutes.toString().padStart(2, '0')}`;
 
-      if (!sleepTime) {
-        dataWidget.updateText('0-00');
-        return;
+      if (text.length > 4) {
+        text = (hours + minutes / 60).toFixed(1);
       }
 
-      const text = sleepTime.replace(':', '-');
       dataWidget.updateText(text);
     };
 
@@ -196,7 +195,7 @@ WatchFace({
   _buildSteps() {
     new CommonDataWidget({
       digitsCount: 5,
-      x: px(177),
+      x: px(190),
       y: px(411),
       titleText: gettext('steps'),
       titlePosition: 'left',

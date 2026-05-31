@@ -33,6 +33,7 @@ export const SECONDARY_IMAGE_TEXT_PROPS = {
   type: undefined,
   font_array: SECONDARY_DIGITS,
   negative_image: 'digits/colon.png',
+  dot_image: 'digits/dot.png',
   align_h: hmUI.align.LEFT,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
