@@ -159,3 +159,6 @@ msgstr "ВОСХОД"
 
 msgid "sunset"
 msgstr "ЗАКАТ"
+
+msgid "distance"
+msgstr "РАССТОЯНИЕ"

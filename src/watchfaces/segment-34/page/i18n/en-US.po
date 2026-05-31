@@ -159,3 +159,6 @@ msgstr "SUNRISE"
 
 msgid "sunset"
 msgstr "SUNSET"
+
+msgid "distance"
+msgstr "DISTANCE"

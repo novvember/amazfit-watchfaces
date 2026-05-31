@@ -56,6 +56,10 @@ WatchFace({
         this._buildSleepTime(coords);
         break;
 
+      case 'distance':
+        this._buildDistance(coords);
+        break;
+
       default:
         console.log('Unknown data type', dataType);
     }
@@ -166,6 +170,21 @@ WatchFace({
     this._onMinuteEndAodHandlers.push(update);
   },
 
+  _buildStatusIcons() {
+    const batterySensor =
+      this._batterySensor || hmSensor.createSensor(hmSensor.id.BATTERY);
+
+    const statusIcons = new StatusIcons({
+      batterySensor,
+    });
+
+    const update = () => {
+      statusIcons.update();
+    };
+
+    this._onResumeNormalHandlers.push(update);
+  },
+
   _buildHeartRate([x, y]) {
     new CommonDataWidget({
       digitsCount: 4,
@@ -228,16 +247,35 @@ WatchFace({
     });
   },
 
-  _buildStatusIcons() {
-    const batterySensor =
-      this._batterySensor || hmSensor.createSensor(hmSensor.id.BATTERY);
+  _buildDistance([x, y]) {
+    this._distanceSensor =
+      this._distanceSensor || hmSensor.createSensor(hmSensor.id.DISTANCE);
 
-    const statusIcons = new StatusIcons({
-      batterySensor,
+    const dataWidget = new CommonDataWidget({
+      digitsCount: 4,
+      x,
+      y,
+      titleText: gettext('distance'),
+      titlePosition: 'top',
+      dataType: undefined,
+      dataText: '',
     });
 
     const update = () => {
-      statusIcons.update();
+      const { current = 0 } = this._distanceSensor;
+      const value = current / 1000;
+
+      let text = value.toFixed(2);
+
+      if (text.length > 4) {
+        text = value.toFixed(1);
+      }
+
+      if (text.length > 4) {
+        text = Math.floor(value).toString();
+      }
+
+      dataWidget.updateText(text);
     };
 
     this._onResumeNormalHandlers.push(update);

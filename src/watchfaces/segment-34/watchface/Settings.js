@@ -49,6 +49,14 @@ const DATA_EDIT_OPTIONAL_TYPES = [
       type: 'sleep_time',
     },
   },
+  {
+    type: 100004,
+    title_en: gettext('distance'),
+    preview: 'edit/data_slot_preview.png',
+    data: {
+      type: 'distance',
+    },
+  },
 ];
 
 export class Settings {
