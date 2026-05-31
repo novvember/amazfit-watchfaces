@@ -84,6 +84,10 @@ WatchFace({
         this._buildReadiness(coords);
         break;
 
+      case 'biocharge':
+        this._buildBiocharge(coords);
+        break;
+
       default:
         console.log('Unknown data type', dataType);
     }
@@ -368,6 +372,17 @@ WatchFace({
       titleText: gettext('readiness'),
       titlePosition: 'top',
       dataType: hmUI.data_type.READINESS,
+    });
+  },
+
+  _buildBiocharge([x, y]) {
+    new CommonDataWidget({
+      digitsCount: 4,
+      x,
+      y,
+      titleText: gettext('biocharge'),
+      titlePosition: 'top',
+      dataType: hmUI.data_type.BIO_CHARGE,
     });
   },
 });

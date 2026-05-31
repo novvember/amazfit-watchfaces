@@ -105,6 +105,14 @@ const DATA_EDIT_OPTIONAL_TYPES = [
       type: 'readiness',
     },
   },
+  {
+    type: 100011,
+    title_en: gettext('biocharge'),
+    preview: 'edit/data_slot_preview.png',
+    data: {
+      type: 'biocharge',
+    },
+  },
 ];
 
 export class Settings {

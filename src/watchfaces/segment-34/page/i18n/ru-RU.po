@@ -180,3 +180,6 @@ msgstr "ВОССТАНОВЛ."
 
 msgid "readiness"
 msgstr "ГОТОВНОСТЬ"
+
+msgid "biocharge"
+msgstr "BIOCHARGE"

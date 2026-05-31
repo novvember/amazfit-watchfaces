@@ -180,3 +180,6 @@ msgstr "RECOVERY"
 
 msgid "readiness"
 msgstr "READINESS"
+
+msgid "biocharge"
+msgstr "BIOCHARGE"
