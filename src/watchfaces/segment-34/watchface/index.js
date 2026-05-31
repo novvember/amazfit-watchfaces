@@ -6,6 +6,8 @@ import { Time } from './Time';
 import { StatusIcons } from './StatusIcons';
 import { CommonDataWidget } from './CommonDataWidget';
 import { getSleepTime } from '../../../adapters/getSleepTime';
+import { Settings } from './Settings';
+import { getIs12HourFormat } from '../../../adapters/getIs12HourFormat';
 
 WatchFace({
   onInit() {
@@ -15,7 +17,8 @@ WatchFace({
   build() {
     console.log('watchface building');
 
-    this._createVars();
+    this._settings = new Settings();
+
     this._createEventHadlers();
 
     this._buildSunTime();
@@ -23,10 +26,7 @@ WatchFace({
     this._buildWeather();
     this._buildTime();
 
-    this._buildHeartRate();
-    this._buildCalories();
-    this._buildSleepTime();
-    this._buildSteps();
+    this._buildDataWidgets();
 
     this._buildStatusIcons();
   },
@@ -35,15 +35,36 @@ WatchFace({
     console.log('watchface destroying');
   },
 
-  _createVars() {
-    this._weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
-    this._is12HourFormat = hmSetting.getTimeFormat() === 0;
-    this._timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
-    this._batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
-    this._sleepSensor = hmSensor.createSensor(hmSensor.id.SLEEP);
+  _buildDataWidgets() {
+    this._buildDataWidget(this._settings['data-1'], [px(62), px(372)]);
+    this._buildDataWidget(this._settings['data-2'], [px(190), px(372)]);
+    this._buildDataWidget(this._settings['data-3'], [px(318), px(372)]);
+    this._buildSteps();
+  },
+
+  _buildDataWidget(dataType, coords) {
+    switch (dataType) {
+      case 'heart_rate':
+        this._buildHeartRate(coords);
+        break;
+
+      case 'calories':
+        this._buildCalories(coords);
+        break;
+
+      case 'sleep_time':
+        this._buildSleepTime(coords);
+        break;
+
+      default:
+        console.log('Unknown data type', dataType);
+    }
   },
 
   _createEventHadlers() {
+    this._timeSensor =
+      this._timeSensor || hmSensor.createSensor(hmSensor.id.TIME);
+
     this._onResumeNormalHandlers = [];
     this._onResumeAodHandlers = [];
 
@@ -94,8 +115,9 @@ WatchFace({
   },
 
   _buildSunTime() {
-    const weatherSensor = this._weatherSensor;
-    const is12HourFormat = this._is12HourFormat;
+    const weatherSensor =
+      this._weatherSensor || hmSensor.createSensor(hmSensor.id.WEATHER);
+    const is12HourFormat = getIs12HourFormat();
 
     const sunTime = new SunTime({
       weatherSensor,
@@ -114,7 +136,8 @@ WatchFace({
   },
 
   _buildWeather() {
-    const weatherSensor = this._weatherSensor;
+    const weatherSensor =
+      this._weatherSensor || hmSensor.createSensor(hmSensor.id.WEATHER);
 
     const weather = new Weather({
       weatherSensor,
@@ -128,7 +151,8 @@ WatchFace({
   },
 
   _buildTime() {
-    const timeSensor = this._timeSensor;
+    const timeSensor =
+      this._timeSensor || hmSensor.createSensor(hmSensor.id.TIME);
 
     const time = new Time({
       timeSensor,
@@ -142,35 +166,36 @@ WatchFace({
     this._onMinuteEndAodHandlers.push(update);
   },
 
-  _buildHeartRate() {
+  _buildHeartRate([x, y]) {
     new CommonDataWidget({
       digitsCount: 4,
-      x: px(62),
-      y: px(372),
+      x,
+      y,
       titleText: gettext('heart_rate'),
       titlePosition: 'top',
       dataType: hmUI.data_type.HEART,
     });
   },
 
-  _buildCalories() {
+  _buildCalories([x, y]) {
     new CommonDataWidget({
       digitsCount: 4,
-      x: px(190),
-      y: px(372),
+      x,
+      y,
       titleText: gettext('calories'),
       titlePosition: 'top',
       dataType: hmUI.data_type.CAL,
     });
   },
 
-  _buildSleepTime() {
-    const sleepSensor = this._sleepSensor;
+  _buildSleepTime([x, y]) {
+    const sleepSensor =
+      this._sleepSensor || hmSensor.createSensor(hmSensor.id.SLEEP);
 
     const dataWidget = new CommonDataWidget({
       digitsCount: 4,
-      x: px(318),
-      y: px(372),
+      x,
+      y,
       titleText: gettext('sleep_time'),
       titlePosition: 'top',
       dataType: undefined,
@@ -204,7 +229,8 @@ WatchFace({
   },
 
   _buildStatusIcons() {
-    const batterySensor = this._batterySensor;
+    const batterySensor =
+      this._batterySensor || hmSensor.createSensor(hmSensor.id.BATTERY);
 
     const statusIcons = new StatusIcons({
       batterySensor,
