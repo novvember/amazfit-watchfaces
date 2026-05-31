@@ -174,3 +174,6 @@ msgstr "STRESS"
 
 msgid "floors"
 msgstr "FLOORS"
+
+msgid "recovery_time"
+msgstr "RECOVERY"

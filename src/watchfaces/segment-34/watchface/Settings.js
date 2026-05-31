@@ -89,6 +89,14 @@ const DATA_EDIT_OPTIONAL_TYPES = [
       type: 'floors',
     },
   },
+  {
+    type: 100009,
+    title_en: gettext('recovery_time'),
+    preview: 'edit/data_slot_preview.png',
+    data: {
+      type: 'recovery_time',
+    },
+  },
 ];
 
 export class Settings {
