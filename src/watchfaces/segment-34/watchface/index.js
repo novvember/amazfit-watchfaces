@@ -19,6 +19,8 @@ WatchFace({
 
     this._settings = new Settings();
 
+    console.log(JSON.stringify(this._settings));
+
     this._createEventHadlers();
 
     this._buildSunTime();
@@ -36,9 +38,9 @@ WatchFace({
   },
 
   _buildDataWidgets() {
-    this._buildDataWidget(this._settings['data-1'], [px(62), px(372)]);
-    this._buildDataWidget(this._settings['data-2'], [px(190), px(372)]);
-    this._buildDataWidget(this._settings['data-3'], [px(318), px(372)]);
+    this._buildDataWidget(this._settings.data['data-1'], [px(62), px(372)]);
+    this._buildDataWidget(this._settings.data['data-2'], [px(190), px(372)]);
+    this._buildDataWidget(this._settings.data['data-3'], [px(318), px(372)]);
     this._buildSteps();
   },
 
@@ -202,8 +204,11 @@ WatchFace({
     const batterySensor =
       this._batterySensor || hmSensor.createSensor(hmSensor.id.BATTERY);
 
+    const batteryType = this._settings?.battery?.type || 'progress';
+
     const statusIcons = new StatusIcons({
       batterySensor,
+      batteryType,
     });
 
     const update = () => {

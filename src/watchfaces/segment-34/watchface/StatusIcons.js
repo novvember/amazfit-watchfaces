@@ -3,13 +3,15 @@ import {
   ALARM_STATUS_PROPS,
   BATTERY_ICON_PROPS,
   BATTERY_PROGRESS_PROPS,
+  BATTERY_TEXT_PROPS,
   CONNECT_IMAGE_PROPS,
   CONNECT_STATUS_PROPS,
 } from './StatusIcons.layout';
 
 export class StatusIcons {
-  constructor({ batterySensor }) {
+  constructor({ batterySensor, batteryType = 'progress' }) {
     this._batterySensor = batterySensor;
+    this._batteryType = batteryType;
 
     this._buildConnection();
     this._buildAlarm();
@@ -27,17 +29,25 @@ export class StatusIcons {
   }
 
   _buildBattery() {
-    this._batteryProgressWidget = hmUI.createWidget(
-      hmUI.widget.FILL_RECT,
-      BATTERY_PROGRESS_PROPS,
-    );
+    if (this._batteryType === 'progress') {
+      this._batteryProgressWidget = hmUI.createWidget(
+        hmUI.widget.FILL_RECT,
+        BATTERY_PROGRESS_PROPS,
+      );
+    } else if (this._batteryType === 'text') {
+      hmUI.createWidget(hmUI.widget.TEXT_FONT, BATTERY_TEXT_PROPS);
+    }
 
     hmUI.createWidget(hmUI.widget.IMG, BATTERY_ICON_PROPS);
   }
 
   update() {
+    if (this._batteryType !== 'progress') {
+      return;
+    }
+
     const { current = 0 } = this._batterySensor;
     const width = (current / 100) * BATTERY_PROGRESS_PROPS.w;
-    this._batteryProgressWidget.setProperty(hmUI.prop.W, width);
+    this._batteryProgressWidget?.setProperty(hmUI.prop.W, width);
   }
 }

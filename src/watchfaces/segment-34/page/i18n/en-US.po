@@ -183,3 +183,9 @@ msgstr "READINESS"
 
 msgid "biocharge"
 msgstr "BIOCHARGE"
+
+msgid "progress_bar"
+msgstr "Progress bar"
+
+msgid "text"
+msgstr "Text"

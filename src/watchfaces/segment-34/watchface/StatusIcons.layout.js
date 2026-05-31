@@ -1,4 +1,4 @@
-import { COLOR_PRIMARY } from './index.layout';
+import { COLOR_PRIMARY, FONT_SECONDARY } from './index.layout';
 
 export const CONNECT_IMAGE_PROPS = {
   x: px(261),
@@ -43,5 +43,19 @@ export const BATTERY_PROGRESS_PROPS = {
   w: px(32),
   h: px(22),
   color: COLOR_PRIMARY,
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+export const BATTERY_TEXT_PROPS = {
+  x: px(222),
+  y: px(452),
+  w: px(32),
+  h: px(22),
+  align_h: hmUI.align.CENTER_H,
+  align_v: hmUI.align.CENTER_V,
+  color: COLOR_PRIMARY,
+  text_size: px(16),
+  font: FONT_SECONDARY,
+  type: hmUI.data_type.BATTERY,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };

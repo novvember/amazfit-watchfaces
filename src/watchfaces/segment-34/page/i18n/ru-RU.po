@@ -183,3 +183,9 @@ msgstr "ГОТОВНОСТЬ"
 
 msgid "biocharge"
 msgstr "BIOCHARGE"
+
+msgid "progress_bar"
+msgstr "Заполнение"
+
+msgid "text"
+msgstr "Текст"
