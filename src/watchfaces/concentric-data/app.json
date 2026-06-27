@@ -5,8 +5,8 @@
     "appName": "Concentric Data",
     "appType": "watchface",
     "version": {
-      "code": 16,
-      "name": "3.0.0"
+      "code": 17,
+      "name": "3.0.1"
     },
     "icon": "icon.png",
     "vender": "novvember",

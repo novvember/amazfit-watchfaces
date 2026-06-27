@@ -9,7 +9,7 @@ export const COLORS = {
 
 export const FONTS = {
   primary: 'fonts/FiraSansCondensed-Medium.ttf',
-  aod: 'fonts/FiraSansCondensed-ExtraLight.ttf',
+  aod: 'fonts/FiraSansCondensed-Light.ttf',
   data: 'fonts/FiraSans-Regular.ttf',
 };
 
