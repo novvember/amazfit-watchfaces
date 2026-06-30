@@ -1,0 +1,23 @@
+msgid "mon"
+msgstr "понедельник"
+
+msgid "tue"
+msgstr "вторник"
+
+msgid "wed"
+msgstr "среда"
+
+msgid "thu"
+msgstr "четверг"
+
+msgid "fri"
+msgstr "пятница"
+
+msgid "sat"
+msgstr "суббота"
+
+msgid "sun"
+msgstr "воскресенье"
+
+msgid "steps"
+msgstr "шагов"
