@@ -6,8 +6,10 @@ import { formatNumber } from '../../../utils/formatNumber';
 
 import {
   BACKGROUND_GRADIENT_IMAGE_PROPS,
+  BATTERY_STATUS_PROPS,
   DATA_TEXT_PROPS,
   DATE_TEXT_PROPS,
+  DISCONNECT_STATUS_PROPS,
   EDIT_BACKGROUND_PROPS,
 } from './index.r.layout';
 import { TimeTextWidget } from './TimeTextWidget';
@@ -25,6 +27,8 @@ WatchFace({
     this.buildBackground();
     this.buildTime();
     this.buildSteps();
+    this.buildDisconnectStatus();
+    this.buildBatteryStatus();
   },
 
   onDestroy() {
@@ -118,6 +122,34 @@ WatchFace({
       },
       pause_call: () => {
         stepSensor?.removeEventListener?.(hmSensor.event.CHANGE, update);
+      },
+    });
+  },
+
+  buildDisconnectStatus() {
+    hmUI.createWidget(hmUI.widget.IMG_STATUS, DISCONNECT_STATUS_PROPS);
+  },
+
+  buildBatteryStatus() {
+    const MIN_VALUE = 30;
+
+    const batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
+
+    const imageWidget = hmUI.createWidget(
+      hmUI.widget.IMG,
+      BATTERY_STATUS_PROPS,
+    );
+
+    const update = () => {
+      const { current = 0 } = batterySensor;
+      imageWidget.setProperty(hmUI.prop.VISIBLE, current <= MIN_VALUE);
+    };
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          update();
+        }
       },
     });
   },
