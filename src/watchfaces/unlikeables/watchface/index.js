@@ -101,7 +101,7 @@ WatchFace({
     let prevValue = 0;
 
     const update = () => {
-      const { current = 0 } = stepSensor;
+      const { current = 0, target = 10000 } = stepSensor;
 
       if (prevValue === current) {
         return;
@@ -109,7 +109,9 @@ WatchFace({
 
       prevValue = current;
 
-      const text = formatNumber(current, ' ') + ' ' + gettext('steps');
+      const text =
+        `${formatNumber(current, ' ')} ${gettext('steps')} ${current >= target ? '✓' : ''}`.trim();
+
       textWidget.setProperty(hmUI.prop.TEXT, text);
     };
 
