@@ -5,6 +5,7 @@ import { getMonth } from '../../../adapters/getMonth';
 import { formatNumber } from '../../../utils/formatNumber';
 
 import {
+  BACKGROUND_GRADIENT_IMAGE_PROPS,
   DATA_TEXT_PROPS,
   DATE_TEXT_PROPS,
   EDIT_BACKGROUND_PROPS,
@@ -32,6 +33,7 @@ WatchFace({
 
   buildBackground() {
     hmUI.createWidget(hmUI.widget.WATCHFACE_EDIT_BG, EDIT_BACKGROUND_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG, BACKGROUND_GRADIENT_IMAGE_PROPS);
   },
 
   buildTime() {

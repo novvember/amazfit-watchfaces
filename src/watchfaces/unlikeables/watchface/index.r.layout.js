@@ -21,6 +21,13 @@ export const EDIT_BACKGROUND_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONLY_EDIT,
 };
 
+export const BACKGROUND_GRADIENT_IMAGE_PROPS = {
+  x: 0,
+  y: 0,
+  src: 'backgrounds/gradient.png',
+  show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONLY_EDIT,
+};
+
 export const DATE_TEXT_PROPS = {
   x: 0,
   y: px(320),
