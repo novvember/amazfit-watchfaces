@@ -133,7 +133,7 @@ WatchFace({
   },
 
   buildBatteryStatus() {
-    const MIN_VALUE = 30;
+    const MIN_VALUE = 20;
 
     const batterySensor = hmSensor.createSensor(hmSensor.id.BATTERY);
 
@@ -144,7 +144,7 @@ WatchFace({
 
     const update = () => {
       const { current = 0 } = batterySensor;
-      imageWidget.setProperty(hmUI.prop.VISIBLE, current <= MIN_VALUE);
+      imageWidget.setProperty(hmUI.prop.VISIBLE, current < MIN_VALUE);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {

@@ -60,16 +60,16 @@ export const DATA_TEXT_PROPS = {
 };
 
 export const DISCONNECT_STATUS_PROPS = {
-  x: px(231),
-  y: px(412),
+  x: px(260),
+  y: px(414),
   type: hmUI.system_status.DISCONNECT,
   src: 'status/bluetooth.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 export const BATTERY_STATUS_PROPS = {
-  x: px(191),
-  y: px(412),
+  x: px(216),
+  y: px(414),
   src: 'status/battery.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
