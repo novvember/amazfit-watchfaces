@@ -1,5 +1,7 @@
 import { WEATHER_DESCRIPTIONS } from './Weather.const';
 import {
+  UVI_ICON_PROPS,
+  UVI_TEXT_PROPS,
   WEATHER_HUMIDUTY_TEXT_PROPS,
   WEATHER_TEMP_TEXT_PROPS,
   WEATHER_TEXT_PROPS,
@@ -19,9 +21,14 @@ export class Weather {
 
   _buildTopWidgets() {
     hmUI.createWidget(hmUI.widget.TEXT_FONT, WEATHER_TEMP_TEXT_PROPS);
+
     hmUI.createWidget(hmUI.widget.IMG_LEVEL, WEATHER_WIND_IMAGE_PROPS);
     hmUI.createWidget(hmUI.widget.TEXT_FONT, WEATHER_WIND_TEXT_PROPS);
+
     hmUI.createWidget(hmUI.widget.TEXT_FONT, WEATHER_HUMIDUTY_TEXT_PROPS);
+
+    hmUI.createWidget(hmUI.widget.TEXT, UVI_TEXT_PROPS);
+    hmUI.createWidget(hmUI.widget.IMG_LEVEL, UVI_ICON_PROPS);
   }
 
   _buildWeatherConditions() {

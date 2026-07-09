@@ -192,3 +192,6 @@ msgstr "Текст"
 
 msgid "spo2"
 msgstr "SPO2"
+
+msgid "uv"
+msgstr "УФ"
