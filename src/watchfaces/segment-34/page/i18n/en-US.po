@@ -189,3 +189,6 @@ msgstr "Progress bar"
 
 msgid "text"
 msgstr "Text"
+
+msgid "spo2"
+msgstr "SPO2"

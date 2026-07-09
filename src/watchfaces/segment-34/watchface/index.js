@@ -19,8 +19,6 @@ WatchFace({
 
     this._settings = new Settings();
 
-    console.log(JSON.stringify(this._settings));
-
     this._createEventHadlers();
 
     this._buildSunTime();
@@ -88,6 +86,10 @@ WatchFace({
 
       case 'biocharge':
         this._buildBiocharge(coords);
+        break;
+
+      case 'spo2':
+        this._buildSpo2(coords);
         break;
 
       default:
@@ -388,6 +390,17 @@ WatchFace({
       titleText: gettext('biocharge'),
       titlePosition: 'top',
       dataType: hmUI.data_type.BIO_CHARGE,
+    });
+  },
+
+  _buildSpo2([x, y]) {
+    new CommonDataWidget({
+      digitsCount: 4,
+      x,
+      y,
+      titleText: gettext('spo2'),
+      titlePosition: 'top',
+      dataType: hmUI.data_type.SPO2,
     });
   },
 });
