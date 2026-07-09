@@ -189,3 +189,6 @@ msgstr "Заполнение"
 
 msgid "text"
 msgstr "Текст"
+
+msgid "spo2"
+msgstr "SPO2"

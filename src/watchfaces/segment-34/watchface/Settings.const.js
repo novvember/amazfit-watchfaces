@@ -116,6 +116,14 @@ export const DATA_EDIT_OPTIONAL_TYPES = [
       type: 'biocharge',
     },
   },
+  {
+    type: 100012,
+    title_en: gettext('spo2'),
+    preview: 'edit/data_slot_preview.png',
+    data: {
+      type: 'spo2',
+    },
+  },
 ];
 
 export const BATTERY_EDIT_GROUPS_PARAMS = [
