@@ -2,9 +2,11 @@ export const COLORS = {
   primary: 0xffffff,
   secondary: 0xd0d0d0,
   tertiary: 0x1c1c1c,
+
   accent: 0x60c7f4,
   accentSecondary: 0x34596d,
-  aod: 0xb1b1b1,
+
+  aod: 0xffffff,
 };
 
 export const FONTS = {
