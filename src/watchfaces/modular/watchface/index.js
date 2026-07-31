@@ -24,6 +24,7 @@ import { CaloriesSlotWidget } from './slotWidgets/CaloriesSlotWidget';
 import { RecoverySlotWidget } from './slotWidgets/RecoverySlotWidget';
 import { AlarmSlotWidget } from './slotWidgets/AlarmSlotWidget';
 import { ClickerSlotWidget } from './slotWidgets/ClickerSlotWidget';
+import { StatusIconsWidget } from './StatusIconsWidget';
 
 WatchFace({
   onInit() {
@@ -40,6 +41,7 @@ WatchFace({
 
     this.buildSleep();
     this.buildDistance();
+    this.buildStatusIcons();
 
     this.buildWidgets();
   },
@@ -91,6 +93,10 @@ WatchFace({
     new SleepWidget({
       sleepSensor: this._sleepSensor,
     });
+  },
+
+  buildStatusIcons() {
+    new StatusIconsWidget();
   },
 
   buildWidgets() {
