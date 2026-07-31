@@ -1,0 +1,107 @@
+msgid "steps"
+msgstr "шаги"
+
+msgid "bpm"
+msgstr "чсс"
+
+msgid "sleep-time"
+msgstr "СОН %s"
+
+msgid "temperature"
+msgstr "Температура"
+
+msgid "uv-index"
+msgstr "UV-индекс"
+
+msgid "the-sun"
+msgstr "Солнце"
+
+msgid "wind"
+msgstr "Ветер"
+
+msgid "date"
+msgstr "Дата"
+
+msgid "battery"
+msgstr "Батарея"
+
+msgid "seconds"
+msgstr "Секунды"
+
+msgid "humidity"
+msgstr "Влажность"
+
+msgid "world-time"
+msgstr "Мировое время"
+
+msgid "weather"
+msgstr "Погода"
+
+msgid "moon"
+msgstr "Луна"
+
+msgid "activity-rings"
+msgstr "Кольца активности (калории, время интенсивной нагрузки, разминка)"
+
+msgid "air-pressure"
+msgstr "Атмосферное давление"
+
+msgid "air-quality-index"
+msgstr "Индекс качества воздуха"
+
+msgid "pai"
+msgstr "PAI"
+
+msgid "calories"
+msgstr "Калории"
+
+msgid "recovery-time"
+msgstr "Время восстановления"
+
+msgid "alarm"
+msgstr "Будильник"
+
+msgid "clicker"
+msgstr "Кликер"
+
+msgid "disable"
+msgstr "Выключить"
+
+msgid "mon"
+msgstr "ПН"
+
+msgid "tue"
+msgstr "ВТ"
+
+msgid "wed"
+msgstr "СР"
+
+msgid "thu"
+msgstr "ЧТ"
+
+msgid "fri"
+msgstr "ПТ"
+
+msgid "sat"
+msgstr "СБ"
+
+msgid "sun"
+msgstr "ВС"
+
+msgid "mps"
+msgstr "М/С"
+
+msgid "mm"
+msgstr "ММ"
+
+msgid "hpa"
+msgstr "ГПА"
+
+msgid "aqi"
+msgstr "AQI"
+
+msgid "pai"
+msgstr "PAI"
+
+msgid "hours-short"
+msgstr "Ч"

@@ -1,0 +1,107 @@
+msgid "steps"
+msgstr "steps"
+
+msgid "bpm"
+msgstr "bpm"
+
+msgid "sleep-time"
+msgstr "SLEEP %s"
+
+msgid "temperature"
+msgstr "Temperature"
+
+msgid "uv-index"
+msgstr "UV Index"
+
+msgid "the-sun"
+msgstr "Sun"
+
+msgid "wind"
+msgstr "Wind"
+
+msgid "date"
+msgstr "Date"
+
+msgid "battery"
+msgstr "Battery"
+
+msgid "seconds"
+msgstr "Seconds"
+
+msgid "humidity"
+msgstr "Humidity"
+
+msgid "world-time"
+msgstr "World Time"
+
+msgid "weather"
+msgstr "Weather"
+
+msgid "moon"
+msgstr "Moon"
+
+msgid "activity-rings"
+msgstr "Activity Rings (calories, fat burning time, stands)"
+
+msgid "air-pressure"
+msgstr "Air Pressure"
+
+msgid "air-quality-index"
+msgstr "Air Quality Index"
+
+msgid "pai"
+msgstr "PAI"
+
+msgid "calories"
+msgstr "Calories"
+
+msgid "recovery-time"
+msgstr "Recovery Time"
+
+msgid "alarm"
+msgstr "Alarm"
+
+msgid "clicker"
+msgstr "Clicker"
+
+msgid "disable"
+msgstr "Disable"
+
+msgid "mon"
+msgstr "MON"
+
+msgid "tue"
+msgstr "TUE"
+
+msgid "wed"
+msgstr "WED"
+
+msgid "thu"
+msgstr "THU"
+
+msgid "fri"
+msgstr "FRI"
+
+msgid "sat"
+msgstr "SAT"
+
+msgid "sun"
+msgstr "SUN"
+
+msgid "mps"
+msgstr "MPS"
+
+msgid "mm"
+msgstr "MM"
+
+msgid "hpa"
+msgstr "HPA"
+
+msgid "aqi"
+msgstr "AQI"
+
+msgid "pai"
+msgstr "PAI"
+
+msgid "hours-short"
+msgstr "H"

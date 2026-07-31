@@ -5,8 +5,8 @@
     "appName": "Modular",
     "appType": "watchface",
     "version": {
-      "code": 14,
-      "name": "1.6.1"
+      "code": 15,
+      "name": "2.0.0"
     },
     "icon": "icon.png",
     "vender": "novvember",
@@ -47,9 +47,6 @@
       "appName": "Modular"
     },
     "ru-RU": {
-      "appName": "Modular"
-    },
-    "uk-UA": {
       "appName": "Modular"
     }
   },
