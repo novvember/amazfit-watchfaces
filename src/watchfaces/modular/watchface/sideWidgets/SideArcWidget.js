@@ -58,6 +58,12 @@ export class SideArcWidget {
     );
 
     this._titleText.setProperty(hmUI.prop.TEXT, title.toUpperCase());
+
+    this.set({
+      valueText: '-',
+      value: 0,
+      selection: [0, 0],
+    });
   }
 
   /**
