@@ -25,6 +25,7 @@ import { RecoverySlotWidget } from './slotWidgets/RecoverySlotWidget';
 import { AlarmSlotWidget } from './slotWidgets/AlarmSlotWidget';
 import { ClickerSlotWidget } from './slotWidgets/ClickerSlotWidget';
 import { StatusIconsWidget } from './StatusIconsWidget';
+import { TimeSettings } from './settings/TimeSettings';
 
 WatchFace({
   onInit() {
@@ -51,11 +52,15 @@ WatchFace({
   },
 
   buildTime() {
+    const timeSettings = new TimeSettings();
+    const mode = timeSettings.settings.time;
+
     this._timeSensor =
       this._timeSensor || hmSensor.createSensor(hmSensor.id.TIME);
 
     new TimeWidget({
       timeSensor: this._timeSensor,
+      mode,
     });
   },
 

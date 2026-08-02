@@ -105,3 +105,9 @@ msgstr "PAI"
 
 msgid "hours-short"
 msgstr "Ч"
+
+msgid "time-default"
+msgstr "Время (вид по умолчанию)"
+
+msgid "time-seconds"
+msgstr "Время (с секундами)"

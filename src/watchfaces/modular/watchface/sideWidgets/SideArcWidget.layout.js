@@ -31,7 +31,7 @@ export const SIDE_ARC_MARK_IMAGE_PROPS = {
   y: 0,
   w: px(480),
   h: px(480),
-  pos_x: px(240) - px(14) / 2,
+  pos_x: px(240) - px(16) / 2,
   pos_y: 0,
   center_x: px(240),
   center_y: px(240),

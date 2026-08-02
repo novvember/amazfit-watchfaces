@@ -1,17 +1,25 @@
 import { getTimeTexts } from '../../../adapters/getTimeTexts';
-import { TIME_AOD_TEXT_PROPS, TIME_TEXT_PROPS } from './TimeWidget.layout';
+import {
+  TIME_AOD_TEXT_PROPS,
+  TIME_SECONDS_COLON_PROPS,
+  TIME_SECONDS_TEXT_PROPS,
+  TIME_TEXT_2_PROPS,
+  TIME_TEXT_PROPS,
+} from './TimeWidget.layout';
 
 /**
  * @typedef {Object} TimeWidgetParams
  * @property {HmSensorInstance} timeSensor
+ * @property {'default' | 'seconds'} [mode]
  */
 
 export class TimeWidget {
   /**
    * @param {TimeWidgetParams} params
    */
-  constructor({ timeSensor }) {
+  constructor({ timeSensor, mode }) {
     this._timeSensor = timeSensor;
+    this._mode = mode || 'default';
 
     this._buildLayout();
     this._update = this._update.bind(this);
@@ -19,7 +27,16 @@ export class TimeWidget {
   }
 
   _buildLayout() {
-    this._textWidget = hmUI.createWidget(hmUI.widget.TEXT, TIME_TEXT_PROPS);
+    this._textWidget = hmUI.createWidget(
+      hmUI.widget.TEXT,
+      this._mode === 'default' ? TIME_TEXT_PROPS : TIME_TEXT_2_PROPS,
+    );
+
+    if (this._mode === 'seconds') {
+      hmUI.createWidget(hmUI.widget.TEXT, TIME_SECONDS_COLON_PROPS);
+      hmUI.createWidget(hmUI.widget.TEXT_FONT, TIME_SECONDS_TEXT_PROPS);
+    }
+
     this._textAodWidget = hmUI.createWidget(
       hmUI.widget.TEXT,
       TIME_AOD_TEXT_PROPS,

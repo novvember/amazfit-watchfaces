@@ -1,27 +1,23 @@
-import {
-  SETTINGS_EDIT_GROUP_SIZE,
-  SETTINGS_WIDGET_EDIT_GROUP_OFFSET,
-  SETTINGS_WIDGET_OPTIONAL_TYPES,
-} from './WidgetSettings.const';
-import { WIDGETS } from '../index.const';
+import { SETTINGS_TIME_OPTIONAL_TYPES } from './TimeSettings.const';
 
-const EDIT_GROUPS_PARAMS = new Array(6).fill(null).map((_, i) => ({
-  name: i.toString(),
-  props: {
-    x: WIDGETS[i].x - SETTINGS_WIDGET_EDIT_GROUP_OFFSET,
-    y: WIDGETS[i].y - SETTINGS_WIDGET_EDIT_GROUP_OFFSET,
-    tips_y: i < 3 ? SETTINGS_EDIT_GROUP_SIZE + px(5) : -1 * px(30 + 5),
+const EDIT_GROUPS_PARAMS = [
+  {
+    name: 'time',
+    props: {
+      x: px(45),
+      y: px(176),
+    },
   },
-}));
+];
 
-export class WidgetSettings {
+export class TimeSettings {
   constructor() {
     this.settings = this._buildEditWidgets();
   }
 
   _buildEditWidgets() {
     const editGroupParams = EDIT_GROUPS_PARAMS;
-    const optionalTypes = SETTINGS_WIDGET_OPTIONAL_TYPES;
+    const optionalTypes = SETTINGS_TIME_OPTIONAL_TYPES;
 
     const editGroups = editGroupParams.map((editGroupParam, index) =>
       hmUI.createWidget(hmUI.widget.WATCHFACE_EDIT_GROUP, {
@@ -29,20 +25,19 @@ export class WidgetSettings {
         x: 0,
         // @ts-ignore
         y: 0,
-        w: SETTINGS_EDIT_GROUP_SIZE,
-        h: SETTINGS_EDIT_GROUP_SIZE,
+        w: px(390),
+        h: px(128),
 
-        select_image: 'edit/widget_select.png',
-        un_select_image: 'edit/widget_unselect.png',
+        select_image: 'edit/time_select.png',
+        un_select_image: 'edit/time_unselect.png',
 
         tips_BG: 'edit/tip.png',
         tips_width: px(120),
         tips_margin: px(6),
-        tips_x: px(-15),
-        // @ts-ignore
-        tips_y: 0,
+        tips_x: px(135),
+        tips_y: px(-35),
 
-        edit_id: index,
+        edit_id: 110,
         optional_types: optionalTypes,
         count: optionalTypes.length,
         default_type: optionalTypes[index].type,

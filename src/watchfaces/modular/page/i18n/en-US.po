@@ -105,3 +105,9 @@ msgstr "PAI"
 
 msgid "hours-short"
 msgstr "H"
+
+msgid "time-default"
+msgstr "Time (default view)"
+
+msgid "time-seconds"
+msgstr "Time (with seconds)"
