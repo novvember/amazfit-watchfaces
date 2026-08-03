@@ -3,7 +3,7 @@ import {
   SETTINGS_WIDGET_EDIT_GROUP_OFFSET,
   SETTINGS_WIDGET_OPTIONAL_TYPES,
 } from './WidgetSettings.const';
-import { WIDGETS } from '../index.const';
+import { COLORS, WIDGETS } from '../index.const';
 
 const EDIT_GROUPS_PARAMS = new Array(6).fill(null).map((_, i) => ({
   name: i.toString(),
@@ -16,7 +16,33 @@ const EDIT_GROUPS_PARAMS = new Array(6).fill(null).map((_, i) => ({
 
 export class WidgetSettings {
   constructor() {
+    this._buildBackground();
     this.settings = this._buildEditWidgets();
+  }
+
+  _buildBackground() {
+    const { name, version, vender } = hmApp.getPackageInfo();
+
+    const text = [
+      name,
+      version ? `v. ${version}` : undefined,
+      vender ? `github: @${vender}` : undefined,
+    ]
+      .filter(Boolean)
+      .join(' | ');
+
+    hmUI.createWidget(hmUI.widget.TEXT, {
+      x: px(126),
+      y: px(424),
+      w: px(228),
+      h: px(32),
+      text,
+      color: COLORS.primary,
+      text_size: px(24),
+      align_h: hmUI.align.CENTER_H,
+      align_v: hmUI.align.CENTER_V,
+      show_level: hmUI.show_level.ONLY_EDIT,
+    });
   }
 
   _buildEditWidgets() {
