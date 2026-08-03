@@ -12,18 +12,19 @@ import {
  * @property {number} y
  * @property {number} w
  * @property {number} h
- * @property {() => number} getClickerCounter
- * @property {(value: number) => void} saveClickerCounter
  */
+
+const STORAGE_KEY = 'modular-clicker-counter';
+
+export const resetClickerWidget = () => {
+  return hmFS.SysProSetInt(STORAGE_KEY, 0);
+};
 
 export class ClickerSlotWidget {
   /**
    * @param {ClickerSlotWidgetParams} params
    */
-  constructor({ x, y, w, h, getClickerCounter, saveClickerCounter }) {
-    this._getClickerCounter = getClickerCounter;
-    this._saveClickerCounter = saveClickerCounter;
-
+  constructor({ x, y, w, h }) {
     this._onButtonClick = this._onButtonClick.bind(this);
 
     const centerX = x + w / 2;
@@ -101,5 +102,20 @@ export class ClickerSlotWidget {
     this._animateCoin();
     this._textWidget.setProperty(hmUI.prop.TEXT, this._counter.toString());
     this._saveClickerCounter(this._counter);
+  }
+
+  /**
+   * @param {number} counter
+   * @returns {void}
+   */
+  _saveClickerCounter(counter = 0) {
+    return hmFS.SysProSetInt(STORAGE_KEY, counter);
+  }
+
+  /**
+   * @returns {number}
+   */
+  _getClickerCounter() {
+    return hmFS.SysProGetInt(STORAGE_KEY) || 0;
   }
 }

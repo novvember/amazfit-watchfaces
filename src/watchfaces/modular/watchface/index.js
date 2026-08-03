@@ -23,7 +23,10 @@ import { PaiSlotWidget } from './slotWidgets/PaiSlotWidget';
 import { CaloriesSlotWidget } from './slotWidgets/CaloriesSlotWidget';
 import { RecoverySlotWidget } from './slotWidgets/RecoverySlotWidget';
 import { AlarmSlotWidget } from './slotWidgets/AlarmSlotWidget';
-import { ClickerSlotWidget } from './slotWidgets/ClickerSlotWidget';
+import {
+  ClickerSlotWidget,
+  resetClickerWidget,
+} from './slotWidgets/ClickerSlotWidget';
 import { StatusIconsWidget } from './StatusIconsWidget';
 import { TimeSettings } from './settings/TimeSettings';
 
@@ -122,7 +125,7 @@ WatchFace({
 
     /** Resets clicker widget counter if clicker is not selected */
     if (!hasClicker) {
-      this.saveClickerCounter(0);
+      resetClickerWidget();
     }
   },
 
@@ -389,25 +392,6 @@ WatchFace({
    * @param {number} slotNumber
    */
   buildClicker(slotNumber) {
-    new ClickerSlotWidget({
-      ...WIDGETS[slotNumber],
-      getClickerCounter: this.getClickerCounter,
-      saveClickerCounter: this.saveClickerCounter,
-    });
-  },
-
-  /**
-   * @returns {number}
-   */
-  getClickerCounter() {
-    return hmFS.SysProGetInt('modular-clicker-counter') || 0;
-  },
-
-  /**
-   * @param {number} counter
-   * @returns {void}
-   */
-  saveClickerCounter(counter = 0) {
-    return hmFS.SysProSetInt('modular-clicker-counter', counter);
+    new ClickerSlotWidget(WIDGETS[slotNumber]);
   },
 });
