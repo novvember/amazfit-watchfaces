@@ -1,9 +1,10 @@
 /**
  * Zepp Watchface
  */
-declare function WatchFace(descriptor: {
-  onInit?: () => void;
-  build?: () => void;
-  onDestroy?: () => void;
-  [key: string]: () => unknown;
-}): void;
+declare function WatchFace<T extends Record<string, any>>(
+  descriptor: T & {
+    onInit?: () => void;
+    build?: () => void;
+    onDestroy?: () => void;
+  } & ThisType<T & Record<string, any>>
+): void;

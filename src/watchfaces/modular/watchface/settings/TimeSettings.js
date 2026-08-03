@@ -51,10 +51,8 @@ export class TimeSettings {
       return optionalTypes.find((item) => item.type === typeId)?.data?.type;
     });
 
-    return editGroupParams.reduce((res, editGroupParam, index) => {
-      // @ts-ignore
-      res[editGroupParam.name] = chosenTypes[index];
-      return res;
-    }, {});
+    return Object.fromEntries(
+      editGroupParams.map((param, index) => [param.name, chosenTypes[index]]),
+    );
   }
 }

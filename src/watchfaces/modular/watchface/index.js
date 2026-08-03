@@ -60,6 +60,7 @@ WatchFace({
 
     new TimeWidget({
       timeSensor: this._timeSensor,
+      // @ts-ignore
       mode,
     });
   },
@@ -84,7 +85,7 @@ WatchFace({
 
   buildDistance() {
     this._distanceSensor =
-      this.__distanceSensor || hmSensor.createSensor(hmSensor.id.DISTANCE);
+      this._distanceSensor || hmSensor.createSensor(hmSensor.id.DISTANCE);
 
     new DisctanceWidget({
       distanceSensor: this._distanceSensor,
@@ -110,7 +111,7 @@ WatchFace({
     let hasClicker = false;
 
     for (let i = 0; i < 6; i++) {
-      const type = widgetSettings.settings[i];
+      const type = widgetSettings.settings[i] || 'unknown';
 
       if (type === 'clicker') {
         hasClicker = true;
