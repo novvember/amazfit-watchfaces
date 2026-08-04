@@ -23,10 +23,7 @@ import { PaiSlotWidget } from './slotWidgets/PaiSlotWidget';
 import { CaloriesSlotWidget } from './slotWidgets/CaloriesSlotWidget';
 import { RecoverySlotWidget } from './slotWidgets/RecoverySlotWidget';
 import { AlarmSlotWidget } from './slotWidgets/AlarmSlotWidget';
-import {
-  ClickerSlotWidget,
-  resetClickerWidget,
-} from './slotWidgets/ClickerSlotWidget';
+import { ClickerSlotWidget } from './slotWidgets/ClickerSlotWidget';
 import { StatusIconsWidget } from './StatusIconsWidget';
 import { TimeSettings } from './settings/TimeSettings';
 
@@ -111,24 +108,9 @@ WatchFace({
   buildWidgets() {
     const widgetSettings = new WidgetSettings();
 
-    let hasClicker = false;
-
     for (let i = 0; i < 6; i++) {
       const type = widgetSettings.settings[i] || 'unknown';
-
-      if (type === 'clicker') {
-        hasClicker = true;
-      }
-
       this.buildWidget(type, i);
-    }
-
-    /** Resets clicker widget counter if clicker is not selected */
-    if (
-      hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE &&
-      !hasClicker
-    ) {
-      resetClickerWidget();
     }
   },
 

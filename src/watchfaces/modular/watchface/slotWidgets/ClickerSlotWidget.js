@@ -16,10 +16,6 @@ import {
 
 const STORAGE_KEY = 'modular-clicker-counter';
 
-export const resetClickerWidget = () => {
-  return hmFS.SysProSetInt(STORAGE_KEY, 0);
-};
-
 export class ClickerSlotWidget {
   /**
    * @param {ClickerSlotWidgetParams} params
