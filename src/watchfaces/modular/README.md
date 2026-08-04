@@ -1,33 +1,14 @@
 # Modular Watchface
 Watchface for round ZeppOS watch.
 
-![demo](./demo_big_ru.png)
+![demo](./demo-balance-2.png)
 
-## Features
+## Description
+Configurable watch face with rich data display. Six round customizable widget slots offer 15+ options (including weather, date, battery, alarm, moon phase, world time, and physical activity metrics). Time: regular or with seconds. Two additional widgets on the sides, and distance and sleep at the bottom. Supports AOD.
 
-**Main features**
-- Large time digits in the center.
-- Steps and heart rate on the sides.
-- Walked distance and sleep duration on the bottom.
-- Six customizable widget slots:
-  - Temperature
-  - UV Index
-  - Sun position and sunrise/sunset time
-  - Wind speed and direction
-  - Date and weekday
-  - Battery level
-  - Second hand
-  - Humidity
-  - World time (time for the first city in the system app)
-  - Current weather status and temperature
-  - Moon phase
-  - Activity rings (calories, fat-burning time, and stands)
-  - Air pressure
-  - Air Quality Index
-  - Weekly PAI value with diagram for the last 7 days
-  - Alarm time
-  - Coin clicker (count things in real time or just click it to get a coin)
-  - Or simply disable any widget to have extra space
+Restart your watch after installation to ensure proper display.
+
+Find me on GitHub to report bugs, request features, or donate.
 
 **Reference:**
 [Modular Ultra watchface](https://support.apple.com/guide/watch/faces-and-features-apde9218b440/watchos) for Apple Watch Ultra in one of its possible configurations.
