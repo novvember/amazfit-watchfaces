@@ -124,7 +124,10 @@ WatchFace({
     }
 
     /** Resets clicker widget counter if clicker is not selected */
-    if (!hasClicker) {
+    if (
+      hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE &&
+      !hasClicker
+    ) {
       resetClickerWidget();
     }
   },
