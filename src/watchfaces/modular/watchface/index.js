@@ -26,6 +26,8 @@ import { AlarmSlotWidget } from './slotWidgets/AlarmSlotWidget';
 import { ClickerSlotWidget } from './slotWidgets/ClickerSlotWidget';
 import { StatusIconsWidget } from './StatusIconsWidget';
 import { TimeSettings } from './settings/TimeSettings';
+import { SideSettings } from './settings/SideSettings';
+import { BatterySideWidget } from './sideWidgets/BatterySideWidget';
 
 WatchFace({
   onInit() {
@@ -37,12 +39,11 @@ WatchFace({
 
     this.buildTime();
 
-    this.buildStepSide();
-    this.buildHeartSide();
-
     this.buildSleep();
     this.buildDistance();
     this.buildStatusIcons();
+
+    this.buildSides();
 
     this.buildWidgets();
   },
@@ -65,21 +66,71 @@ WatchFace({
     });
   },
 
-  buildStepSide() {
+  buildSides() {
+    const sideSettings = new SideSettings();
+
+    for (const side in sideSettings.settings) {
+      const type = sideSettings.settings[side] || 'unknown';
+
+      switch (type) {
+        case 'steps':
+          // @ts-ignore
+          this.buildStepSide(side);
+          break;
+
+        case 'heart':
+          // @ts-ignore
+          this.buildHeartSide(side);
+          break;
+
+        case 'battery':
+          // @ts-ignore
+          this.buildBatterySide(side);
+          break;
+
+        default:
+          console.log('Unknown side type', type);
+          break;
+      }
+    }
+  },
+
+  /**
+   * @param {'left' | 'right'} side
+   */
+  buildStepSide(side) {
     this._stepSensor =
       this._stepSensor || hmSensor.createSensor(hmSensor.id.STEP);
 
     new StepSideWidget({
       stepSensor: this._stepSensor,
+      side,
     });
   },
 
-  buildHeartSide() {
+  /**
+   * @param {'left' | 'right'} side
+   */
+  buildHeartSide(side) {
     this._heartSensor =
       this._heartSensor || hmSensor.createSensor(hmSensor.id.HEART);
 
     new HeartSideWidget({
       heartSensor: this._heartSensor,
+      side,
+    });
+  },
+
+  /**
+   * @param {'left' | 'right'} side
+   */
+  buildBatterySide(side) {
+    this._batterySensor =
+      this._batterySensor || hmSensor.createSensor(hmSensor.id.BATTERY);
+
+    new BatterySideWidget({
+      batterySensor: this._batterySensor,
+      side,
     });
   },
 

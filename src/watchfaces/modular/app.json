@@ -5,8 +5,8 @@
     "appName": "Modular",
     "appType": "watchface",
     "version": {
-      "code": 24,
-      "name": "2.2.6"
+      "code": 25,
+      "name": "2.3.0"
     },
     "icon": "icon.png",
     "vender": "novvember",

@@ -1,23 +1,22 @@
 import { formatNumber } from '../../../../utils/formatNumber';
 import { SideArcWidget } from './SideArcWidget';
-import { gettext } from 'i18n';
 
 /**
- * @typedef {Object} StepSideWidgetParams
- * @property {HmSensorInstance} stepSensor
+ * @typedef {Object} BatterySideWidgetParams
+ * @property {HmSensorInstance} batterySensor
  * @property {'left' | 'right'} side
  */
 
-export class StepSideWidget {
+export class BatterySideWidget {
   /**
-   * @param {StepSideWidgetParams} params
+   * @param {BatterySideWidgetParams} params
    */
-  constructor({ stepSensor, side }) {
-    this._stepSensor = stepSensor;
+  constructor({ batterySensor, side }) {
+    this._batterySensor = batterySensor;
 
     this._sideArcWidget = new SideArcWidget({
       side,
-      title: gettext('steps'),
+      title: '%',
     });
 
     this._update = this._update.bind(this);
@@ -25,8 +24,8 @@ export class StepSideWidget {
   }
 
   _update() {
-    const { current = 0, target = 10000 } = this._stepSensor;
-    const value = current / target;
+    const { current = 0 } = this._batterySensor;
+    const value = current / 100;
 
     this._sideArcWidget?.set({
       valueText: formatNumber(current, ' '),
@@ -36,18 +35,18 @@ export class StepSideWidget {
   }
 
   _bindHandlers() {
-    const stepSensor = this._stepSensor;
+    const batterySensor = this._batterySensor;
     const update = this._update;
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          stepSensor.addEventListener?.(hmSensor.event.CHANGE, update);
+          batterySensor.addEventListener?.(hmSensor.event.CHANGE, update);
           update();
         }
       },
       pause_call: () => {
-        stepSensor.removeEventListener?.(hmSensor.event.CHANGE, update);
+        batterySensor.removeEventListener?.(hmSensor.event.CHANGE, update);
       },
     });
   }

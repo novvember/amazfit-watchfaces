@@ -1,5 +1,5 @@
 msgid "steps"
-msgstr "steps"
+msgstr "Steps"
 
 msgid "bpm"
 msgstr "bpm"
@@ -111,3 +111,6 @@ msgstr "Time (default view)"
 
 msgid "time-seconds"
 msgstr "Time (with seconds)"
+
+msgid "heart"
+msgstr "Heart"

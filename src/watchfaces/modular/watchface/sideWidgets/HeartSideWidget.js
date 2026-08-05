@@ -5,6 +5,7 @@ import { gettext } from 'i18n';
 /**
  * @typedef {Object} HeartSideWidgetParams
  * @property {HmSensorInstance} heartSensor
+ * @property {'left' | 'right'} side
  */
 
 const MIN_VALUE = 40;
@@ -14,19 +15,16 @@ export class HeartSideWidget {
   /**
    * @param {HeartSideWidgetParams} params
    */
-  constructor({ heartSensor }) {
+  constructor({ heartSensor, side }) {
     this._heartSensor = heartSensor;
 
-    this._buildLayout();
-    this._update = this._update.bind(this);
-    this._bindHandlers();
-  }
-
-  _buildLayout() {
     this._sideArcWidget = new SideArcWidget({
-      side: 'right',
+      side,
       title: gettext('bpm'),
     });
+
+    this._update = this._update.bind(this);
+    this._bindHandlers();
   }
 
   _update() {
