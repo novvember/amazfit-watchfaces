@@ -5,8 +5,8 @@
     "appName": "The Unlikeables",
     "appType": "watchface",
     "version": {
-      "code": 5,
-      "name": "1.3.1"
+      "code": 6,
+      "name": "1.3.2"
     },
     "icon": "icon.png",
     "vender": "novvember",

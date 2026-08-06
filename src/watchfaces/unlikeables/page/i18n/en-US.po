@@ -41,7 +41,7 @@ msgid "jul"
 msgstr "July {day}"
 
 msgid "aug"
-msgstr "Augest {day}"
+msgstr "August {day}"
 
 msgid "sep"
 msgstr "September {day}"
