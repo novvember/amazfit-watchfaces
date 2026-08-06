@@ -10,11 +10,8 @@ msgstr "Дата (ММ/ДД)"
 msgid "Day and Weekday"
 msgstr "Дата и день недели"
 
-msgid "Temperature (°C)"
-msgstr "Температура (°C)"
-
-msgid "Temperature (°F)"
-msgstr "Температура (°F)"
+msgid "Temperature"
+msgstr "Температура"
 
 msgid "Steps"
 msgstr "Шаги"

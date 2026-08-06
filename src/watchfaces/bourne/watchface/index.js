@@ -11,7 +11,7 @@ import { SecondsWidget } from './SecondsWidget';
 import { SleepWidget } from './SleepWidget';
 import { StepsWidget } from './StepsWidget';
 import { SunWidget } from './SunWidget';
-import { TemperatureWidget } from './TemeperatureWidget';
+import { TemperatureWidget } from './TemperatureWidget';
 import { TimeWidget } from './TimeWidget';
 import { WeekdayWidget } from './WeekdayWidget';
 import { WorldTimeWidget } from './WorldTimeWidget';
@@ -107,12 +107,8 @@ WatchFace({
         new DayWeekdayWidget(rowIndex, color);
         return;
 
-      case 'temperature-c':
-        new TemperatureWidget(rowIndex, color, '°C');
-        return;
-
-      case 'temperature-f':
-        new TemperatureWidget(rowIndex, color, '°F');
+      case 'temperature':
+        new TemperatureWidget(rowIndex, color);
         return;
 
       case 'steps':

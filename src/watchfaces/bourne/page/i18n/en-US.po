@@ -10,11 +10,8 @@ msgstr "Date (MM/DD)"
 msgid "Day and Weekday"
 msgstr "Day and Weekday"
 
-msgid "Temperature (°C)"
-msgstr "Temperature (°C)"
-
-msgid "Temperature (°F)"
-msgstr "Temperature (°F)"
+msgid "Temperature"
+msgstr "Temperature"
 
 msgid "Steps"
 msgstr "Steps Counter"

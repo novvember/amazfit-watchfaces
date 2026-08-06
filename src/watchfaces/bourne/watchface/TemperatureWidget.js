@@ -1,9 +1,13 @@
+import { getIsFahrenheitTempUnit } from '../../../adapters/getIsFahrenheitTempUnit';
 import { CHAR_POSITIONS } from '../utils/constants';
 import { getCharSrc } from '../utils/getCharSrc';
 import { getDigitsArray } from '../utils/getDigitsArray';
 
 export class TemperatureWidget {
-  constructor(rowIndex, color, unit = '°C') {
+  constructor(rowIndex, color) {
+    const isFahrenheit = getIsFahrenheitTempUnit();
+    const unit = isFahrenheit ? '°F' : '°C';
+
     const props = {
       x: CHAR_POSITIONS.columnsX[0],
       y: CHAR_POSITIONS.rowsY[rowIndex],

@@ -57,6 +57,13 @@ declare namespace hmSetting {
     region: string;
   };
 
+    /**
+   * Gets temperature degree setting:
+   * - 0 - Celsius
+   * - 1 - Fahrenheit
+   */
+  function getTemperatureUnit(): 0 | 1;
+
   /**
    * Screen type (mode) - result of getScreenType()
    */
