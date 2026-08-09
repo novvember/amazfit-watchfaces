@@ -29,15 +29,15 @@ export class WidgetSettings {
       vender ? `github: @${vender}` : undefined,
     ]
       .filter(Boolean)
-      .join(' | ');
+      .join(' / ');
 
     hmUI.createWidget(hmUI.widget.TEXT, {
       x: px(126),
-      y: px(424),
+      y: px(10),
       w: px(228),
       h: px(32),
       text,
-      color: COLORS.primary,
+      color: COLORS.common.primary,
       text_size: px(24),
       align_h: hmUI.align.CENTER_H,
       align_v: hmUI.align.CENTER_V,

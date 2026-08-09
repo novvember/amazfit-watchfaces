@@ -14,6 +14,7 @@ import { SIDE_ARC_MAX_ANGLE, SIDE_ARC_MIN_ANGLE } from './SideWidget.const';
  * @typedef {Object} SideArcWidgetParams
  * @property {'left' | 'right'} side
  * @property {String} title
+ * @property {String} colorTheme
  */
 
 /**
@@ -29,19 +30,20 @@ export class SideArcWidget {
   /**
    * @param {SideArcWidgetParams} params
    */
-  constructor({ side, title }) {
+  constructor({ side, title, colorTheme }) {
     this._side = side;
 
     this._scaleWidget = new ScaleWidget({
       angleStart: this._prepareAngle(SIDE_ARC_MIN_ANGLE),
       angleEnd: this._prepareAngle(SIDE_ARC_MAX_ANGLE),
       count: SCALE_TICK_COUNT,
+      colorTheme,
     });
 
-    this._markWidget = hmUI.createWidget(
-      hmUI.widget.IMG,
-      SIDE_ARC_MARK_IMAGE_PROPS,
-    );
+    this._markWidget = hmUI.createWidget(hmUI.widget.IMG, {
+      ...SIDE_ARC_MARK_IMAGE_PROPS,
+      src: `side_arc/${colorTheme}/mark.png`,
+    });
 
     this._valueText = hmUI.createWidget(
       hmUI.widget.TEXT,

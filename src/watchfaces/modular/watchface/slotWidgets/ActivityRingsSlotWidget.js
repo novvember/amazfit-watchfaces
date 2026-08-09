@@ -1,3 +1,4 @@
+import { COLORS } from '../index.const';
 import {
   WIDGET_ACTIVE_ARC_PROPS,
   WIDGET_BACKGROUND_ARC_PROPS,
@@ -9,6 +10,7 @@ import {
  * @property {number} y
  * @property {number} w
  * @property {number} h
+ * @property {string} colorTheme
  */
 
 const LINE_WIDTH = px(10);
@@ -18,7 +20,7 @@ export class ActivityRingsSlotWidget {
   /**
    * @param {ActivityRingsSlotWidgetParams} params
    */
-  constructor({ x, y, w, h }) {
+  constructor({ x, y, w, h, colorTheme }) {
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
@@ -36,6 +38,7 @@ export class ActivityRingsSlotWidget {
         center_x: centerX,
         center_y: centerY,
         radius,
+        color: COLORS[colorTheme].secondary,
       });
 
       hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
@@ -44,6 +47,7 @@ export class ActivityRingsSlotWidget {
         center_y: centerY,
         radius,
         type: dataType,
+        color: COLORS[colorTheme].primary,
       });
     });
   }

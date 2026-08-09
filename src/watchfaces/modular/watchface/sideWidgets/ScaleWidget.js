@@ -1,11 +1,13 @@
+import { SCALE_ARC_PROPS, SCALE_TICK_IMAGE_PROPS } from './ScaleWidget.layout';
+import { COLORS } from '../index.const';
+
 /**
  * @typedef {Object} ScaleWidgetParams
  * @property {number} angleStart
  * @property {number} angleEnd
  * @property {number} count
+ * @property {string} colorTheme
  */
-
-import { SCALE_ARC_PROPS, SCALE_TICK_IMAGE_PROPS } from './ScaleWidget.layout';
 
 const ARC_PADDING_ANGLE = 1;
 
@@ -13,7 +15,9 @@ export class ScaleWidget {
   /**
    * @param {ScaleWidgetParams} params
    */
-  constructor({ angleStart, angleEnd, count }) {
+  constructor({ angleStart, angleEnd, count, colorTheme }) {
+    this._colorTheme = colorTheme;
+
     this._prevSelectionStart = -1;
     this._prevSelectionEnd = -1;
 
@@ -27,9 +31,14 @@ export class ScaleWidget {
 
     this._states = new Array(count).fill(null).map(() => false);
 
+    this._arcWidgetProps = {
+      ...SCALE_ARC_PROPS,
+      color: COLORS[colorTheme].secondary,
+    };
+
     this._arcWidget = hmUI.createWidget(
       hmUI.widget.ARC_PROGRESS,
-      SCALE_ARC_PROPS,
+      this._arcWidgetProps,
     );
 
     this._imageWidgets = new Array(count).fill(null).map((_, i) =>
@@ -46,8 +55,14 @@ export class ScaleWidget {
    * @param {boolean} isActive
    */
   _buildSrc(index, isActive) {
-    const isMajor = index % 2 === 0;
-    return `scale/tick_${isMajor ? 'major' : 'minor'}${isActive ? '_accent' : ''}.png`;
+    const type = index % 2 === 0 ? 'major' : 'minor';
+    const fileName = `tick_${type}.png`;
+
+    if (!isActive) {
+      return `scale/${fileName}`;
+    }
+
+    return `scale/${this._colorTheme}/${fileName}`;
   }
 
   /**
@@ -100,7 +115,7 @@ export class ScaleWidget {
     }
 
     this._arcWidget.setProperty(hmUI.prop.MORE, {
-      ...SCALE_ARC_PROPS,
+      ...this._arcWidgetProps,
       start_angle: angleStart,
       end_angle: angleEnd,
     });

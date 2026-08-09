@@ -1,3 +1,4 @@
+import { COLORS } from '../index.const';
 import {
   WIDGET_ACTIVE_ARC_PROPS,
   WIDGET_BACKGROUND_ARC_PROPS,
@@ -11,13 +12,14 @@ import {
  * @property {number} y
  * @property {number} w
  * @property {number} h
+ * @property {string} colorTheme
  */
 
 export class CaloriesSlotWidget {
   /**
    * @param {CaloriesSlotWidgetParams} params
    */
-  constructor({ x, y, w, h }) {
+  constructor({ x, y, w, h, colorTheme }) {
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
@@ -25,7 +27,7 @@ export class CaloriesSlotWidget {
       ...WIDGET_ICON_IMAGE_PROPS,
       x,
       y: y + 0.35 * h,
-      src: 'calories/icon.png',
+      src: `calories/${colorTheme}/icon.png`,
     });
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
@@ -34,6 +36,7 @@ export class CaloriesSlotWidget {
       center_y: centerY,
       start_angle: -145,
       end_angle: 145,
+      color: COLORS[colorTheme].secondary,
     });
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
@@ -43,6 +46,7 @@ export class CaloriesSlotWidget {
       start_angle: -145,
       end_angle: 145,
       type: hmUI.data_type.CAL,
+      color: COLORS[colorTheme].primary,
     });
 
     hmUI.createWidget(hmUI.widget.TEXT_FONT, {

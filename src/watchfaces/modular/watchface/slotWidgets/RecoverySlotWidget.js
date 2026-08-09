@@ -1,3 +1,4 @@
+import { COLORS } from '../index.const';
 import {
   WIDGET_ACTIVE_ARC_PROPS,
   WIDGET_BACKGROUND_ARC_PROPS,
@@ -13,13 +14,14 @@ import { gettext } from 'i18n';
  * @property {number} y
  * @property {number} w
  * @property {number} h
+ * @property {string} colorTheme
  */
 
 export class RecoverySlotWidget {
   /**
    * @param {RecoverySlotWidgetParams} params
    */
-  constructor({ x, y, w, h }) {
+  constructor({ x, y, w, h, colorTheme }) {
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
@@ -27,7 +29,7 @@ export class RecoverySlotWidget {
       ...WIDGET_ICON_IMAGE_PROPS,
       x,
       y: y + 0.42 * h,
-      src: 'recovery_time/icon.png',
+      src: `recovery_time/${colorTheme}/icon.png`,
     });
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
@@ -36,6 +38,7 @@ export class RecoverySlotWidget {
       center_y: centerY,
       start_angle: -145,
       end_angle: 145,
+      color: COLORS[colorTheme].secondary,
     });
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
@@ -45,6 +48,7 @@ export class RecoverySlotWidget {
       start_angle: -145,
       end_angle: 145,
       type: hmUI.data_type.RECOVERY_TIME,
+      color: COLORS[colorTheme].primary,
     });
 
     hmUI.createWidget(hmUI.widget.TEXT_FONT, {

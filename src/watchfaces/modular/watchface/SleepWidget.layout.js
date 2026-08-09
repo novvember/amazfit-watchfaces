@@ -5,7 +5,7 @@ export const SLEEP_TEXT_PROPS = {
   y: px(412),
   w: px(180),
   h: px(28),
-  color: COLORS.secondary,
+  color: COLORS.common.secondary,
   text_size: px(24),
   align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.CENTER_V,

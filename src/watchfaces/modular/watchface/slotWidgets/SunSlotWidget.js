@@ -17,6 +17,7 @@ import { SUN_ICON_IMAGE_PROPS } from './SunSlotWidget.layout';
  * @property {number} h
  * @property {HmSensorInstance} timeSensor
  * @property {HmSensorInstance} weatherSensor
+ * @property {string} colorTheme
  */
 
 const DOT_SIZE = px(14);
@@ -26,7 +27,7 @@ export class SunSlotWidget {
   /**
    * @param {SunSlotWidgetParams} params
    */
-  constructor({ x, y, w, h, timeSensor, weatherSensor }) {
+  constructor({ x, y, w, h, timeSensor, weatherSensor, colorTheme }) {
     this._timeSensor = timeSensor;
     this._weatherSensor = weatherSensor;
 
@@ -39,12 +40,14 @@ export class SunSlotWidget {
       center_y: centerY,
       start_angle: 0,
       end_angle: 0,
+      color: COLORS[colorTheme].primary,
     };
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
       ...WIDGET_BACKGROUND_ARC_PROPS,
       center_x: centerX,
       center_y: centerY,
+      color: COLORS[colorTheme].secondary,
     });
 
     this._dayArc = hmUI.createWidget(
@@ -78,7 +81,7 @@ export class SunSlotWidget {
       y: y + 0.15 * h,
       w,
       h,
-      color: COLORS.primary,
+      color: COLORS.common.primary,
     });
 
     this._update = this._update.bind(this);

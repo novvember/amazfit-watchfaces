@@ -30,22 +30,20 @@ const WEATHER_ICON_NAMES = [
   'clear_night.png',
 ];
 
-const getIconPath = (name) => `weather_icon/${name}`;
-
-export const WEATHER_ICONS = WEATHER_ICON_NAMES.map(getIconPath);
+export const WEATHER_ICONS = WEATHER_ICON_NAMES;
 
 /**
  * Mutates weather icons array to fix bug when night icons are not rendered at night time
- * @param {Boolean} isNight 
+ * @param {Boolean} isNight
  */
 export const updateWeatherIcons = (isNight) => {
   if (isNight) {
-    WEATHER_ICONS[0] = getIconPath('cloudy_at_night.png');
-    WEATHER_ICONS[1] = getIconPath('shower_at_night.png');
-    WEATHER_ICONS[3] = getIconPath('clear_night.png');
+    WEATHER_ICONS[0] = 'cloudy_at_night.png';
+    WEATHER_ICONS[1] = 'shower_at_night.png';
+    WEATHER_ICONS[3] = 'clear_night.png';
   } else {
-    WEATHER_ICONS[0] = getIconPath('cloudy.png');
-    WEATHER_ICONS[1] = getIconPath('shower.png');
-    WEATHER_ICONS[3] = getIconPath('sunny.png');
+    WEATHER_ICONS[0] = 'cloudy.png';
+    WEATHER_ICONS[1] = 'shower.png';
+    WEATHER_ICONS[3] = 'sunny.png';
   }
 };

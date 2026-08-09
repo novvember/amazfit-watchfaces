@@ -1,12 +1,10 @@
-import { COLORS } from '../index.const';
-
 export const SCALE_ARC_PROPS = {
   center_x: px(240),
   center_y: px(240),
   radius: px(240) - px(30) / 2,
   start_angle: 0,
   end_angle: 0,
-  color: COLORS.accentSecondary,
+  color: 0x000000,
   line_width: px(30),
   level: 100,
   corner_flag: 3,

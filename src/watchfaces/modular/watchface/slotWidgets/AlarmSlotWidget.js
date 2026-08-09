@@ -49,7 +49,7 @@ export class AlarmSlotWidget {
       y: y + 0.15 * h,
       w,
       h,
-      color: COLORS.primary,
+      color: COLORS.common.primary,
       type: hmUI.data_type.ALARM_CLOCK,
       padding: true, // time format 00:00
     });

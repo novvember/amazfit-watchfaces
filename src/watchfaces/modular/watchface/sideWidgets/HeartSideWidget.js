@@ -6,6 +6,7 @@ import { gettext } from 'i18n';
  * @typedef {Object} HeartSideWidgetParams
  * @property {HmSensorInstance} heartSensor
  * @property {'left' | 'right'} side
+ * @property {string} colorTheme
  */
 
 const MIN_VALUE = 40;
@@ -15,12 +16,13 @@ export class HeartSideWidget {
   /**
    * @param {HeartSideWidgetParams} params
    */
-  constructor({ heartSensor, side }) {
+  constructor({ heartSensor, side, colorTheme }) {
     this._heartSensor = heartSensor;
 
     this._sideArcWidget = new SideArcWidget({
       side,
       title: gettext('bpm'),
+      colorTheme,
     });
 
     this._update = this._update.bind(this);

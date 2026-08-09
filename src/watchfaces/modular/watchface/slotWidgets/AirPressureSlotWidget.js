@@ -16,6 +16,7 @@ import { gettext } from 'i18n';
  * @property {number} y
  * @property {number} w
  * @property {number} h
+ * @property {string} colorTheme
  */
 
 const DOT_SIZE = px(14);
@@ -25,8 +26,9 @@ export class AirPressureSlotWidget {
   /**
    * @param {AirPressureSlotWidgetParams} params
    */
-  constructor({ x, y, w, h }) {
+  constructor({ x, y, w, h, colorTheme }) {
     this._hasMm = checkLang(['ru-RU', 'uk-UA']);
+    this._colorTheme = colorTheme;
 
     const dotAreaSize = w + 2 * DOT_OVERSIZE;
 
@@ -49,7 +51,7 @@ export class AirPressureSlotWidget {
       y,
       w,
       h,
-      src: 'barometer/background.png',
+      src: `air_pressure/${colorTheme}/background.png`,
     });
 
     this._arrowImageWidget = hmUI.createWidget(hmUI.widget.IMG, {
@@ -58,7 +60,7 @@ export class AirPressureSlotWidget {
       y: y - 0.22 * h,
       w,
       h,
-      src: 'barometer/arrow_none.png',
+      src: this._getArrowSrc(0),
     });
 
     this._dotImageWidget = hmUI.createWidget(
@@ -72,7 +74,7 @@ export class AirPressureSlotWidget {
       y,
       w,
       h,
-      color: COLORS.primary,
+      color: COLORS.common.primary,
     });
 
     hmUI.createWidget(hmUI.widget.TEXT, {
@@ -102,7 +104,7 @@ export class AirPressureSlotWidget {
       fileName = 'down';
     }
 
-    return `barometer/arrow_${fileName}.png`;
+    return `air_pressure/${this._colorTheme}/arrow_${fileName}.png`;
   }
 
   /**

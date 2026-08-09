@@ -114,3 +114,9 @@ msgstr "Время (с секундами)"
 
 msgid "heart"
 msgstr "Heart"
+
+msgid "accent-color-blue"
+msgstr "Голубой (цветовая тема)"
+
+msgid "accent-color-orange"
+msgstr "Оранжевый (цветовая тема)"

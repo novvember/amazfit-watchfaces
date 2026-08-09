@@ -5,7 +5,7 @@ export const TIME_TEXT_PROPS = {
   y: px(240) - px(140) / 2,
   w: px(420),
   h: px(140),
-  color: COLORS.primary,
+  color: COLORS.common.primary,
   text_size: px(180),
   align_h: hmUI.align.CENTER_H,
   align_v: hmUI.align.CENTER_V,
@@ -17,7 +17,7 @@ export const TIME_TEXT_PROPS = {
 export const TIME_AOD_TEXT_PROPS = {
   ...TIME_TEXT_PROPS,
   font: FONTS.aod,
-  color: COLORS.aod,
+  color: COLORS.common.aod,
   show_level: hmUI.show_level.ONAL_AOD,
 };
 
@@ -33,7 +33,7 @@ export const TIME_SECONDS_COLON_PROPS = {
   ...TIME_TEXT_PROPS,
   x: px(294),
   w: px(30),
-  color: COLORS.accentSecondary,
+  color: 0x000000,
   text_size: px(160),
   align_h: hmUI.align.LEFT,
   text: ':',
@@ -43,7 +43,7 @@ export const TIME_SECONDS_TEXT_PROPS = {
   ...TIME_TEXT_PROPS,
   x: px(319),
   w: px(130),
-  color: COLORS.accentSecondary,
+  color: 0x000000,
   text_size: px(160),
   align_h: hmUI.align.LEFT,
   type: hmUI.data_type.SECOND,

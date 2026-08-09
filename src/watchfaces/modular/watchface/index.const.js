@@ -1,12 +1,30 @@
+/**
+ * @typedef {Object} ColorTheme
+ * @property {number} primary
+ * @property {number} secondary
+ * @property {number} [tertiary]
+ * @property {number} [aod]
+ */
+
+/** @type {Record<string, ColorTheme>} */
 export const COLORS = {
-  primary: 0xffffff,
-  secondary: 0xd0d0d0,
-  tertiary: 0x1c1c1c,
+  common: {
+    primary: 0xffffff,
+    secondary: 0xd0d0d0,
+    tertiary: 0x1c1c1c,
 
-  accent: 0x60c7f4,
-  accentSecondary: 0x34596d,
+    aod: 0xffffff,
+  },
 
-  aod: 0xffffff,
+  blue: {
+    primary: 0x60c7f4,
+    secondary: 0x34596d,
+  },
+
+  orange: {
+    primary: 0xff4d00,
+    secondary: 0x7b250e,
+  },
 };
 
 export const FONTS = {

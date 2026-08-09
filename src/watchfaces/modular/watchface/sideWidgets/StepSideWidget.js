@@ -6,18 +6,20 @@ import { gettext } from 'i18n';
  * @typedef {Object} StepSideWidgetParams
  * @property {HmSensorInstance} stepSensor
  * @property {'left' | 'right'} side
+ * @property {string} colorTheme
  */
 
 export class StepSideWidget {
   /**
    * @param {StepSideWidgetParams} params
    */
-  constructor({ stepSensor, side }) {
+  constructor({ stepSensor, side, colorTheme }) {
     this._stepSensor = stepSensor;
 
     this._sideArcWidget = new SideArcWidget({
       side,
       title: gettext('steps'),
+      colorTheme,
     });
 
     this._update = this._update.bind(this);

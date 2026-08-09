@@ -8,6 +8,7 @@ import { gettext } from 'i18n';
  * @property {number} y
  * @property {number} w
  * @property {number} h
+ * @property {string} colorTheme
  */
 
 const DIRECTION_SIZE = px(96);
@@ -16,7 +17,7 @@ export class WindSlotWidget {
   /**
    * @param {WindSlotWidgetParams} params
    */
-  constructor({ x, y, w, h }) {
+  constructor({ x, y, w, h, colorTheme }) {
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
@@ -26,6 +27,7 @@ export class WindSlotWidget {
       y: centerY - DIRECTION_SIZE / 2,
       w: DIRECTION_SIZE,
       h: DIRECTION_SIZE,
+      image_array: this._getImages(colorTheme),
     });
 
     hmUI.createWidget(hmUI.widget.TEXT_FONT, {
@@ -45,5 +47,14 @@ export class WindSlotWidget {
       h,
       text: gettext('mps'),
     });
+  }
+
+  /**
+   * @param {string} colorTheme
+   */
+  _getImages(colorTheme) {
+    return new Array(8)
+      .fill(null)
+      .map((_, i) => `wind/${colorTheme}/wind_${i}.png`);
   }
 }

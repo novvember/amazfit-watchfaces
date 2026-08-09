@@ -50,7 +50,7 @@ export class ClickerSlotWidget {
       y: y + 0.15 * h,
       w,
       h,
-      color: COLORS.primary,
+      color: COLORS.common.primary,
       text: this._counter.toString(),
     });
 

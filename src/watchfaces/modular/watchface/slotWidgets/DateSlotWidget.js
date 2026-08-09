@@ -15,13 +15,14 @@ import { gettext } from 'i18n';
  * @property {number} w
  * @property {number} h
  * @property {HmSensorInstance} timeSensor
+ * @property {string} colorTheme
  */
 
 export class DateSlotWidget {
   /**
    * @param {DateSlotWidgetParams} params
    */
-  constructor({ x, y, w, h, timeSensor }) {
+  constructor({ x, y, w, h, timeSensor, colorTheme }) {
     this._timeSensor = timeSensor;
 
     const centerX = x + w / 2;
@@ -48,7 +49,7 @@ export class DateSlotWidget {
       y: y - 0.2 * h,
       w,
       h,
-      color: COLORS.accent,
+      color: COLORS[colorTheme].primary,
     });
 
     this._update = this._update.bind(this);

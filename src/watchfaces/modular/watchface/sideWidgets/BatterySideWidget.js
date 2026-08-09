@@ -5,18 +5,20 @@ import { SideArcWidget } from './SideArcWidget';
  * @typedef {Object} BatterySideWidgetParams
  * @property {HmSensorInstance} batterySensor
  * @property {'left' | 'right'} side
+ * @property {string} colorTheme
  */
 
 export class BatterySideWidget {
   /**
    * @param {BatterySideWidgetParams} params
    */
-  constructor({ batterySensor, side }) {
+  constructor({ batterySensor, side, colorTheme }) {
     this._batterySensor = batterySensor;
 
     this._sideArcWidget = new SideArcWidget({
       side,
       title: '%',
+      colorTheme,
     });
 
     this._update = this._update.bind(this);

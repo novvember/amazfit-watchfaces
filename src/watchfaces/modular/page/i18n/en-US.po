@@ -114,3 +114,9 @@ msgstr "Time (with seconds)"
 
 msgid "heart"
 msgstr "Heart"
+
+msgid "accent-color-blue"
+msgstr "Blue (Accent Color)"
+
+msgid "accent-color-orange"
+msgstr "Orange (Accent Color)"

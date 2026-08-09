@@ -9,13 +9,14 @@ import {
  * @property {number} y
  * @property {number} w
  * @property {number} h
+ * @property {string} colorTheme
  */
 
 export class SecondsSlotWidget {
   /**
    * @param {SecondsSlotWidgetParams} params
    */
-  constructor({ x, y, w, h }) {
+  constructor({ x, y, w, h, colorTheme }) {
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
@@ -31,6 +32,8 @@ export class SecondsSlotWidget {
       second_centerY: centerY,
       second_cover_x: x,
       second_cover_y: y,
+      second_path: `seconds/${colorTheme}/pointer.png`,
+      second_cover_path: `seconds/${colorTheme}/top.png`,
     });
   }
 }

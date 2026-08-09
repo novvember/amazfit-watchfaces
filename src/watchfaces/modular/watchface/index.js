@@ -1,4 +1,4 @@
-import { DisctanceWidget } from './DistanceWidget';
+import { DistanceWidget } from './DistanceWidget';
 import { HeartSideWidget } from './sideWidgets/HeartSideWidget';
 import { WIDGETS } from './index.const';
 import { WidgetSettings } from './settings/WidgetSettings';
@@ -28,6 +28,7 @@ import { StatusIconsWidget } from './StatusIconsWidget';
 import { TimeSettings } from './settings/TimeSettings';
 import { SideSettings } from './settings/SideSettings';
 import { BatterySideWidget } from './sideWidgets/BatterySideWidget';
+import { ColorSettings } from './settings/ColorSettings';
 
 WatchFace({
   onInit() {
@@ -36,6 +37,9 @@ WatchFace({
 
   build() {
     console.log('watchface building');
+
+    const colorSettings = new ColorSettings();
+    this._colorTheme = colorSettings.settings.accent || 'blue';
 
     this.buildTime();
 
@@ -63,6 +67,7 @@ WatchFace({
       timeSensor: this._timeSensor,
       // @ts-ignore
       mode,
+      colorTheme: this._colorTheme,
     });
   },
 
@@ -105,6 +110,7 @@ WatchFace({
     new StepSideWidget({
       stepSensor: this._stepSensor,
       side,
+      colorTheme: this._colorTheme,
     });
   },
 
@@ -118,6 +124,7 @@ WatchFace({
     new HeartSideWidget({
       heartSensor: this._heartSensor,
       side,
+      colorTheme: this._colorTheme,
     });
   },
 
@@ -131,6 +138,7 @@ WatchFace({
     new BatterySideWidget({
       batterySensor: this._batterySensor,
       side,
+      colorTheme: this._colorTheme,
     });
   },
 
@@ -138,8 +146,9 @@ WatchFace({
     this._distanceSensor =
       this._distanceSensor || hmSensor.createSensor(hmSensor.id.DISTANCE);
 
-    new DisctanceWidget({
+    new DistanceWidget({
       distanceSensor: this._distanceSensor,
+      colorTheme: this._colorTheme,
     });
   },
 
@@ -261,7 +270,10 @@ WatchFace({
    * @param {number} slotNumber
    */
   buildTemperature(slotNumber) {
-    new TemperatureSlotWidget(WIDGETS[slotNumber]);
+    new TemperatureSlotWidget({
+      ...WIDGETS[slotNumber],
+      colorTheme: this._colorTheme,
+    });
   },
 
   /**
@@ -274,6 +286,7 @@ WatchFace({
     new DateSlotWidget({
       ...WIDGETS[slotNumber],
       timeSensor: this._timeSensor,
+      colorTheme: this._colorTheme,
     });
   },
 
@@ -281,7 +294,10 @@ WatchFace({
    * @param {number} slotNumber
    */
   buildUvi(slotNumber) {
-    new UviSlotWidget(WIDGETS[slotNumber]);
+    new UviSlotWidget({
+      ...WIDGETS[slotNumber],
+      colorTheme: this._colorTheme,
+    });
   },
 
   /**
@@ -298,6 +314,7 @@ WatchFace({
       ...WIDGETS[slotNumber],
       timeSensor: this._timeSensor,
       weatherSensor: this._weatherSensor,
+      colorTheme: this._colorTheme,
     });
   },
 
@@ -305,28 +322,40 @@ WatchFace({
    * @param {number} slotNumber
    */
   buildWind(slotNumber) {
-    new WindSlotWidget(WIDGETS[slotNumber]);
+    new WindSlotWidget({
+      ...WIDGETS[slotNumber],
+      colorTheme: this._colorTheme,
+    });
   },
 
   /**
    * @param {number} slotNumber
    */
   buildBattery(slotNumber) {
-    new BatterySlotWidget(WIDGETS[slotNumber]);
+    new BatterySlotWidget({
+      ...WIDGETS[slotNumber],
+      colorTheme: this._colorTheme,
+    });
   },
 
   /**
    * @param {number} slotNumber
    */
   buildSeconds(slotNumber) {
-    new SecondsSlotWidget(WIDGETS[slotNumber]);
+    new SecondsSlotWidget({
+      ...WIDGETS[slotNumber],
+      colorTheme: this._colorTheme,
+    });
   },
 
   /**
    * @param {number} slotNumber
    */
   buildHumidity(slotNumber) {
-    new HumiditySlotWidget(WIDGETS[slotNumber]);
+    new HumiditySlotWidget({
+      ...WIDGETS[slotNumber],
+      colorTheme: this._colorTheme,
+    });
   },
 
   /**
@@ -343,6 +372,7 @@ WatchFace({
       ...WIDGETS[slotNumber],
       timeSensor: this._timeSensor,
       worldClockSensor: this._worldClockSensor,
+      colorTheme: this._colorTheme,
     });
   },
 
@@ -360,6 +390,7 @@ WatchFace({
       ...WIDGETS[slotNumber],
       weatherSensor: this._weatherSensor,
       timeSensor: this._timeSensor,
+      colorTheme: this._colorTheme,
     });
   },
 
@@ -374,21 +405,30 @@ WatchFace({
    * @param {number} slotNumber
    */
   buildActivityRings(slotNumber) {
-    new ActivityRingsSlotWidget(WIDGETS[slotNumber]);
+    new ActivityRingsSlotWidget({
+      ...WIDGETS[slotNumber],
+      colorTheme: this._colorTheme,
+    });
   },
 
   /**
    * @param {number} slotNumber
    */
   buildAirPressure(slotNumber) {
-    new AirPressureSlotWidget(WIDGETS[slotNumber]);
+    new AirPressureSlotWidget({
+      ...WIDGETS[slotNumber],
+      colorTheme: this._colorTheme,
+    });
   },
 
   /**
    * @param {number} slotNumber
    */
   buildAirQuality(slotNumber) {
-    new AqiSlotWidget(WIDGETS[slotNumber]);
+    new AqiSlotWidget({
+      ...WIDGETS[slotNumber],
+      colorTheme: this._colorTheme,
+    });
   },
 
   /**
@@ -400,6 +440,7 @@ WatchFace({
     new PaiSlotWidget({
       ...WIDGETS[slotNumber],
       paiSensor: this._paiSensor,
+      colorTheme: this._colorTheme,
     });
   },
 
@@ -407,14 +448,20 @@ WatchFace({
    * @param {number} slotNumber
    */
   buildCalories(slotNumber) {
-    new CaloriesSlotWidget(WIDGETS[slotNumber]);
+    new CaloriesSlotWidget({
+      ...WIDGETS[slotNumber],
+      colorTheme: this._colorTheme,
+    });
   },
 
   /**
    * @param {number} slotNumber
    */
   buildRecoveryTime(slotNumber) {
-    new RecoverySlotWidget(WIDGETS[slotNumber]);
+    new RecoverySlotWidget({
+      ...WIDGETS[slotNumber],
+      colorTheme: this._colorTheme,
+    });
   },
 
   /**

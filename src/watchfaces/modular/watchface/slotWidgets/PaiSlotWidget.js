@@ -14,6 +14,7 @@ import { gettext } from 'i18n';
  * @property {number} w
  * @property {number} h
  * @property {HmSensorInstance} paiSensor
+ * @property {string} colorTheme
  */
 
 const BAR_WIDTH = px(8);
@@ -24,7 +25,7 @@ export class PaiSlotWidget {
   /**
    * @param {PaiSlotWidgetParams} params
    */
-  constructor({ x, y, w, h, paiSensor }) {
+  constructor({ x, y, w, h, paiSensor, colorTheme }) {
     this._paiSensor = paiSensor;
 
     const centerX = x + w / 2;
@@ -44,7 +45,7 @@ export class PaiSlotWidget {
       w: BAR_WIDTH,
       h: BAR_HEIGHT,
       radius: BAR_WIDTH / 2,
-      color: COLORS.accent,
+      color: COLORS[colorTheme].primary,
     };
 
     hmUI.createWidget(hmUI.widget.CIRCLE, {
@@ -61,7 +62,7 @@ export class PaiSlotWidget {
       w,
       h,
       text: gettext('pai'),
-      color: COLORS.accent,
+      color: COLORS[colorTheme].primary,
     });
 
     hmUI.createWidget(hmUI.widget.TEXT_FONT, {
@@ -70,7 +71,7 @@ export class PaiSlotWidget {
       y: y - 0.3 * h,
       w,
       h,
-      color: COLORS.primary,
+      color: COLORS.common.primary,
       type: hmUI.data_type.PAI_WEEKLY,
     });
 
@@ -78,7 +79,7 @@ export class PaiSlotWidget {
       hmUI.createWidget(hmUI.widget.FILL_RECT, {
         ...this._barWidgetProps,
         x,
-        color: COLORS.accentSecondary,
+        color: COLORS[colorTheme].secondary,
       }),
     );
 

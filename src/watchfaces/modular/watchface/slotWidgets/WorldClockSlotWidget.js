@@ -13,13 +13,14 @@ import {
  * @property {number} h
  * @property {HmSensorInstance} timeSensor
  * @property {HmSensorInstance} worldClockSensor
+ * @property {string} colorTheme
  */
 
 export class WorldClockSlotWidget {
   /**
    * @param {WorldClockSlotWidgetParams} params
    */
-  constructor({ x, y, w, h, timeSensor, worldClockSensor }) {
+  constructor({ x, y, w, h, timeSensor, worldClockSensor, colorTheme }) {
     this._timeSensor = timeSensor;
     this._worldClockSensor = worldClockSensor;
 
@@ -39,7 +40,7 @@ export class WorldClockSlotWidget {
       y: y - 0.12 * h,
       w,
       h,
-      color: COLORS.primary,
+      color: COLORS.common.primary,
     });
 
     this._cityTextWidget = hmUI.createWidget(hmUI.widget.TEXT, {
@@ -48,7 +49,7 @@ export class WorldClockSlotWidget {
       y: y + 0.12 * h,
       w,
       h,
-      color: COLORS.accent,
+      color: COLORS[colorTheme].primary,
     });
 
     this._update = this._update.bind(this);

@@ -12,13 +12,14 @@ import {
  * @property {number} y
  * @property {number} w
  * @property {number} h
+ * @property {string} colorTheme
  */
 
 export class TemperatureSlotWidget {
   /**
    * @param {TemperatureSlotWidgetParams} params
    */
-  constructor({ x, y, w, h }) {
+  constructor({ x, y, w, h, colorTheme }) {
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
@@ -28,6 +29,7 @@ export class TemperatureSlotWidget {
       center_y: centerY,
       start_angle: -120,
       end_angle: 120,
+      color: COLORS[colorTheme].secondary,
     });
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
@@ -37,6 +39,7 @@ export class TemperatureSlotWidget {
       start_angle: -120,
       end_angle: 120,
       type: hmUI.data_type.WEATHER_CURRENT,
+      color: COLORS[colorTheme].primary,
     });
 
     hmUI.createWidget(hmUI.widget.TEXT_FONT, {
@@ -51,7 +54,7 @@ export class TemperatureSlotWidget {
 
     hmUI.createWidget(hmUI.widget.TEXT_FONT, {
       ...WIDGET_TEXT_S_PROPS,
-      color: COLORS.accent,
+      color: COLORS[colorTheme].primary,
       x: x + 0.1 * w,
       y: y + 0.4 * h,
       w,
@@ -62,7 +65,7 @@ export class TemperatureSlotWidget {
 
     hmUI.createWidget(hmUI.widget.TEXT_FONT, {
       ...WIDGET_TEXT_S_PROPS,
-      color: COLORS.accent,
+      color: COLORS[colorTheme].primary,
       x: x - 0.1 * w,
       y: y + 0.4 * h,
       w,

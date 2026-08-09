@@ -1,4 +1,5 @@
 import { getTimeTexts } from '../../../adapters/getTimeTexts';
+import { COLORS } from './index.const';
 import {
   TIME_AOD_TEXT_PROPS,
   TIME_SECONDS_COLON_PROPS,
@@ -11,36 +12,40 @@ import {
  * @typedef {Object} TimeWidgetParams
  * @property {HmSensorInstance} timeSensor
  * @property {'default' | 'seconds'} [mode]
+ * @property {string} colorTheme
  */
 
 export class TimeWidget {
   /**
    * @param {TimeWidgetParams} params
    */
-  constructor({ timeSensor, mode }) {
+  constructor({ timeSensor, mode, colorTheme }) {
     this._timeSensor = timeSensor;
     this._mode = mode || 'default';
 
-    this._buildLayout();
-    this._update = this._update.bind(this);
-    this._bindHandlers();
-  }
-
-  _buildLayout() {
     this._textWidget = hmUI.createWidget(
       hmUI.widget.TEXT,
       this._mode === 'default' ? TIME_TEXT_PROPS : TIME_TEXT_2_PROPS,
     );
 
     if (this._mode === 'seconds') {
-      hmUI.createWidget(hmUI.widget.TEXT, TIME_SECONDS_COLON_PROPS);
-      hmUI.createWidget(hmUI.widget.TEXT_FONT, TIME_SECONDS_TEXT_PROPS);
+      hmUI.createWidget(hmUI.widget.TEXT, {
+        ...TIME_SECONDS_COLON_PROPS,
+        color: COLORS[colorTheme].secondary,
+      });
+      hmUI.createWidget(hmUI.widget.TEXT_FONT, {
+        ...TIME_SECONDS_TEXT_PROPS,
+        color: COLORS[colorTheme].secondary,
+      });
     }
 
     this._textAodWidget = hmUI.createWidget(
       hmUI.widget.TEXT,
       TIME_AOD_TEXT_PROPS,
     );
+
+    this._update = this._update.bind(this);
+    this._bindHandlers();
   }
 
   _update() {

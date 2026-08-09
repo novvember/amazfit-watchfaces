@@ -16,6 +16,7 @@ import { updateWeatherIcons, WEATHER_ICONS } from '../../utils/weatherIcons';
  * @property {number} h
  * @property {HmSensorInstance} timeSensor
  * @property {HmSensorInstance} weatherSensor
+ * @property {string} colorTheme
  */
 
 const ICON_SIZE = px(40);
@@ -24,7 +25,8 @@ export class WeatherSlotWidget {
   /**
    * @param {WeatherSlotWidgetParams} params
    */
-  constructor({ x, y, w, h, timeSensor, weatherSensor }) {
+  constructor({ x, y, w, h, timeSensor, weatherSensor, colorTheme }) {
+    this._colorTheme = colorTheme;
     this._timeSensor = timeSensor;
     this._weatherSensor = weatherSensor;
 
@@ -37,7 +39,7 @@ export class WeatherSlotWidget {
       y: y + 0.27 * h,
       w,
       h,
-      color: COLORS.primary,
+      color: COLORS.common.primary,
       type: hmUI.data_type.WEATHER_CURRENT,
       unit_type: 1,
     };
@@ -48,7 +50,7 @@ export class WeatherSlotWidget {
       y,
       w,
       h,
-      color: COLORS.primary,
+      color: COLORS.common.primary,
       type: hmUI.data_type.WEATHER_CURRENT,
       unit_type: 1,
     };
@@ -86,13 +88,21 @@ export class WeatherSlotWidget {
 
     this._iconWidget.setProperty(
       hmUI.prop.SRC,
-      hasIcon ? WEATHER_ICONS[iconIndex || 0] : '',
+      hasIcon ? this._getWeatherIconSrc(iconIndex, this._colorTheme) : '',
     );
 
     this._textWidget.setProperty(
       hmUI.prop.MORE,
       hasIcon ? this._textPropsWhenIcon : this._textPropsWithoutIcon,
     );
+  }
+
+  /**
+   * @param {number | undefined} weatherIndex
+   * @param {string} colorTheme
+   */
+  _getWeatherIconSrc(weatherIndex, colorTheme) {
+    return `weather_icon/${colorTheme}/${WEATHER_ICONS[weatherIndex || 0] || ''}`;
   }
 
   _bindHandlers() {

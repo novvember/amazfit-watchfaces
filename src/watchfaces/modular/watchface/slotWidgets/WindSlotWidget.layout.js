@@ -1,7 +1,7 @@
 export const WIND_IMAGE_LEVEL_PROPS = {
   x: 0,
   y: 0,
-  image_array: new Array(8).fill(null).map((_, i) => `wind/wind_${i}.png`),
+  image_array: [],
   image_length: 8,
   w: 0,
   h: 0,

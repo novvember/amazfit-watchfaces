@@ -1,3 +1,4 @@
+import { COLORS } from '../index.const';
 import {
   WIDGET_ACTIVE_ARC_PROPS,
   WIDGET_BACKGROUND_ARC_PROPS,
@@ -10,13 +11,14 @@ import {
  * @property {number} y
  * @property {number} w
  * @property {number} h
+ * @property {string} colorTheme
  */
 
 export class BatterySlotWidget {
   /**
    * @param {BatterySlotWidgetParams} params
    */
-  constructor({ x, y, w, h }) {
+  constructor({ x, y, w, h, colorTheme }) {
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
@@ -24,6 +26,7 @@ export class BatterySlotWidget {
       ...WIDGET_BACKGROUND_ARC_PROPS,
       center_x: centerX,
       center_y: centerY,
+      color: COLORS[colorTheme].secondary,
     });
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
@@ -31,6 +34,7 @@ export class BatterySlotWidget {
       center_x: centerX,
       center_y: centerY,
       type: hmUI.data_type.BATTERY,
+      color: COLORS[colorTheme].primary,
     });
 
     hmUI.createWidget(hmUI.widget.TEXT_FONT, {

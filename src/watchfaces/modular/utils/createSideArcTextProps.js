@@ -34,7 +34,7 @@ export function createSideArcTextProps({
       fontOffsets: [0.9, 0.4],
     }),
     text,
-    color: COLORS.secondary,
+    color: COLORS.common.secondary,
     char_space: 1,
     font: FONTS.widget,
     align_h: align,

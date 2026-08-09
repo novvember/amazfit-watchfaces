@@ -13,13 +13,14 @@ import { gettext } from 'i18n';
  * @property {number} y
  * @property {number} w
  * @property {number} h
+ * @property {string} colorTheme
  */
 
 export class AqiSlotWidget {
   /**
    * @param {AqiSlotWidgetParams} params
    */
-  constructor({ x, y, w, h }) {
+  constructor({ x, y, w, h, colorTheme }) {
     const centerX = x + w / 2;
     const centerY = y + h / 2;
 
@@ -30,7 +31,7 @@ export class AqiSlotWidget {
       w,
       h,
       text: gettext('aqi'),
-      color: COLORS.accent,
+      color: COLORS[colorTheme].primary,
     });
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
@@ -39,6 +40,7 @@ export class AqiSlotWidget {
       center_y: centerY,
       start_angle: -145,
       end_angle: 145,
+      color: COLORS[colorTheme].secondary,
     });
 
     hmUI.createWidget(hmUI.widget.ARC_PROGRESS, {
@@ -48,6 +50,7 @@ export class AqiSlotWidget {
       start_angle: -145,
       end_angle: 145,
       type: hmUI.data_type.AQI,
+      color: COLORS[colorTheme].primary,
     });
 
     hmUI.createWidget(hmUI.widget.TEXT_FONT, {

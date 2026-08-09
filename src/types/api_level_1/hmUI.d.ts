@@ -265,6 +265,7 @@ interface HmWidgetProps {
   fresh_frequency?: number;
   second_cover_x?: number;
   second_cover_y?: number;
+  second_cover_path?: string;
 
   // --- IMG_TIME ---
   second_startX?: number;

@@ -1,24 +1,26 @@
 import { DISTANCE_TEXT_PROPS } from './DistanceWidget.layout';
+import { COLORS } from './index.const';
 
 /**
- * @typedef {Object} DisctanceWidgetParams
+ * @typedef {Object} DistanceWidgetParams
  * @property {HmSensorInstance} distanceSensor
+ * @property {string} colorTheme
  */
 
-export class DisctanceWidget {
+export class DistanceWidget {
   /**
-   * @param {DisctanceWidgetParams} params
+   * @param {DistanceWidgetParams} params
    */
-  constructor({ distanceSensor }) {
+  constructor({ distanceSensor, colorTheme }) {
     this._distanceSensor = distanceSensor;
 
-    this._buildLayout();
+    this._textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
+      ...DISTANCE_TEXT_PROPS,
+      color: COLORS[colorTheme].primary,
+    });
+
     this._update = this._update.bind(this);
     this._bindHandlers();
-  }
-
-  _buildLayout() {
-    this._textWidget = hmUI.createWidget(hmUI.widget.TEXT, DISTANCE_TEXT_PROPS);
   }
 
   /**

@@ -36,6 +36,6 @@ export const SIDE_ARC_MARK_IMAGE_PROPS = {
   center_x: px(240),
   center_y: px(240),
   angle: 0,
-  src: 'side_arc/mark.png',
+  src: '',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
