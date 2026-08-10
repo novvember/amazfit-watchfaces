@@ -22,8 +22,8 @@ export const COLORS = {
   },
 
   orange: {
-    primary: 0xff4d00,
-    secondary: 0x7b250e,
+    primary: 0xf56900,
+    secondary: 0x6c2e00,
   },
 };
 
