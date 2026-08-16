@@ -80,10 +80,10 @@ WatchFace({
   },
 
   buildSleep() {
-    const sunImageWidget = hmUI.createWidget(
-      hmUI.widget.IMG,
-      SLEEP_NO_DATA_IMAGE_PROPS,
-    );
+    // const sunImageWidget = hmUI.createWidget(
+    //   hmUI.widget.IMG,
+    //   SLEEP_NO_DATA_IMAGE_PROPS,
+    // );
 
     const sleepArcWidget = hmUI.createWidget(hmUI.widget.ARC_PROGRESS, null);
     let sleepWakeArcWidgets = [];
@@ -100,23 +100,23 @@ WatchFace({
       sleepWakeArcWidgets = [];
     };
 
-    const hideSunInfo = () => {
-      sunImageWidget.setProperty(hmUI.prop.ALPHA, 0);
-    };
+    // const hideSunInfo = () => {
+    //   sunImageWidget.setProperty(hmUI.prop.ALPHA, 0);
+    // };
 
-    const hideSleepInfo = () => {
-      sleepArcWidget.setProperty(hmUI.prop.MORE, {
-        ...SLEEP_ARC_PROPS,
-        start_angle: 0,
-        end_angle: 0,
-      });
+    // const hideSleepInfo = () => {
+    //   sleepArcWidget.setProperty(hmUI.prop.MORE, {
+    //     ...SLEEP_ARC_PROPS,
+    //     start_angle: 0,
+    //     end_angle: 0,
+    //   });
 
-      clearSleepWakeArcWidgets();
-      prevSleepTime = '';
-    };
+    //   clearSleepWakeArcWidgets();
+    //   prevSleepTime = '';
+    // };
 
     const showSleepTime = (sleepTime) => {
-      const sleepString = SLEEP_TEXT.replace('%s', sleepTime);
+      const sleepString = SLEEP_TEXT.replace('%s', sleepTime || '-:--');
       textWidget.setProperty(hmUI.prop.TEXT, sleepString);
 
       const [angleStart, angleEnd] = getSleepArcData(sleepSensor);
@@ -155,32 +155,33 @@ WatchFace({
       });
     };
 
-    const showSunriseSunset = () => {
-      let sunString = '';
-      const sunObj = getClosestSunriseSunsetTime(timeSensor, weatherSensor);
+    // const showSunriseSunset = () => {
+    //   let sunString = '';
+    //   const sunObj = getClosestSunriseSunsetTime(timeSensor, weatherSensor);
 
-      if (sunObj) {
-        const { type, hour, minute } = sunObj;
-        const is12HourFormat = hmSetting.getTimeFormat() === 0;
-        const sunTime = formatTime(hour, minute, is12HourFormat, true, true);
-        sunString = `${sunTime}\n${SUN[type]}`;
-      }
+    //   if (sunObj) {
+    //     const { type, hour, minute } = sunObj;
+    //     const is12HourFormat = hmSetting.getTimeFormat() === 0;
+    //     const sunTime = formatTime(hour, minute, is12HourFormat, true, true);
+    //     sunString = `${sunTime}\n${SUN[type]}`;
+    //   }
 
-      sunImageWidget.setProperty(hmUI.prop.ALPHA, 255);
-      textWidget.setProperty(hmUI.prop.TEXT, sunString);
-    };
+    //   sunImageWidget.setProperty(hmUI.prop.ALPHA, 255);
+    //   textWidget.setProperty(hmUI.prop.TEXT, sunString);
+    // };
 
     const update = () => {
       sleepSensor.updateInfo?.();
       const sleepTime = getSleepTimeString(sleepSensor);
+      showSleepTime(sleepTime);
 
-      if (sleepTime) {
-        showSleepTime(sleepTime);
-        hideSunInfo();
-      } else {
-        showSunriseSunset();
-        hideSleepInfo();
-      }
+      // if (sleepTime) {
+      //   showSleepTime(sleepTime);
+      //   hideSunInfo();
+      // } else {
+      //   showSunriseSunset();
+      //   hideSleepInfo();
+      // }
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
