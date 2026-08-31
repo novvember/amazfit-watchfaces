@@ -134,16 +134,17 @@ export const SETTINGS_WIDGET_OPTIONAL_TYPES = [
       type: 'pressure',
     },
   },
-  {
-    type: 100014,
-    title_en: gettext('air-quality-index'),
-    title_tc: gettext('air-quality-index'),
-    title_sc: gettext('air-quality-index'),
-    preview: 'edit/widget_preview_aqi.png',
-    data: {
-      type: 'aqi',
-    },
-  },
+  // AQI widget removed due to store moderators restriction (non-China region dashboard does not support AQI data)
+  // {
+  //   type: 100014,
+  //   title_en: gettext('air-quality-index'),
+  //   title_tc: gettext('air-quality-index'),
+  //   title_sc: gettext('air-quality-index'),
+  //   preview: 'edit/widget_preview_aqi.png',
+  //   data: {
+  //     type: 'aqi',
+  //   },
+  // },
   {
     type: 100015,
     title_en: gettext('pai'),
