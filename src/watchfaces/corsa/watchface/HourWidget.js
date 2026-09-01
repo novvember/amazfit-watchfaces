@@ -101,7 +101,7 @@ export class HourWidget {
     const newTextProps = {
       x: textX,
       y: textY,
-      text: hour.toString().padStart(2, '0'),
+      text: hour.toString(),
     };
 
     this._text.setProperty(hmUI.prop.MORE, {
