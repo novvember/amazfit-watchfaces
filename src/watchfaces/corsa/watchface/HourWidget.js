@@ -59,7 +59,7 @@ export class HourWidget {
       h: px(50),
       align_h: hmUI.align.CENTER_H,
       align_v: hmUI.align.CENTER_V,
-      text_size: px(36),
+      text_size: px(30),
       color: COLORS.primary,
       font: FONTS.primary,
       text: '-',
@@ -91,7 +91,7 @@ export class HourWidget {
 
     const [textX, textY] = getWidgetCoordsFromAngle({
       angle: (angle + 180) % 360,
-      radius: px(32),
+      radius: px(30),
       rotationCenterX: SIZE / 2,
       rotationCenterY: SIZE / 2,
       widgetWidth: px(50),
@@ -101,7 +101,7 @@ export class HourWidget {
     const newTextProps = {
       x: textX,
       y: textY,
-      text: (hour % 12 || 12).toString(),
+      text: hour.toString().padStart(2, '0'),
     };
 
     this._text.setProperty(hmUI.prop.MORE, {
