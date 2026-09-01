@@ -7,6 +7,7 @@ import { HourWidget } from './HourWidget';
 import { Minutes } from './Minutes';
 import { Seconds } from './Seconds';
 import { ConnectionStatusWidget } from './ConnectionStatusWidget';
+import { WeatherArcWidget } from './WeatherArcWidget';
 
 WatchFace({
   onInit() {
@@ -23,7 +24,8 @@ WatchFace({
     this.buildDate();
     this.buildSteps();
     this.buildBattery();
-    this.buildHeart();
+    // this.buildHeart();
+    this.buildWeather();
     this.buildConnectionStatus();
 
     this.buildMinutes();
@@ -195,6 +197,42 @@ WatchFace({
     };
 
     this.minuteChangeCallbacks.push(onMinuteChange);
+  },
+
+  buildWeather() {
+    const widget = new WeatherArcWidget();
+    const weatherSensor = hmSensor.createSensor(hmSensor.id.WEATHER);
+
+    const onMinuteChange = (timeSensor) => {
+      const { minute } = timeSensor;
+      const angle = getAngleFromMinutes(minute);
+
+      const [x, y] = getWidgetCoordsFromAngle({
+        angle: (angle + 50) % 360,
+        radius: px(120),
+        rotationCenterX: px(240),
+        rotationCenterY: px(240),
+        widgetWidth: widget.width,
+        widgetHeight: widget.height,
+      });
+
+      widget.move(x, y);
+    };
+
+    const onResume = () => {
+      const iconIndex = weatherSensor.curAirIconIndex;
+      widget.updateWeatherIcon(iconIndex);
+    };
+
+    this.minuteChangeCallbacks.push(onMinuteChange);
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+          onResume();
+        }
+      },
+    });
   },
 
   buildConnectionStatus() {
