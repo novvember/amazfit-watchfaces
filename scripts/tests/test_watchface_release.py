@@ -163,6 +163,9 @@ class ArchiveTests(unittest.TestCase):
             zpk.writestr('device.zip' if valid else 'wrong.txt', b'device bytes')
         with zipfile.ZipFile(Path(root, 'build.zab'), 'w') as zab:
             zab.writestr('device.zpk', payload.getvalue())
+            zab.writestr('manifest.json', json.dumps({'zpks': [{
+                'name': 'device.zpk', 'platforms': [{
+                    'cpuPlatform': 'NXP', 'screenResolution': '466x466'}]}]}))
 
     def test_extract_and_missing_device_failure(self):
         for valid in (True, False):
@@ -172,7 +175,68 @@ class ArchiveTests(unittest.TestCase):
                                         capture_output=True, text=True)
                 self.assertEqual(result.returncode == 0, valid, result.stderr)
                 if valid:
-                    self.assertEqual(Path(root, 'build-device.zip').read_bytes(), b'device bytes')
+                    self.assertEqual(Path(root, 'build-NXP-466x466.zip').read_bytes(), b'device bytes')
+
+    def test_manifest_selects_packages_and_supports_new_and_multiple_platforms(self):
+        with tempfile.TemporaryDirectory() as root:
+            payload = io.BytesIO()
+            with zipfile.ZipFile(payload, 'w') as zpk:
+                zpk.writestr('device.zip', b'unchanged device')
+            with zipfile.ZipFile(Path(root, 'build.zab'), 'w') as zab:
+                zab.writestr('opaque.zpk', payload.getvalue())
+                zab.writestr('unlisted.zpk', b'not a package')
+                zab.writestr('manifest.json', json.dumps({'zpks': [{
+                    'name': 'opaque.zpk', 'platforms': [
+                        {'cpuPlatform': 'NEWCPU', 'screenResolution': '777x888'},
+                        {'cpuPlatform': 'OTHER', 'screenResolution': '123x456'}]}]}))
+            result = subprocess.run(['bash', str(SCRIPTS / 'prepare_release_files.sh'), root],
+                                    capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual([p.name for p in Path(root).glob('*.zip')],
+                             ['build-NEWCPU-777x888-OTHER-123x456.zip'])
+            self.assertEqual(next(Path(root).glob('*.zip')).read_bytes(), b'unchanged device')
+
+    def test_equal_platform_labels_preserve_both_packages(self):
+        with tempfile.TemporaryDirectory() as root:
+            entries = []
+            with zipfile.ZipFile(Path(root, 'build.zab'), 'w') as zab:
+                for index in range(2):
+                    payload = io.BytesIO()
+                    with zipfile.ZipFile(payload, 'w') as zpk:
+                        zpk.writestr('device.zip', f'device {index}')
+                    name = f'{index}.zpk'
+                    zab.writestr(name, payload.getvalue())
+                    entries.append({'name': name, 'platforms': [
+                        {'cpuPlatform': 'NXP', 'screenResolution': '466x466'}]})
+                zab.writestr('manifest.json', json.dumps({'zpks': entries}))
+            for _ in range(2):
+                result = subprocess.run(['bash', str(SCRIPTS / 'prepare_release_files.sh'), root],
+                                        capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                files = list(Path(root).glob('build-NXP-466x466-*.zip'))
+                self.assertEqual(len(files), 2)
+                self.assertEqual({p.read_bytes() for p in files}, {b'device 0', b'device 1'})
+
+    def test_invalid_manifest_does_not_write_partial_outputs(self):
+        platform = {'cpuPlatform': 'NXP', 'screenResolution': '466x466'}
+        valid = {'name': 'device.zpk', 'platforms': [platform]}
+        for manifest in (None, {'zpks': []}, {'zpks': [valid, {
+                'name': 'missing.zpk', 'platforms': [platform]}]},
+                {'zpks': [{'name': 'device.zpk', 'platforms': []}]},
+                {'zpks': [{'name': 'device.zpk', 'platforms': [{
+                    'cpuPlatform': '../unsafe', 'screenResolution': '466x466'}]}]}):
+            with self.subTest(manifest=manifest), tempfile.TemporaryDirectory() as root:
+                payload = io.BytesIO()
+                with zipfile.ZipFile(payload, 'w') as zpk:
+                    zpk.writestr('device.zip', b'device bytes')
+                with zipfile.ZipFile(Path(root, 'build.zab'), 'w') as zab:
+                    zab.writestr('device.zpk', payload.getvalue())
+                    if manifest is not None:
+                        zab.writestr('manifest.json', json.dumps(manifest))
+                result = subprocess.run(['bash', str(SCRIPTS / 'prepare_release_files.sh'), root],
+                                        capture_output=True, text=True)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertEqual(list(Path(root).glob('*.zip')), [])
 
     def test_empty_and_ambiguous_archives_fail(self):
         with tempfile.TemporaryDirectory() as root:

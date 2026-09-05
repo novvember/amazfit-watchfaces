@@ -106,6 +106,7 @@ This option works on older Zepp OS versions that allow mini-apps to be installed
 
 - Follow the [official Zepp OS quick start guide](https://docs.zepp.com/docs/guides/quick-start/).
 - Install Node.js. If the CLI does not work, try a different Node.js version.
+- Install Python 3 (`python3`) to prepare device ZIPs after building. Their names use `cpuPlatform` and `screenResolution` from the ZAB manifest.
 - Install the Zepp OS CLI globally so the `zeus` command is available:
 
   ```sh
