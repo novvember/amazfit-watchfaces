@@ -296,7 +296,7 @@ interface HmWidgetProps {
   type?: hmUI['data_type'];
   font?: string;
   /** Should show units (km, %, m) - '1', or just value - '0 */
-  unit_type?: 0 | 1;
+  unit_type?: number;
   /** Should add more symbols (zero for seconds for example) */
   padding?: boolean;
 

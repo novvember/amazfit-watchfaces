@@ -1,0 +1,4 @@
+interface:
+  display_name: "Watchface Widgets"
+  short_description: "Zepp OS widget classes, layouts, and sensors"
+  default_prompt: "Use $watchface-widgets to create or split a watchface into widget classes following this project's conventions."

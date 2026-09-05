@@ -1,0 +1,4 @@
+interface:
+  display_name: "Watchface Settings"
+  short_description: "Zepp OS settings, edit screens, and widget wiring"
+  default_prompt: "Use $watchface-settings to create or update watchface settings and pass selected values into the requested widgets."
