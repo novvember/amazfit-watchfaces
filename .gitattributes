@@ -1,0 +1,2 @@
+# Shell scripts need LF line endings on Linux and in Git Bash.
+*.sh text eol=lf

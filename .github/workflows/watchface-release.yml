@@ -1,0 +1,70 @@
+name: Watchface release drafts
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      watchfaces: ${{ steps.detect.outputs.watchfaces }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - id: detect
+        name: Find changed versions across the entire push
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: python3 scripts/watchface_release.py detect "$BEFORE" "$AFTER"
+
+  release:
+    needs: detect
+    if: needs.detect.outputs.watchfaces != '[]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        watchface: ${{ fromJSON(needs.detect.outputs.watchfaces) }}
+    concurrency:
+      group: watchface-release-${{ matrix.watchface }}
+      queue: max
+      cancel-in-progress: false
+    env:
+      WATCHFACE: ${{ matrix.watchface }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check release and generate commit notes
+        id: prepare
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/watchface_release.py prepare "$WATCHFACE"
+      - name: Install Zeus CLI
+        if: steps.prepare.outputs.skip != 'true'
+        run: npm install --global @zeppos/zeus-cli@1.9.3
+      - name: Build watchface and device ZIP files
+        if: steps.prepare.outputs.skip != 'true'
+        run: |
+          rm -rf -- "src/watchfaces/$WATCHFACE/dist"
+          cd "src/watchfaces/$WATCHFACE"
+          npm run build
+      - name: Create or update release draft
+        if: steps.prepare.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/watchface_release.py draft "$WATCHFACE"
