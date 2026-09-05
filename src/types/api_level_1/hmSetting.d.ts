@@ -5,7 +5,7 @@ declare namespace hmSetting {
   /**
    * Get the current screen type (mode)
    */
-  function getScreenType(): keyof hmSetting['screen_type'];
+  function getScreenType(): (typeof hmSetting.screen_type)[keyof typeof hmSetting.screen_type];
 
   /**
    * Get the time format setting

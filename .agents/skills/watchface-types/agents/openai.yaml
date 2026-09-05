@@ -1,0 +1,4 @@
+interface:
+  display_name: "Watchface Types"
+  short_description: "Strict JSDoc typing and shared Zepp OS declarations"
+  default_prompt: "Use $watchface-types to type watchface code with shared Zepp OS declarations and verify that the changes have no type errors."

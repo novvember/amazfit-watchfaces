@@ -149,7 +149,7 @@ interface HmSensorInstance {
 
   // --- Common ---
   /** Subscribe to sensor events */
-  addEventListener?(event: keyof hmSensor['event'], callback: () => void): void;
+  addEventListener?(event: (typeof hmSensor.event)[keyof typeof hmSensor.event], callback: () => void): void;
   /** Unsubscribe from sensor events */
   removeEventListener?(event: number, callback?: Function): void;
 

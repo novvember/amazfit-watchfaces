@@ -179,14 +179,10 @@ declare namespace hmUI {
     readonly WIND: number;
     /** Wind direction (for IMG_LEVEL) */
     readonly WIND_DIRECTION: number;
-    /** UV Index (not real uv-index, just several levels) */
-    readonly UVI: number;
     /** Closest sunrise/sunset */
     readonly SUN_CURRENT: number;
     /** Fat burning ? (current) */
     readonly FAT_BURNING: number;
-    /** Stand count (current) */
-    readonly STAND: number;
     /** Moon phase (for IMG_LEVEL) */
     readonly MOON: number;
   };
@@ -197,13 +193,11 @@ declare namespace hmUI {
   const edit_type: {
     readonly HEART: number;
     readonly STEP: number;
-    readonly HEART: number;
     readonly CAL: number;
     readonly DISTANCE: number;
     readonly BATTERY: number;
     readonly WEATHER: number;
     readonly SLEEP: number;
-    readonly WEATHER: number;
   };
 
   const prop: {
@@ -244,7 +238,7 @@ interface HmWidgetProps {
   // --- COMMON ---
   x?: number;
   y?: number;
-  show_level?: keyof hmUI['show_level'];
+  show_level?: (typeof hmUI.show_level)[keyof typeof hmUI.show_level];
   src?: string;
   w?: number;
   h?: number;
@@ -274,7 +268,7 @@ interface HmWidgetProps {
   hour_startX?: number;
   hour_startY?: number;
   hour_array?: string[];
-  hour_align?: hmUI['align'];
+  hour_align?: (typeof hmUI.align)[keyof typeof hmUI.align];
   hour_unit_sc?: string;
   hour_unit_tc?: string;
   hour_unit_en?: string;
@@ -285,15 +279,15 @@ interface HmWidgetProps {
 
   // --- TEXT, TEXT_IMG ---
   text?: string;
-  align_h?: hmUI['align'];
-  align_v?: hmUI['align'];
+  align_h?: (typeof hmUI.align)[keyof typeof hmUI.align];
+  align_v?: (typeof hmUI.align)[keyof typeof hmUI.align];
   text_size?: number;
   char_space?: number;
   line_space?: number;
-  text_style?: hmUI['text_style'];
+  text_style?: (typeof hmUI.text_style)[keyof typeof hmUI.text_style];
 
   // --- TEXT_FONT ---
-  type?: hmUI['data_type'];
+  type?: (typeof hmUI.data_type)[keyof typeof hmUI.data_type];
   font?: string;
   /** Should show units (km, %, m) - '1', or just value - '0 */
   unit_type?: number;
@@ -352,15 +346,15 @@ interface HmWidgetInstance {
   /**
    * Set a widget property
    */
-  setProperty(prop: keyof hmUI['prop'], value: any): void;
+  setProperty(prop: (typeof hmUI.prop)[keyof typeof hmUI.prop], value: any): void;
 
   /**
    * Creates new widget inside a group widget
    */
-  createWidget?: hmUI['createWidget'];
+  createWidget?: typeof hmUI.createWidget;
 
   /**
    * Get a widget property
    */
-  getProperty(prop: hmUI['prop']): unknown;
+  getProperty(prop: (typeof hmUI.prop)[keyof typeof hmUI.prop]): unknown;
 }
