@@ -1,0 +1,146 @@
+#. Weekday labels
+msgid "mon"
+msgstr "MON"
+
+msgid "tue"
+msgstr "TUE"
+
+msgid "wed"
+msgstr "WED"
+
+msgid "thu"
+msgstr "THU"
+
+msgid "fri"
+msgstr "FRI"
+
+msgid "sat"
+msgstr "SAT"
+
+msgid "sun"
+msgstr "SUN"
+
+#. Month labels
+msgid "jan"
+msgstr "JAN"
+
+msgid "feb"
+msgstr "FEB"
+
+msgid "mar"
+msgstr "MAR"
+
+msgid "apr"
+msgstr "APR"
+
+msgid "may"
+msgstr "MAY"
+
+msgid "jun"
+msgstr "JUN"
+
+msgid "jul"
+msgstr "JUL"
+
+msgid "aug"
+msgstr "AUG"
+
+msgid "sep"
+msgstr "SEP"
+
+msgid "oct"
+msgstr "OCT"
+
+msgid "nov"
+msgstr "NOV"
+
+msgid "dec"
+msgstr "DEC"
+
+#. Weather labels: letters and spaces only, at most 9 characters.
+msgid "weather_cloudy"
+msgstr "CLOUDY"
+
+msgid "weather_showers"
+msgstr "SHOWERS"
+
+msgid "weather_snow_showers"
+msgstr "SNOW"
+
+msgid "weather_sunny"
+msgstr "SUNNY"
+
+msgid "weather_overcast"
+msgstr "OVERCAST"
+
+msgid "weather_light_rain"
+msgstr "RAIN"
+
+msgid "weather_light_snow"
+msgstr "SNOW"
+
+msgid "weather_moderate_rain"
+msgstr "RAIN"
+
+msgid "weather_moderate_snow"
+msgstr "SNOW"
+
+msgid "weather_heavy_snow"
+msgstr "SNOWFALL"
+
+msgid "weather_heavy_rain"
+msgstr "RAIN"
+
+msgid "weather_sandstorm"
+msgstr "SANDSTORM"
+
+msgid "weather_rain_and_snow"
+msgstr "SLEET"
+
+msgid "weather_fog"
+msgstr "FOG"
+
+msgid "weather_haze"
+msgstr "HAZE"
+
+msgid "weather_thunderstorms"
+msgstr "THUNDER"
+
+msgid "weather_snowstorm"
+msgstr "BLIZZARD"
+
+msgid "weather_floating_dust"
+msgstr "DUST"
+
+msgid "weather_extreme_rainstorm"
+msgstr "RAINSTORM"
+
+msgid "weather_rain_and_hail"
+msgstr "HAIL"
+
+msgid "weather_thunderstorms_and_hail"
+msgstr "HAIL"
+
+msgid "weather_heavy_rainstorm"
+msgstr "RAINSTORM"
+
+msgid "weather_blowing_dust"
+msgstr "DUST"
+
+msgid "weather_heavy_sandstorm"
+msgstr "SANDSTORM"
+
+msgid "weather_rainstorm"
+msgstr "RAINSTORM"
+
+msgid "weather_unknown"
+msgstr "UNKNOWN"
+
+msgid "weather_cloudy_night"
+msgstr "CLOUDY"
+
+msgid "weather_showers_night"
+msgstr "SHOWERS"
+
+msgid "weather_clear_night"
+msgstr "CLEAR"

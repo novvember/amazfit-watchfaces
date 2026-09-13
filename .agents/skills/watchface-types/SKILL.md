@@ -19,10 +19,11 @@ Paths below are relative to the repository root.
 ## Explicit JSDoc contracts
 
 - Annotate every new or modified function and method: named `@param` entries for all parameters and `@returns` for its actual result, including `@returns {void}`. Include private helpers, lifecycle methods, and callbacks. A callback may use an explicit function `@type` or a checked contextual contract instead of repeating parameter annotations.
-- A JavaScript class already declares its instance type. Type its constructor parameters, fields, methods, and public interface; do not add a meaningless `@type {Object}` to the class. Constructors do not need `@returns`.
+- A JavaScript class already declares its instance type. Annotate its constructor parameters and method contracts; let field types be inferred from typed initializers when inference captures the intended type; do not add a meaningless `@type {Object}` to the class. Constructors do not need `@returns`.
 - Use a local `@typedef` with `@property` entries for reusable constructor options, settings results, geometry, and structured return values. Reuse module-local types across files through JSDoc `import('./relative/module').TypeName`; this is not a runtime import. Do not put watchface-specific models into global Zepp declarations.
 - Use primitive `string`, `number`, and `boolean`. Avoid broad `Object`, `Function`, untyped arrays, and `Record<string, any>`. Write exact fields, callback signatures, element types, and tuple shapes.
-- Explicitly type class state, widget/sensor references, empty collections, optional or deferred fields, and exported configuration objects. Simple local literals may use inference when it preserves the complete intended type.
+- Prefer inference for constants, local variables, class state, and widget/sensor references when a typed initializer already supplies the complete intended type. Do not add redundant `@type` comments merely because a value is a class field: `this._group = hmUI.createWidget(...)` already infers `HmWidgetInstance`, and assigning a typed constructor parameter preserves its type.
+- Add explicit annotations when inference is insufficient, such as empty collections without a contextual element type, optional or deferred fields, or a field that needs a wider union than its initializer. Keep definition-site validation for exported configuration objects as described below; `@satisfies` checks the API contract rather than merely repeating an inferred type.
 - Represent deferred initialization honestly, for example `HmWidgetInstance | undefined`, initialize it, and narrow before use. Prefer creating required fields in the constructor when appropriate. Do not hide initialization problems with casts or add optional chaining that silently skips required work.
 
 Example inside a watchface module:
@@ -36,9 +37,7 @@ Example inside a watchface module:
 export class CounterWidget {
   /** @param {CounterWidgetParams} params */
   constructor({ stepSensor }) {
-    /** @type {HmSensorInstance} */
     this._stepSensor = stepSensor;
-    /** @type {HmWidgetInstance} */
     this._textWidget = hmUI.createWidget(hmUI.widget.TEXT, {
       x: px(20), y: px(20), w: px(160), h: px(40), text: '',
     });

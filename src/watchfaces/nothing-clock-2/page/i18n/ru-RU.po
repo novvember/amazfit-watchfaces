@@ -1,0 +1,146 @@
+#. Weekday labels
+msgid "mon"
+msgstr "ПНД"
+
+msgid "tue"
+msgstr "ВТР"
+
+msgid "wed"
+msgstr "СРД"
+
+msgid "thu"
+msgstr "ЧТВ"
+
+msgid "fri"
+msgstr "ПТН"
+
+msgid "sat"
+msgstr "СБТ"
+
+msgid "sun"
+msgstr "ВСК"
+
+#. Month labels
+msgid "jan"
+msgstr "ЯНВ"
+
+msgid "feb"
+msgstr "ФЕВ"
+
+msgid "mar"
+msgstr "МАР"
+
+msgid "apr"
+msgstr "АПР"
+
+msgid "may"
+msgstr "МАЙ"
+
+msgid "jun"
+msgstr "ИЮН"
+
+msgid "jul"
+msgstr "ИЮЛ"
+
+msgid "aug"
+msgstr "АВГ"
+
+msgid "sep"
+msgstr "СЕН"
+
+msgid "oct"
+msgstr "ОКТ"
+
+msgid "nov"
+msgstr "НОЯ"
+
+msgid "dec"
+msgstr "ДЕК"
+
+#. Weather labels: letters and spaces only, at most 9 characters.
+msgid "weather_cloudy"
+msgstr "ОБЛАЧНО"
+
+msgid "weather_showers"
+msgstr "ЛИВНИ"
+
+msgid "weather_snow_showers"
+msgstr "СНЕГ"
+
+msgid "weather_sunny"
+msgstr "СОЛНЕЧНО"
+
+msgid "weather_overcast"
+msgstr "ПАСМУРНО"
+
+msgid "weather_light_rain"
+msgstr "ДОЖДЬ"
+
+msgid "weather_light_snow"
+msgstr "СНЕГ"
+
+msgid "weather_moderate_rain"
+msgstr "ДОЖДЬ"
+
+msgid "weather_moderate_snow"
+msgstr "СНЕГ"
+
+msgid "weather_heavy_snow"
+msgstr "СНЕГОПАД"
+
+msgid "weather_heavy_rain"
+msgstr "ДОЖДЬ"
+
+msgid "weather_sandstorm"
+msgstr "БУРЯ"
+
+msgid "weather_rain_and_snow"
+msgstr "СНЕГ"
+
+msgid "weather_fog"
+msgstr "ТУМАН"
+
+msgid "weather_haze"
+msgstr "МГЛА"
+
+msgid "weather_thunderstorms"
+msgstr "ГРОЗА"
+
+msgid "weather_snowstorm"
+msgstr "МЕТЕЛЬ"
+
+msgid "weather_floating_dust"
+msgstr "ПЫЛЬ"
+
+msgid "weather_extreme_rainstorm"
+msgstr "ЛИВЕНЬ"
+
+msgid "weather_rain_and_hail"
+msgstr "ГРАД"
+
+msgid "weather_thunderstorms_and_hail"
+msgstr "ГРАД"
+
+msgid "weather_heavy_rainstorm"
+msgstr "ЛИВЕНЬ"
+
+msgid "weather_blowing_dust"
+msgstr "ПЫЛЬ"
+
+msgid "weather_heavy_sandstorm"
+msgstr "БУРЯ"
+
+msgid "weather_rainstorm"
+msgstr "ЛИВЕНЬ"
+
+msgid "weather_unknown"
+msgstr "НЕТ ИНФО"
+
+msgid "weather_cloudy_night"
+msgstr "ОБЛАЧНО"
+
+msgid "weather_showers_night"
+msgstr "ЛИВНИ"
+
+msgid "weather_clear_night"
+msgstr "ЯСНО"

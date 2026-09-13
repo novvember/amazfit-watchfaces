@@ -326,6 +326,7 @@ interface HmWidgetProps {
   center_x?: number;
   center_y?: number;
   radius?: number;
+  line_width?: number;
   color?: number;
 
   // --- BUTTON ---
