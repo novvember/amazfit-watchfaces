@@ -6,7 +6,7 @@ import {
   WIDGET_TEXT_S_PROPS,
 } from '../index.r.layout';
 import { isNight } from '../../utils/isNight';
-import { updateWeatherIcons, WEATHER_ICONS } from '../../utils/weatherIcons';
+import { updateWeatherIcons, WEATHER_ICON_IDS } from '../../utils/weatherIcons';
 
 /**
  * @typedef {Object} WeatherSlotWidgetParams
@@ -19,7 +19,7 @@ import { updateWeatherIcons, WEATHER_ICONS } from '../../utils/weatherIcons';
  * @property {string} colorTheme
  */
 
-const ICON_SIZE = px(40);
+const ICON_SIZE = px(48);
 
 export class WeatherSlotWidget {
   /**
@@ -102,7 +102,7 @@ export class WeatherSlotWidget {
    * @param {string} colorTheme
    */
   _getWeatherIconSrc(weatherIndex, colorTheme) {
-    return `weather_icon/${colorTheme}/${WEATHER_ICONS[weatherIndex || 0] || ''}`;
+    return `weather_icon/${colorTheme}/${WEATHER_ICON_IDS[weatherIndex || 0] || ''}.png`;
   }
 
   _bindHandlers() {

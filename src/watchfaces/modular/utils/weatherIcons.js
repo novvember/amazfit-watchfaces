@@ -1,36 +1,34 @@
-const WEATHER_ICON_NAMES = [
-  'cloudy.png',
-  'shower.png',
-  'snow_shower.png',
-  'sunny.png',
-  'overcast.png',
-  'light_rain.png',
-  'light_snow.png',
-  'moderate_rain.png',
-  'moderate_snow.png',
-  'heavy_snow.png',
-  'heavy_rain.png',
-  'sandstorm.png',
-  'sleet.png',
-  'fog.png',
-  'haze.png',
-  'thundershower.png',
-  'snowstorm.png',
-  'dust.png',
-  'extraordinary_rainstorm.png',
-  'rain_with_hail.png',
-  'thundershowers_with_hail.png',
-  'heavy_rainstorm.png',
-  'sand_blowing.png',
-  'strong_sandstorm.png',
-  'rainstorm.png',
-  'unknown_weather.png',
-  'cloudy_at_night.png',
-  'shower_at_night.png',
-  'clear_night.png',
+export const WEATHER_ICON_IDS = [
+  'cloudy', // 0
+  'shower-rain', // 1
+  'snow-flurry', // 2
+  'sunny', // 3
+  'overcast', // 4
+  'light-rain', // 5
+  'light-snow', // 6
+  'moderate-rain', // 7
+  'moderate-snow', // 8
+  'heavy-snow', // 9
+  'heavy-rain', // 10
+  'duststorm', // 11
+  'sleet', // 12
+  'foggy', // 13
+  'haze', // 14
+  'thundershower', // 15
+  'snowstorm', // 16
+  'dust', // 17
+  'severe-storm', // 18
+  'hail', // 19
+  'thundershower-with-hail', // 20
+  'heavy-storm', // 21
+  'sand', // 22
+  'sandstorm', // 23
+  'storm', // 24
+  'unknown', // 25
+  'cloudy-night', // 26
+  'shower-rain-night', // 27
+  'clear-night', // 28
 ];
-
-export const WEATHER_ICONS = WEATHER_ICON_NAMES;
 
 /**
  * Mutates weather icons array to fix bug when night icons are not rendered at night time
@@ -38,12 +36,12 @@ export const WEATHER_ICONS = WEATHER_ICON_NAMES;
  */
 export const updateWeatherIcons = (isNight) => {
   if (isNight) {
-    WEATHER_ICONS[0] = 'cloudy_at_night.png';
-    WEATHER_ICONS[1] = 'shower_at_night.png';
-    WEATHER_ICONS[3] = 'clear_night.png';
+    WEATHER_ICON_IDS[0] = 'cloudy-night';
+    WEATHER_ICON_IDS[1] = 'shower-rain-night';
+    WEATHER_ICON_IDS[3] = 'clear-night';
   } else {
-    WEATHER_ICONS[0] = 'cloudy.png';
-    WEATHER_ICONS[1] = 'shower.png';
-    WEATHER_ICONS[3] = 'sunny.png';
+    WEATHER_ICON_IDS[0] = 'cloudy';
+    WEATHER_ICON_IDS[1] = 'shower-rain';
+    WEATHER_ICON_IDS[3] = 'sunny';
   }
 };
