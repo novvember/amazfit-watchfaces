@@ -128,6 +128,7 @@ export class TimeTextWidget {
 
   /**
    * @param {String} text
+   * @returns {void}
    */
   set(text) {
     const chars = text.split('').slice(0, LENGTH);
@@ -136,7 +137,13 @@ export class TimeTextWidget {
     const y = CENTER_Y - this._getImageHeight() / 2;
     const xCoords = this._calculateXCoords(imageIds);
 
-    chars.forEach((_char, i) => {
+    for (let i = 0; i < LENGTH; i++) {
+      if (i >= chars.length) {
+        this._textWidgets[i].setProperty(hmUI.prop.VISIBLE, false);
+        this._textAodWidgets[i].setProperty(hmUI.prop.VISIBLE, false);
+        continue;
+      }
+
       const imageId = imageIds[i];
       const x = xCoords[i];
 
@@ -146,6 +153,7 @@ export class TimeTextWidget {
         y,
         src: `digits/${imageId}.png`,
       });
+      this._textWidgets[i].setProperty(hmUI.prop.VISIBLE, true);
 
       this._textAodWidgets[i].setProperty(hmUI.prop.MORE, {
         ...TEXT_AOD_BASE_PROPS,
@@ -153,6 +161,7 @@ export class TimeTextWidget {
         y,
         src: `digits_inverse/${imageId}.png`,
       });
-    });
+      this._textAodWidgets[i].setProperty(hmUI.prop.VISIBLE, true);
+    }
   }
 }
