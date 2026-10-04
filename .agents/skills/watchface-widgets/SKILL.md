@@ -7,6 +7,8 @@ description: Create or reorganize Zepp OS watchface widgets in amazfit-watchface
 
 Apply these conventions within `src/watchfaces/<watchface>/`. They describe this repository's code organization, not Zepp OS API requirements. Explicit user instructions take precedence.
 
+Keep agent instructions and coding conventions in `.agents/skills/`, not in the repository or watchface README files. READMEs are documentation for people; do not add sections such as “Widget Conventions” there when recording agent preferences.
+
 ## Before making changes
 
 Read the current `watchface/index.js`, relevant layouts, constants if present, and classes of the affected watchface. Refactor the current code: the user may have edited it since the previous response.
@@ -18,6 +20,8 @@ The following are API 1 examples of local structure, not API 2 API references. O
 - `src/watchfaces/modular/watchface/SleepWidget.js`: content updates and event handlers inside the class.
 - `src/watchfaces/modular/watchface/slotWidgets/DateSlotWidget.js`: externally supplied slot geometry and theme.
 - `src/watchfaces/modular/watchface/sideWidgets/StepSideWidget.js`: a component with a sensor that controls a nested visual widget.
+
+For API 2 class structure and constructor contracts, inspect `src/watchfaces/unlikeables/watchface/{TimeWidget,DateWidget,StepsWidget}.js`. These illustrate the local conventions, not authoritative runtime API behavior.
 
 Do not copy settings, slots, or nesting from a complex watchface unless the task needs them. Existing repository code may contain mistakes; use the selected Zepp API documentation for runtime behavior.
 
@@ -34,6 +38,7 @@ TimeWidget.layout.js
 
 - `<Name>Widget.js`: a named export, `export class <Name>Widget`. Use PascalCase and a meaningful component name; several UI primitives can form one class.
 - `<Name>Widget.layout.js`: this component's UI properties, with named exports in `UPPER_SNAKE_CASE`, usually ending in `_PROPS`.
+- Preserve existing shared presentation constants such as `FONT` and `FONT_SIZE` in the index layout (`index.r.layout.js` or the existing variant). Export and import them from component layouts instead of duplicating their values or moving them during extraction.
 - `index.const.js`: optional home for values genuinely shared across multiple files, such as a palette or image path array. Keep a constant near its only use; do not create a separate file solely to move a few literals.
 - `index.r.layout.js`: background properties and genuinely shared presentation properties used by the index. Remove a component's properties from this file after extracting it. Preserve an existing `index.layout.js` or `.r.layout.js` variants when the target watchface already uses a different device layout selection scheme.
 - `slotWidgets/`, `sideWidgets/`, `settings/`: use these for actual families of components and settings, as in `modular`. A few ordinary components only need adjacent files.
@@ -67,7 +72,9 @@ Use `_build…` for internal helpers in new structure. Preserve existing names a
 
 ## What to pass into a class
 
-The constructor accepts an object containing its required dependencies: `constructor({ timeSensor })`. Use `constructor()` when no parameters are needed.
+The constructor accepts an object containing its required dependencies. Define all its properties in a named local `<Name>WidgetParams` typedef and annotate the constructor with `@param {<Name>WidgetParams} params`, even for a single dependency. Use `constructor()` when no parameters are needed. See `watchface-types` for the JSDoc pattern.
+
+For API 2, name injected objects and fields after their purpose: `time`, `step`, `battery`, and `this._time`, `this._step`, `this._battery`. Do not add a `Sensor` suffix to API 2 parameters, variables, or fields. Keep the real module path `@zos/sensor` and API 1 sensor naming unchanged.
 
 Pass in:
 
@@ -90,8 +97,8 @@ In API 1, a widget that obtains data directly through `hmUI.data_type`, such as 
 ## Classes, layouts, and updates
 
 - A static component can create all its UI directly in the constructor. Use `_buildLayout()` for more complex construction; normal mode and AOD can be separated into `_buildNormal()` and `_buildAod()` within one class.
-- A dynamic component may store injected dependencies in `this._…`, create its UI, and bind a handler once when the event API needs a stable reference. Keep the original component structure when it is already clear.
-- `_update()` or a local update function reads the sensor, formats data, and updates UI. Where an event API provides both `on…` and `off…`, pass the same callback to each.
+- For a dynamic widget, keep the constructor focused on dependency/state initialization, basic UI creation, and method calls. Put formatting and rendering updates in `_update()` and event registration in `_bindHandlers()`. Extract substantial UI construction into `_buildLayout()` or focused build methods when useful. Do not move an entire dynamic implementation into the constructor during extraction; adapt method boundaries to the actual component rather than adding empty or trivial methods.
+- When passing an instance method directly as a callback, bind it once and retain the reference, for example `this._updateHandler = this._update.bind(this)`. Use that same reference for matching `on…`/`off…` calls. An arrow callback that calls `this._update()` already captures `this` and needs no extra binding. Never call `.bind(this)` separately for subscription and unsubscription.
 - Use `WIDGET_DELEGATE` to refresh on `resume_call` and manage subscriptions that should run only while the watchface is active. Pair `onChange`/`offChange` in `resume_call`/`pause_call` for API 2 `Step` and `Battery` when those updates are only needed on the visible face. `Time.onPerMinute` has no documented `offPerMinute`; register it once per build and filter updates by scene when necessary. Do not register it again on every resume. Inspect each sensor's own contract; there is no universal subscribe/unsubscribe rule for all sensors.
 - Preserve existing timer and handler cleanup and its lifecycle invocation where needed. Do not add empty cleanup methods to static components.
 - Layout files export properties without creating UI, sensors, or subscriptions. Import `px` and UI constants from the selected API's normal module. Preserve existing `show_level` behavior, including the SDK's `ONAL_AOD` spelling; do not add a runtime re-export file for standard functions.

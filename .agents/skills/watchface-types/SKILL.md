@@ -19,9 +19,11 @@ Paths below are relative to the repository root.
 
 ## Explicit JSDoc contracts
 
+Record agent typing preferences in `.agents/skills/`; keep repository and watchface READMEs focused on documentation for people.
+
 - Describe parameters and non-obvious return values with JSDoc where inference does not express the contract, especially at module boundaries, for exported helpers, and for structured data. Do not add `/** @returns {void} */` to lifecycle methods, `_build…()` methods, UI updates, or callbacks that plainly return nothing. Keep `@returns {void}` only if it resolves a real type ambiguity. Contextually typed callbacks usually need no repeated annotation.
 - A JavaScript class already declares its instance type. Document constructor parameters and methods when their contracts are not clear from the code; let field types be inferred from typed initializers when inference captures the intended type. Do not add a meaningless `@type {Object}` to the class. Constructors do not need `@returns`.
-- Use a local `@typedef` with `@property` entries for reusable constructor options, settings results, geometry, and structured return values. Reuse module-local types across files through JSDoc `import('./relative/module').TypeName`; this is not a runtime import. Do not put watchface-specific models into global Zepp declarations.
+- For every new widget constructor with an options object, define a named local `<Name>WidgetParams` typedef with `@property` entries for all options, including single-option constructors. Annotate the constructor with `@param {<Name>WidgetParams} params`; do not put an inline object type in its `@param`. Use local typedefs for settings results, geometry, and structured return values too. Reuse module-local types across files through JSDoc `import('./relative/module').TypeName`; this is not a runtime import. Do not put watchface-specific models into global Zepp declarations.
 - Use primitive `string`, `number`, and `boolean`. Avoid broad `Object`, `Function`, untyped arrays, and `Record<string, any>`. Write exact fields, callback signatures, element types, and tuple shapes.
 - Prefer inference for constants, local variables, class state, and widget/sensor references when a typed initializer already supplies the complete intended type. Do not add redundant `@type` comments merely because a value is a class field: `this._group = hmUI.createWidget(...)` already infers `HmWidgetInstance`, and assigning a typed constructor parameter preserves its type.
 - Add explicit annotations when inference is insufficient, such as empty collections without a contextual element type, optional or deferred fields, or a field that needs a wider union than its initializer. Check configuration objects where the installed API types permit it without obscuring the layout.
@@ -50,6 +52,24 @@ export class CounterWidget {
   }
 }
 ```
+
+API 2 constructor contract:
+
+```js
+/**
+ * @typedef {object} TimeWidgetParams
+ * @property {import('@zos/sensor').Time} time
+ */
+
+export class TimeWidget {
+  /** @param {TimeWidgetParams} params */
+  constructor({ time }) {
+    this._time = time;
+  }
+}
+```
+
+Reference external types directly in `@property` with JSDoc `import(...)`. Do not add aliases such as `@typedef {import('@zos/sensor').Time} Time` merely to shorten the reference, or introduce a runtime import used only as a type. API 2 parameters and fields use `time`, `step`, `battery` and `_time`, `_step`, `_battery`, without a `Sensor` suffix; API 1 names remain unchanged.
 
 ## Layouts, settings, and state
 

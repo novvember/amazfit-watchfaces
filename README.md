@@ -45,7 +45,8 @@ All watchfaces are free to use. If you would like to support their development o
 ```text
 ├── scripts/                  # Build and release scripts
 ├── src/
-│   ├── adapters/             # Helpers for working with Zepp OS APIs
+│   ├── adapters/             # Zepp OS API 1 helpers
+│   ├── adapters2/            # Zepp OS API 2 helpers
 │   ├── types/                # Zepp OS type declarations
 │   ├── utils/                # Shared utility functions
 │   └── watchfaces/           # One mini-project per watchface
