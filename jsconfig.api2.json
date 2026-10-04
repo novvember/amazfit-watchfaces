@@ -1,0 +1,14 @@
+{
+  "extends": "./jsconfig.base.json",
+  "compilerOptions": {
+    "types": [
+      "@zeppos/device-types"
+    ]
+  },
+  "files": [
+    "src/types/api_level_2/Watchface.d.ts",
+    "src/types/api_level_2/console.d.ts",
+    "src/types/api_level_2/ui.d.ts"
+  ],
+  "include": []
+}

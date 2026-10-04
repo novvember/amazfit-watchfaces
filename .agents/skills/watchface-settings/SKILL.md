@@ -5,13 +5,13 @@ description: Create or modify on-watch Zepp OS watchface settings in amazfit-wat
 
 # Watchface Settings
 
-Apply these repository conventions within `src/watchfaces/<watchface>/`. These settings use the on-watch editor, not a phone settings page.
+Apply these repository conventions within `src/watchfaces/<watchface>/`. These settings use the on-watch editor, not a phone settings page. The concrete API calls and examples below use API 1; for an API 2 watchface, verify the matching `@zos/ui`, localization, and storage contracts before adapting them. Do not import API 1 globals to reproduce an example.
 
 ## Inspect the current implementation
 
 Read the target watchface's `index.js`, relevant settings classes and layouts, shared constants, affected widgets, translations, and `app.json`. Inspect actual files again before editing: the user may have changed IDs, coordinates, assets, or palette values since the previous turn.
 
-Use only relevant reference implementations, with paths relative to the repository root:
+Use only relevant API 1 reference implementations, with paths relative to the repository root:
 
 - `src/watchfaces/nothing-clock/watchface/settings/`: a single accent setting, separate layouts, an edit background with an overlay, and an information widget.
 - `src/watchfaces/nothing-clock/watchface/{index.js,DateWidget.js,TimeWidget.js}`: passing a color key to consumers, resolving palette values, and selecting matching hand images.
@@ -20,24 +20,24 @@ Use only relevant reference implementations, with paths relative to the reposito
 - `src/watchfaces/modular/watchface/settings/WidgetSettings.js`: numbered slots, per-slot defaults, and package information.
 - `src/watchfaces/modular/watchface/index.js`: resolving settings before constructing widgets and choosing implementations for configurable slots.
 
-Copy the relevant mechanism, not unrelated complexity. In particular, modular's `ColorSettings.const.js` calls its options `SETTINGS_TIME_OPTIONAL_TYPES`; use a name matching the new setting instead of carrying over that historical mismatch.
+Copy the relevant design intent, not unrelated complexity or API calls. Existing repository implementations are not proof that an API 2 method or option is correct. In particular, modular's `ColorSettings.const.js` calls its options `SETTINGS_TIME_OPTIONAL_TYPES`; use a name matching the new setting instead of carrying over that historical mismatch.
 
 ## Files and responsibilities
 
-Place settings families in `watchface/settings/`:
+Place substantial settings families in `watchface/settings/`, using only the files needed for actual behavior:
 
 - `<Name>Settings.js`: named class export, edit-group creation, and selected-value lookup.
 - `<Name>Settings.const.js`: option IDs, localized labels, preview paths, and semantic option data.
 - `<Name>Settings.layout.js`: coordinates, sizes, selection images, tips, backgrounds, and overlays.
 - `InfoWidget.js` and `InfoWidget.layout.js`: package information when requested.
 
-Keep shared palettes and resource definitions in the watchface's `index.const.js`. Keep images in the existing asset directory, typically under `edit/`, and translations in `page/i18n/*.po`. Preserve the target's device-specific asset and layout scheme.
+Keep palettes and resource definitions near their use; use the watchface's `index.const.js` when values are shared across files. Keep images in the existing asset directory, typically under `edit/`, and translations in `page/i18n/*.po`. Preserve the target's device-specific asset and layout scheme.
 
 For a single setting, create one edit group directly. For repeated sides or slots, use a group descriptor array and expose results under meaningful keys such as `left`, `right`, or slot numbers, following modular. Do not introduce repeated-group machinery merely for one option selector.
 
 ## Option identity and persistence
 
-Use `hmUI.widget.WATCHFACE_EDIT_GROUP` as in the repository:
+For API 1, use `hmUI.widget.WATCHFACE_EDIT_GROUP` as in the repository. For API 2, verify the equivalent widget and option names in the Zepp documentation before changing code:
 
 1. Define each option with a numeric `type`, localized `title_en`, `title_tc`, and `title_sc`, a valid `preview` path, and semantic data such as `data: { type: 'red' }`.
 2. Assign an `edit_id` that does not collide with another group in the target watchface. Inspect existing IDs before choosing it; IDs from modular are examples, not global allocations.
@@ -49,7 +49,7 @@ Treat existing group IDs and option type IDs as persisted identities: keep their
 
 Use the built-in selection mechanism; no separate storage layer is needed for this pattern. Check `targets.*.module.watchface.editable` in `app.json` when introducing the first editor. Preserve unrelated manifest fields.
 
-Use `gettext` and update all existing locales. Match the project's current translation key convention. All three title fields may use the same translated string, as in these examples.
+Use the target API's localization function (`gettext` for API 1, `getText` from `@zos/i18n` for API 2) and update all existing locales. Match the project's current translation key convention. All three title fields may use the same translated string, as in these examples.
 
 ## Pass settings into consumers
 
@@ -60,9 +60,9 @@ The watchface entry point owns composition:
 - Do not pass the entire settings object, watchface instance, or edit-group widget into a rendering widget.
 - Let the consumer translate the selected key into the palette value, image path, or rendering mode it needs. Document the constructor parameter, using `keyof typeof COLOR_ACCENT` or an equivalent type where useful.
 
-For example, `index.js` passes `colorAccent: this._colorAccent` to `DateWidget` and `TimeWidget`. The date rectangle uses `COLOR_ACCENT[colorAccent]`; the time widget uses matching `time/second_<color>.png` and `time/second_top_<color>.png` assets. Use the actual target palette and filenames, not guessed colors or paths.
+In the API 1 example, `index.js` passes `colorAccent: this._colorAccent` to `DateWidget` and `TimeWidget`. The date rectangle uses `COLOR_ACCENT[colorAccent]`; the time widget uses matching `time/second_<color>.png` and `time/second_top_<color>.png` assets. Use the actual target palette and filenames, not guessed colors or paths.
 
-Override layout properties with a fresh object:
+Override layout properties with a fresh object. This example uses API 1:
 
 ```js
 hmUI.createWidget(hmUI.widget.TIME_POINTER, {
@@ -82,10 +82,10 @@ When an edit background is requested, create it before the selectors and informa
 
 - Create an `IMG` using the existing edit background asset.
 - Create the dimming overlay after the image. Existing repository examples use a black `CIRCLE` with `alpha: 90`; use geometry matching the target screen and current layout rather than treating a copied radius as universal.
-- Give both layers `hmUI.show_level.ONLY_EDIT`. Keep their properties in the settings layout.
+- Give both layers the target API's `ONLY_EDIT` show level (`hmUI.show_level` in API 1, `ui.show_level` from `@zos/ui` in API 2). Keep their properties in the settings layout.
 - Create shared edit backgrounds once; additional settings classes should not cover earlier selectors with another full-screen background.
 
-For package information, use `hmApp.getPackageInfo()` and its `name`, `version`, and `vender` fields. Modular joins the name, `v. ${version}`, and `github: @${vender}` with ` / `, omitting missing fields. Follow the requested author format; use the GitHub label only when appropriate for the target. Render the information with `ONLY_EDIT`, using layout properties, rather than hardcoding a version that will become stale.
+For API 1 package information, use `hmApp.getPackageInfo()` and its `name`, `version`, and `vender` fields. For API 2, find the documented equivalent before implementing this feature. Modular joins the name, `v. ${version}`, and `github: @${vender}` with ` / `, omitting missing fields. Follow the requested author format; use the GitHub label only when appropriate for the target. Render the information with `ONLY_EDIT`, using layout properties, rather than hardcoding a version that will become stale.
 
 ## Assets and scope
 

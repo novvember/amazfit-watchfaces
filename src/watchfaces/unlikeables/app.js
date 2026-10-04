@@ -1,10 +1,11 @@
 App({
   globalData: {},
-  onCreate(options) {
-    console.log('app on create invoke')
+
+  onCreate() {
+    console.log('app on create invoke');
   },
 
-  onDestroy(options) {
-    console.log('app on destroy invoke')
-  }
-})
+  onDestroy() {
+    console.log('app on destroy invoke');
+  },
+});

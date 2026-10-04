@@ -1,0 +1,18 @@
+{
+  "extends": "./jsconfig.base.json",
+  "files": [
+    "src/types/api_level_1/App.d.ts",
+    "src/types/api_level_1/DeviceRuntimeCore.d.ts",
+    "src/types/api_level_1/Watchface.d.ts",
+    "src/types/api_level_1/console.d.ts",
+    "src/types/api_level_1/hmApp.d.ts",
+    "src/types/api_level_1/hmFS.d.ts",
+    "src/types/api_level_1/hmSensor.d.ts",
+    "src/types/api_level_1/hmSetting.d.ts",
+    "src/types/api_level_1/hmUI.d.ts",
+    "src/types/api_level_1/i18n.d.ts",
+    "src/types/api_level_1/px.d.ts",
+    "src/types/api_level_1/timer.d.ts"
+  ],
+  "include": []
+}

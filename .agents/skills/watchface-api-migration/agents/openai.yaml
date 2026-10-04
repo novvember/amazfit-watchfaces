@@ -1,0 +1,4 @@
+interface:
+  display_name: "Watchface API Migration"
+  short_description: "Migrate one watchface from Zepp OS API 1 to API 2"
+  default_prompt: "Use $watchface-api-migration to plan or implement a focused API 1 to API 2 watchface migration while preserving behavior and checking types."

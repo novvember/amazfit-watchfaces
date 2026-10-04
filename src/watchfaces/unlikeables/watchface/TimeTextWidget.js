@@ -1,3 +1,6 @@
+import * as ui from '@zos/ui';
+import { localStorage } from '@zos/storage';
+import { px } from '@zos/utils';
 import {
   IMAGE_WIDTHS,
   TEXT_AOD_BASE_PROPS,
@@ -7,62 +10,69 @@ import {
 const CENTER_X = px(240);
 const CENTER_Y = px(240);
 const COLUMN_GAP = px(6);
-const LENGTH = 5;
+
+const CHARS_LENGTH = 5;
+
+const LOCALSTORAGE_CHARS__KEY = 'unlikeables-prev-chars';
+const LOCALSTORAGE_IMAGE_IDS__KEY = 'unlikeables-prev-image-ids';
 
 export class TimeTextWidget {
   constructor() {
-    this._textWidgets = new Array(LENGTH)
+    this._textWidgets = new Array(CHARS_LENGTH)
       .fill(null)
-      .map(() => hmUI.createWidget(hmUI.widget.IMG, TEXT_BASE_PROPS));
+      .map(() => ui.createWidget(ui.widget.IMG, TEXT_BASE_PROPS));
 
-    this._textAodWidgets = new Array(LENGTH)
+    this._textAodWidgets = new Array(CHARS_LENGTH)
       .fill(null)
-      .map(() => hmUI.createWidget(hmUI.widget.IMG, TEXT_AOD_BASE_PROPS));
+      .map(() => ui.createWidget(ui.widget.IMG, TEXT_AOD_BASE_PROPS));
   }
 
+  /** @returns {number} */
   _getImageHeight() {
     return px(100);
   }
 
   /**
-   * @param {String} imageId
-   * @returns {Number}
+   * @param {string} imageId
+   * @returns {number}
    */
   _getImageWidth(imageId) {
-    return px(IMAGE_WIDTHS[imageId]) || px(100);
+    return px(IMAGE_WIDTHS[imageId] ?? 100);
   }
 
   /**
-   * @param {Number} min
-   * @param {Number} max
-   * @returns {Number}
+   * @param {number} min
+   * @param {number} max
+   * @returns {number}
    */
   _calculateRandomInt(min, max) {
     return Math.round(min + Math.random() * (max - min));
   }
 
+  /** @returns {[unknown[], unknown[]]} */
   _getPrevValues() {
-    const chars = JSON.parse(
-      hmFS.SysProGetChars('unlikeables-prev-chars') || '[]',
-    );
+    const chars = localStorage.getItem(LOCALSTORAGE_CHARS__KEY, []);
+    const imageIds = localStorage.getItem(LOCALSTORAGE_IMAGE_IDS__KEY, []);
 
-    const imageIds = JSON.parse(
-      hmFS.SysProGetChars('unlikeables-prev-image-ids') || '[]',
-    );
-
-    return [chars, imageIds];
-  }
-
-  _setPrevValues(chars, imageIds) {
-    hmFS.SysProSetChars('unlikeables-prev-chars', JSON.stringify(chars));
-    hmFS.SysProSetChars('unlikeables-prev-image-ids', JSON.stringify(imageIds));
+    return [
+      Array.isArray(chars) ? chars : [],
+      Array.isArray(imageIds) ? imageIds : [],
+    ];
   }
 
   /**
-   *
-   * @param {String} char
-   * @param {String[]} otherImageIds
-   * @returns {String}
+   * @param {unknown[]} chars
+   * @param {string[]} imageIds
+   */
+  _setPrevValues(chars, imageIds) {
+    localStorage.setItem(LOCALSTORAGE_CHARS__KEY, chars);
+    localStorage.setItem(LOCALSTORAGE_IMAGE_IDS__KEY, imageIds);
+  }
+
+  /**
+   * @param {string} char
+   * @param {string[]} otherImageIds
+   * @returns {string}
    */
   _getRandomImageId(char, otherImageIds) {
     if (char === ':') {
@@ -80,24 +90,29 @@ export class TimeTextWidget {
   }
 
   /**
-   * @param {String[]} chars
-   * @returns {String[]}
+   * @param {string[]} chars
+   * @returns {string[]}
    */
   _getImageIds(chars) {
     const [prevChars, prevImageIds] = this._getPrevValues();
-
+    /** @type {string[]} */
     const imageIds = [];
     let shouldUpdate = false;
 
     for (let i = 0; i < chars.length; i++) {
-      if (chars[i] === prevChars[i] && !shouldUpdate) {
-        imageIds.push(prevImageIds[i]);
+      const previousImageId = prevImageIds[i];
+
+      if (
+        chars[i] === prevChars[i] &&
+        !shouldUpdate &&
+        typeof previousImageId === 'string'
+      ) {
+        imageIds.push(previousImageId);
         continue;
       }
 
       prevChars[i] = chars[i];
       shouldUpdate = true;
-
       imageIds.push(this._getRandomImageId(chars[i], imageIds));
     }
 
@@ -105,11 +120,18 @@ export class TimeTextWidget {
     return imageIds;
   }
 
+  /**
+   * @param {string[]} imageIds
+   * @returns {number[]}
+   */
   _calculateXCoords(imageIds) {
+    /** @type {{start: number, end: number}[]} */
     const relativePositions = [];
 
     for (let i = 0; i < imageIds.length; i++) {
-      const start = i === 0 ? px(0) : relativePositions[i - 1].end + COLUMN_GAP;
+      const start = i === 0
+        ? px(0)
+        : relativePositions[i - 1].end + COLUMN_GAP;
 
       relativePositions.push({
         start,
@@ -120,48 +142,45 @@ export class TimeTextWidget {
     const startX = Math.floor(
       CENTER_X - relativePositions[relativePositions.length - 1].end / 2,
     );
-
     return relativePositions.map(
       (relativePosition) => startX + relativePosition.start,
     );
   }
 
   /**
-   * @param {String} text
-   * @returns {void}
+   * @param {string} text
    */
   set(text) {
-    const chars = text.split('').slice(0, LENGTH);
+    const chars = text.split('').slice(0, CHARS_LENGTH);
     const imageIds = this._getImageIds(chars);
-
     const y = CENTER_Y - this._getImageHeight() / 2;
     const xCoords = this._calculateXCoords(imageIds);
 
-    for (let i = 0; i < LENGTH; i++) {
+    for (let i = 0; i < CHARS_LENGTH; i++) {
       if (i >= chars.length) {
-        this._textWidgets[i].setProperty(hmUI.prop.VISIBLE, false);
-        this._textAodWidgets[i].setProperty(hmUI.prop.VISIBLE, false);
+        this._textWidgets[i].setProperty(ui.prop.VISIBLE, false);
+        this._textAodWidgets[i].setProperty(ui.prop.VISIBLE, false);
         continue;
       }
 
       const imageId = imageIds[i];
       const x = xCoords[i];
 
-      this._textWidgets[i].setProperty(hmUI.prop.MORE, {
+      this._textWidgets[i].setProperty(ui.prop.MORE, {
         ...TEXT_BASE_PROPS,
         x,
         y,
         src: `digits/${imageId}.png`,
       });
-      this._textWidgets[i].setProperty(hmUI.prop.VISIBLE, true);
+      this._textWidgets[i].setProperty(ui.prop.VISIBLE, true);
 
-      this._textAodWidgets[i].setProperty(hmUI.prop.MORE, {
+      this._textAodWidgets[i].setProperty(ui.prop.MORE, {
         ...TEXT_AOD_BASE_PROPS,
         x,
         y,
         src: `digits_inverse/${imageId}.png`,
       });
-      this._textAodWidgets[i].setProperty(hmUI.prop.VISIBLE, true);
+      this._textAodWidgets[i].setProperty(ui.prop.VISIBLE, true);
     }
   }
 }

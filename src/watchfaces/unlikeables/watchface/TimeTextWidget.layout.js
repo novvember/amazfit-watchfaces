@@ -1,17 +1,20 @@
+import * as ui from '@zos/ui';
+
 export const TEXT_BASE_PROPS = {
   x: 0,
   y: 0,
   src: '',
-  show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONLY_EDIT,
+  show_level: ui.show_level.ONLY_NORMAL | ui.show_level.ONLY_EDIT,
 };
 
 export const TEXT_AOD_BASE_PROPS = {
   x: 0,
   y: 0,
   src: '',
-  show_level: hmUI.show_level.ONAL_AOD,
+  show_level: ui.show_level.ONAL_AOD,
 };
 
+/** @type {Record<string, number | undefined>} */
 export const IMAGE_WIDTHS = {
   '0_0': 100,
   '0_1': 81,
