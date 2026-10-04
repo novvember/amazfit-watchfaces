@@ -47,6 +47,19 @@ def detect(before, after):
     # A newly created branch has no previous tree. Added watchfaces are first releases.
     if set(before) == {"0"}:
         before = run("git", "hash-object", "-t", "tree", "/dev/null")
+    elif subprocess.run(
+        ["git", "cat-file", "-e", f"{before}^{{commit}}"],
+        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+    ).returncode:
+        # A force push can leave the old tip outside all fetched branches/tags.
+        print(f"Fetching previous push commit {before}.")
+        try:
+            git("fetch", "--no-tags", "--depth=1", "origin", before)
+        except subprocess.CalledProcessError as error:
+            raise RuntimeError(
+                f"Cannot fetch previous push commit {before}; "
+                "cannot reliably detect version changes across this push."
+            ) from error
     files = git("diff", "--name-only", "--diff-filter=AM", before, after,
                 "--", "src/watchfaces/*/app.json").splitlines()
     selected = []

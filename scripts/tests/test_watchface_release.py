@@ -65,6 +65,33 @@ class HistoryTests(unittest.TestCase):
         self.assertEqual(r.detect(self.base, head), ['gamma'])
         self.assertEqual(r.detect('0' * 40, head), ['alpha', 'gamma'])
 
+    def test_force_push_fetches_missing_previous_tip(self):
+        self.write_app('alpha', '1.1.0')
+        before = self.commit('Original version bump')
+        r.git('reset', '--hard', self.base)
+        self.write_app('alpha', '1.2.0')
+        self.write_app('beta', description='Metadata only')
+        after = self.commit('Replacement version bump')
+        origin = Path(self.temp.name)
+        with tempfile.TemporaryDirectory() as checkout:
+            r.git('clone', '-q', '--no-local', str(origin), checkout)
+            os.chdir(checkout)
+            try:
+                missing = subprocess.run(
+                    ['git', 'cat-file', '-e', before],
+                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                )
+                self.assertNotEqual(missing.returncode, 0)
+                self.assertEqual(r.detect(before, after), ['alpha'])
+                self.assertEqual(r.git('rev-parse', 'HEAD'), after)
+            finally:
+                os.chdir(origin)
+
+    def test_missing_previous_tip_fetch_failure_is_explicit(self):
+        with patch.object(r, 'git', side_effect=subprocess.CalledProcessError(128, 'git fetch')):
+            with self.assertRaisesRegex(RuntimeError, 'cannot reliably detect version changes'):
+                r.detect('f' * 40, self.base)
+
     def test_reverted_version_is_not_selected(self):
         self.write_app('alpha', '1.1.0')
         self.commit('Bump')

@@ -16,7 +16,8 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-          persist-credentials: false
+          # Allow fetching the previous push SHA after history was rewritten.
+          persist-credentials: true
       - id: detect
         name: Find changed versions across the entire push
         env:
