@@ -9,7 +9,8 @@
     "src/types/api_level_2/Watchface.d.ts",
     "src/types/api_level_2/console.d.ts",
     "src/types/api_level_2/ui.d.ts",
-    "src/types/api_level_2/storage.d.ts"
+    "src/types/api_level_2/storage.d.ts",
+    "src/types/api_level_2/app.d.ts"
   ],
   "include": []
 }

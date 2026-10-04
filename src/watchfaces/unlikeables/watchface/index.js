@@ -1,11 +1,12 @@
 import * as ui from '@zos/ui';
 import { Battery, Step, Time } from '@zos/sensor';
-import { getScene, SCENE_WATCHFACE } from '@zos/app';
+import { getPackageInfo, getScene, SCENE_WATCHFACE } from '@zos/app';
 import {
   BACKGROUND_GRADIENT_IMAGE_PROPS,
   BATTERY_STATUS_PROPS,
   DISCONNECT_STATUS_PROPS,
   EDIT_BACKGROUND_PROPS,
+  INFO_TEXT_PROPS,
 } from './index.r.layout';
 import { TimeWidget } from './TimeWidget';
 import { DateWidget } from './DateWidget';
@@ -25,6 +26,7 @@ WatchFace({
     this._buildSteps();
     this._buildDisconnectStatus();
     this._buildBatteryStatus();
+    this._buildInfo();
   },
 
   onDestroy() {
@@ -34,6 +36,19 @@ WatchFace({
   _buildBackground() {
     ui.createWidget(ui.widget.WATCHFACE_EDIT_BG, EDIT_BACKGROUND_PROPS);
     ui.createWidget(ui.widget.IMG, BACKGROUND_GRADIENT_IMAGE_PROPS);
+  },
+
+  _buildInfo() {
+    const { name, version, vender } = getPackageInfo();
+    const text = [
+      name,
+      version ? `v. ${version}` : undefined,
+      vender ? `github: @${vender}` : undefined,
+    ]
+      .filter(Boolean)
+      .join(' / ');
+
+    ui.createWidget(ui.widget.TEXT, { ...INFO_TEXT_PROPS, text });
   },
 
   _buildTime() {
