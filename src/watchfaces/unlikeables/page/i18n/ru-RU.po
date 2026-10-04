@@ -55,5 +55,14 @@ msgstr "{day} ноября"
 msgid "dec"
 msgstr "{day} декабря"
 
-msgid "steps"
-msgstr "шагов"
+msgid "plural.rule"
+msgstr "ru"
+
+msgid "steps.one"
+msgstr "{count} шаг"
+
+msgid "steps.few"
+msgstr "{count} шага"
+
+msgid "steps.many"
+msgstr "{count} шагов"

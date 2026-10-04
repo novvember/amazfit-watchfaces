@@ -55,5 +55,11 @@ msgstr "November {day}"
 msgid "dec"
 msgstr "December {day}"
 
-msgid "steps"
-msgstr "steps"
+msgid "plural.rule"
+msgstr "en"
+
+msgid "steps.one"
+msgstr "{count} step"
+
+msgid "steps.other"
+msgstr "{count} steps"

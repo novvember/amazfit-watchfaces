@@ -1,7 +1,7 @@
 import * as ui from '@zos/ui';
 import { getScene, SCENE_WATCHFACE } from '@zos/app';
-import { getText } from '@zos/i18n';
 import { formatNumber } from '../../../utils/formatNumber';
+import { getPluralText } from '../../../adapters2/getPluralText';
 import { STEPS_TEXT_PROPS } from './StepsWidget.layout';
 
 /**
@@ -32,8 +32,9 @@ export class StepsWidget {
 
     const progressMark = current >= target ? '✓' : '';
 
-    const text =
-      `${formatNumber(current, ' ')} ${getText('steps')} ${progressMark}`.trim();
+    const stepsText = getPluralText('steps', current)
+      .replace('{count}', formatNumber(current, ' '));
+    const text = `${stepsText} ${progressMark}`.trim();
 
     this._textWidget.setProperty(ui.prop.TEXT, text);
   }
