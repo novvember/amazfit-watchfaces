@@ -65,8 +65,8 @@ WatchFace({
 
   getDigitLayout(digitValues) {
     const value = Number(digitValues.flat().join(''));
-    const max = DIGIT_LAYOUTS.length - 1;
-    const i = ((value * 2654435761) >>> 0) % max;
+    const hash = Math.imul(value, 0x9e3779b1) >>> 0;
+    const i = Math.floor((hash / 0x100000000) * DIGIT_LAYOUTS.length);
 
     return DIGIT_LAYOUTS[i];
   },
