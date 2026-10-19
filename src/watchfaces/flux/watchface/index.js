@@ -6,6 +6,15 @@ import {
   TIME_DIGIT_IMAGE_PROPS,
 } from './index.r.layout';
 import { Settings } from './Settings';
+import { getTimeTexts } from '../../../adapters/getTimeTexts';
+
+/**
+ * @typedef {(typeof COLOR_THEMES)[keyof typeof COLOR_THEMES]} ColorTheme
+ * @typedef {[string[], string[]]} TimeDigitValues
+ * @typedef {object} DigitColors
+ * @property {[number, string]} top
+ * @property {[number, string]} bottom
+ */
 
 WatchFace({
   onInit() {
@@ -26,33 +35,48 @@ WatchFace({
   },
 
   buildSettings() {
-    this.settings = new Settings();
+    const settings = new Settings();
+    this.settings = settings.settings;
   },
 
+  /** @returns {ColorTheme} */
   getColorTheme() {
     const colorThemeType = this.settings.colors;
-    return COLOR_THEMES[colorThemeType] || COLOR_THEMES[1];
+    const selectedTheme = Object.entries(COLOR_THEMES).find(
+      ([key]) => key === String(colorThemeType),
+    );
+    return selectedTheme?.[1] || COLOR_THEMES[1];
   },
 
-  getTimeDigitValues(timeSensor, is12HourFormat) {
-    const { hour = 0, minute = 0 } = timeSensor;
-    const hourValue = is12HourFormat ? hour % 12 || 12 : hour;
-
-    const hourText = hourValue.toString().padStart(2, '0');
-    const minuteText = minute.toString().padStart(2, '0');
-
-    return [hourText.split(''), minuteText.split('')];
+  /**
+   * @param {HmSensorInstance} timeSensor
+   * @returns {TimeDigitValues}
+   */
+  getTimeDigitValues(timeSensor) {
+    const { hourText, minuteText } = getTimeTexts(timeSensor);
+    return [hourText.padStart(2, '0').split(''), minuteText.split('')];
   },
 
+  /** @param {HmSensorInstance} timeSensor */
   getLevelY(timeSensor) {
     const { second = 0 } = timeSensor;
     return Math.round(px(480) - (second / 60) * px(480));
   },
 
+  /**
+   * @param {string} color
+   * @param {(typeof DIGIT_LAYOUTS)[number][number][number]['digitType']} type
+   * @param {string} value
+   */
   getDigitSrc(color, type, value) {
     return `${color}/${type}/${value}.png`;
   },
 
+  /**
+   * @param {ColorTheme} colorTheme
+   * @param {string} minute
+   * @returns {DigitColors}
+   */
   getColors(colorTheme, minute) {
     const topIndex = Number(minute) % 2;
     const bottomIndex = (Number(minute) + 1) % 2;
@@ -63,6 +87,7 @@ WatchFace({
     };
   },
 
+  /** @param {TimeDigitValues} digitValues */
   getDigitLayout(digitValues) {
     const value = Number(digitValues.flat().join(''));
     const hash = Math.imul(value, 0x9e3779b1) >>> 0;
@@ -71,10 +96,11 @@ WatchFace({
     return DIGIT_LAYOUTS[i];
   },
 
+  /** @param {ColorTheme} colorTheme */
   buildTime(colorTheme) {
-    const is12HourFormat = hmSetting.getTimeFormat() === 0;
     const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
 
+    /** @type {number | undefined} */
     let updateTimer = undefined;
     let prevTopValue = '';
 
@@ -120,8 +146,8 @@ WatchFace({
 
     const _maskImage = hmUI.createWidget(hmUI.widget.IMG, MASK_IMAGE_PROPS);
 
-    const updateTop = () => {
-      const digitValues = this.getTimeDigitValues(timeSensor, is12HourFormat);
+    /** @param {TimeDigitValues} digitValues */
+    const updateTop = (digitValues) => {
       const topValue = digitValues.toString();
 
       if (topValue === prevTopValue) {
@@ -156,6 +182,11 @@ WatchFace({
           });
         }),
       );
+    };
+
+    /** @param {TimeDigitValues} digitValues */
+    const updateTopAod = (digitValues) => {
+      const digitLayout = this.getDigitLayout(digitValues);
 
       digitTopAodWidgets.forEach((array, yIndex) =>
         array.forEach((widget, xIndex) => {
@@ -173,8 +204,8 @@ WatchFace({
       );
     };
 
-    const updateBottom = () => {
-      const digitValues = this.getTimeDigitValues(timeSensor, is12HourFormat);
+    /** @param {TimeDigitValues} digitValues */
+    const updateBottom = (digitValues) => {
       const levelY = this.getLevelY(timeSensor);
       const digitLayout = this.getDigitLayout(digitValues);
 
@@ -207,24 +238,36 @@ WatchFace({
       );
     };
 
-    const update = () => {
-      updateTop();
-      updateBottom();
+    const updateNormal = () => {
+      const digitValues = this.getTimeDigitValues(timeSensor);
+
+      updateTop(digitValues);
+      updateBottom(digitValues);
+    };
+
+    const updateAod = () => {
+      const digitValues = this.getTimeDigitValues(timeSensor);
+
+      updateTopAod(digitValues);
     };
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
         if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
-          updateTimer = timer.createTimer(1000, 1000, update);
-
-          update();
+          timer.stopTimer(updateTimer);
+          updateTimer = timer.createTimer(1000, 1000, updateNormal);
+          updateNormal();
         } else if (hmSetting.getScreenType() == hmSetting.screen_type.AOD) {
-          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, updateTop);
-          updateTop();
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, updateAod);
+          updateAod();
         }
       },
       pause_call: () => {
-        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, updateTop);
+        timeSensor.removeEventListener?.(
+          timeSensor.event.MINUTEEND,
+          updateNormal,
+        );
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, updateAod);
         timer.stopTimer(updateTimer);
       },
     });

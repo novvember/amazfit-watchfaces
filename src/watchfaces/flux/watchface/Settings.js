@@ -1,5 +1,10 @@
 import { gettext } from 'i18n';
 
+/**
+ * @typedef {object} SettingsValues
+ * @property {string} colors
+ */
+
 const EDIT_GROUPS_PARAMS = [
   {
     name: 'colors',
@@ -25,7 +30,7 @@ export class Settings {
   constructor() {
     this._buildBackground();
 
-    return this._buildEditWidgets();
+    this.settings = this._buildEditWidgets();
   }
 
   _buildBackground() {
@@ -61,15 +66,13 @@ export class Settings {
     });
   }
 
+  /** @returns {SettingsValues} */
   _buildEditWidgets() {
     const editGroupParams = EDIT_GROUPS_PARAMS;
     const optionalTypes = EDIT_OPTIONAL_TYPES;
 
     const editGroups = editGroupParams.map((editGroupParam, index) =>
       hmUI.createWidget(hmUI.widget.WATCHFACE_EDIT_GROUP, {
-        x: 0,
-        y: 0,
-
         w: px(120),
         h: px(120),
 
@@ -95,9 +98,6 @@ export class Settings {
       return optionalTypes.find((item) => item.type === typeId)?.data?.type;
     });
 
-    return editGroupParams.reduce((res, editGroupParam, index) => {
-      res[editGroupParam.name] = chosenTypes[index];
-      return res;
-    }, {});
+    return { colors: chosenTypes[0] ?? optionalTypes[0].data.type };
   }
 }

@@ -1,3 +1,4 @@
+/** @satisfies {Record<number, [number, string][]>} */
 export const COLOR_THEMES = {
   1: [
     [0x567bff, 'white'],
