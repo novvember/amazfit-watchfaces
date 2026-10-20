@@ -271,6 +271,114 @@ const DIGIT_LAYOUT_8 = [
   ],
 ];
 
+const DIGIT_LAYOUT_9 = [
+  [
+    {
+      x: X0,
+      y: Y0,
+      digitType: 'narrow-high',
+    },
+    {
+      x: X0 + DIGIT_NARROW_WIDTH,
+      y: Y0,
+      digitType: 'wide-high',
+    },
+  ],
+  [
+    {
+      x: X0,
+      y: Y0 + DIGIT_HIGH_HEIGHT,
+      digitType: 'narrow-short',
+    },
+    {
+      x: X0 + DIGIT_NARROW_WIDTH,
+      y: Y0 + DIGIT_HIGH_HEIGHT,
+      digitType: 'wide-short',
+    },
+  ],
+];
+
+const DIGIT_LAYOUT_10 = [
+  [
+    {
+      x: X0,
+      y: Y0,
+      digitType: 'wide-high',
+    },
+    {
+      x: X0 + DIGIT_WIDE_WIDTH,
+      y: Y0,
+      digitType: 'narrow-high',
+    },
+  ],
+  [
+    {
+      x: X0,
+      y: Y0 + DIGIT_HIGH_HEIGHT,
+      digitType: 'wide-short',
+    },
+    {
+      x: X0 + DIGIT_WIDE_WIDTH,
+      y: Y0 + DIGIT_HIGH_HEIGHT,
+      digitType: 'narrow-short',
+    },
+  ],
+];
+
+const DIGIT_LAYOUT_11 = [
+  [
+    {
+      x: X0,
+      y: Y0,
+      digitType: 'narrow-short',
+    },
+    {
+      x: X0 + DIGIT_NARROW_WIDTH,
+      y: Y0,
+      digitType: 'wide-short',
+    },
+  ],
+  [
+    {
+      x: X0,
+      y: Y0 + DIGIT_SHORT_HEIGHT,
+      digitType: 'narrow-high',
+    },
+    {
+      x: X0 + DIGIT_NARROW_WIDTH,
+      y: Y0 + DIGIT_SHORT_HEIGHT,
+      digitType: 'wide-high',
+    },
+  ],
+];
+
+const DIGIT_LAYOUT_12 = [
+  [
+    {
+      x: X0,
+      y: Y0,
+      digitType: 'wide-short',
+    },
+    {
+      x: X0 + DIGIT_WIDE_WIDTH,
+      y: Y0,
+      digitType: 'narrow-short',
+    },
+  ],
+  [
+    {
+      x: X0,
+      y: Y0 + DIGIT_SHORT_HEIGHT,
+      digitType: 'wide-high',
+    },
+    {
+      x: X0 + DIGIT_WIDE_WIDTH,
+      y: Y0 + DIGIT_SHORT_HEIGHT,
+      digitType: 'narrow-high',
+    },
+  ],
+];
+
 export const DIGIT_LAYOUTS = [
   DIGIT_LAYOUT_1,
   DIGIT_LAYOUT_2,
@@ -280,4 +388,8 @@ export const DIGIT_LAYOUTS = [
   DIGIT_LAYOUT_6,
   DIGIT_LAYOUT_7,
   DIGIT_LAYOUT_8,
+  DIGIT_LAYOUT_9,
+  DIGIT_LAYOUT_10,
+  DIGIT_LAYOUT_11,
+  DIGIT_LAYOUT_12,
 ];
