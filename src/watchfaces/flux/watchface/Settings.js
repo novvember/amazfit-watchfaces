@@ -1,4 +1,5 @@
 import { gettext } from 'i18n';
+import { INFO_TEXT_PROPS } from './Settings.layout';
 
 /**
  * @typedef {object} SettingsValues
@@ -31,6 +32,20 @@ export class Settings {
     this._buildBackground();
 
     this.settings = this._buildEditWidgets();
+    this._buildInfo();
+  }
+
+  _buildInfo() {
+    const { name, version, vender } = hmApp.getPackageInfo();
+    const text = [
+      name,
+      version ? `v. ${version}` : undefined,
+      vender ? `github: @${vender}` : undefined,
+    ]
+      .filter(Boolean)
+      .join(' / ');
+
+    hmUI.createWidget(hmUI.widget.TEXT, { ...INFO_TEXT_PROPS, text });
   }
 
   _buildBackground() {
