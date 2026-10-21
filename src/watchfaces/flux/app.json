@@ -5,8 +5,8 @@
     "appName": "Flux",
     "appType": "watchface",
     "version": {
-      "code": 17,
-      "name": "1.5.0"
+      "code": 18,
+      "name": "1.5.1"
     },
     "icon": "icon.png",
     "vender": "novvember",

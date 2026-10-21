@@ -506,7 +506,7 @@ export const DIGIT_LAYOUTS = [
   DIGIT_LAYOUT_11,
   DIGIT_LAYOUT_12,
   DIGIT_LAYOUT_13,
-  DIGIT_LAYOUT_14,
-  DIGIT_LAYOUT_15,
+  // DIGIT_LAYOUT_14, Too complicated for the user to understand, so we don't use it.
+  // DIGIT_LAYOUT_15, Too complicated for the user to understand, so we don't use it.
   DIGIT_LAYOUT_16,
 ];
