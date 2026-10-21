@@ -69,7 +69,7 @@ WatchFace({
    * @param {string} value
    */
   getDigitSrc(color, type, value) {
-    return `${color}/${type}/${value}.png`;
+    return `${type}/${color}/${value}.png`;
   },
 
   /**

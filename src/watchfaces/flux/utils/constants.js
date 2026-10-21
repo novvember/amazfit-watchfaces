@@ -492,6 +492,118 @@ const DIGIT_LAYOUT_16 = [
   ],
 ];
 
+// Full-height hours on the left; short M1 above tall M2 (Apple: 11:22).
+const DIGIT_LAYOUT_17 = [
+  [
+    {
+      x: X0,
+      y: Y0,
+      digitType: 'w94h370',
+    },
+    {
+      x: X0 + DIGIT_HALF_WIDE_WIDTH,
+      y: Y0,
+      digitType: 'w94h370',
+    },
+  ],
+  [
+    {
+      x: X0 + DIGIT_WIDE_WIDTH,
+      y: Y0,
+      digitType: 'w108h146',
+    },
+    {
+      x: X0 + DIGIT_WIDE_WIDTH,
+      y: Y0 + DIGIT_SHORT_HEIGHT,
+      digitType: 'w108h224',
+    },
+  ],
+];
+
+// Full-height hours on the left; tall M1 above short M2 (Apple: 11:27).
+const DIGIT_LAYOUT_18 = [
+  [
+    {
+      x: X0,
+      y: Y0,
+      digitType: 'w94h370',
+    },
+    {
+      x: X0 + DIGIT_HALF_WIDE_WIDTH,
+      y: Y0,
+      digitType: 'w94h370',
+    },
+  ],
+  [
+    {
+      x: X0 + DIGIT_WIDE_WIDTH,
+      y: Y0,
+      digitType: 'w108h224',
+    },
+    {
+      x: X0 + DIGIT_WIDE_WIDTH,
+      y: Y0 + DIGIT_HIGH_HEIGHT,
+      digitType: 'w108h146',
+    },
+  ],
+];
+
+// Tall H1 above short H2 on the left; full-height minutes (Apple: 00:01).
+const DIGIT_LAYOUT_19 = [
+  [
+    {
+      x: X0,
+      y: Y0,
+      digitType: 'w108h224',
+    },
+    {
+      x: X0,
+      y: Y0 + DIGIT_HIGH_HEIGHT,
+      digitType: 'w108h146',
+    },
+  ],
+  [
+    {
+      x: X0 + DIGIT_NARROW_WIDTH,
+      y: Y0,
+      digitType: 'w94h370',
+    },
+    {
+      x: X0 + DIGIT_NARROW_WIDTH + DIGIT_HALF_WIDE_WIDTH,
+      y: Y0,
+      digitType: 'w94h370',
+    },
+  ],
+];
+
+// Short H1 above tall H2 on the left; full-height minutes on the right.
+const DIGIT_LAYOUT_20 = [
+  [
+    {
+      x: X0,
+      y: Y0,
+      digitType: 'w108h146',
+    },
+    {
+      x: X0,
+      y: Y0 + DIGIT_SHORT_HEIGHT,
+      digitType: 'w108h224',
+    },
+  ],
+  [
+    {
+      x: X0 + DIGIT_NARROW_WIDTH,
+      y: Y0,
+      digitType: 'w94h370',
+    },
+    {
+      x: X0 + DIGIT_NARROW_WIDTH + DIGIT_HALF_WIDE_WIDTH,
+      y: Y0,
+      digitType: 'w94h370',
+    },
+  ],
+];
+
 export const DIGIT_LAYOUTS = [
   DIGIT_LAYOUT_1,
   DIGIT_LAYOUT_2,
@@ -509,4 +621,8 @@ export const DIGIT_LAYOUTS = [
   // DIGIT_LAYOUT_14, Too complicated for the user to understand, so we don't use it.
   // DIGIT_LAYOUT_15, Too complicated for the user to understand, so we don't use it.
   DIGIT_LAYOUT_16,
+  DIGIT_LAYOUT_17,
+  DIGIT_LAYOUT_18,
+  DIGIT_LAYOUT_19,
+  DIGIT_LAYOUT_20,
 ];
