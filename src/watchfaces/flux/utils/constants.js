@@ -60,24 +60,24 @@ const DIGIT_LAYOUT_1 = [
     {
       x: X0,
       y: Y0,
-      digitType: 'narrow-high',
+      digitType: 'w108h224',
     },
     {
       x: X0 + DIGIT_NARROW_WIDTH,
       y: Y0,
-      digitType: 'wide-short',
+      digitType: 'w188h146',
     },
   ],
   [
     {
       x: X0,
       y: Y0 + DIGIT_HIGH_HEIGHT,
-      digitType: 'narrow-short',
+      digitType: 'w108h146',
     },
     {
       x: X0 + DIGIT_NARROW_WIDTH,
       y: Y0 + DIGIT_SHORT_HEIGHT,
-      digitType: 'wide-high',
+      digitType: 'w188h224',
     },
   ],
 ];
@@ -87,24 +87,24 @@ const DIGIT_LAYOUT_2 = [
     {
       x: X0,
       y: Y0,
-      digitType: 'narrow-short',
+      digitType: 'w108h146',
     },
     {
       x: X0 + DIGIT_NARROW_WIDTH,
       y: Y0,
-      digitType: 'wide-high',
+      digitType: 'w188h224',
     },
   ],
   [
     {
       x: X0,
       y: Y0 + DIGIT_SHORT_HEIGHT,
-      digitType: 'narrow-high',
+      digitType: 'w108h224',
     },
     {
       x: X0 + DIGIT_NARROW_WIDTH,
       y: Y0 + DIGIT_HIGH_HEIGHT,
-      digitType: 'wide-short',
+      digitType: 'w188h146',
     },
   ],
 ];
@@ -114,24 +114,24 @@ const DIGIT_LAYOUT_3 = [
     {
       x: X0,
       y: Y0,
-      digitType: 'wide-short',
+      digitType: 'w188h146',
     },
     {
       x: X0 + DIGIT_WIDE_WIDTH,
       y: Y0,
-      digitType: 'narrow-high',
+      digitType: 'w108h224',
     },
   ],
   [
     {
       x: X0,
       y: Y0 + DIGIT_SHORT_HEIGHT,
-      digitType: 'wide-high',
+      digitType: 'w188h224',
     },
     {
       x: X0 + DIGIT_WIDE_WIDTH,
       y: Y0 + DIGIT_HIGH_HEIGHT,
-      digitType: 'narrow-short',
+      digitType: 'w108h146',
     },
   ],
 ];
@@ -141,24 +141,24 @@ const DIGIT_LAYOUT_4 = [
     {
       x: X0,
       y: Y0,
-      digitType: 'wide-high',
+      digitType: 'w188h224',
     },
     {
       x: X0 + DIGIT_WIDE_WIDTH,
       y: Y0,
-      digitType: 'narrow-short',
+      digitType: 'w108h146',
     },
   ],
   [
     {
       x: X0,
       y: Y0 + DIGIT_HIGH_HEIGHT,
-      digitType: 'wide-short',
+      digitType: 'w188h146',
     },
     {
       x: X0 + DIGIT_WIDE_WIDTH,
       y: Y0 + DIGIT_SHORT_HEIGHT,
-      digitType: 'narrow-high',
+      digitType: 'w108h224',
     },
   ],
 ];
@@ -168,24 +168,24 @@ const DIGIT_LAYOUT_5 = [
     {
       x: X0,
       y: Y0,
-      digitType: 'wide-high',
+      digitType: 'w188h224',
     },
     {
       x: X0 + DIGIT_WIDE_WIDTH,
       y: Y0,
-      digitType: 'narrow-high',
+      digitType: 'w108h224',
     },
   ],
   [
     {
       x: X0,
       y: Y0 + DIGIT_HIGH_HEIGHT,
-      digitType: 'narrow-short',
+      digitType: 'w108h146',
     },
     {
       x: X0 + DIGIT_NARROW_WIDTH,
       y: Y0 + DIGIT_HIGH_HEIGHT,
-      digitType: 'wide-short',
+      digitType: 'w188h146',
     },
   ],
 ];
@@ -195,24 +195,24 @@ const DIGIT_LAYOUT_6 = [
     {
       x: X0,
       y: Y0,
-      digitType: 'narrow-high',
+      digitType: 'w108h224',
     },
     {
       x: X0 + DIGIT_NARROW_WIDTH,
       y: Y0,
-      digitType: 'wide-high',
+      digitType: 'w188h224',
     },
   ],
   [
     {
       x: X0,
       y: Y0 + DIGIT_HIGH_HEIGHT,
-      digitType: 'wide-short',
+      digitType: 'w188h146',
     },
     {
       x: X0 + DIGIT_WIDE_WIDTH,
       y: Y0 + DIGIT_HIGH_HEIGHT,
-      digitType: 'narrow-short',
+      digitType: 'w108h146',
     },
   ],
 ];
@@ -222,24 +222,24 @@ const DIGIT_LAYOUT_7 = [
     {
       x: X0,
       y: Y0,
-      digitType: 'narrow-short',
+      digitType: 'w108h146',
     },
     {
       x: X0 + DIGIT_NARROW_WIDTH,
       y: Y0,
-      digitType: 'wide-short',
+      digitType: 'w188h146',
     },
   ],
   [
     {
       x: X0,
       y: Y0 + DIGIT_SHORT_HEIGHT,
-      digitType: 'wide-high',
+      digitType: 'w188h224',
     },
     {
       x: X0 + DIGIT_WIDE_WIDTH,
       y: Y0 + DIGIT_SHORT_HEIGHT,
-      digitType: 'narrow-high',
+      digitType: 'w108h224',
     },
   ],
 ];
@@ -249,24 +249,24 @@ const DIGIT_LAYOUT_8 = [
     {
       x: X0,
       y: Y0,
-      digitType: 'wide-short',
+      digitType: 'w188h146',
     },
     {
       x: X0 + DIGIT_WIDE_WIDTH,
       y: Y0,
-      digitType: 'narrow-short',
+      digitType: 'w108h146',
     },
   ],
   [
     {
       x: X0,
       y: Y0 + DIGIT_SHORT_HEIGHT,
-      digitType: 'narrow-high',
+      digitType: 'w108h224',
     },
     {
       x: X0 + DIGIT_NARROW_WIDTH,
       y: Y0 + DIGIT_SHORT_HEIGHT,
-      digitType: 'wide-high',
+      digitType: 'w188h224',
     },
   ],
 ];
@@ -276,24 +276,24 @@ const DIGIT_LAYOUT_9 = [
     {
       x: X0,
       y: Y0,
-      digitType: 'narrow-high',
+      digitType: 'w108h224',
     },
     {
       x: X0 + DIGIT_NARROW_WIDTH,
       y: Y0,
-      digitType: 'wide-high',
+      digitType: 'w188h224',
     },
   ],
   [
     {
       x: X0,
       y: Y0 + DIGIT_HIGH_HEIGHT,
-      digitType: 'narrow-short',
+      digitType: 'w108h146',
     },
     {
       x: X0 + DIGIT_NARROW_WIDTH,
       y: Y0 + DIGIT_HIGH_HEIGHT,
-      digitType: 'wide-short',
+      digitType: 'w188h146',
     },
   ],
 ];
@@ -303,24 +303,24 @@ const DIGIT_LAYOUT_10 = [
     {
       x: X0,
       y: Y0,
-      digitType: 'wide-high',
+      digitType: 'w188h224',
     },
     {
       x: X0 + DIGIT_WIDE_WIDTH,
       y: Y0,
-      digitType: 'narrow-high',
+      digitType: 'w108h224',
     },
   ],
   [
     {
       x: X0,
       y: Y0 + DIGIT_HIGH_HEIGHT,
-      digitType: 'wide-short',
+      digitType: 'w188h146',
     },
     {
       x: X0 + DIGIT_WIDE_WIDTH,
       y: Y0 + DIGIT_HIGH_HEIGHT,
-      digitType: 'narrow-short',
+      digitType: 'w108h146',
     },
   ],
 ];
@@ -330,24 +330,24 @@ const DIGIT_LAYOUT_11 = [
     {
       x: X0,
       y: Y0,
-      digitType: 'narrow-short',
+      digitType: 'w108h146',
     },
     {
       x: X0 + DIGIT_NARROW_WIDTH,
       y: Y0,
-      digitType: 'wide-short',
+      digitType: 'w188h146',
     },
   ],
   [
     {
       x: X0,
       y: Y0 + DIGIT_SHORT_HEIGHT,
-      digitType: 'narrow-high',
+      digitType: 'w108h224',
     },
     {
       x: X0 + DIGIT_NARROW_WIDTH,
       y: Y0 + DIGIT_SHORT_HEIGHT,
-      digitType: 'wide-high',
+      digitType: 'w188h224',
     },
   ],
 ];
@@ -357,24 +357,24 @@ const DIGIT_LAYOUT_12 = [
     {
       x: X0,
       y: Y0,
-      digitType: 'wide-short',
+      digitType: 'w188h146',
     },
     {
       x: X0 + DIGIT_WIDE_WIDTH,
       y: Y0,
-      digitType: 'narrow-short',
+      digitType: 'w108h146',
     },
   ],
   [
     {
       x: X0,
       y: Y0 + DIGIT_SHORT_HEIGHT,
-      digitType: 'wide-high',
+      digitType: 'w188h224',
     },
     {
       x: X0 + DIGIT_WIDE_WIDTH,
       y: Y0 + DIGIT_SHORT_HEIGHT,
-      digitType: 'narrow-high',
+      digitType: 'w108h224',
     },
   ],
 ];
