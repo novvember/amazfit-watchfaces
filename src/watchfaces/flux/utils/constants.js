@@ -48,6 +48,7 @@ export const COLOR_THEMES = {
 
 const DIGIT_WIDE_WIDTH = px(188);
 const DIGIT_NARROW_WIDTH = px(108);
+const DIGIT_HALF_WIDE_WIDTH = DIGIT_WIDE_WIDTH / 2;
 
 const DIGIT_HIGH_HEIGHT = px(224);
 const DIGIT_SHORT_HEIGHT = px(146);
@@ -379,6 +380,118 @@ const DIGIT_LAYOUT_12 = [
   ],
 ];
 
+// Full-height H1 on the left; H2 above the minute pair on the right.
+const DIGIT_LAYOUT_13 = [
+  [
+    {
+      x: X0,
+      y: Y0,
+      digitType: 'w108h370',
+    },
+    {
+      x: X0 + DIGIT_NARROW_WIDTH,
+      y: Y0,
+      digitType: 'w188h224',
+    },
+  ],
+  [
+    {
+      x: X0 + DIGIT_NARROW_WIDTH,
+      y: Y0 + DIGIT_HIGH_HEIGHT,
+      digitType: 'w94h146',
+    },
+    {
+      x: X0 + DIGIT_NARROW_WIDTH + DIGIT_HALF_WIDE_WIDTH,
+      y: Y0 + DIGIT_HIGH_HEIGHT,
+      digitType: 'w94h146',
+    },
+  ],
+];
+
+// Full-height M1 on the left; the hour pair above M2 on the right.
+const DIGIT_LAYOUT_14 = [
+  [
+    {
+      x: X0 + DIGIT_NARROW_WIDTH,
+      y: Y0,
+      digitType: 'w94h224',
+    },
+    {
+      x: X0 + DIGIT_NARROW_WIDTH + DIGIT_HALF_WIDE_WIDTH,
+      y: Y0,
+      digitType: 'w94h224',
+    },
+  ],
+  [
+    {
+      x: X0,
+      y: Y0,
+      digitType: 'w108h370',
+    },
+    {
+      x: X0 + DIGIT_NARROW_WIDTH,
+      y: Y0 + DIGIT_HIGH_HEIGHT,
+      digitType: 'w188h146',
+    },
+  ],
+];
+
+// Full-height H2 on the right; H1 above the minute pair on the left.
+const DIGIT_LAYOUT_15 = [
+  [
+    {
+      x: X0,
+      y: Y0,
+      digitType: 'w188h224',
+    },
+    {
+      x: X0 + DIGIT_WIDE_WIDTH,
+      y: Y0,
+      digitType: 'w108h370',
+    },
+  ],
+  [
+    {
+      x: X0,
+      y: Y0 + DIGIT_HIGH_HEIGHT,
+      digitType: 'w94h146',
+    },
+    {
+      x: X0 + DIGIT_HALF_WIDE_WIDTH,
+      y: Y0 + DIGIT_HIGH_HEIGHT,
+      digitType: 'w94h146',
+    },
+  ],
+];
+
+// Full-height M2 on the right; the hour pair above M1 on the left.
+const DIGIT_LAYOUT_16 = [
+  [
+    {
+      x: X0,
+      y: Y0,
+      digitType: 'w94h224',
+    },
+    {
+      x: X0 + DIGIT_HALF_WIDE_WIDTH,
+      y: Y0,
+      digitType: 'w94h224',
+    },
+  ],
+  [
+    {
+      x: X0,
+      y: Y0 + DIGIT_HIGH_HEIGHT,
+      digitType: 'w188h146',
+    },
+    {
+      x: X0 + DIGIT_WIDE_WIDTH,
+      y: Y0,
+      digitType: 'w108h370',
+    },
+  ],
+];
+
 export const DIGIT_LAYOUTS = [
   DIGIT_LAYOUT_1,
   DIGIT_LAYOUT_2,
@@ -392,4 +505,8 @@ export const DIGIT_LAYOUTS = [
   DIGIT_LAYOUT_10,
   DIGIT_LAYOUT_11,
   DIGIT_LAYOUT_12,
+  DIGIT_LAYOUT_13,
+  DIGIT_LAYOUT_14,
+  DIGIT_LAYOUT_15,
+  DIGIT_LAYOUT_16,
 ];
