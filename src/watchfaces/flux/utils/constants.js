@@ -604,6 +604,34 @@ const DIGIT_LAYOUT_20 = [
   ],
 ];
 
+// Full-height H1, H2, M1, M2 from left to right (Apple: 11:11, 21:11).
+const DIGIT_LAYOUT_21 = [
+  [
+    {
+      x: X0,
+      y: Y0,
+      digitType: 'w74h370',
+    },
+    {
+      x: X0 + px(74),
+      y: Y0,
+      digitType: 'w74h370',
+    },
+  ],
+  [
+    {
+      x: X0 + px(148),
+      y: Y0,
+      digitType: 'w74h370',
+    },
+    {
+      x: X0 + px(222),
+      y: Y0,
+      digitType: 'w74h370',
+    },
+  ],
+];
+
 const DIGIT_LAYOUTS = [
   DIGIT_LAYOUT_1,
   DIGIT_LAYOUT_2,
@@ -625,6 +653,7 @@ const DIGIT_LAYOUTS = [
   DIGIT_LAYOUT_18,
   DIGIT_LAYOUT_19,
   DIGIT_LAYOUT_20,
+  DIGIT_LAYOUT_21,
 ];
 
 /** @param {[string[], string[]]} digitValues */
