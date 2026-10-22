@@ -604,7 +604,7 @@ const DIGIT_LAYOUT_20 = [
   ],
 ];
 
-export const DIGIT_LAYOUTS = [
+const DIGIT_LAYOUTS = [
   DIGIT_LAYOUT_1,
   DIGIT_LAYOUT_2,
   DIGIT_LAYOUT_3,
@@ -626,3 +626,26 @@ export const DIGIT_LAYOUTS = [
   DIGIT_LAYOUT_19,
   DIGIT_LAYOUT_20,
 ];
+
+/** @param {[string[], string[]]} digitValues */
+export function getDigitLayout(digitValues) {
+  const layouts = DIGIT_LAYOUTS.filter((layout) =>
+    digitValues.every((row, yIndex) =>
+      row.every((digit, xIndex) => {
+        if (digit !== '1') {
+          return true;
+        }
+
+        const { digitType } = layout[yIndex][xIndex];
+        const width = Number(digitType.slice(1).split('h')[0]);
+        return width < 188;
+      }),
+    ),
+  );
+
+  const value = Number(digitValues.flat().join(''));
+  const hash = Math.imul(value, 0x9e3779b1) >>> 0;
+  const i = Math.floor((hash / 0x100000000) * layouts.length);
+
+  return layouts[i];
+}

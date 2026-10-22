@@ -1,4 +1,5 @@
-import { COLOR_THEMES, DIGIT_LAYOUTS } from '../utils/constants';
+import { COLOR_THEMES } from '../utils/colors';
+import { getDigitLayout } from '../utils/layouts';
 import {
   BACKGROUND_RECT_PROPS,
   MASK_IMAGE_PROPS,
@@ -65,7 +66,7 @@ WatchFace({
 
   /**
    * @param {string} color
-   * @param {(typeof DIGIT_LAYOUTS)[number][number][number]['digitType']} type
+   * @param {string} type
    * @param {string} value
    */
   getDigitSrc(color, type, value) {
@@ -85,15 +86,6 @@ WatchFace({
       top: colorTheme[topIndex],
       bottom: colorTheme[bottomIndex],
     };
-  },
-
-  /** @param {TimeDigitValues} digitValues */
-  getDigitLayout(digitValues) {
-    const value = Number(digitValues.flat().join(''));
-    const hash = Math.imul(value, 0x9e3779b1) >>> 0;
-    const i = Math.floor((hash / 0x100000000) * DIGIT_LAYOUTS.length);
-
-    return DIGIT_LAYOUTS[i];
   },
 
   /** @param {ColorTheme} colorTheme */
@@ -156,7 +148,7 @@ WatchFace({
 
       prevTopValue = topValue;
 
-      const digitLayout = this.getDigitLayout(digitValues);
+      const digitLayout = getDigitLayout(digitValues);
 
       const [backgroundColor, digitColor] = this.getColors(
         colorTheme,
@@ -186,7 +178,7 @@ WatchFace({
 
     /** @param {TimeDigitValues} digitValues */
     const updateTopAod = (digitValues) => {
-      const digitLayout = this.getDigitLayout(digitValues);
+      const digitLayout = getDigitLayout(digitValues);
 
       digitTopAodWidgets.forEach((array, yIndex) =>
         array.forEach((widget, xIndex) => {
@@ -207,7 +199,7 @@ WatchFace({
     /** @param {TimeDigitValues} digitValues */
     const updateBottom = (digitValues) => {
       const levelY = this.getLevelY(timeSensor);
-      const digitLayout = this.getDigitLayout(digitValues);
+      const digitLayout = getDigitLayout(digitValues);
 
       const [backgroundColor, digitColor] = this.getColors(
         colorTheme,
