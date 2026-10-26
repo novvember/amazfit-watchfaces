@@ -80,8 +80,9 @@ export class TimeTextWidget {
     const y = CENTER_Y - this._getImageHeight() / 2;
     const xCoords = this._calculateXCoords(digits);
 
-    digits.forEach((digit, i) => {
-      const x = xCoords[i];
+    for (let i = 0; i < LENGTH; i++) {
+      const x = xCoords[i] ?? 0;
+      const digit = digits[i] ?? 'empty';
 
       this._textWidgets[i].setProperty(hmUI.prop.MORE, {
         ...TEXT_BASE_PROPS,
@@ -96,6 +97,6 @@ export class TimeTextWidget {
         y,
         src: `digits_aod/${digit}.png`,
       });
-    });
+    }
   }
 }
