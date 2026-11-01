@@ -10,9 +10,14 @@ import {
   DATE_MONTH_TEXT_PROPS,
 } from './DateWidget.layout';
 
+/**
+ * @typedef {object} DateWidgetParams
+ * @property {HmSensorInstance} timeSensor
+ */
+
 export class DateWidget {
   /**
-   * @param {{ timeSensor: HmSensorInstance }} params
+   * @param {DateWidgetParams} params
    */
   constructor({ timeSensor }) {
     this._timeSensor = timeSensor;

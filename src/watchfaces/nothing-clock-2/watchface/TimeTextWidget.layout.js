@@ -12,6 +12,7 @@ export const TEXT_AOD_BASE_PROPS = {
   show_level: hmUI.show_level.ONAL_AOD,
 };
 
+/** @type {Record<string, number | undefined>} */
 export const IMAGE_WIDTHS = {
   0: 112,
   1: 72,

@@ -8,9 +8,15 @@ import {
   DISTANCE_VALUE_PROPS,
 } from './StepsWidget.layout';
 
+/**
+ * @typedef {object} StepsWidgetParams
+ * @property {HmSensorInstance} stepSensor
+ * @property {HmSensorInstance} distanceSensor
+ */
+
 export class StepsWidget {
   /**
-   * @param {{ stepSensor: HmSensorInstance, distanceSensor:  HmSensorInstance}} params
+   * @param {StepsWidgetParams} params
    */
   constructor({ stepSensor, distanceSensor }) {
     this._stepSensor = stepSensor;
@@ -47,6 +53,7 @@ export class StepsWidget {
     this._valueWidget.setProperty(hmUI.prop.TEXT, text);
   }
 
+  /** @param {number} meters */
   _getDistanceText(meters) {
     if (meters < 10000) {
       return `${meters}M`;

@@ -2,6 +2,10 @@
  * @param {HmSensorInstance} sleepSensor
  */
 function getWakeStages(sleepSensor) {
+  if (!sleepSensor.getSleepStageModel || !sleepSensor.getSleepStageData) {
+    throw new TypeError('Sleep stage methods are required');
+  }
+
   const modelData = sleepSensor.getSleepStageModel();
   const sleepStages = sleepSensor.getSleepStageData();
 

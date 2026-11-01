@@ -8,6 +8,11 @@ declare namespace hmUI {
    * @param params - widget configuration parameters
    */
   function createWidget(
+    widgetType: widget.GROUP,
+    params?: HmWidgetProps | null,
+  ): HmGroupWidgetInstance;
+
+  function createWidget(
     widgetType: number,
     params?: HmWidgetProps | null,
   ): HmWidgetInstance;
@@ -20,56 +25,56 @@ declare namespace hmUI {
   /**
    * Widget types
    */
-  const widget: {
+  enum widget {
     /** Image */
-    readonly IMG: number;
+    IMG,
     /** Text */
-    readonly TEXT: number;
+    TEXT,
     /** Text with predefined data type */
-    readonly TEXT_FONT: number;
+    TEXT_FONT,
     /** Arc */
-    readonly ARC: number;
+    ARC,
     /** Arc widget with progress level */
-    readonly ARC_PROGRESS: number;
+    ARC_PROGRESS,
     /** Rectangle with filled color */
-    readonly FILL_RECT: number;
+    FILL_RECT,
     /** Rectangle with border (dont have inside color fill) */
-    readonly STROKE_RECT: number;
+    STROKE_RECT,
     /** Circle */
-    readonly CIRCLE: number;
+    CIRCLE,
     /** Display the images sequentially according to the given order. */
-    readonly IMG_PROGRESS: number;
+    IMG_PROGRESS,
     /** Progress widget with an image for every state */
-    readonly IMG_LEVEL: number;
+    IMG_LEVEL,
     /** Animated image */
-    readonly IMG_ANIM: number;
+    IMG_ANIM,
     /** Text (number) displayed with array of images - one image per digit */
-    readonly TEXT_IMG: number;
+    TEXT_IMG,
     /** Button control (clickable) */
-    readonly BUTTON: number;
+    BUTTON,
     /** Group of different widgets */
-    readonly GROUP: number;
+    GROUP,
     /** General configuration widget to change data slot */
-    readonly WATCHFACE_EDIT_GROUP: number;
+    WATCHFACE_EDIT_GROUP,
     /** Configuration widget to change background image */
-    readonly WATCHFACE_EDIT_BG: number;
+    WATCHFACE_EDIT_BG,
     /** Hour, minute, second hands */
-    readonly TIME_POINTER: number;
+    TIME_POINTER,
     /** Digit time with array of images - one per digit */
-    readonly IMG_TIME: number;
+    IMG_TIME,
     /** Shows image when a system status is active */
-    readonly IMG_STATUS: number;
+    IMG_STATUS,
     /** Date (day/month) with array of images - one per digit */
-    readonly IMG_DATE: number;
+    IMG_DATE,
     /** Weekday with array of images - one per day */
-    readonly IMG_WEEK: number;
+    IMG_WEEK,
     /** Polyline widget (very buggy realization) */
-    readonly GRADKIENT_POLYLINE: number;
+    GRADKIENT_POLYLINE,
     /** Widget for monitoring watchface lifecycle events (pause, resume) */
-    readonly WIDGET_DELEGATE: number;
+    WIDGET_DELEGATE,
     /** Configuration widget to change time pointers */
-    readonly WATCHFACE_EDIT_POINTER: number;
-  };
+    WATCHFACE_EDIT_POINTER,
+  }
 
   /**
    * Level where widget is visible
@@ -352,10 +357,14 @@ interface HmWidgetInstance {
   /**
    * Creates new widget inside a group widget
    */
-  createWidget?: typeof hmUI.createWidget;
+  createWidget?: (widgetType: number, params?: HmWidgetProps | null) => HmWidgetInstance;
 
   /**
    * Get a widget property
    */
   getProperty(prop: (typeof hmUI.prop)[keyof typeof hmUI.prop]): unknown;
+}
+
+interface HmGroupWidgetInstance extends HmWidgetInstance {
+  createWidget: (widgetType: number, params?: HmWidgetProps | null) => HmWidgetInstance;
 }

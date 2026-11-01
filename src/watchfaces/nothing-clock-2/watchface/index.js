@@ -30,7 +30,11 @@ WatchFace({
   },
 
   buildTime() {
-    const timeSensor = hmSensor.createSensor(hmSensor.id.TIME);
+    this._timeSensor =
+      this._timeSensor || hmSensor.createSensor(hmSensor.id.TIME);
+
+    const timeSensor = this._timeSensor;
+
     const textWidget = new TimeTextWidget();
 
     let prevTime = '';

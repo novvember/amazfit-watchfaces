@@ -9,12 +9,18 @@ import {
 
 const HAND_GAP = px(-6);
 
+/**
+ * @typedef {object} SleepWidgetParams
+ * @property {HmSensorInstance} sleepSensor
+ */
+
 export class SleepWidget {
   /**
-   * @param {{ sleepSensor: HmSensorInstance }} params
+   * @param {SleepWidgetParams} params
    */
   constructor({ sleepSensor }) {
     this._sleepSensor = sleepSensor;
+    this._handCount = 0;
 
     const group = hmUI.createWidget(hmUI.widget.GROUP, SLEEP_GROUP_PROPS);
 

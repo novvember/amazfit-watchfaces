@@ -4,9 +4,14 @@ import {
   BATTERY_VALUE_PROPS,
 } from './BatteryWidget.layout';
 
+/**
+ * @typedef {object} BatteryWidgetParams
+ * @property {HmSensorInstance} batterySensor
+ */
+
 export class BatteryWidget {
   /**
-   * @param {{ batterySensor: HmSensorInstance }} params
+   * @param {BatteryWidgetParams} params
    */
   constructor({ batterySensor }) {
     this._batterySensor = batterySensor;

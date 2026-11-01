@@ -15,9 +15,14 @@ import { getIsFahrenheitTempUnit } from '../../../adapters/getIsFahrenheitTempUn
 import { gettext } from 'i18n';
 import { calculateTextWidth } from '../utils/calculateTextWidth';
 
+/**
+ * @typedef {object} WeatherWidgetParams
+ * @property {HmSensorInstance} weatherSensor
+ */
+
 export class WeatherWidget {
   /**
-   * @param {{ weatherSensor: HmSensorInstance }} params
+   * @param {WeatherWidgetParams} params
    */
   constructor({ weatherSensor }) {
     this._weatherSensor = weatherSensor;

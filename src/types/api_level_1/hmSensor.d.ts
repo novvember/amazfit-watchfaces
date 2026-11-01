@@ -80,8 +80,6 @@ interface HmSensorInstance {
   readonly target?: number;
 
   // --- WEATHER ---
-  /** Current outside temperature */
-  readonly current?: number;
   /** Weather condition index [1-28] */
   curAirIconIndex?: number;
   /** Gets weather forecast data */
@@ -117,8 +115,10 @@ interface HmSensorInstance {
   // --- SLEEP ---
   /** Refreshes sleep data */
   updateInfo?(): void;
-  // /** Get detailed sleep stage data */
-  // getSleepStageData?(): Array<{ model: number; start: number; stop: number }>;
+  /** Get detailed sleep stage data */
+  getSleepStageData?: HmSleepSensorInstance['getSleepStageData'];
+  /** Get sleep stage identifiers */
+  getSleepStageModel?: HmSleepSensorInstance['getSleepStageModel'];
   /** Get total sleep time in minutes */
   getTotalTime?(): number;
   /** Get detailed sleep stage data */
@@ -156,5 +156,16 @@ interface HmSensorInstance {
   event: {
     /** Time sensor: minute ends */
     readonly MINUTEEND: number;
+  };
+}
+
+/** Sleep-specific methods documented by the API 1 SLEEP sensor. */
+interface HmSleepSensorInstance extends HmSensorInstance {
+  getSleepStageData(): { model: number; start: number; stop: number }[];
+  getSleepStageModel(): {
+    WAKE_STAGE: number;
+    REM_STAGE: number;
+    LIGHT_STAGE: number;
+    DEEP_STAGE: number;
   };
 }

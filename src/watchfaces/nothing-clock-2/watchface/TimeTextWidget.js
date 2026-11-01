@@ -9,6 +9,12 @@ const CENTER_Y = px(240);
 const COLUMN_GAP = px(-4);
 const LENGTH = 4;
 
+/**
+ * @typedef {object} DigitPosition
+ * @property {number} start
+ * @property {number} end
+ */
+
 export class TimeTextWidget {
   constructor() {
     this._textWidgets = new Array(LENGTH)
@@ -25,17 +31,18 @@ export class TimeTextWidget {
   }
 
   /**
-   * @param {Number} imageId
-   * @returns {Number}
+   * @param {string} imageId
+   * @returns {number}
    */
   _getImageWidth(imageId) {
-    return px(IMAGE_WIDTHS[imageId]) || px(112);
+    return px(IMAGE_WIDTHS[imageId] ?? 112) || px(112);
   }
 
   /**
-   * @param {String[]} digits
+   * @param {string[]} digits
    */
   _calculateXCoords(digits) {
+    /** @type {DigitPosition[]} */
     const relativePositions = [];
 
     for (let i = 0; i < digits.length; i++) {
@@ -57,7 +64,7 @@ export class TimeTextWidget {
   }
 
   /**
-   * @param {String} text
+   * @param {string} text
    */
   set(text) {
     // Expect a numeric time string; pad to three digits and truncate to four.
