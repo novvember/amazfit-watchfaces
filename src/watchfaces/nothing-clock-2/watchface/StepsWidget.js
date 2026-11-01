@@ -1,4 +1,5 @@
 import { formatNumber } from '../../../utils/formatNumber';
+import { calculateTextWidth } from '../utils/calculateTextWidth';
 import {
   STEPS_VALUE_PROPS,
   STEPS_GROUP_PROPS,
@@ -41,7 +42,7 @@ export class StepsWidget {
     const { current = 0 } = this._stepSensor;
     const text = formatNumber(current, ',');
 
-    this._stepValueLength = text.length;
+    this._stepValue = text;
 
     this._valueWidget.setProperty(hmUI.prop.TEXT, text);
   }
@@ -64,10 +65,11 @@ export class StepsWidget {
   }
 
   _updatePositions() {
-    const charWidth = STEPS_VALUE_PROPS.text_size * 0.6;
-    const stepValueLength = this._stepValueLength ?? 1;
-    const stepValueEndX =
-      STEPS_VALUE_PROPS.x + Math.round(stepValueLength * charWidth);
+    const stepTextWidth = calculateTextWidth(
+      this._stepValue || '',
+      STEPS_VALUE_PROPS.text_size,
+    );
+    const stepValueEndX = STEPS_VALUE_PROPS.x + stepTextWidth;
 
     const arrowX = stepValueEndX + px(12);
     const distanceX = stepValueEndX + px(86);

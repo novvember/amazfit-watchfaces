@@ -1,7 +1,7 @@
 import { COLOR_TEXT, FONT, FONT_SIZE } from './index.const';
 
 const X = px(55);
-const Y = px(299);
+const Y = px(298);
 
 /** @satisfies {HmWidgetProps} */
 export const STEPS_GROUP_PROPS = {

@@ -33,21 +33,6 @@ export class TimeTextWidget {
   }
 
   /**
-   * @param {String[]} chars
-   * @returns {String[]}
-   */
-  _getImageIds(chars) {
-    const imageIds = [];
-
-    for (let i = 0; i < chars.length; i++) {
-      imageIds.push(this._getRandomImageId(chars[i], imageIds));
-    }
-
-    this._setPrevValues(prevChars, imageIds);
-    return imageIds;
-  }
-
-  /**
    * @param {String[]} digits
    */
   _calculateXCoords(digits) {
@@ -75,13 +60,15 @@ export class TimeTextWidget {
    * @param {String} text
    */
   set(text) {
-    const digits = text.split('').slice(0, LENGTH);
+    // Expect a numeric time string; pad to three digits and truncate to four.
+    const digits = text.padStart(3, '0').slice(0, LENGTH).split('');
 
     const y = CENTER_Y - this._getImageHeight() / 2;
     const xCoords = this._calculateXCoords(digits);
 
     for (let i = 0; i < LENGTH; i++) {
       const x = xCoords[i] ?? 0;
+      // empty.png is intentionally absent: leave the fourth position blank.
       const digit = digits[i] ?? 'empty';
 
       this._textWidgets[i].setProperty(hmUI.prop.MORE, {

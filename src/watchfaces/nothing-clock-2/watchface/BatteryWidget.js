@@ -27,6 +27,7 @@ export class BatteryWidget {
 
   _update() {
     const { current = 0 } = this._batterySensor;
+    // Show at most three characters: "99%", but "100" without "%".
     const text = `${current}%`.slice(0, 3);
 
     this._valueWidget.setProperty(hmUI.prop.TEXT, text);

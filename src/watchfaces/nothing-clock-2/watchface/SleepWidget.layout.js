@@ -1,9 +1,7 @@
-import { COLOR_TEXT, FONT, FONT_SIZE } from './index.const';
+import { COLOR_TEXT, FONT, FONT_SIZE_SMALL } from './index.const';
 
-const X = px(240);
+const X = px(180);
 const Y = px(349);
-
-const LEVEL_IMAGES = new Array(9).fill(null).map((_, i) => `sleep/${i}.png`);
 
 /** @satisfies {HmWidgetProps} */
 export const SLEEP_GROUP_PROPS = {
@@ -13,28 +11,35 @@ export const SLEEP_GROUP_PROPS = {
   h: px(60),
 };
 
-/** @satisfies {HmWidgetProps} */
-export const SLEEP_VALUE_PROPS = {
+export const SLEEP_HAND_IMAGE_PROPS = {
   x: 0,
-  y: 0,
-  w: px(400),
-  h: px(60),
-  color: COLOR_TEXT,
-  text_size: FONT_SIZE,
-  align_h: hmUI.align.LEFT,
-  align_v: hmUI.align.CENTER_V,
-  font: FONT,
-  text: '',
+  y: px(10),
+  w: px(40),
+  h: px(40),
+  src: 'hands/5.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const SLEEP_LEVEL_PROPS = {
-  x: px(0),
-  y: px(10),
-  w: px(70),
+export const SLEEP_BACKGROUND_PROPS = {
+  x: 0,
+  y: px(15),
   h: px(40),
-  image_array: LEVEL_IMAGES,
-  image_length: LEVEL_IMAGES.length,
-  level: 0,
+  w: px(94),
+  src: `sleep/background.png`,
+  show_level: hmUI.show_level.ONLY_NORMAL,
+};
+
+/** @satisfies {HmWidgetProps} */
+export const SLEEP_VALUE_PROPS = {
+  x: 0,
+  y: px(6),
+  w: px(92),
+  h: px(36),
+  color: COLOR_TEXT,
+  text_size: FONT_SIZE_SMALL,
+  align_h: hmUI.align.CENTER_H,
+  align_v: hmUI.align.CENTER_V,
+  font: FONT,
+  text: '',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };

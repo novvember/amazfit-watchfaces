@@ -1,7 +1,7 @@
 import { COLOR_ACCENT, COLOR_TEXT, FONT, FONT_SIZE } from './index.const';
 
-const X = px(314);
-const Y = px(121);
+const X = px(308);
+const Y = px(70);
 
 /** @satisfies {HmWidgetProps} */
 export const SECONDS_GROUP_PROPS = {
@@ -44,10 +44,10 @@ export const SECONDS_VALUE_TEXT_PROPS = {
 
 /** @satisfies {HmWidgetProps} */
 export const SECONDS_RECT_PROPS = {
-  x: px(74),
-  y: px(16),
-  w: px(15),
-  h: px(26),
+  x: px(76),
+  y: px(15),
+  w: px(16),
+  h: px(30),
   color: COLOR_ACCENT,
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
