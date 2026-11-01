@@ -1,13 +1,16 @@
 import { clamp } from '../../../utils/clamp';
 import { getSleepTime } from '../../../adapters/getSleepTime';
 import {
-  SLEEP_BACKGROUND_PROPS,
+  HAND_GAP,
+  BACKGROUND_GAP,
+  VALUE_GAP,
+  SLEEP_BACKGROUND_IMAGE_PROPS,
   SLEEP_GROUP_PROPS,
   SLEEP_HAND_IMAGE_PROPS,
-  SLEEP_VALUE_PROPS,
+  SLEEP_VALUE_TEXT_PROPS,
 } from './SleepWidget.layout';
 
-const HAND_GAP = px(-6);
+const HAND_COUNT = 2;
 
 /**
  * @typedef {object} SleepWidgetParams
@@ -20,22 +23,24 @@ export class SleepWidget {
    */
   constructor({ sleepSensor }) {
     this._sleepSensor = sleepSensor;
-    this._handCount = 0;
 
     const group = hmUI.createWidget(hmUI.widget.GROUP, SLEEP_GROUP_PROPS);
 
-    this._handWidgets = new Array(2).fill(null).map((_, i) =>
+    this._handImageWidgets = new Array(HAND_COUNT).fill(null).map((_, i) =>
       group.createWidget(hmUI.widget.IMG, {
         ...SLEEP_HAND_IMAGE_PROPS,
         x: i * SLEEP_HAND_IMAGE_PROPS.w + i * HAND_GAP,
       }),
     );
 
-    this._backgroundWidget = group.createWidget(
+    this._backgroundImageWidget = group.createWidget(
       hmUI.widget.IMG,
-      SLEEP_BACKGROUND_PROPS,
+      SLEEP_BACKGROUND_IMAGE_PROPS,
     );
-    this._valueWidget = group.createWidget(hmUI.widget.TEXT, SLEEP_VALUE_PROPS);
+    this._valueTextWidget = group.createWidget(
+      hmUI.widget.TEXT,
+      SLEEP_VALUE_TEXT_PROPS,
+    );
 
     this._update = this._update.bind(this);
 
@@ -43,38 +48,38 @@ export class SleepWidget {
   }
 
   _update() {
-    this._updateValue();
-    this._updatePositions();
-  }
-
-  _updateValue() {
     const { text = '0:00', hours = 0 } = getSleepTime(this._sleepSensor);
 
-    let hourLeft = hours;
+    let hoursLeft = hours;
 
-    const handValues = this._handWidgets.map(() => {
-      const value = clamp(0, hourLeft, 5);
-      hourLeft -= value;
+    const handValues = this._handImageWidgets.map(() => {
+      const value = clamp(0, hoursLeft, 5);
+      hoursLeft -= value;
       return value;
     });
 
-    this._handCount = handValues.filter((value) => value > 0).length;
+    const handCount = handValues.filter((value) => value > 0).length;
 
-    this._handWidgets.forEach((widget, i) => {
+    this._handImageWidgets.forEach((widget, i) => {
       // hands/0.png is intentionally absent: zero hides the hand.
       widget.setProperty(hmUI.prop.SRC, `hands/${handValues[i]}.png`);
     });
 
-    this._valueWidget.setProperty(hmUI.prop.TEXT, text);
+    this._valueTextWidget.setProperty(hmUI.prop.TEXT, text);
+    this._updateLayout(handCount);
   }
 
-  _updatePositions() {
+  /** @param {number} handCount */
+  _updateLayout(handCount) {
     const handsWidth =
-      this._handCount * SLEEP_HAND_IMAGE_PROPS.w +
-      HAND_GAP * clamp(0, this._handCount - 1, this._handWidgets.length);
+      handCount * SLEEP_HAND_IMAGE_PROPS.w +
+      HAND_GAP * clamp(0, handCount - 1, this._handImageWidgets.length);
 
-    this._backgroundWidget.setProperty(hmUI.prop.X, handsWidth + px(8));
-    this._valueWidget.setProperty(hmUI.prop.X, handsWidth + px(15));
+    this._backgroundImageWidget.setProperty(
+      hmUI.prop.X,
+      handsWidth + BACKGROUND_GAP,
+    );
+    this._valueTextWidget.setProperty(hmUI.prop.X, handsWidth + VALUE_GAP);
   }
 
   _bindHandlers() {
@@ -82,7 +87,7 @@ export class SleepWidget {
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+        if (hmSetting.getScreenType() === hmSetting.screen_type.WATCHFACE) {
           update();
         }
       },

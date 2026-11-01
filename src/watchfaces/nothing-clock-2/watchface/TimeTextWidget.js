@@ -1,13 +1,16 @@
+import { getTimeTexts } from '../../../adapters/getTimeTexts';
 import {
+  CENTER_X,
+  CENTER_Y,
+  DIGIT_GAP,
+  DIGIT_HEIGHT,
+  DEFAULT_DIGIT_WIDTH,
   IMAGE_WIDTHS,
-  TEXT_AOD_BASE_PROPS,
-  TEXT_BASE_PROPS,
+  AOD_DIGIT_IMAGE_PROPS,
+  DIGIT_IMAGE_PROPS,
 } from './TimeTextWidget.layout';
 
-const CENTER_X = px(240);
-const CENTER_Y = px(240);
-const COLUMN_GAP = px(-4);
-const LENGTH = 4;
+const DIGIT_COUNT = 4;
 
 /**
  * @typedef {object} DigitPosition
@@ -15,19 +18,60 @@ const LENGTH = 4;
  * @property {number} end
  */
 
-export class TimeTextWidget {
-  constructor() {
-    this._textWidgets = new Array(LENGTH)
-      .fill(null)
-      .map(() => hmUI.createWidget(hmUI.widget.IMG, TEXT_BASE_PROPS));
+/**
+ * @typedef {object} TimeTextWidgetParams
+ * @property {HmSensorInstance} timeSensor
+ */
 
-    this._textAodWidgets = new Array(LENGTH)
+export class TimeTextWidget {
+  /** @param {TimeTextWidgetParams} params */
+  constructor({ timeSensor }) {
+    this._timeSensor = timeSensor;
+    this._previousTimeText = '';
+
+    this._digitWidgets = new Array(DIGIT_COUNT)
       .fill(null)
-      .map(() => hmUI.createWidget(hmUI.widget.IMG, TEXT_AOD_BASE_PROPS));
+      .map(() => hmUI.createWidget(hmUI.widget.IMG, DIGIT_IMAGE_PROPS));
+
+    this._aodDigitWidgets = new Array(DIGIT_COUNT)
+      .fill(null)
+      .map(() => hmUI.createWidget(hmUI.widget.IMG, AOD_DIGIT_IMAGE_PROPS));
+
+    this._update = this._update.bind(this);
+    this._bindHandlers();
   }
 
-  _getImageHeight() {
-    return px(112);
+  _update() {
+    const { hourText, minuteText } = getTimeTexts(this._timeSensor);
+    const timeText = `${hourText}${minuteText}`;
+
+    if (this._previousTimeText === timeText) {
+      return;
+    }
+
+    this._previousTimeText = timeText;
+    this._render(timeText);
+  }
+
+  _bindHandlers() {
+    const timeSensor = this._timeSensor;
+    const update = this._update;
+
+    hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
+      resume_call: () => {
+        const screenType = hmSetting.getScreenType();
+        if (
+          screenType === hmSetting.screen_type.WATCHFACE ||
+          screenType === hmSetting.screen_type.AOD
+        ) {
+          timeSensor.addEventListener?.(timeSensor.event.MINUTEEND, update);
+          update();
+        }
+      },
+      pause_call: () => {
+        timeSensor.removeEventListener?.(timeSensor.event.MINUTEEND, update);
+      },
+    });
   }
 
   /**
@@ -35,7 +79,7 @@ export class TimeTextWidget {
    * @returns {number}
    */
   _getImageWidth(imageId) {
-    return px(IMAGE_WIDTHS[imageId] ?? 112) || px(112);
+    return px(IMAGE_WIDTHS[imageId] ?? DEFAULT_DIGIT_WIDTH);
   }
 
   /**
@@ -46,7 +90,7 @@ export class TimeTextWidget {
     const relativePositions = [];
 
     for (let i = 0; i < digits.length; i++) {
-      const start = i === 0 ? px(0) : relativePositions[i - 1].end + COLUMN_GAP;
+      const start = i === 0 ? 0 : relativePositions[i - 1].end + DIGIT_GAP;
 
       relativePositions.push({
         start,
@@ -66,27 +110,25 @@ export class TimeTextWidget {
   /**
    * @param {string} text
    */
-  set(text) {
+  _render(text) {
     // Expect a numeric time string; pad to three digits and truncate to four.
-    const digits = text.padStart(3, '0').slice(0, LENGTH).split('');
+    const digits = text.padStart(3, '0').slice(0, DIGIT_COUNT).split('');
 
-    const y = CENTER_Y - this._getImageHeight() / 2;
+    const y = CENTER_Y - DIGIT_HEIGHT / 2;
     const xCoords = this._calculateXCoords(digits);
 
-    for (let i = 0; i < LENGTH; i++) {
+    for (let i = 0; i < DIGIT_COUNT; i++) {
       const x = xCoords[i] ?? 0;
       // empty.png is intentionally absent: leave the fourth position blank.
       const digit = digits[i] ?? 'empty';
 
-      this._textWidgets[i].setProperty(hmUI.prop.MORE, {
-        ...TEXT_BASE_PROPS,
+      this._digitWidgets[i].setProperty(hmUI.prop.MORE, {
         x,
         y,
         src: `digits/${digit}.png`,
       });
 
-      this._textAodWidgets[i].setProperty(hmUI.prop.MORE, {
-        ...TEXT_AOD_BASE_PROPS,
+      this._aodDigitWidgets[i].setProperty(hmUI.prop.MORE, {
         x,
         y,
         src: `digits_aod/${digit}.png`,

@@ -1,11 +1,13 @@
 import { formatNumber } from '../../../utils/formatNumber';
 import { calculateTextWidth } from '../utils/calculateTextWidth';
 import {
-  STEPS_VALUE_PROPS,
+  ARROW_GAP,
+  DISTANCE_GAP,
+  STEPS_VALUE_TEXT_PROPS,
   STEPS_GROUP_PROPS,
-  STEPS_ICON_PROPS,
-  STEPS_ARROW_PROPS,
-  DISTANCE_VALUE_PROPS,
+  STEPS_ICON_IMAGE_PROPS,
+  STEPS_ARROW_IMAGE_PROPS,
+  DISTANCE_VALUE_TEXT_PROPS,
 } from './StepsWidget.layout';
 
 /**
@@ -24,13 +26,13 @@ export class StepsWidget {
 
     const group = hmUI.createWidget(hmUI.widget.GROUP, STEPS_GROUP_PROPS);
 
-    group.createWidget(hmUI.widget.IMG, STEPS_ICON_PROPS);
+    group.createWidget(hmUI.widget.IMG, STEPS_ICON_IMAGE_PROPS);
 
-    this._valueWidget = group.createWidget(hmUI.widget.TEXT, STEPS_VALUE_PROPS);
-    this._arrowWidget = group.createWidget(hmUI.widget.IMG, STEPS_ARROW_PROPS);
-    this._distanceValueWidget = group.createWidget(
+    this._valueTextWidget = group.createWidget(hmUI.widget.TEXT, STEPS_VALUE_TEXT_PROPS);
+    this._arrowImageWidget = group.createWidget(hmUI.widget.IMG, STEPS_ARROW_IMAGE_PROPS);
+    this._distanceTextWidget = group.createWidget(
       hmUI.widget.TEXT,
-      DISTANCE_VALUE_PROPS,
+      DISTANCE_VALUE_TEXT_PROPS,
     );
 
     this._update = this._update.bind(this);
@@ -39,18 +41,12 @@ export class StepsWidget {
   }
 
   _update() {
-    this._updateStepsValue();
-    this._updateDistanceValue();
-    this._updatePositions();
-  }
+    const stepText = formatNumber(this._stepSensor.current ?? 0, ',');
+    const distanceText = this._getDistanceText(this._distanceSensor.current ?? 0);
 
-  _updateStepsValue() {
-    const { current = 0 } = this._stepSensor;
-    const text = formatNumber(current, ',');
-
-    this._stepValue = text;
-
-    this._valueWidget.setProperty(hmUI.prop.TEXT, text);
+    this._valueTextWidget.setProperty(hmUI.prop.TEXT, stepText);
+    this._distanceTextWidget.setProperty(hmUI.prop.TEXT, distanceText);
+    this._updateLayout(stepText);
   }
 
   /** @param {number} meters */
@@ -64,25 +60,19 @@ export class StepsWidget {
     return `${kilometers}KM`;
   }
 
-  _updateDistanceValue() {
-    const { current = 0 } = this._distanceSensor;
-    const text = this._getDistanceText(current);
-
-    this._distanceValueWidget.setProperty(hmUI.prop.TEXT, text);
-  }
-
-  _updatePositions() {
+  /** @param {string} stepText */
+  _updateLayout(stepText) {
     const stepTextWidth = calculateTextWidth(
-      this._stepValue || '',
-      STEPS_VALUE_PROPS.text_size,
+      stepText,
+      STEPS_VALUE_TEXT_PROPS.text_size,
     );
-    const stepValueEndX = STEPS_VALUE_PROPS.x + stepTextWidth;
+    const stepValueEndX = STEPS_VALUE_TEXT_PROPS.x + stepTextWidth;
 
-    const arrowX = stepValueEndX + px(12);
-    const distanceX = stepValueEndX + px(86);
+    const arrowX = stepValueEndX + ARROW_GAP;
+    const distanceX = arrowX + STEPS_ARROW_IMAGE_PROPS.w + DISTANCE_GAP;
 
-    this._arrowWidget.setProperty(hmUI.prop.X, arrowX);
-    this._distanceValueWidget.setProperty(hmUI.prop.X, distanceX);
+    this._arrowImageWidget.setProperty(hmUI.prop.X, arrowX);
+    this._distanceTextWidget.setProperty(hmUI.prop.X, distanceX);
   }
 
   _bindHandlers() {
@@ -91,7 +81,7 @@ export class StepsWidget {
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+        if (hmSetting.getScreenType() === hmSetting.screen_type.WATCHFACE) {
           stepSensor.addEventListener?.(hmSensor.event.CHANGE, update);
           update();
         }

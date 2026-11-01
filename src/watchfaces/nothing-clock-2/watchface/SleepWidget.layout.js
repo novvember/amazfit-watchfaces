@@ -1,5 +1,9 @@
 import { COLOR_TEXT, FONT, FONT_SIZE_SMALL } from './index.const';
 
+export const HAND_GAP = px(-6);
+export const BACKGROUND_GAP = px(8);
+export const VALUE_GAP = px(15);
+
 const X = px(180);
 const Y = px(349);
 
@@ -11,6 +15,7 @@ export const SLEEP_GROUP_PROPS = {
   h: px(60),
 };
 
+/** @satisfies {HmWidgetProps} */
 export const SLEEP_HAND_IMAGE_PROPS = {
   x: 0,
   y: px(10),
@@ -20,17 +25,18 @@ export const SLEEP_HAND_IMAGE_PROPS = {
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
-export const SLEEP_BACKGROUND_PROPS = {
+/** @satisfies {HmWidgetProps} */
+export const SLEEP_BACKGROUND_IMAGE_PROPS = {
   x: 0,
   y: px(15),
   h: px(40),
   w: px(94),
-  src: `sleep/background.png`,
+  src: 'sleep/background.png',
   show_level: hmUI.show_level.ONLY_NORMAL,
 };
 
 /** @satisfies {HmWidgetProps} */
-export const SLEEP_VALUE_PROPS = {
+export const SLEEP_VALUE_TEXT_PROPS = {
   x: 0,
   y: px(6),
   w: px(92),

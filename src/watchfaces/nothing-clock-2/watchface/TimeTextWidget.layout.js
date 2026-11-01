@@ -1,11 +1,19 @@
-export const TEXT_BASE_PROPS = {
+export const CENTER_X = px(240);
+export const CENTER_Y = px(240);
+export const DIGIT_GAP = px(-4);
+export const DIGIT_HEIGHT = px(112);
+export const DEFAULT_DIGIT_WIDTH = 112;
+
+/** @satisfies {HmWidgetProps} */
+export const DIGIT_IMAGE_PROPS = {
   x: 0,
   y: 0,
   src: '',
   show_level: hmUI.show_level.ONLY_NORMAL | hmUI.show_level.ONLY_EDIT,
 };
 
-export const TEXT_AOD_BASE_PROPS = {
+/** @satisfies {HmWidgetProps} */
+export const AOD_DIGIT_IMAGE_PROPS = {
   x: 0,
   y: 0,
   src: '',

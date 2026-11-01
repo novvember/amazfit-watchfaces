@@ -1,5 +1,7 @@
 import { COLOR_TEXT, FONT, FONT_SIZE } from './index.const';
 
+export const ARROW_GAP = px(12);
+
 const X = px(55);
 const Y = px(298);
 
@@ -12,7 +14,7 @@ export const STEPS_GROUP_PROPS = {
 };
 
 /** @satisfies {HmWidgetProps} */
-export const STEPS_ICON_PROPS = {
+export const STEPS_ICON_IMAGE_PROPS = {
   x: px(-2),
   y: px(10),
   w: px(36),
@@ -22,8 +24,7 @@ export const STEPS_ICON_PROPS = {
 };
 
 /** @satisfies {HmWidgetProps} */
-export const STEPS_VALUE_PROPS = {
-  x: px(42),
+const VALUE_TEXT_STYLE = {
   y: 0,
   w: px(400),
   h: px(60),
@@ -37,7 +38,13 @@ export const STEPS_VALUE_PROPS = {
 };
 
 /** @satisfies {HmWidgetProps} */
-export const STEPS_ARROW_PROPS = {
+export const STEPS_VALUE_TEXT_PROPS = {
+  ...VALUE_TEXT_STYLE,
+  x: px(42),
+};
+
+/** @satisfies {HmWidgetProps} */
+export const STEPS_ARROW_IMAGE_PROPS = {
   x: 0,
   y: px(10),
   w: px(60),
@@ -47,6 +54,10 @@ export const STEPS_ARROW_PROPS = {
 };
 
 /** @satisfies {HmWidgetProps} */
-export const DISTANCE_VALUE_PROPS = {
-  ...STEPS_VALUE_PROPS,
+export const DISTANCE_VALUE_TEXT_PROPS = {
+  ...VALUE_TEXT_STYLE,
+  x: 0,
 };
+
+// Preserve the original offset, including rounding on scaled screens.
+export const DISTANCE_GAP = px(86) - ARROW_GAP - STEPS_ARROW_IMAGE_PROPS.w;

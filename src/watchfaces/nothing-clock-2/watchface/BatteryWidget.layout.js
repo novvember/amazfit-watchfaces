@@ -13,6 +13,7 @@ export const BATTERY_GROUP_PROPS = {
   h: px(60),
 };
 
+/** @satisfies {HmWidgetProps} */
 export const BATTERY_LEVEL_PROPS = {
   x: px(4),
   y: px(10),
@@ -25,7 +26,7 @@ export const BATTERY_LEVEL_PROPS = {
 };
 
 /** @satisfies {HmWidgetProps} */
-export const BATTERY_VALUE_PROPS = {
+export const BATTERY_VALUE_TEXT_PROPS = {
   x: px(34),
   y: 0,
   w: px(400),

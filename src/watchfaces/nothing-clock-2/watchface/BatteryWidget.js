@@ -1,7 +1,7 @@
 import {
   BATTERY_GROUP_PROPS,
   BATTERY_LEVEL_PROPS,
-  BATTERY_VALUE_PROPS,
+  BATTERY_VALUE_TEXT_PROPS,
 } from './BatteryWidget.layout';
 
 /**
@@ -20,9 +20,9 @@ export class BatteryWidget {
 
     group.createWidget(hmUI.widget.IMG_LEVEL, BATTERY_LEVEL_PROPS);
 
-    this._valueWidget = group.createWidget(
+    this._valueTextWidget = group.createWidget(
       hmUI.widget.TEXT,
-      BATTERY_VALUE_PROPS,
+      BATTERY_VALUE_TEXT_PROPS,
     );
 
     this._update = this._update.bind(this);
@@ -35,7 +35,7 @@ export class BatteryWidget {
     // Show at most three characters: "99%", but "100" without "%".
     const text = `${current}%`.slice(0, 3);
 
-    this._valueWidget.setProperty(hmUI.prop.TEXT, text);
+    this._valueTextWidget.setProperty(hmUI.prop.TEXT, text);
   }
 
   _bindHandlers() {
@@ -44,7 +44,7 @@ export class BatteryWidget {
 
     hmUI.createWidget(hmUI.widget.WIDGET_DELEGATE, {
       resume_call: () => {
-        if (hmSetting.getScreenType() == hmSetting.screen_type.WATCHFACE) {
+        if (hmSetting.getScreenType() === hmSetting.screen_type.WATCHFACE) {
           batterySensor.addEventListener?.(hmSensor.event.CHANGE, update);
           update();
         }

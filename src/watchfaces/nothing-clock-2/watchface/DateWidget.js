@@ -44,7 +44,6 @@ export class DateWidget {
     this._bindHandlers();
   }
 
-  /** @returns {void} */
   _update() {
     this._weekdayTextWidget.setProperty(
       hmUI.prop.TEXT,
@@ -56,7 +55,6 @@ export class DateWidget {
     );
   }
 
-  /** @returns {void} */
   _bindHandlers() {
     const update = this._update;
     const timeSensor = this._timeSensor;
