@@ -1,0 +1,9 @@
+{
+  "extends": "../../../jsconfig.api1.json",
+  "include": [
+    "./**/*.js"
+  ],
+  "exclude": [
+    "./dist/**"
+  ]
+}

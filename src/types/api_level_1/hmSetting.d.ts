@@ -14,6 +14,12 @@ declare namespace hmSetting {
   function getTimeFormat(): number;
 
   /**
+   * Get the system date format setting.
+   * @returns 0 for year-month-day, 1 for day-month-year, 2 for month-day-year
+   */
+  function getDateFormat(): 0 | 1 | 2;
+
+  /**
    * Get device hardware information
    */
   function getDeviceInfo(): {
